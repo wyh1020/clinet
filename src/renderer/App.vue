@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'dy-client',
+    name: 'clinet',
   };
 </script>
 
