@@ -1,6 +1,7 @@
 <template>
   <div id="wrapper">
     <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
+    <div id="chart"></div>
     <main>
       <div class="left-side">
         <span class="title">
