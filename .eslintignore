@@ -2,3 +2,4 @@ test/unit/coverage/**
 test/unit/*.js
 test/e2e/*.js
 static/*.js
+src/renderer/main.js

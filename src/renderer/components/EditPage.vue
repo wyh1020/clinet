@@ -1,6 +1,6 @@
 <template>
   <div id="wrapper">
-    <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
+    <nav-bar></nav-bar>
     <main>
       <div class="left-side">
         <span class="title" v-on:click="load()">
@@ -14,10 +14,10 @@
 
 <script>
   import SystemInformation from './LandingPage/SystemInformation';
-
+  import NavBar from './HomePage/NavBar';
   export default {
     name: 'edit-page',
-    components: { SystemInformation },
+    components: { SystemInformation, NavBar },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);
@@ -47,9 +47,6 @@
         rgba(255, 255, 255, 1) 40%,
         rgba(229, 229, 229, .9) 100%
       );
-    height: 100vh;
-    padding: 60px 80px;
-    width: 100vw;
   }
 
   #logo {
