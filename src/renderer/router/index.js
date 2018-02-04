@@ -36,6 +36,11 @@ export default new Router({
       component: require('@/components/SystemPage').default,
     },
     {
+      path: '/blockChain',
+      name: 'block-chain',
+      component: require('@/components/BlockChain').default,
+    },
+    {
       path: '*',
       redirect: '/',
     },

@@ -3,27 +3,26 @@
     <nav-bar></nav-bar>
     <main>
       <div class="row">
-        <div class="col">
-          <edit-panel></edit-panel>
+        <div class="col-3">
+          <left-panel></left-panel>
         </div>
-        <div class="col">
+        <div class="col-9">
           <main-panel></main-panel>
         </div>
       </div>
     </main>
-    <edit-bar></edit-bar>
   </div>
 </template>
 
 <script>
   import SystemInformation from './LandingPage/SystemInformation';
   import NavBar from './HomePage/NavBar';
-  import EditBar from './EditPage/EditBar';
-  import EditPanel from './EditPage/EditPanel';
-  import MainPanel from './EditPage/MainPanel';
+  import LeftPanel from './BlockChain/LeftPanel';
+  import MainPanel from './BlockChain/MainPanel';
+
   export default {
-    name: 'edit-page',
-    components: { SystemInformation, NavBar, EditBar, EditPanel, MainPanel },
+    name: 'block-chain',
+    components: { SystemInformation, NavBar, LeftPanel, MainPanel },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);
@@ -54,6 +53,13 @@
         rgba(229, 229, 229, .9) 100%
       );
   }
+
+  #logo {
+    height: auto;
+    margin-bottom: 20px;
+    width: 420px;
+  }
+
   main {
     display: flex;
     justify-content: space-between;

@@ -38,6 +38,8 @@
 
   body { font-family: 'Source Sans Pro', sans-serif; }
 
+  .dashbard-1{height:100%;}
+
   #wrapper {
     background:
       radial-gradient(
@@ -45,6 +47,9 @@
         rgba(255, 255, 255, 1) 40%,
         rgba(229, 229, 229, .9) 100%
       );
+    height:0px;
+    padding-bottom:100%;
+    width: 100%;
   }
 
   #logo {
@@ -56,6 +61,7 @@
   main {
     display: flex;
     justify-content: space-between;
+    margin-top: 25px;
   }
 
   main > div { flex-basis: 50%; }

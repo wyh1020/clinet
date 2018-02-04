@@ -2,11 +2,13 @@
   <div id="wrapper">
     <nav-bar></nav-bar>
     <main>
-      <div class="left-side">
-        <span class="title" v-on:click="load()">
-          术语字典
-        </span>
-        <system-information></system-information>
+      <div class="row">
+        <div class="col-3">
+          <left-panel></left-panel>
+        </div>
+        <div class="col-9">
+          <main-panel></main-panel>
+        </div>
       </div>
     </main>
   </div>
@@ -15,9 +17,12 @@
 <script>
   import SystemInformation from './LandingPage/SystemInformation';
   import NavBar from './HomePage/NavBar';
+  import LeftPanel from './LibraryPage/LeftPanel';
+  import MainPanel from './LibraryPage/MainPanel';
+
   export default {
     name: 'library-page',
-    components: { SystemInformation, NavBar },
+    components: { SystemInformation, NavBar, LeftPanel, MainPanel },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);
@@ -60,52 +65,6 @@
     justify-content: space-between;
   }
 
-  main > div { flex-basis: 50%; }
+  main > div { flex-basis: 100%; }
 
-  .left-side {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .welcome {
-    color: #555;
-    font-size: 23px;
-    margin-bottom: 10px;
-  }
-
-  .title {
-    color: #2c3e50;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 6px;
-  }
-
-  .title.alt {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  .doc p {
-    color: black;
-    margin-bottom: 10px;
-  }
-
-  .doc button {
-    font-size: .8em;
-    cursor: pointer;
-    outline: none;
-    padding: 0.75em 2em;
-    border-radius: 2em;
-    display: inline-block;
-    color: #fff;
-    background-color: #4fc08d;
-    transition: all 0.15s ease;
-    box-sizing: border-box;
-    border: 1px solid #4fc08d;
-  }
-
-  .doc button.alt {
-    color: #42b983;
-    background-color: transparent;
-  }
 </style>

@@ -2,13 +2,13 @@
   <div id='wrapper'>
     <nav-bar></nav-bar>
     <main>
-      <div class='left-side'>
-        <span class='title' v-on:click='load()'>
-          数据分析页面
-        </span>
-        <div v-on:click="showChart">显示echarts</div>
-        <div id='chart' style="width: 600px;height:400px;">echarts show !</div>
-        <system-information></system-information>
+      <div class="row">
+        <div class="col-3">
+          <left-panel></left-panel>
+        </div>
+        <div class="col-9">
+          <main-panel></main-panel>
+        </div>
       </div>
     </main>
   </div>
@@ -17,10 +17,12 @@
 <script>
   import SystemInformation from './LandingPage/SystemInformation';
   import NavBar from './HomePage/NavBar';
-  const echarts = require('echarts');
+  import LeftPanel from './StatPage/LeftPanel';
+  import MainPanel from './StatPage/MainPanel';
+  
   export default {
     name: 'stat-page',
-    components: { SystemInformation, NavBar },
+    components: { SystemInformation, NavBar, LeftPanel, MainPanel },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);
@@ -28,32 +30,6 @@
       load() {
         this.$router.push('/home');
       },
-      showChart() {
-        // 基于准备好的dom，初始化echarts实例
-        const myChart = echarts.init(document.getElementById('chart'));
-        // 指定图表的配置项和数据
-        const option = {
-          title: {
-            text: 'ECharts 入门示例'
-          },
-          tooltip: {},
-          legend: {
-            data: ['销量']
-          },
-          xAxis: {
-            data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-          },
-          yAxis: {},
-          series: [{
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
-          }]
-        };
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-      }
     },
   };
 </script>
@@ -89,7 +65,7 @@
     justify-content: space-between;
   }
 
-  main > div { flex-basis: 50%; }
+  main > div { flex-basis: 100%; }
 
   .left-side {
     display: flex;
