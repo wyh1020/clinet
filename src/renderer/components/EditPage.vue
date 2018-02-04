@@ -3,7 +3,7 @@
     <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
     <main>
       <div class="left-side">
-        <span class="title">
+        <span class="title" v-on:click="load()">
           编辑页面
         </span>
         <system-information></system-information>
@@ -21,6 +21,9 @@
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);
+      },
+      load() {
+        this.$router.push('/home');
       },
     },
   };

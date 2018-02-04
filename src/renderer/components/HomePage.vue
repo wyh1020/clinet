@@ -6,18 +6,18 @@
         <span class="title">
           用户使用场景
         </span>
-        <system-information></system-information>
+        <home-information></home-information>
       </div>
     </main>
   </div>
 </template>
 
 <script>
-  import SystemInformation from './LandingPage/SystemInformation';
+  import HomeInformation from './HomePage/HomeInformation';
 
   export default {
     name: 'home-page',
-    components: { SystemInformation },
+    components: { HomeInformation },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);
