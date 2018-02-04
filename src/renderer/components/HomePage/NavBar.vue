@@ -99,7 +99,7 @@
       load: function (n) {
         switch (n) {
           case 0:
-            this.$router.push('/');
+            this.$router.push('/home');
             break;
           case 1:
             this.$router.push('/edit');
@@ -130,8 +130,5 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-  }
-  .btn #search {
-    padding: 2;
   }
 </style>

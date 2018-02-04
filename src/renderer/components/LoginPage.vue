@@ -1,27 +1,48 @@
 <template>
   <div id="wrapper">
-    <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
-    <main>
-      <div class="left-side">
-        <span class="title">
-          登录页面
-        </span>
-        <system-information></system-information>
+    <nav-bar></nav-bar>
+    <div class="row">
+      <div class="col-6">
+        <img id="logo" src="~@/assets/logo.png" alt="hitb-clinet">
+        <main>
+          <div class="left-side">
+            <span class="title">
+              登录页面
+            </span>
+            <form>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+              </div>
+              <button class="btn btn-primary" v-on:click="login">登陆</button>
+            </form>
+          </div>
+        </main>
       </div>
-    </main>
+      <div class="col-6">
+        2 of 3 (wider)
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-  import SystemInformation from './LandingPage/SystemInformation';
-
+  import NavBar from './HomePage/NavBar';
   export default {
     name: 'login-page',
-    components: { SystemInformation },
+    components: { NavBar },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);
       },
+      login() {
+        this.$router.push('/home');
+      }
     },
   };
 </script>
@@ -58,9 +79,8 @@
   main {
     display: flex;
     justify-content: space-between;
+    padding: 0;
   }
-
-  main > div { flex-basis: 50%; }
 
   .left-side {
     display: flex;

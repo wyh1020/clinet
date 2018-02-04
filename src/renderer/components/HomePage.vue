@@ -1,5 +1,5 @@
 <template>
-  <div id="wrapper">
+  <div>
     <nav-bar></nav-bar>
     <main>
       <div class="left-side">
@@ -62,9 +62,10 @@
     display: flex;
     justify-content: space-between;
     margin-top: 25px;
+    padding: 0;
   }
 
-  main > div { flex-basis: 50%; }
+  main > div { flex-basis: 100%; }
 
   .left-side {
     display: flex;

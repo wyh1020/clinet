@@ -1,29 +1,16 @@
 <template>
-  <table>
-    <tr>
-      <th v-on:click="load(1)">数据采集</th>
-      <th v-on:click="load(2)">数据分析</th>
-      <th v-on:click="load(3)">术语字典</th>
-      <th v-on:click="load(4)">系统设置</th>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>    
-  </table>
+  <div>
+    <left-bar></left-bar>
+    <left-doc></left-doc>
+
+  </div>
 </template>
 
 <script>
-
+  import LeftBar from './LeftBar';
+  import LeftDoc from './LeftDoc';
   export default {
+    components: { LeftBar, LeftDoc },
     data() {
       return {
         electron: process.versions['atom-shell'],
@@ -65,21 +52,9 @@
     letter-spacing: .25px;
     margin-top: 10px;
   }
-
-  .items { margin-top: 8px; }
-
-  .item {
-    display: flex;
-    margin-bottom: 6px;
+  * {
+    padding: 0;
+    margin: 0;
   }
 
-  .item .name {
-    color: #6a6a6a;
-    margin-right: 6px;
-  }
-
-  .item .value {
-    color: #35495e;
-    font-weight: bold;
-  }
 </style>

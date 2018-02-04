@@ -7,13 +7,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home-page',
-      component: require('@/components/HomePage').default,
-    },
-    {
-      path: '/login',
       name: 'login-page',
       component: require('@/components/LoginPage').default,
+    },
+    {
+      path: '/home',
+      name: 'home-page',
+      component: require('@/components/HomePage').default,
     },
     {
       path: '/edit',

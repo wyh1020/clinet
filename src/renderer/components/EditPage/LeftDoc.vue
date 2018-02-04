@@ -1,5 +1,12 @@
 <template>
-  <div>edit</div>
+  <div>
+    <div class="card">
+      <div class="card-body">
+        This is some text within a card body.
+        {{doc}}
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -7,6 +14,8 @@
   export default {
     data() {
       return {
+        doc: this.$store.state.doc,
+        currentTime: new Date().toLocaleString(),
         electron: process.versions['atom-shell'],
         name: this.$route.name,
         node: process.versions.node,
@@ -16,8 +25,22 @@
       };
     },
     methods: {
+      created: function () {
+        this.$nextTick(function () {
+          this.timer()
+        })
+      },
+      timer: function () {
+        this.getTime = () => {
+          this.currentTime = new Date().toLocaleString();
+        }
+        setInterval(this.getTime, 1000);
+      },
       load: function (n) {
         switch (n) {
+          case 0:
+            this.$router.push('/home');
+            break;
           case 1:
             this.$router.push('/edit');
             break;
@@ -30,37 +53,22 @@
           case 4:
             this.$router.push('/system');
             break;
+          case 5:
+            this.$router.push('/blockChain');
+            break;
           default:
-            this.$router.push('/edit');
+            this.$router.push('/');
         }
       },
+
     },
   };
 </script>
 
 <style scoped>
-  .title {
-    color: #888;
-    font-size: 18px;
-    font-weight: initial;
-    letter-spacing: .25px;
-    margin-top: 10px;
-  }
-
-  .items { margin-top: 8px; }
-
-  .item {
-    display: flex;
-    margin-bottom: 6px;
-  }
-
-  .item .name {
-    color: #6a6a6a;
-    margin-right: 6px;
-  }
-
-  .item .value {
-    color: #35495e;
-    font-weight: bold;
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 </style>

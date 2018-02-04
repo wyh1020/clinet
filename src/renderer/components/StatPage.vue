@@ -1,5 +1,5 @@
 <template>
-  <div id='wrapper'>
+  <div>
     <nav-bar></nav-bar>
     <main>
       <div class="row">

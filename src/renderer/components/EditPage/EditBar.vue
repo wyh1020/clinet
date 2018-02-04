@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom">
-    <input type="text" class="form-control" placeholder="请输入。。。" aria-label="Username" aria-describedby="basic-addon1">
+    <input type="text" class="form-control" placeholder="请输入。。。" aria-label="Username" aria-describedby="basic-addon1" v-model="doc" v-on:keyup.13="submit">
   </nav>
 </template>
 
@@ -9,6 +9,7 @@
   export default {
     data() {
       return {
+        doc: '',
         currentTime: new Date().toLocaleString(),
         electron: process.versions['atom-shell'],
         name: this.$route.name,
@@ -19,6 +20,9 @@
       };
     },
     methods: {
+      submit: function () {
+        console.log(this.doc)
+      },
       created: function () {
         this.$nextTick(function () {
           this.timer()

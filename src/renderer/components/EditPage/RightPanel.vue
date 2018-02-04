@@ -1,32 +1,33 @@
 <template>
-  <table>
-    <tr>
-      <th v-on:click="load(1)">数据采集</th>
-      <th v-on:click="load(2)">数据分析</th>
-      <th v-on:click="load(3)">术语字典</th>
-      <th v-on:click="load(4)">系统设置</th>
-      <th v-on:click="load(5)">医疗联盟</th>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>    
-  </table>
+  <div>
+    <right-bar></right-bar>
+    <table>
+      <tr>
+        <th v-on:click="load(1)">数据采集</th>
+        <th v-on:click="load(2)">数据分析</th>
+        <th v-on:click="load(3)">术语字典</th>
+        <th v-on:click="load(4)">系统设置</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>    
+    </table>
+  </div>
 </template>
 
 <script>
-
+  import RightBar from './RightBar';
   export default {
+    components: { RightBar },
     data() {
       return {
         electron: process.versions['atom-shell'],
@@ -51,9 +52,6 @@
             break;
           case 4:
             this.$router.push('/system');
-            break;
-          case 5:
-            this.$router.push('/blockChain');
             break;
           default:
             this.$router.push('/edit');
