@@ -9,7 +9,6 @@
   export default {
     data() {
       return {
-        doc: '',
         currentTime: new Date().toLocaleString(),
         electron: process.versions['atom-shell'],
         name: this.$route.name,
@@ -19,9 +18,20 @@
         vue: require('vue/package.json').version,
       };
     },
+    computed: {
+      doc: {
+        get() {
+          return this.$store.state.Document.doc
+        },
+        set(value) {
+          this.$store.commit('PUSH_DOC', value)
+        }
+      }
+    },
     methods: {
       submit: function () {
         console.log(this.doc)
+        console.log(this.$store.state.Document.doc)
       },
       created: function () {
         this.$nextTick(function () {

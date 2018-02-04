@@ -2,8 +2,12 @@
   <div>
     <div class="card">
       <div class="card-body">
-        This is some text within a card body.
         {{doc}}
+        <ul id="example-1">
+          <li v-for="(item, index) in doc" v-bind:key='index'>
+            {{ item }}
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -14,7 +18,6 @@
   export default {
     data() {
       return {
-        doc: this.$store.state.doc,
         currentTime: new Date().toLocaleString(),
         electron: process.versions['atom-shell'],
         name: this.$route.name,
@@ -23,6 +26,16 @@
         platform: require('os').platform(),
         vue: require('vue/package.json').version,
       };
+    },
+    computed: {
+      doc: {
+        get() {
+          return this.$store.state.Document.doc
+        },
+        set(value) {
+          this.$store.commit('PUSH_DOC', value)
+        }
+      }
     },
     methods: {
       created: function () {

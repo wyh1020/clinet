@@ -3,18 +3,18 @@ const state = {
 };
 
 const mutations = {
-  DECREMENT_MAIN_COUNTER(state) {
-    state.doc.pop('1');
-  },
-  INCREMENT_MAIN_COUNTER(state) {
+  PUSH_DOC(state) {
     state.doc.push('1');
+  },
+  POP_DOC(state) {
+    state.doc.pop('1');
   },
 };
 
 const actions = {
   someAsyncTask({ commit }) {
     // do something async
-    commit('INCREMENT_MAIN_COUNTER');
+    commit('PUSH_DOC');
   },
 };
 
