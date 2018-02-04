@@ -1,13 +1,14 @@
 const state = {
-  doc: [1, 2, 3],
+  doc: [],
 };
 
 const mutations = {
-  PUSH_DOC(state) {
-    state.doc.push('1');
+  PUSH_DOC(state, message) {
+    state.doc.push(message);
   },
-  POP_DOC(state) {
-    state.doc.pop('1');
+  POP_DOC(state, message) {
+    console.log(message);
+    state.doc.pop();
   },
 };
 

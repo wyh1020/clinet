@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom">
-    <input type="text" class="form-control" placeholder="请输入。。。" aria-label="Username" aria-describedby="basic-addon1" v-model="doc" v-on:keyup.13="submit">
+    <input type="text" class="form-control" placeholder="请输入。。。" aria-label="Username" aria-describedby="basic-addon1" v-model="doc"  v-on:keyup.enter="updateDoc">
   </nav>
 </template>
 
@@ -9,6 +9,7 @@
   export default {
     data() {
       return {
+        doc: '',
         currentTime: new Date().toLocaleString(),
         electron: process.versions['atom-shell'],
         name: this.$route.name,
@@ -18,20 +19,20 @@
         vue: require('vue/package.json').version,
       };
     },
-    computed: {
-      doc: {
-        get() {
-          return this.$store.state.Document.doc
-        },
-        set(value) {
-          this.$store.commit('PUSH_DOC', value)
-        }
-      }
-    },
+    // computed: {
+    //   doc: {
+    //     get() {
+    //       return this.$store.state.Document.doc
+    //     },
+    //     set(value) {
+    //       this.$store.commit('PUSH_DOC', value)
+    //     }
+    //   }
+    // },
     methods: {
-      submit: function () {
-        console.log(this.doc)
-        console.log(this.$store.state.Document.doc)
+      updateDoc(e) {
+        this.$store.commit('PUSH_DOC', e.target.value);
+        this.doc = '';
       },
       created: function () {
         this.$nextTick(function () {
