@@ -109,7 +109,7 @@ let rendererConfig = {
     __filename: process.env.NODE_ENV !== 'production'
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('common'),
+    // new webpack.optimize.CommonsChunkPlugin('common'),
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery",

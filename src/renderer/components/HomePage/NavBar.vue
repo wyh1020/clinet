@@ -75,13 +75,7 @@
   export default {
     data() {
       return {
-        currentTime: new Date().toLocaleString(),
-        electron: process.versions['atom-shell'],
-        name: this.$route.name,
-        node: process.versions.node,
-        path: this.$route.path,
-        platform: require('os').platform(),
-        vue: require('vue/package.json').version,
+        currentTime: new Date().toLocaleString()
       };
     },
     methods: {

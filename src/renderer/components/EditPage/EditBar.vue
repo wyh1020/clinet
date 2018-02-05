@@ -9,42 +9,14 @@
   export default {
     data() {
       return {
-        doc: '',
-        currentTime: new Date().toLocaleString(),
-        electron: process.versions['atom-shell'],
-        name: this.$route.name,
-        node: process.versions.node,
-        path: this.$route.path,
-        platform: require('os').platform(),
-        vue: require('vue/package.json').version,
+        doc: ''
       };
     },
-    // computed: {
-    //   doc: {
-    //     get() {
-    //       return this.$store.state.Document.doc
-    //     },
-    //     set(value) {
-    //       this.$store.commit('PUSH_DOC', value)
-    //     }
-    //   }
-    // },
     methods: {
       updateDoc(e) {
         this.$store.commit('PUSH_DOC', e.target.value);
         this.doc = '';
-      },
-      created: function () {
-        this.$nextTick(function () {
-          this.timer()
-        })
-      },
-      timer: function () {
-        this.getTime = () => {
-          this.currentTime = new Date().toLocaleString();
-        }
-        setInterval(this.getTime, 1000);
-      },
+      }
     },
   };
 </script>

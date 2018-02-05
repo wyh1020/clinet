@@ -18,13 +18,7 @@
   export default {
     data() {
       return {
-        currentTime: new Date().toLocaleString(),
-        electron: process.versions['atom-shell'],
-        name: this.$route.name,
-        node: process.versions.node,
-        path: this.$route.path,
-        platform: require('os').platform(),
-        vue: require('vue/package.json').version,
+        name: this.$route.name
       };
     },
     computed: {
@@ -49,31 +43,6 @@
         }
         setInterval(this.getTime, 1000);
       },
-      load: function (n) {
-        switch (n) {
-          case 0:
-            this.$router.push('/home');
-            break;
-          case 1:
-            this.$router.push('/edit');
-            break;
-          case 2:
-            this.$router.push('/stat');
-            break;
-          case 3:
-            this.$router.push('/library');
-            break;
-          case 4:
-            this.$router.push('/system');
-            break;
-          case 5:
-            this.$router.push('/blockChain');
-            break;
-          default:
-            this.$router.push('/');
-        }
-      },
-
     },
   };
 </script>

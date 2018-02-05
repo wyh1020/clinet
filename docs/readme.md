@@ -13,6 +13,11 @@ git config --global core.autocrlf input
 #### npm安装出错
 不要用npm install，用yarn add 或 yarn 
 
+删除 node_modules/目录，重新yarn
+
 npm cache verify
 
 npm cache clean
+
+#### 开发注意
+在git pull后，git push前，必须执行npm run test 和npm run build，确保没有错误。
