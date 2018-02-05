@@ -9,3 +9,10 @@ Run electron rebuild .\node_modules\.bin\electron-rebuild.cmd
 提交时转换为LF，检出时不转换
 
 git config --global core.autocrlf input 
+
+#### npm安装出错
+不要用npm install，用yarn add 或 yarn 
+
+npm cache verify
+
+npm cache clean

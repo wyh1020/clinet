@@ -109,10 +109,12 @@ let rendererConfig = {
     __filename: process.env.NODE_ENV !== 'production'
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin('common'),
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery",
-      "windows.jQuery": "jquery"
+      "windows.jQuery": "jquery",
+      Popper: ['popper.js', 'default'],
     }),
     new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({

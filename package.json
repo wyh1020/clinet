@@ -19,7 +19,7 @@
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
     "test": "npm run unit && npm run e2e",
     "unit": "karma start test/unit/karma.conf.js",
-    "postinstall": "electron-builder install-app-deps && npm run lint:fix"
+    "postinstall": "npm run lint:fix"
   },
   "build": {
     "productName": "clinet",
@@ -58,11 +58,10 @@
   "dependencies": {
     "asch-js": "^1.3.10",
     "axios": "^0.16.1",
-    "better-sqlite3": "^4.1.0",
     "bootstrap": "^4.0.0",
     "echarts": "^4.0.2",
     "jquery": "^3.3.1",
-    "sqlite3": "^3.1.13",
+    "popper.js": "^1.12.9",
     "vue": "^2.3.3",
     "vue-echarts": "^3.0.1",
     "vue-electron": "^1.0.6",
