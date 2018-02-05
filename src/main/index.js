@@ -1,4 +1,9 @@
 import { app, BrowserWindow } from 'electron' // eslint-disable-line
+// 文件保存位置
+const fs = require('fs');
+const path = require('path');
+const hitbdata = path.format({ dir: 'C:\\hitbdata' });
+if (!fs.existsSync(hitbdata)) { fs.mkdirSync(hitbdata) }
 
 /**
  * Set `__static` path to static files in production

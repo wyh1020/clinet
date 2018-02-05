@@ -7,7 +7,7 @@
           <left-panel></left-panel>
         </div>
         <div class="col-9">
-          <main-panel></main-panel>
+          <right-panel></right-panel>
         </div>
       </div>
     </main>
@@ -17,11 +17,11 @@
 <script>
   import NavBar from './HomePage/NavBar';
   import LeftPanel from './SystemPage/LeftPanel';
-  import MainPanel from './SystemPage/MainPanel';
+  import RightPanel from './SystemPage/RightPanel';
 
   export default {
     name: 'system-page',
-    components: { NavBar, LeftPanel, MainPanel },
+    components: { NavBar, LeftPanel, RightPanel },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);
@@ -36,5 +36,10 @@
     margin: 0;
     padding: 0;
   }
-
+  main {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+    padding: 0;
+  }
 </style>

@@ -1,24 +1,18 @@
 <template>
-  <table>
-    <tr>
-      <th v-on:click="load(1)">数据采集</th>
-      <th v-on:click="load(2)">数据分析</th>
-      <th v-on:click="load(3)">术语字典</th>
-      <th v-on:click="load(4)">系统设置</th>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>    
-  </table>
+  <div>
+    <table>
+      <tr>
+        <th>文件名</th>
+        <th>文件操作</th>
+      </tr>
+      <tr v-for="(path, index) in paths" v-bind:key='index'>
+        <td>{{path}}</td>
+        <td v-on:click="load(path)">
+          <button>导入文件</button>
+        </td>
+      </tr>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -29,15 +23,17 @@
         name: this.$route.name
       };
     },
-    methods: {
-      load: function (n) {
-        switch (n) {
-          case 1:
-            this.$router.push('/edit');
-            break;
-          default:
-            this.$router.push('/edit');
+    computed: {
+      paths: {
+        get() {
+          return this.$store.state.System.paths
         }
+      }
+    },
+    methods: {
+      load: function (path) {
+        console.log(path)
+        this.$store.commit('GET_FILE', path);
       },
     },
   };
