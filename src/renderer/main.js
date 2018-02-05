@@ -33,14 +33,20 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 const hitbdata = []
-const file = path.format({ dir: 'C:\\hitbdata\\system\\hitb_org.csv' });
-const fRead = fs.createReadStream(file);
-const fReadline = readline.createInterface({ input: fRead });
-const f = [];
-fReadline.on('close', () => {
-  global.hitbdata = f;
-  console.log('readline close...');
-});
-fReadline.on('line', (line) => {
-  f.push(line)
-})
+const file = path.format({ dir: 'C:\\hitbdata\\system\\hitb_data.csv' });
+if(fs.existsSync(file)){
+  const fRead = fs.createReadStream(file);
+  const fReadline = readline.createInterface({ input: fRead });
+  const f = [];
+  fReadline.on('close', () => {
+    // todo：此处要将初始化数据转换为js对象
+    global.hitbdata = f;
+    console.log('readline close...');
+  });
+  fReadline.on('line', (line) => {
+    f.push(line)
+  })
+}else{
+  console.log('读取系统初始化文件失败，请重新下载，放到C盘的hitbdata/system目录下')
+}
+
