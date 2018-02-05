@@ -41,6 +41,7 @@
         this.$electron.shell.openExternal(link);
       },
       login() {
+        // console.log(global.hitbdata)
         this.$router.push('/home');
       }
     },
