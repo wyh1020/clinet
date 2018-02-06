@@ -45,6 +45,7 @@ function createWindow() {
     height: 563,
     useContentSize: true,
     width: 1000,
+    autoHideMenuBar: true
   });
 
   mainWindow.loadURL(winURL);

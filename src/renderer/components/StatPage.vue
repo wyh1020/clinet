@@ -7,7 +7,7 @@
           <left-panel></left-panel>
         </div>
         <div class="col-9">
-          <main-panel></main-panel>
+          <right-panel></right-panel>
         </div>
       </div>
     </main>
@@ -18,12 +18,12 @@
 <script>
   import NavBar from './HomePage/NavBar';
   import LeftPanel from './StatPage/LeftPanel';
-  import MainPanel from './StatPage/MainPanel';
+  import RightPanel from './StatPage/RightPanel';
   import NoticeBar from './HomePage/NoticeBar';
   
   export default {
     name: 'stat-page',
-    components: { NavBar, LeftPanel, MainPanel, NoticeBar },
+    components: { NavBar, LeftPanel, RightPanel, NoticeBar },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);

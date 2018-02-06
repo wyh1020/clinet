@@ -1,13 +1,16 @@
 <template>
   <div>
+    <right-bar></right-bar>
     <div v-on:click="show">show echarts</div>
     <div id="chart" style="width: 600px; height:400px;"></div>
   </div>
 </template>
 
 <script>
+  import RightBar from './RightBar';
   const echarts = require('echarts');
   export default {
+    components: { RightBar },
     data() {
       return {
         name: this.$route.name
