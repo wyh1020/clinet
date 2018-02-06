@@ -6,9 +6,6 @@
         <img id="logo" src="~@/assets/logo.png" alt="hitb-clinet">
         <main>
           <div class="left-side">
-            <span class="title">
-              登录页面
-            </span>
             <form>
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -21,11 +18,17 @@
               </div>
             </form>
             <button class="btn btn-primary" v-on:click="login">登陆</button>
+            <div v-if="hasData">
+              <hr>
+              <a href="static/hitb_data.csv">请点击下载系统初始化文件，并放到C盘的hitbdata/system目录下，然后关闭这个应用系统，再重新打开！</a>
+              <hr>
+            </div>
+
           </div>
         </main>
       </div>
       <div class="col-6">
-        2 of 3 (wider)
+        系统说明：
       </div>
     </div>
     <notice-bar></notice-bar>
@@ -38,14 +41,23 @@
   export default {
     name: 'login-page',
     components: { NavBar, NoticeBar },
+    data() {
+      return {
+        hasData: false
+      };
+    },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);
       },
       login() {
-        // console.log(global.hitbdata)
-        this.$store.commit('SET_NOTICE', '未注册用户登陆！');
-        this.$router.push('/home');
+        if (global.hitbdata) {
+          this.$store.commit('SET_NOTICE', '未注册用户登陆！');
+          this.$router.push('/home');
+        } else {
+          this.hasData = true;
+          this.$store.commit('SET_NOTICE', '读取系统初始化文件失败，请重新下载，放到C盘的hitbdata/system目录下！')
+        }
       }
     },
   };
@@ -80,6 +92,10 @@
     display: flex;
     justify-content: space-between;
     padding: 0;
+  }
+
+  form {
+    padding-bottom: 0;
   }
 
 </style>
