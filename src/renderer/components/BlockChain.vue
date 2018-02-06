@@ -3,10 +3,10 @@
     <nav-bar></nav-bar>
     <main>
       <div class="row">
-        <div class="col-3">
+        <div class="col-2">
           <left-panel></left-panel>
         </div>
-        <div class="col-9">
+        <div class="col-10">
           <right-panel></right-panel>
         </div>
       </div>
