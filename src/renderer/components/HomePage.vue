@@ -4,9 +4,6 @@
     <main>
       <!-- <notice-bar></notice-bar> -->
       <div class="left-side">
-        <span class="title">
-          用户使用场景
-        </span>
         <home-information></home-information>
       </div>
     </main>
