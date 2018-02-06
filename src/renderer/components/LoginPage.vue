@@ -19,8 +19,8 @@
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
               </div>
-              <button class="btn btn-primary" v-on:click="login">登陆</button>
             </form>
+            <button class="btn btn-primary" v-on:click="login">登陆</button>
           </div>
         </main>
       </div>
@@ -44,6 +44,7 @@
       },
       login() {
         // console.log(global.hitbdata)
+        this.$store.commit('SET_NOTICE', '未注册用户登陆！');
         this.$router.push('/home');
       }
     },

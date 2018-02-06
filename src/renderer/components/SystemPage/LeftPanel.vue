@@ -34,7 +34,6 @@
     },
     methods: {
       load: function (path1) {
-        console.log(path1)
         if (path1.endsWith('.csv')) {
           const file = path.format({
             dir: 'C:\\hitbdata\\',
@@ -42,26 +41,26 @@
           });
           fs.lstat(file, (err, stat) => {
             if (stat.isDirectory()) {
-              console.log('目录不能导入，请选择文件')
+              this.$store.commit('SET_NOTICE', '目录不能导入，请选择文件！');
             } else if (stat.size < 1000 * 5000) {
+              this.$store.commit('SET_NOTICE', '正在读取文件，请等待！');
               const fRead = fs.createReadStream(file);
               const fReadline = readline.createInterface({ input: fRead });
               const f = [];
               fReadline.on('close', () => {
                 // console.log(f);
                 this.$store.commit('GET_FILE', f);
-                console.log('readline close...');
+                this.$store.commit('SET_NOTICE', 'CSV文件读取成功！');
               });
               fReadline.on('line', (line) => {
                 f.push(line)
               })
             } else {
-              console.log(stat.size)
-              console.log('文件大于5M，无法导入，请拆成小文件')
+              this.$store.commit('SET_NOTICE', '文件大于5M，无法导入，请拆成小文件！');
             }
           })
         } else {
-          console.log('选择的不是CSV文件，不能导入')
+          this.$store.commit('SET_NOTICE', '选择的不是CSV文件，不能导入！');
         }
       },
     },

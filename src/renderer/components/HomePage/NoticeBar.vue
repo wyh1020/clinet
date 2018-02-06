@@ -10,13 +10,13 @@
 <script>
 
   export default {
-    data() {
-      return {
-        notice: this.$store.state.Home.notice
-      };
-    },
-    methods: {
-    },
+    computed: {
+      notice: {
+        get() {
+          return this.$store.state.Home.notice
+        }
+      }
+    }
   };
 </script>
 

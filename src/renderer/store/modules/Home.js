@@ -3,10 +3,10 @@ const state = {
 };
 
 const mutations = {
-  SET(state, notice) {
+  SET_NOTICE(state, notice) {
     state.notice = notice;
   },
-  DEL(state) {
+  DEL_NOTICE(state) {
     state.notice = '';
   },
 };
@@ -14,8 +14,8 @@ const mutations = {
 const actions = {
   someAsyncTask({ commit }) {
     // do something async
-    commit('SET');
-    commit('DEL');
+    commit('SET_NOTICE');
+    commit('DEL_NOTICE');
   },
 };
 

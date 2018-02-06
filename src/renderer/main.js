@@ -47,6 +47,7 @@ if(fs.existsSync(file)){
     f.push(line)
   })
 }else{
-  console.log('读取系统初始化文件失败，请重新下载，放到C盘的hitbdata/system目录下')
+  console.log('读取系统初始化文件失败，请重新下载，放到C盘的hitbdata/system目录下');
+  alert('读取系统初始化文件失败，请重新下载，放到C盘的hitbdata/system目录下')
 }
 
