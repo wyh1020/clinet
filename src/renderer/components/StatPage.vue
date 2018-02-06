@@ -11,6 +11,7 @@
         </div>
       </div>
     </main>
+    <notice-bar></notice-bar>
   </div>
 </template>
 
@@ -18,10 +19,11 @@
   import NavBar from './HomePage/NavBar';
   import LeftPanel from './StatPage/LeftPanel';
   import MainPanel from './StatPage/MainPanel';
+  import NoticeBar from './HomePage/NoticeBar';
   
   export default {
     name: 'stat-page',
-    components: { NavBar, LeftPanel, MainPanel },
+    components: { NavBar, LeftPanel, MainPanel, NoticeBar },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);

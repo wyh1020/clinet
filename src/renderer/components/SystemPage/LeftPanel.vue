@@ -8,7 +8,7 @@
       <tr v-for="(path, index) in paths" v-bind:key='index'>
         <td>{{path}}</td>
         <td v-on:click="load(path)">
-          <button>导入文件</button>
+          <button>读取文件</button>
         </td>
       </tr>
     </table>

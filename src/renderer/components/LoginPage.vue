@@ -28,14 +28,16 @@
         2 of 3 (wider)
       </div>
     </div>
+    <notice-bar></notice-bar>
   </div>
 </template>
 
 <script>
   import NavBar from './HomePage/NavBar';
+  import NoticeBar from './HomePage/NoticeBar';
   export default {
     name: 'login-page',
-    components: { NavBar },
+    components: { NavBar, NoticeBar },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);

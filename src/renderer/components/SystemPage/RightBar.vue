@@ -7,24 +7,25 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active" v-on:click='loadPath'>
-          <a class="nav-link" href="#"> 导入CSV文件 <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#"> 选择CSV文件 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"> 列表 </a>
+        <li class="nav-item active" v-on:click='loadPath'>
+          <a class="nav-link" href="#"> 选择数据表 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            选择
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
+        <li class="nav-item active" v-on:click='loadPath'>
+          <a class="nav-link" href="#"> 对照 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
+        <li class="nav-item active" v-on:click='loadPath'>
+          <a class="nav-link" href="#"> 校验 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='loadPath'>
+          <a class="nav-link" href="#"> 导入 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='loadPath'>
+          <a class="nav-link" href="#"> DRG分组 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='loadPath'>
+          <a class="nav-link" href="#"> DRG分析 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
@@ -64,4 +65,5 @@
     margin: 0;
     padding: 0;
   }
+
 </style>

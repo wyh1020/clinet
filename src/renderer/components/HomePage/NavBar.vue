@@ -12,10 +12,8 @@
             数据采集
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#" v-on:click="load(1)">病历首页</a>
-            <a class="dropdown-item" href="#" v-on:click="load(1)">Another action</a>
+            <a class="dropdown-item" href="#" v-on:click="load(1)">数据采集</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="load(1)">Something else here</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -23,10 +21,8 @@
             数据分析
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#" v-on:click="load(2)">Action</a>
-            <a class="dropdown-item" href="#" v-on:click="load(2)">Another action</a>
+            <a class="dropdown-item" href="#" v-on:click="load(2)">数据分析</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="load(2)">Something else here</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -34,32 +30,38 @@
             术语字典
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#" v-on:click="load(3)">Action</a>
-            <a class="dropdown-item" href="#" v-on:click="load(3)">Another action</a>
+            <a class="dropdown-item" href="#" v-on:click="load(3)">IDC10-BJ版</a>
+            <a class="dropdown-item" href="#" v-on:click="load(3)">IDC9-BJ版</a>
+            <a class="dropdown-item" href="#" v-on:click="load(3)">DRG-BJ版</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="load(3)">Something else here</a>
+            <a class="dropdown-item" href="#" v-on:click="load(3)">疾病诊断名称</a>
+            <a class="dropdown-item" href="#" v-on:click="load(3)">收拾/操作名称</a>
           </div>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            系统设置
+            系统服务
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#" v-on:click="load(4)">Action</a>
-            <a class="dropdown-item" href="#" v-on:click="load(4)">Another action</a>
+            <a class="dropdown-item" href="#" v-on:click="load(4)">机构设置</a>
+            <a class="dropdown-item" href="#" v-on:click="load(4)">用户设置</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="load(4)">Something else here</a>
+            <a class="dropdown-item" href="#" v-on:click="load(4)">病案首页（卫统四）</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" v-on:click="load(4)">DRG分组服务</a>
+            <a class="dropdown-item" href="#" v-on:click="load(4)">DRG分析服务</a>
           </div>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            医疗联盟
+            区块链服务-医疗联盟
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#" v-on:click="load(5)">Action</a>
-            <a class="dropdown-item" href="#" v-on:click="load(5)">Another action</a>
+            <a class="dropdown-item" href="#" v-on:click="load(5)">账户设置</a>
+            <a class="dropdown-item" href="#" v-on:click="load(5)">服务器节点设置</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="load(5)">Something else here</a>
+            <a class="dropdown-item" href="#" v-on:click="load(5)">DRG分组服务</a>
+            <a class="dropdown-item" href="#" v-on:click="load(4)">DRG分析服务</a>
           </div>
         </li>
         <li class="nav-item">

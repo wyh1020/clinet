@@ -2,6 +2,7 @@
   <div>
     <nav-bar></nav-bar>
     <main>
+      <!-- <notice-bar></notice-bar> -->
       <div class="left-side">
         <span class="title">
           用户使用场景
@@ -9,16 +10,18 @@
         <home-information></home-information>
       </div>
     </main>
+    <notice-bar></notice-bar>
   </div>
 </template>
 
 <script>
   import HomeInformation from './HomePage/HomeInformation';
   import NavBar from './HomePage/NavBar';
+  import NoticeBar from './HomePage/NoticeBar';
 
   export default {
     name: 'home-page',
-    components: { HomeInformation, NavBar },
+    components: { HomeInformation, NavBar, NoticeBar },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);

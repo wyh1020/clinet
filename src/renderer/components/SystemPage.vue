@@ -11,6 +11,7 @@
         </div>
       </div>
     </main>
+    <notice-bar></notice-bar>
   </div>
 </template>
 
@@ -18,10 +19,11 @@
   import NavBar from './HomePage/NavBar';
   import LeftPanel from './SystemPage/LeftPanel';
   import RightPanel from './SystemPage/RightPanel';
+  import NoticeBar from './HomePage/NoticeBar';
 
   export default {
     name: 'system-page',
-    components: { NavBar, LeftPanel, RightPanel },
+    components: { NavBar, LeftPanel, RightPanel, NoticeBar },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);

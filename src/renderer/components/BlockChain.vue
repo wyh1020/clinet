@@ -11,6 +11,7 @@
         </div>
       </div>
     </main>
+    <notice-bar></notice-bar>
   </div>
 </template>
 
@@ -18,10 +19,11 @@
   import NavBar from './HomePage/NavBar';
   import LeftPanel from './BlockChain/LeftPanel';
   import MainPanel from './BlockChain/MainPanel';
+  import NoticeBar from './HomePage/NoticeBar';
 
   export default {
     name: 'block-chain',
-    components: { NavBar, LeftPanel, MainPanel },
+    components: { NavBar, LeftPanel, MainPanel, NoticeBar },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);
