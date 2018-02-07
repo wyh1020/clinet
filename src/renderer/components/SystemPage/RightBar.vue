@@ -7,30 +7,29 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active" v-on:click='loadPath'>
-          <a class="nav-link" href="#"> 选择CSV文件 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 选择CSV文件 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='loadPath'>
-          <a class="nav-link" href="#"> 选择数据表 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 选择数据表 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='loadPath'>
-          <a class="nav-link" href="#"> 对照 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 对照 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='loadPath'>
-          <a class="nav-link" href="#"> 校验 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 校验 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='loadPath'>
-          <a class="nav-link" href="#"> 导入 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 导入 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='loadPath'>
-          <a class="nav-link" href="#"> DRG分组 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> DRG分组 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='loadPath'>
-          <a class="nav-link" href="#"> DRG分析 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> DRG分析 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查找</button>
       </form>
     </div>
   </nav>

@@ -7,21 +7,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active" v-on:click='load'>
-          <a class="nav-link" href="#"> 编辑数据 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 编辑数据 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='show'>
-          <a class="nav-link" href="#"> 显示图表 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 显示图表 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='load'>
-          <a class="nav-link" href="#"> 加入对比 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 加入对比 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='load'>
-          <a class="nav-link" href="#"> 显示对比 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 显示对比 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查找</button>
       </form>
     </div>
   </nav>
