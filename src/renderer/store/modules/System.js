@@ -1,28 +1,36 @@
 const state = {
-  paths: [],
+  // 选择目录下的CSV文件列表
+  files: [],
+  // 选择要导入的CSV文件
   file: [],
-  tables: []
+  // 系统内置的table列表
+  tables: [],
+  // 选择要处理的table
+  table: [],
 };
 
 const mutations = {
-  GET_PATH(state, paths) {
-    // console.log(paths)
-    state.paths = paths;
+  GET_FILES(state, files) {
+    state.files = files;
   },
   GET_FILE(state, file) {
     state.file = file;
   },
   GET_TABLES(state, tables) {
-    state.paths = tables;
+    state.tables = tables;
+  },
+  GET_TABLE(state, table) {
+    state.table = table;
   }
 };
 
 const actions = {
   someAsyncTask({ commit }) {
     // do something async
-    commit('GET_PATH');
+    commit('GET_FILES');
     commit('GET_FILE');
     commit('GET_TABLES');
+    commit('GET_TABLE');
   },
 };
 

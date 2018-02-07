@@ -18,11 +18,20 @@
     computed: {
       file: {
         get() {
-          const f = [];
-          let len = this.$store.state.System.file.length;
-          if (len > 99) { len = 99 }
-          for (let i = 0; i < len; i += 1) {
-            f.push(this.$store.state.System.file[i].split(','))
+          let f = []
+          let fileLen = this.$store.state.System.file.length;
+          switch (this.$store.state.Home.toolbar) {
+            case 'files':
+              if (fileLen > 99) { fileLen = 99 }
+              for (let i = 0; i < fileLen; i += 1) {
+                f.push(this.$store.state.System.file[i].split(','))
+              }
+              break;
+            case 'tables':
+              f = this.$store.state.System.table
+              break;
+            default:
+              f = [];
           }
           return f
         }

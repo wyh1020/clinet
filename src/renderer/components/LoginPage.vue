@@ -53,6 +53,7 @@
       login() {
         if (global.hitbdata) {
           this.$store.commit('SET_NOTICE', '未注册用户登陆！');
+          this.$store.commit('SET_NAVBAR', 'home');
           this.$router.push('/home');
         } else {
           this.hasData = true;
