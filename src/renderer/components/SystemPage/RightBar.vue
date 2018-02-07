@@ -12,7 +12,7 @@
         <li class="nav-item active" v-on:click='getTables'>
           <a class="nav-link text-light" href="#"> 选择数据表 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadPath'>
+        <li class="nav-item active" v-on:click='compareTable'>
           <a class="nav-link text-light" href="#"> 对照 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='loadPath'>
@@ -39,10 +39,6 @@
   const fs = require('fs');
   const path = require('path');
   const basePath = path.format({ dir: 'C:\\hitbdata' });
-  // const c = fs.existsSync(a)
-  // const b = fs.readdirSync(a)
-  // const stat = fs.lstatSync('C:\\Users');
-  // console.log(stat.isDirectory())
   export default {
     data() {
       return {
@@ -60,6 +56,9 @@
         const tables = Object.keys(global.hitbdata.table)
         this.$store.commit('SET_TOOLBAR', 'tables');
         this.$store.commit('GET_TABLES', tables);
+      },
+      compareTable: function () {
+        this.$store.commit('SET_TOOLBAR', 'compareTable');
       },
     },
   };

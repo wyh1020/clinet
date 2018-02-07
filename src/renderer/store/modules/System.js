@@ -31,6 +31,7 @@ const actions = {
     commit('GET_FILE');
     commit('GET_TABLES');
     commit('GET_TABLE');
+    // commit('SET_TABLE');
   },
 };
 

@@ -2,10 +2,10 @@
   <div>
     <table>
       <tr>
-        <th>文件名</th>
+        <th>{{x}}</th>
       </tr>
-      <tr v-for="(path, index) in paths" v-bind:key='index'>
-        <td v-on:click="load(path)">{{path}}</td>
+      <tr v-for="(y, index) in xs" v-bind:key='index'>
+        <td v-on:click="load(y)">{{y}}</td>
       </tr>
     </table>
   </div>
@@ -22,20 +22,46 @@
       };
     },
     computed: {
-      paths: {
+      x: {
         get() {
-          let paths = []
+          let x = ''
           switch (this.$store.state.Home.toolbar) {
             case 'files':
-              paths = this.$store.state.System.files
+              x = '选择CSV文件'
               break;
             case 'tables':
-              paths = this.$store.state.System.tables
+              x = '选择数据表'
+              break;
+            case 'compareTable':
+              x = '对照数据表'
               break;
             default:
-              paths = [];
+              x = '';
           }
-          return paths
+          return x
+        }
+      },
+      xs: {
+        get() {
+          let xs = []
+          switch (this.$store.state.Home.toolbar) {
+            case 'files':
+              xs = this.$store.state.System.files
+              break;
+            case 'tables':
+              xs = this.$store.state.System.tables
+              break;
+            case 'compareTable':
+              if (this.$store.state.System.file && this.$store.state.System.file[0]) {
+                xs = this.$store.state.System.file[0].split(',')
+              } else {
+                this.$store.commit('SET_NOTICE', '请先选择CSV文件，然后再做对照！');
+              }
+              break;
+            default:
+              xs = [];
+          }
+          return xs
         }
       }
     },

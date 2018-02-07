@@ -4,6 +4,8 @@
     <table>
       <tr v-for="(line, index) in file" v-bind:key='index'>
         <td v-for="(filed, index) in line" v-bind:key='index'>{{line[index]}}</td>
+        <td></td>
+        <td></td>
       </tr>
     </table>
   </div>
@@ -30,8 +32,11 @@
             case 'tables':
               f = this.$store.state.System.table
               break;
+            case 'compareTable':
+              f = this.$store.state.System.table
+              break;
             default:
-              f = [];
+              break;
           }
           return f
         }
