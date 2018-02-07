@@ -4,8 +4,8 @@
       <tr>
         <th>{{x}}</th>
       </tr>
-      <tr v-for="(y, index) in xs" v-bind:key='index'>
-        <td v-on:click="load(y)">{{y}}</td>
+      <tr v-for="(data, index) in xs" v-bind:key='index' v-bind:class="{'table-danger':flag == index}" v-on:click="onClick(data, index)">
+        <td>{{data}}</td>
       </tr>
     </table>
   </div>
@@ -18,7 +18,7 @@
   export default {
     data() {
       return {
-        name: this.$route.name
+        flag: null
       };
     },
     computed: {
@@ -34,6 +34,18 @@
               break;
             case 'compareTable':
               x = '对照数据表'
+              break;
+            case 'checkTable':
+              x = '校验数据表'
+              break;
+            case 'loadTable':
+              x = '导入数据表'
+              break;
+            case 'compDrg':
+              x = 'Drg分组'
+              break;
+            case 'statDrg':
+              x = 'Drg分析'
               break;
             default:
               x = '';
@@ -66,13 +78,14 @@
       }
     },
     methods: {
-      load: function (x) {
+      onClick: function (data, index) {
+        this.flag = index
         switch (this.$store.state.Home.toolbar) {
           case 'files':
-            if (x.endsWith('.csv')) {
+            if (data.endsWith('.csv')) {
               const file = path.format({
                 dir: 'C:\\hitbdata\\',
-                base: x
+                base: data
               });
               fs.lstat(file, (err, stat) => {
                 if (stat.isDirectory()) {
@@ -99,8 +112,11 @@
             }
             break;
           case 'tables':
-            this.$store.commit('GET_TABLE', global.hitbdata.table[x]);
+            this.$store.commit('GET_TABLE', global.hitbdata.table[data]);
             this.$store.commit('SET_NOTICE', '数据表读取成功！');
+            break;
+          case 'compareTable':
+            this.$store.commit('SET_TABLE', data);
             break;
           default:
             break;

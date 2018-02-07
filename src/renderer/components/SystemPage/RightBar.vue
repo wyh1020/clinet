@@ -15,16 +15,16 @@
         <li class="nav-item active" v-on:click='compareTable'>
           <a class="nav-link text-light" href="#"> 对照 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadPath'>
+        <li class="nav-item active" v-on:click='checkTable'>
           <a class="nav-link text-light" href="#"> 校验 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadPath'>
+        <li class="nav-item active" v-on:click='loadTable'>
           <a class="nav-link text-light" href="#"> 导入 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadPath'>
+        <li class="nav-item active" v-on:click='compDrg'>
           <a class="nav-link text-light" href="#"> DRG分组 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadPath'>
+        <li class="nav-item active" v-on:click='statDrg'>
           <a class="nav-link text-light" href="#"> DRG分析 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -59,6 +59,18 @@
       },
       compareTable: function () {
         this.$store.commit('SET_TOOLBAR', 'compareTable');
+      },
+      checkTable: function () {
+        this.$store.commit('SET_TOOLBAR', 'checkTable');
+      },
+      loadTable: function () {
+        this.$store.commit('SET_TOOLBAR', 'loadTable');
+      },
+      compDrg: function () {
+        this.$store.commit('SET_TOOLBAR', 'compDrg');
+      },
+      statDrg: function () {
+        this.$store.commit('SET_TOOLBAR', 'statDrg');
       },
     },
   };

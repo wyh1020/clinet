@@ -2,10 +2,8 @@
   <div>
     <right-bar></right-bar>
     <table>
-      <tr v-for="(line, index) in file" v-bind:key='index'>
-        <td v-for="(filed, index) in line" v-bind:key='index'>{{line[index]}}</td>
-        <td></td>
-        <td></td>
+      <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger':flag == index}">
+        <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
       </tr>
     </table>
   </div>
@@ -16,7 +14,11 @@
 
   export default {
     components: { RightBar },
-
+    data() {
+      return {
+        flag: null
+      }
+    },
     computed: {
       file: {
         get() {
@@ -35,6 +37,18 @@
             case 'compareTable':
               f = this.$store.state.System.table
               break;
+            case 'checkTable':
+              f = this.$store.state.System.table
+              break;
+            case 'loadTable':
+              // f = this.$store.state.System.table
+              break;
+            case 'compDrg':
+              // f = this.$store.state.System.table
+              break;
+            case 'statDrg':
+              // f = this.$store.state.System.table
+              break;
             default:
               break;
           }
@@ -43,14 +57,11 @@
       }
     },
     methods: {
-      load: function (n) {
-        switch (n) {
-          case 1:
-            this.$router.push('/edit');
-            break;
-          default:
-            this.$router.push('/edit');
-        }
+      onClick: function (data, index) {
+        this.flag = index
+        // console.log(this.$store.state.System.table[n])
+        this.$store.commit('GET_FIELD', data);
+        this.$store.commit('GET_FIELD_INDEX', index);
       },
     },
   };
