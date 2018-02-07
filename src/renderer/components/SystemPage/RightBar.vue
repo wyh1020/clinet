@@ -9,7 +9,7 @@
         <li class="nav-item active" v-on:click='loadPath'>
           <a class="nav-link text-light" href="#"> 选择CSV文件 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadPath'>
+        <li class="nav-item active" v-on:click='loadModal'>
           <a class="nav-link text-light" href="#"> 选择数据表 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='loadPath'>
@@ -53,6 +53,10 @@
       loadPath: function () {
         const paths = fs.readdirSync(basePath)
         this.$store.commit('GET_PATH', paths);
+      },
+      loadModal: function () {
+        const tables = Object.keys(global.hitbdata.table)
+        this.$store.commit('GET_TABLES', tables);
       },
     },
   };

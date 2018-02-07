@@ -3,13 +3,9 @@
     <table>
       <tr>
         <th>文件名</th>
-        <th>文件操作</th>
       </tr>
       <tr v-for="(path, index) in paths" v-bind:key='index'>
-        <td>{{path}}</td>
-        <td v-on:click="load(path)">
-          <button>读取文件</button>
-        </td>
+        <td v-on:click="load(path)">{{path}}</td>
       </tr>
     </table>
   </div>
