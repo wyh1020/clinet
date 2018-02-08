@@ -45,7 +45,7 @@ function createWindow() {
     height: 563,
     useContentSize: true,
     width: 1000,
-    autoHideMenuBar: true
+    autoHideMenuBar: true,
   });
 
   mainWindow.loadURL(winURL);
@@ -53,6 +53,8 @@ function createWindow() {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+
+  mainWindow.maximize();
 
   mainWindow.webContents.send('starting', 'whoooooooh!')
 }

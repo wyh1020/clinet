@@ -95,24 +95,31 @@
       load: function (n) {
         switch (n) {
           case 0:
+            this.$store.commit('SET_NAVBAR', 'home');
             this.$router.push('/home');
             break;
           case 1:
+            this.$store.commit('SET_NAVBAR', 'edit');
             this.$router.push('/edit');
             break;
           case 2:
+            this.$store.commit('SET_NAVBAR', 'stat');
             this.$router.push('/stat');
             break;
           case 3:
+            this.$store.commit('SET_NAVBAR', 'library');
             this.$router.push('/library');
             break;
           case 4:
+            this.$store.commit('SET_NAVBAR', 'system');
             this.$router.push('/system');
             break;
           case 5:
+            this.$store.commit('SET_NAVBAR', 'blockChain');
             this.$router.push('/blockChain');
             break;
           default:
+            this.$store.commit('SET_NAVBAR', 'login');
             this.$router.push('/');
         }
       },

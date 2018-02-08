@@ -11,5 +11,7 @@
 </script>
 
 <style>
-  /* CSS */
+  * {
+    font-size: medium
+  }
 </style>

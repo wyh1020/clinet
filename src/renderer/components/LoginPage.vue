@@ -20,7 +20,7 @@
             <button class="btn btn-primary" v-on:click="login">登陆</button>
             <div v-if="hasData">
               <hr>
-              <a href="static/hitb_data.csv">请点击下载系统初始化文件，并放到C盘的hitbdata/system目录下，然后关闭这个应用系统，再重新打开！</a>
+              <a href="static/hitb_table.csv">请点击下载系统初始化文件，并放到C盘的hitbdata/system目录下，然后关闭这个应用系统，再重新打开！</a>
               <hr>
             </div>
 
@@ -51,8 +51,9 @@
         this.$electron.shell.openExternal(link);
       },
       login() {
-        if (global.hitbdata) {
+        if (global.hitbdata.table) {
           this.$store.commit('SET_NOTICE', '未注册用户登陆！');
+          this.$store.commit('SET_NAVBAR', 'home');
           this.$router.push('/home');
         } else {
           this.hasData = true;
