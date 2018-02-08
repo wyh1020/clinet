@@ -28,9 +28,27 @@ new Vue({
 //   hitbdata.push(message)
 //   console.log(hitbdata)
 // })
-// 读取系统初始化文件
+
+// 文件保存位置
 const fs = require('fs');
 const path = require('path');
+const hitbdata = path.join(process.env.USERPROFILE, '\\clinet-data');
+if (!fs.existsSync(hitbdata)) { fs.mkdirSync(hitbdata) }
+const hitbdataSystem = path.join(process.env.USERPROFILE, '\\clinet-data\\system');
+if (!fs.existsSync(hitbdataSystem)) { fs.mkdirSync(hitbdataSystem) }
+const hitbdataLoaded = path.join(process.env.USERPROFILE, '\\clinet-data\\loaded');
+if (!fs.existsSync(hitbdataLoaded)) { fs.mkdirSync(hitbdataLoaded) }
+const hitbdataCompare = path.join(process.env.USERPROFILE, '\\clinet-data\\compare');
+if (!fs.existsSync(hitbdataCompare)) { fs.mkdirSync(hitbdataCompare) }
+const hitbdataUser = path.join(process.env.USERPROFILE, '\\clinet-data\\user');
+if (!fs.existsSync(hitbdataUser)) { fs.mkdirSync(hitbdataUser) }
+const hitbdataLibrary = path.join(process.env.USERPROFILE, '\\clinet-data\\library');
+if (!fs.existsSync(hitbdataLibrary)) { fs.mkdirSync(hitbdataLibrary) }
+const hitbdataStat = path.join(process.env.USERPROFILE, '\\clinet-data\\stat');
+if (!fs.existsSync(hitbdataStat)) { fs.mkdirSync(hitbdataStat) }
+
+
+// 读取系统初始化文件
 const readline = require('readline');
 global.hitbdata = {};
 
