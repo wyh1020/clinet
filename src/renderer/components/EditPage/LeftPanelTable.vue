@@ -1,34 +1,30 @@
 <template>
   <div>
-    <right-bar></right-bar>
     <table>
       <tr>
         <th class="table-danger"> 用户编辑文件</th>
       </tr>
       <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data)">
-        <td>{{data}}</td>
+        <td>{{data.substr(0, 100)}}</td>
       </tr>
     </table>
   </div>
 </template>
 
 <script>
-  import RightBar from './RightBar';
   const fs = require('fs')
   const path = require('path');
   const readline = require('readline');
-  
   export default {
-    components: { RightBar },
     data() {
       return {
-        name: this.$route.name
+        flag: null
       };
     },
     computed: {
       xs: {
         get() {
-          return this.$store.state.Edit.files
+          return this.$store.state.Edit.file
         }
       }
     },

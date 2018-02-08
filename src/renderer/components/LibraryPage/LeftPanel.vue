@@ -18,7 +18,7 @@
   export default {
     data() {
       return {
-        name: this.$route.name
+        flag: null
       };
     },
     computed: {

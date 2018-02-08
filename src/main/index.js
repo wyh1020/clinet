@@ -15,6 +15,8 @@ const hitbdataUser = path.format({ dir: 'C:\\hitbdata\\user' });
 if (!fs.existsSync(hitbdataUser)) { fs.mkdirSync(hitbdataUser) }
 const hitbdataLibrary = path.format({ dir: 'C:\\hitbdata\\library' });
 if (!fs.existsSync(hitbdataLibrary)) { fs.mkdirSync(hitbdataLibrary) }
+const hitbdataStat = path.format({ dir: 'C:\\hitbdata\\stat' });
+if (!fs.existsSync(hitbdataStat)) { fs.mkdirSync(hitbdataStat) }
 
 // todo:'electron' should be listed in the project's dependencies, not devDependencies
 // ipcMain.on('asynchronous-message', (event, arg) => {

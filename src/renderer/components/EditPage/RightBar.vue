@@ -6,6 +6,9 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
+        <li class="nav-item active" v-on:click='loadData'>
+          <a class="nav-link text-light" href="#"> 导入数据 <span class="sr-only">(current)</span></a>
+        </li>
         <li class="nav-item active">
           <a class="nav-link text-light" href="#"> 帮助 <span class="sr-only">(current)</span></a>
         </li>
@@ -43,16 +46,8 @@
       };
     },
     methods: {
-      created: function () {
-        this.$nextTick(function () {
-          this.timer()
-        })
-      },
-      timer: function () {
-        this.getTime = () => {
-          this.currentTime = new Date().toLocaleString();
-        }
-        setInterval(this.getTime, 1000);
+      loadData: function () {
+        this.$store.commit('EDIT_LOAD_FILES');
       },
     },
   };

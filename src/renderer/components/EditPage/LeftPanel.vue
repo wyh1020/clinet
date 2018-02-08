@@ -1,16 +1,17 @@
 <template>
   <div>
     <left-bar></left-bar>
-    <left-doc></left-doc>
-
+    <left-panel-doc></left-panel-doc>
+    <left-panel-table></left-panel-table>
   </div>
 </template>
 
 <script>
   import LeftBar from './LeftBar';
-  import LeftDoc from './LeftDoc';
+  import LeftPanelDoc from './LeftPanelDoc';
+  import LeftPanelTable from './LeftPanelTable';
   export default {
-    components: { LeftBar, LeftDoc },
+    components: { LeftBar, LeftPanelDoc, LeftPanelTable },
   };
 </script>
 
