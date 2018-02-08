@@ -51,7 +51,7 @@
         this.$electron.shell.openExternal(link);
       },
       login() {
-        if (global.hitbdata) {
+        if (global.hitbdata.table) {
           this.$store.commit('SET_NOTICE', '未注册用户登陆！');
           this.$store.commit('SET_NAVBAR', 'home');
           this.$router.push('/home');
