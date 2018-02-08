@@ -2,7 +2,7 @@
   <div>
     <table>
       <tr>
-        <th class="table-danger"> 选择编辑文档</th>
+        <th class="table-danger"> 选择编辑条目</th>
       </tr>
       <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadDoc(data)">
         <td>{{data.substr(0, 100)}}</td>

@@ -15,12 +15,17 @@ const mutations = {
   LIBRARY_LOAD_FILE(state, message) {
     state.file = message;
   },
+  LIBRARY_SERVER_FILES() {
+    const files = []
+    state.files = files;
+  },
 };
 
 const actions = {
   someAsyncTask({ commit }) {
     commit('LIBRARY_LOAD_FILES');
     commit('LIBRARY_LOAD_FILE');
+    commit('LIBRARY_SERVER_FILES');
   },
 };
 

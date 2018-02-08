@@ -40,13 +40,11 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="onClick('系统服务-数据导入')">数据导入</a>
-            <a class="dropdown-item" href="#" v-on:click="onClick('系统服务-DRG分组服务')">DRG分组服务</a>
+            <a class="dropdown-item" href="#" v-on:click="onClick('系统服务-本地文件导入')">本地文件导入</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" v-on:click="onClick('系统服务-远程服务器设置')">远程服务器设置</a>
-            <a class="dropdown-item" href="#" v-on:click="onClick('系统服务-机构设置')">机构设置</a>
-            <a class="dropdown-item" href="#" v-on:click="onClick('系统服务-用户设置')">用户设置</a>
-            <a class="dropdown-item" href="#" v-on:click="onClick('系统服务-上传数据')">上传数据</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" v-on:click="onClick('系统服务-DRG分组服务')">DRG分组服务</a>
             <a class="dropdown-item" href="#" v-on:click="onClick('系统服务-DRG分析计算')">DRG分析计算</a>
             <div class="dropdown-divider"></div>
           </div>
@@ -58,7 +56,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-服务器节点设置')">服务器节点设置</a>
             <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-账户设置')">账户设置</a>
-            <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-区块设置')">区块查询</a>
+            <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-区块查询')">区块查询</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-DRG分组服务')">DRG分组服务</a>
             <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-DRG分析计算')">DRG分析计算</a>
@@ -110,48 +108,40 @@
             this.$store.commit('SET_NAVBAR', '术语字典-术语字典');
             this.$router.push('/library');
             break;
-          case '系统服务-数据导入':
-            this.$store.commit('SET_NAVBAR', '系统服务-数据导入');
-            this.$router.push('/system');
-            break;
-          case '系统服务-DRG分组':
-            this.$store.commit('SET_NAVBAR', '系统服务-DRG分组');
+          case '系统服务-本地文件导入':
+            this.$store.commit('SET_NAVBAR', '系统服务-本地文件导入');
             this.$router.push('/system');
             break;
           case '系统服务-远程服务器设置':
             this.$store.commit('SET_NAVBAR', '系统服务-远程服务器设置');
             this.$router.push('/system');
             break;
-          case '系统服务-机构设置':
-            this.$store.commit('SET_NAVBAR', '系统服务-机构设置');
+          case '系统服务-DRG分组服务':
+            this.$store.commit('SET_NAVBAR', '系统服务-DRG分组服务');
             this.$router.push('/system');
             break;
-          case '系统服务-用户设置':
-            this.$store.commit('SET_NAVBAR', '系统服务-用户设置');
+          case '系统服务-DRG分析计算':
+            this.$store.commit('SET_NAVBAR', '系统服务-DRG分析计算');
             this.$router.push('/system');
             break;
-          case '系统服务-上传数据':
-            this.$store.commit('SET_NAVBAR', '系统服务-上传数据');
-            this.$router.push('/system');
-            break;
-          case '系统服务-数据分析':
-            this.$store.commit('SET_NAVBAR', '系统服务-数据分析');
-            this.$router.push('/system');
+          case '区块链服务-服务器节点设置':
+            this.$store.commit('SET_NAVBAR', '区块链服务-服务器节点设置');
+            this.$router.push('/blockChain');
             break;
           case '区块链服务-账户设置':
             this.$store.commit('SET_NAVBAR', '区块链服务-账户设置');
             this.$router.push('/blockChain');
             break;
-          case '区块链服务-服务器节点设置':
-            this.$store.commit('SET_NAVBAR', '区块链服务-账户设置');
+          case '区块链服务-区块查询':
+            this.$store.commit('SET_NAVBAR', '区块链服务-区块查询');
             this.$router.push('/blockChain');
             break;
-          case '区块链服务-DRG分组':
-            this.$store.commit('SET_NAVBAR', '区块链服务-DRG分组');
+          case '区块链服务-DRG分组服务':
+            this.$store.commit('SET_NAVBAR', '区块链服务-DRG分组服务');
             this.$router.push('/blockChain');
             break;
-          case '区块链服务-DRG分析':
-            this.$store.commit('SET_NAVBAR', '区块链服务-DRG分析');
+          case '区块链服务-DRG分析计算':
+            this.$store.commit('SET_NAVBAR', '区块链服务-DRG分析计算');
             this.$router.push('/blockChain');
             break;
           default:

@@ -7,7 +7,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active" v-on:click='loadData'>
-          <a class="nav-link text-light" href="#"> 导入数据 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 本地文件 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='serverData'>
+          <a class="nav-link text-light" href="#"> 远程文件 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link text-light" href="#"> 前一页 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link text-light" href="#"> 后一页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='edit'>
           <a class="nav-link text-light" href="#"> 编辑数据 <span class="sr-only">(current)</span></a>
@@ -40,6 +49,9 @@
     methods: {
       loadData: function () {
         this.$store.commit('STAT_LOAD_FILES');
+      },
+      serverData: function () {
+        this.$store.commit('STAT_SERVER_FILES');
       },
       edit: function () {
         this.$router.push('/edit');

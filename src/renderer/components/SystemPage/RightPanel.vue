@@ -1,10 +1,9 @@
 <template>
   <div>
-    <drg-bar v-if="toolbar == '系统服务-DRG分组'"></drg-bar>
-    <org-bar v-if="toolbar == '系统服务-机构设置'"></org-bar>
-    <wt4-bar v-if="toolbar == '系统服务-数据导入'"></wt4-bar>
-    <user-bar v-if="toolbar == '系统服务-用户设置'"></user-bar>
-    <upload-bar v-if="toolbar == '系统服务-上传数据'"></upload-bar>
+    <load-bar v-if="toolbar == '系统服务-本地文件导入'"></load-bar>
+    <server-bar v-if="toolbar == '系统服务-远程服务器设置'"></server-bar>
+    <drg-bar v-if="toolbar == '系统服务-DRG分组服务'"></drg-bar>
+    <stat-bar v-if="toolbar == '系统服务-DRG分析计算'"></stat-bar>
     <table>
       <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger':flag == index}">
         <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
@@ -14,14 +13,13 @@
 </template>
 
 <script>
+  import LoadBar from './LoadBar';
+  import ServerBar from './ServerBar';
   import DrgBar from './DrgBar';
-  import OrgBar from './OrgBar';
-  import Wt4Bar from './Wt4Bar';
-  import UserBar from './UserBar';
-  import UploadBar from './UploadBar';
+  import StatBar from './StatBar';
 
   export default {
-    components: { DrgBar, OrgBar, Wt4Bar, UserBar, UploadBar },
+    components: { DrgBar, ServerBar, LoadBar, StatBar },
     data() {
       return {
         flag: null

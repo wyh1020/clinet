@@ -3,7 +3,7 @@
     <right-bar></right-bar>
     <table>
       <tr>
-        <th class="table-danger"> 用户编辑文件</th>
+        <th class="table-danger"> 用户本地文件</th>
       </tr>
       <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data)">
         <td>{{data}}</td>

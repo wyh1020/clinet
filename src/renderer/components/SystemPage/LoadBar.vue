@@ -7,10 +7,25 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active" v-on:click='getFiles'>
-          <a class="nav-link text-light" href="#"> 用户设置 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 选择CSV文件 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='getTables'>
           <a class="nav-link text-light" href="#"> 选择数据表 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='compareTable'>
+          <a class="nav-link text-light" href="#"> 对照数据 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='checkTable'>
+          <a class="nav-link text-light" href="#"> 校验数据 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='loadTable'>
+          <a class="nav-link text-light" href="#"> 导入数据 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='compDrg'>
+          <a class="nav-link text-light" href="#"> 保存本地文件 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='upLoadTableData'>
+          <a class="nav-link text-light" href="#"> 上传服务器数据 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
