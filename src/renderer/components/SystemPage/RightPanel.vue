@@ -1,6 +1,10 @@
 <template>
   <div>
-    <right-bar v-if="toolbar == 'system'"></right-bar>
+    <drg-bar v-if="toolbar == '系统服务-DRG分组'"></drg-bar>
+    <org-bar v-if="toolbar == '系统服务-机构设置'"></org-bar>
+    <wt4-bar v-if="toolbar == '系统服务-数据导入'"></wt4-bar>
+    <user-bar v-if="toolbar == '系统服务-用户设置'"></user-bar>
+    <upload-bar v-if="toolbar == '系统服务-上传数据'"></upload-bar>
     <table>
       <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger':flag == index}">
         <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
@@ -10,10 +14,14 @@
 </template>
 
 <script>
-  import RightBar from './RightBar';
+  import DrgBar from './DrgBar';
+  import OrgBar from './OrgBar';
+  import Wt4Bar from './Wt4Bar';
+  import UserBar from './UserBar';
+  import UploadBar from './UploadBar';
 
   export default {
-    components: { RightBar },
+    components: { DrgBar, OrgBar, Wt4Bar, UserBar, UploadBar },
     data() {
       return {
         flag: null

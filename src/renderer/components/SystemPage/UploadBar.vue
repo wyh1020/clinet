@@ -15,18 +15,6 @@
         <li class="nav-item active" v-on:click='compareTable'>
           <a class="nav-link text-light" href="#"> 对照数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='checkTable'>
-          <a class="nav-link text-light" href="#"> 校验数据 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active" v-on:click='loadTable'>
-          <a class="nav-link text-light" href="#"> 导入数据 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active" v-on:click='compDrg'>
-          <a class="nav-link text-light" href="#"> DRG分组 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active" v-on:click='upLoadTableData'>
-          <a class="nav-link text-light" href="#"> 上传数据 <span class="sr-only">(current)</span></a>
-        </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
