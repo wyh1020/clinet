@@ -50,6 +50,7 @@
               fReadline.on('close', () => {
                 // console.log(f);
                 this.$store.commit('EDIT_LOAD_FILE', f);
+                this.$store.commit('EDIT_SET_LEFTPANEL', 'table')
                 this.$store.commit('SET_NOTICE', 'CSV文件读取成功！');
               });
               fReadline.on('line', (line) => {

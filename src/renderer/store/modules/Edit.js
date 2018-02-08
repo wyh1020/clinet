@@ -6,6 +6,7 @@ const state = {
   files: [],
   file: [],
   doc: [],
+  leftPanel: 'table'
 };
 
 const mutations = {
@@ -23,6 +24,12 @@ const mutations = {
   EDIT_LOAD_FILE(state, message) {
     state.file = message;
   },
+  EDIT_LOAD_DOC(state, message) {
+    state.doc = message;
+  },
+  EDIT_SET_LEFTPANEL(state, message) {
+    state.leftPanel = message;
+  },
 };
 
 const actions = {
@@ -30,6 +37,7 @@ const actions = {
     commit('PUSH_DOC');
     commit('EDIT_LOAD_FILES');
     commit('EDIT_LOAD_FILE');
+    commit('EDIT_LOAD_DOC');
   },
 };
 

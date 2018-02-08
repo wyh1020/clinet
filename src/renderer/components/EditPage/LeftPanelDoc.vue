@@ -2,7 +2,6 @@
   <div>
     <div class="card">
       <div class="card-body">
-        {{doc}}
         <ul id="example-1">
           <li v-for="(item, index) in doc" v-bind:key='index'>
             {{ item }}
