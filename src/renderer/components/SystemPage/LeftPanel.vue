@@ -33,19 +33,19 @@
               x = '选择数据表'
               break;
             case 'compareTable':
-              x = '对照数据表'
+              x = '对照数据'
               break;
             case 'checkTable':
-              x = '校验数据表'
+              x = '校验数据'
               break;
             case 'loadTable':
-              x = '导入数据表'
+              x = '导入数据'
               break;
             case 'compDrg':
               x = 'Drg分组'
               break;
-            case 'statDrg':
-              x = 'Drg分析'
+            case 'upLoadTableData':
+              x = '上传数据'
               break;
             default:
               x = '';
