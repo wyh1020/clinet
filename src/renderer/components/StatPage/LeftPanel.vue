@@ -1,17 +1,13 @@
 <template>
   <div style="height:400px; overflow-y:auto;">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">Cras justo odio</li>
-      <li class="list-group-item">Dapibus ac facilisis in</li>
-      <li class="list-group-item">Morbi leo risus</li>
-      <li class="list-group-item">Porta ac consectetur ac</li>
-      <li class="list-group-item">Vestibulum at eros</li>
-      <li class="list-group-item">Cras justo odio</li>
-      <li class="list-group-item">Dapibus ac facilisis in</li>
-      <li class="list-group-item">Morbi leo risus</li>
-      <li class="list-group-item">Porta ac consectetur ac</li>
-      <li class="list-group-item">Vestibulum at eros</li>
-    </ul>
+    <table>
+      <tr>
+        <th class="table-danger"> 数据分析文件</th>
+      </tr>
+      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data)">
+        <td>{{data}}</td>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -26,18 +22,18 @@
       };
     },
     computed: {
-      paths: {
+      xs: {
         get() {
-          return this.$store.state.System.paths
+          return this.$store.state.Stat.files
         }
       }
     },
     methods: {
-      load: function (path1) {
-        if (path1.endsWith('.csv')) {
+      loadFile: function (x) {
+        if (x.endsWith('.csv')) {
           const file = path.format({
-            dir: 'C:\\hitbdata\\',
-            base: path1
+            dir: 'C:\\hitbdata\\stat\\',
+            base: x
           });
           fs.lstat(file, (err, stat) => {
             if (stat.isDirectory()) {
@@ -49,7 +45,7 @@
               const f = [];
               fReadline.on('close', () => {
                 // console.log(f);
-                this.$store.commit('GET_FILE', f);
+                this.$store.commit('STAT_LOAD_FILE', f);
                 this.$store.commit('SET_NOTICE', 'CSV文件读取成功！');
               });
               fReadline.on('line', (line) => {

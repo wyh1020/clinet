@@ -1,21 +1,26 @@
+const fs = require('fs');
+const path = require('path');
+const basePath = path.format({ dir: 'C:\\hitbdata\\stat' });
+
 const state = {
-  doc: [],
+  files: [],
+  file: []
 };
 
 const mutations = {
-  PUSH_DOC(state, message) {
-    state.doc.push(message);
+  STAT_LOAD_FILES() {
+    const files = fs.readdirSync(basePath).filter(x => x.endsWith('.csv'))
+    state.files = files;
   },
-  POP_DOC(state, message) {
-    console.log(message);
-    state.doc.pop();
+  STAT_LOAD_FILE(state, message) {
+    state.file = message;
   },
 };
 
 const actions = {
   someAsyncTask({ commit }) {
-    // do something async
-    commit('PUSH_DOC');
+    commit('STAT_LOAD_FILES');
+    commit('STAT_LOAD_FILE');
   },
 };
 

@@ -1,13 +1,13 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-    <a class="navbar-brand" href="#" v-on:click="onClick('首页')">HITB-clinet</a>
+    <a class="navbar-brand" href="#" v-on:click="onClick('首页')">&nbsp;&nbsp;&nbsp;&nbsp;HITB-clinet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" v-on:click="onClick('数据采集-数据采集')">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             数据采集
           </a>
@@ -16,7 +16,7 @@
             <div class="dropdown-divider"></div>
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" v-on:click="onClick('数据分析-数据分析')">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             数据分析
           </a>
@@ -25,17 +25,13 @@
             <div class="dropdown-divider"></div>
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" v-on:click="onClick('术语字典-术语字典')">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             术语字典
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#" v-on:click="onClick('术语字典-IDC10BJ版')">IDC10-BJ版</a>
-            <a class="dropdown-item" href="#" v-on:click="onClick('术语字典-IDC9BJ版')">IDC9-BJ版</a>
-            <a class="dropdown-item" href="#" v-on:click="onClick('术语字典-DRGBJ版')">DRG-BJ版</a>
+            <a class="dropdown-item" href="#" v-on:click="onClick('术语字典-术语字典')">术语字典</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="onClick('术语字典-疾病诊断名称')">疾病诊断名称</a>
-            <a class="dropdown-item" href="#" v-on:click="onClick('术语字典-收拾/操作名称')">收拾/操作名称</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -110,24 +106,8 @@
             this.$store.commit('SET_NAVBAR', '数据分析-数据分析');
             this.$router.push('/stat');
             break;
-          case '术语字典-IDC10BJ版':
-            this.$store.commit('SET_NAVBAR', '术语字典-IDC10BJ版');
-            this.$router.push('/library');
-            break;
-          case '术语字典-IDC9BJ版':
-            this.$store.commit('SET_NAVBAR', '术语字典-IDC9BJ版');
-            this.$router.push('/library');
-            break;
-          case '术语字典-DRGBJ版':
-            this.$store.commit('SET_NAVBAR', '术语字典-DRGBJ版');
-            this.$router.push('/library');
-            break;
-          case '术语字典-疾病诊断名称':
-            this.$store.commit('SET_NAVBAR', '术语字典-疾病诊断名称');
-            this.$router.push('/library');
-            break;
-          case '术语字典-手术/操作名称':
-            this.$store.commit('SET_NAVBAR', '术语字典-手术/操作名称');
+          case '术语字典-术语字典':
+            this.$store.commit('SET_NAVBAR', '术语字典-术语字典');
             this.$router.push('/library');
             break;
           case '系统服务-数据导入':
