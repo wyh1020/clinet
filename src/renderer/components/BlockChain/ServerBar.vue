@@ -12,6 +12,12 @@
         <li class="nav-item active" v-on:click='loadPath'>
           <a class="nav-link text-light" href="#"> 设置连接节点 <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active" v-on:click='loadPath'>
+          <a class="nav-link text-light" href="#"> 区块链服务介绍 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='loadPath'>
+          <a class="nav-link text-light" href="#"> 区块链服务功能列表 <span class="sr-only">(current)</span></a>
+        </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

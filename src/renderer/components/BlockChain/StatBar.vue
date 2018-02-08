@@ -6,11 +6,17 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='loadPath'>
-          <a class="nav-link text-light" href="#"> 服务器节点列表 <span class="sr-only">(current)</span></a>
+        <li class="nav-item active" v-on:click='getTables'>
+          <a class="nav-link text-light" href="#"> 服务器病案数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadPath'>
-          <a class="nav-link text-light" href="#"> 设置连接节点 <span class="sr-only">(current)</span></a>
+        <li class="nav-item active" v-on:click='getTables'>
+          <a class="nav-link text-light" href="#"> 选择分析指标 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='getTables'>
+          <a class="nav-link text-light" href="#"> 选择分析维度 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='getTables'>
+          <a class="nav-link text-light" href="#"> 开始计算 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
@@ -30,6 +36,11 @@
     methods: {
       loadPath: function () {
         this.$store.commit('GET_PATH', 'paths');
+      },
+      getTables: function () {
+        const tables = Object.keys(global.hitbdata.table)
+        this.$store.commit('SET_TOOLBAR', 'tables');
+        this.$store.commit('GET_TABLES', tables);
       },
     },
   };

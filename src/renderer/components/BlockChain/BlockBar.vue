@@ -7,10 +7,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active" v-on:click='loadPath'>
-          <a class="nav-link text-light" href="#"> 服务器节点列表 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 区块列表 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='loadPath'>
-          <a class="nav-link text-light" href="#"> 设置连接节点 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 区块内容 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='loadPath'>
+          <a class="nav-link text-light" href="#"> 区块内容明细 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
