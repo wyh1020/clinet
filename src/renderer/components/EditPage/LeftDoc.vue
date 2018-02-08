@@ -24,7 +24,7 @@
     computed: {
       doc: {
         get() {
-          return this.$store.state.Document.doc
+          return this.$store.state.Edit.doc
         },
         set(value) {
           this.$store.commit('PUSH_DOC', value)

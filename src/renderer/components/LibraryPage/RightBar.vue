@@ -6,7 +6,10 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='loadPath'>
+        <li class="nav-item active" v-on:click='loadData'>
+          <a class="nav-link text-light" href="#"> 导入数据 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='editData'>
           <a class="nav-link text-light" href="#"> 编辑数据 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -25,8 +28,12 @@
       };
     },
     methods: {
-      loadPath: function () {
-        this.$store.commit('GET_PATH', 'paths');
+      loadData: function () {
+        this.$store.commit('LIBRARY_LOAD_FILES');
+      },
+      editData: function () {
+        this.$router.push('/edit');
+        // this.$store.commit('GET_PATH', 'paths');
       },
     },
   };

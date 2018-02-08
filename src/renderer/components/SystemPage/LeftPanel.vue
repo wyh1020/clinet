@@ -2,7 +2,7 @@
   <div>
     <table>
       <tr>
-        <th>{{x}}</th>
+        <th class="table-danger">{{x}}</th>
       </tr>
       <tr v-for="(data, index) in xs" v-bind:key='index' v-bind:class="{'table-danger':flag == index}" v-on:click="onClick(data, index)">
         <td>{{data}}</td>
@@ -58,7 +58,7 @@
           let xs = []
           switch (this.$store.state.Home.toolbar) {
             case 'files':
-              xs = this.$store.state.System.files
+              xs = this.$store.state.System.files.filter(x => x.endsWith('.csv'))
               break;
             case 'tables':
               xs = this.$store.state.System.tables

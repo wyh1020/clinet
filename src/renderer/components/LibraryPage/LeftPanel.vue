@@ -2,10 +2,10 @@
   <div>
     <table>
       <tr>
-        <th>分析维度</th>
+        <th class="table-danger"> 术语字典文件</th>
       </tr>
-      <tr v-for="(path, index) in paths" v-bind:key='index'>
-        <td>{{path}}</td>
+      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data)">
+        <td>{{data}}</td>
       </tr>
     </table>
   </div>
@@ -22,18 +22,18 @@
       };
     },
     computed: {
-      paths: {
+      xs: {
         get() {
-          return this.$store.state.System.paths
+          return this.$store.state.Library.files
         }
       }
     },
     methods: {
-      load: function (path1) {
-        if (path1.endsWith('.csv')) {
+      loadFile: function (x) {
+        if (x.endsWith('.csv')) {
           const file = path.format({
-            dir: 'C:\\hitbdata\\',
-            base: path1
+            dir: 'C:\\hitbdata\\library',
+            base: x
           });
           fs.lstat(file, (err, stat) => {
             if (stat.isDirectory()) {
@@ -45,7 +45,7 @@
               const f = [];
               fReadline.on('close', () => {
                 // console.log(f);
-                this.$store.commit('GET_FILE', f);
+                this.$store.commit('LIBRARY_LOAD_FILE', f);
                 this.$store.commit('SET_NOTICE', 'CSV文件读取成功！');
               });
               fReadline.on('line', (line) => {
