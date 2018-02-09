@@ -4,7 +4,8 @@ const state = {
   files: [],
   file: [],
   doc: [],
-  leftPanel: 'table'
+  leftPanel: 'doc',
+  rightPanel: 'help'
 };
 
 const mutations = {
@@ -34,6 +35,9 @@ const mutations = {
   EDIT_SET_LEFTPANEL(state, message) {
     state.leftPanel = message;
   },
+  EDIT_SET_RIGHTPANEL(state, message) {
+    state.rightPanel = message;
+  },
   EDIT_SERVER_FILES() {
     // todo: 从服务器接口获取文档列表
     const files = []
@@ -49,6 +53,7 @@ const actions = {
     commit('EDIT_LOAD_DOC');
     commit('EDIT_SERVER_FILES');
     commit('EDIT_SET_LEFTPANEL');
+    commit('EDIT_SET_RIGHTPANEL');
   },
 };
 
