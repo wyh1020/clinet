@@ -20,7 +20,7 @@
             <button class="btn btn-primary" v-on:click="login">登陆</button>
             <div v-if="hasData">
               <hr>
-              <a href="static/hitb_table.csv">请点击下载系统初始化文件，并放到C盘的hitbdata/system目录下，然后关闭这个应用系统，再重新打开！</a>
+              <a href="static/hitb_table.csv">请点击下载系统初始化文件，按照下面提示框操作，然后关闭这个应用系统，再重新打开！</a>
               <hr>
             </div>
 
@@ -38,6 +38,7 @@
 <script>
   import NavBar from './HomePage/NavBar';
   import NoticeBar from './HomePage/NoticeBar';
+  const path = require('path');
   export default {
     name: 'login-page',
     components: { NavBar, NoticeBar },
@@ -57,7 +58,8 @@
           this.$router.push('/home');
         } else {
           this.hasData = true;
-          this.$store.commit('SET_NOTICE', '读取系统初始化文件失败，请重新下载，放到C盘的hitbdata/system目录下！')
+          const systemHitbTable = path.join(process.env.USERPROFILE, '\\clinet-data\\system\\')
+          this.$store.commit('SET_NOTICE', `读取系统初始化文件失败，请重新下载，放到${systemHitbTable}目录下！`)
         }
       }
     },

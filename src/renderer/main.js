@@ -47,15 +47,13 @@ if (!fs.existsSync(hitbdataLibrary)) { fs.mkdirSync(hitbdataLibrary) }
 const hitbdataStat = path.join(process.env.USERPROFILE, '\\clinet-data\\stat');
 if (!fs.existsSync(hitbdataStat)) { fs.mkdirSync(hitbdataStat) }
 
-
 // 读取系统初始化文件
+const systemHitbTable = path.join(process.env.USERPROFILE, '\\clinet-data\\system\\hitb_table.csv')
 const readline = require('readline');
 global.hitbdata = {};
 
-const file = path.format({ dir: 'C:\\hitbdata\\system\\hitb_table.csv' });
-
-if(fs.existsSync(file)){
-  const fRead = fs.createReadStream(file);
+if(fs.existsSync(systemHitbTable)){
+  const fRead = fs.createReadStream(systemHitbTable);
   const fReadline = readline.createInterface({ input: fRead });
   const f = []; // 将CSV文件逐行读到数组中
   const t = {}; // 将数组逐行转换为js对象
@@ -75,6 +73,6 @@ if(fs.existsSync(file)){
     f.push(line)
   })
 }else{
-  console.log('读取系统初始化文件失败，请重新下载，放到C盘的hitbdata/system目录下');
+  console.log('读取系统初始化文件失败!');
 }
 
