@@ -50,4 +50,11 @@
 
   main > div { flex-basis: 100%; }
 
+  .row {
+    margin-right: 0;
+  }
+  .col {
+    padding-right: 0;
+  }
+
 </style>

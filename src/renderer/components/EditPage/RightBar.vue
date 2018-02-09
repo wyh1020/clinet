@@ -21,18 +21,15 @@
         <li class="nav-item active">
           <a class="nav-link text-light" href="#"> 后一页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" href="#"> 列表 </a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            选择
+            选择帮助类型
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">输入框提示</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="#">病案历史</a>
+            <a class="dropdown-item" href="#">病案参考</a>
           </div>
         </li>
       </ul>

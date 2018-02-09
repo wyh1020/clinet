@@ -26,13 +26,14 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            编辑
+            选择文档类型
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">病案首页（卫统四）</a>
+            <a class="dropdown-item" href="#">病案首页</a>
+            <a class="dropdown-item" href="#">首次病程</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="#">疾病名称</a>
           </div>
         </li>
       </ul>

@@ -4,7 +4,6 @@
       <div class="card-body">
         <ol class="breadcrumb">
           <li class="breadcrumb-item" v-for="(item, index) in doc" v-bind:key='index'>
-            <!-- <a href="#">{{item}}</a> -->
             <b>{{ item[0] }}</b>
             ：{{ item[1] }} {{ item[2] }} {{ item[3] }} {{ item[4] }}
               {{ item[5] }} {{ item[6] }} {{ item[7] }} {{ item[8] }}
@@ -18,18 +17,10 @@
 <script>
 
   export default {
-    data() {
-      return {
-        name: this.$route.name
-      };
-    },
     computed: {
       doc: {
         get() {
           return this.$store.state.Edit.doc
-        },
-        set(value) {
-          this.$store.commit('PUSH_DOC', value)
         }
       }
     },
