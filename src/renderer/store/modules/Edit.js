@@ -9,7 +9,10 @@ const state = {
 
 const mutations = {
   PUSH_DOC(state, message) {
-    state.doc.push(message);
+    // console.log(message)
+    const x = message.split(' ').filter(i => i !== '');
+    // console.log(x)
+    state.doc.push(x);
   },
   POP_DOC(state, message) {
     console.log(message);
@@ -23,7 +26,10 @@ const mutations = {
     state.file = message;
   },
   EDIT_LOAD_DOC(state, message) {
-    state.doc = message;
+    // console.log(message)
+    const x = message.map(m => m.split(' ').filter(i => i !== ''))
+    // console.log(x)
+    state.doc = x;
   },
   EDIT_SET_LEFTPANEL(state, message) {
     state.leftPanel = message;
@@ -42,6 +48,7 @@ const actions = {
     commit('EDIT_LOAD_FILE');
     commit('EDIT_LOAD_DOC');
     commit('EDIT_SERVER_FILES');
+    commit('EDIT_SET_LEFTPANEL');
   },
 };
 

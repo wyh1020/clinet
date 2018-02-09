@@ -9,16 +9,19 @@
         <li class="nav-item active" v-on:click="load">
           <a class="nav-link text-light" href="#"> 返回上级菜单 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-on:click="toTable">
+          <a class="nav-link text-light" href="#">返回列表</a>
+        </li>
+        <li class="nav-item" v-on:click="newDoc">
           <a class="nav-link text-light" href="#">新建</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-on:click="save">
           <a class="nav-link text-light" href="#">保存</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-on:click="saveOther">
           <a class="nav-link text-light" href="#">另存为</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-on:click="del">
           <a class="nav-link text-light" href="#">删除</a>
         </li>
         <li class="nav-item dropdown">
@@ -52,16 +55,20 @@
       load: function () {
         this.$router.push('/stat');
       },
-      created: function () {
-        this.$nextTick(function () {
-          this.timer()
-        })
+      toTable: function () {
+        this.$store.commit('EDIT_SET_LEFTPANEL', 'table')
       },
-      timer: function () {
-        this.getTime = () => {
-          this.currentTime = new Date().toLocaleString();
-        }
-        setInterval(this.getTime, 1000);
+      newDoc: function () {
+        this.$store.commit('EDIT_SET_LEFTPANEL', 'doc')
+      },
+      save: function () {
+
+      },
+      saveOther: function () {
+
+      },
+      del: function () {
+
       },
     },
   };

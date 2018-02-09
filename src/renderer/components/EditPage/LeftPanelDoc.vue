@@ -2,11 +2,14 @@
   <div>
     <div class="card">
       <div class="card-body">
-        <ul id="example-1">
-          <li v-for="(item, index) in doc" v-bind:key='index'>
-            {{ item }}
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item" v-for="(item, index) in doc" v-bind:key='index'>
+            <!-- <a href="#">{{item}}</a> -->
+            <b>{{ item[0] }}</b>
+            ：{{ item[1] }} {{ item[2] }} {{ item[3] }} {{ item[4] }}
+              {{ item[5] }} {{ item[6] }} {{ item[7] }} {{ item[8] }}
           </li>
-        </ul>
+        </ol>
       </div>
     </div>
   </div>
@@ -31,17 +34,6 @@
       }
     },
     methods: {
-      created: function () {
-        this.$nextTick(function () {
-          this.timer()
-        })
-      },
-      timer: function () {
-        this.getTime = () => {
-          this.currentTime = new Date().toLocaleString();
-        }
-        setInterval(this.getTime, 1000);
-      },
     },
   };
 </script>
@@ -51,5 +43,10 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+  }
+  .breadcrumb > li + li:before {
+    color: #CCCCCC;
+    content: "，";
+    padding: 0 5px;
   }
 </style>
