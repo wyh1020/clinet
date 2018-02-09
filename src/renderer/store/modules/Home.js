@@ -4,7 +4,9 @@ const state = {
   // 顶部导航栏选择
   navbar: '',
   // 页面工具栏选择
-  toolbar: ''
+  toolbar: '',
+  // 初始化数据加载状态
+  hasData: false
 };
 
 const mutations = {
@@ -20,6 +22,9 @@ const mutations = {
   SET_TOOLBAR(state, toolbar) {
     state.toolbar = toolbar;
   },
+  HAS_DATA(state) {
+    state.hasData = true;
+  },
 };
 
 const actions = {
@@ -29,6 +34,7 @@ const actions = {
     commit('DEL_NOTICE');
     commit('SET_NAVBAR');
     commit('SET_TOOLBAR');
+    commit('HAS_DATA');
   },
 };
 

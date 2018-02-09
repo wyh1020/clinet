@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" v-if="hasData">
     <a class="navbar-brand" href="#" v-on:click="onClick('首页')">&nbsp;&nbsp;&nbsp;&nbsp;HITB-clinet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -77,6 +77,13 @@
       return {
         currentTime: new Date().toLocaleString()
       };
+    },
+    computed: {
+      hasData: {
+        get() {
+          return this.$store.state.Home.hasData
+        }
+      }
     },
     methods: {
       created: function () {
