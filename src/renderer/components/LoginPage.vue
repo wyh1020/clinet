@@ -18,17 +18,20 @@
               </div>
             </form>
             <button class="btn btn-primary" v-on:click="login">登陆</button>
-            <div v-if="hasData">
-              <hr>
-              <a href="static/hitb_table.csv">请点击下载系统初始化文件，按照下面提示框操作，然后关闭这个应用系统，再重新打开！</a>
-              <hr>
-            </div>
-
           </div>
         </main>
       </div>
       <div class="col-6">
         系统说明：
+        <hr />
+        <h2 class="text-danger">
+          {{notice}}
+        </h2>
+        <div v-if="hasData">
+          <hr>
+          <a href="static/hitb_table.csv">请点击下载系统初始化文件，按照提示操作，然后关闭这个应用系统，再重新打开！</a>
+          <hr>
+        </div>
       </div>
     </div>
     <notice-bar></notice-bar>
@@ -45,6 +48,13 @@
       return {
         hasData: false
       };
+    },
+    computed: {
+      notice: {
+        get() {
+          return this.$store.state.Home.notice
+        }
+      }
     },
     methods: {
       open(link) {
