@@ -1,42 +1,37 @@
 <template>
   <div>
     <right-bar></right-bar>
-    <table>
-      <tr>
-        <th class="table-danger"> 用户本地文件</th>
-      </tr>
-      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data)">
-        <td>{{data}}</td>
-      </tr>
-    </table>
+    <right-panel-local v-if="rightPanel == 'local'"></right-panel-local>
+    <right-panel-help v-if="rightPanel == 'help'"></right-panel-help>
   </div>
 </template>
 
 <script>
   import RightBar from './RightBar';
-  import loadFile from '../../utils/LoadFile';
+  import RightPanelLocal from './RightPanelLocal';
+  import RightPanelHelp from './RightPanelHelp';
   export default {
-    components: { RightBar },
+    components: { RightBar, RightPanelLocal, RightPanelHelp },
     data() {
       return {
-        name: this.$route.name
+        flag: ''
       };
     },
     computed: {
-      xs: {
+      rightPanel: {
         get() {
-          return this.$store.state.Edit.files
+          return this.$store.state.Edit.rightPanel
         }
       }
-    },
-    methods: {
-      loadFile: function (x) {
-        loadFile(this, x, 'user')
-      },
     },
   };
 </script>
 
 <style scoped>
+  * {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 70px;
+  }
 
 </style>

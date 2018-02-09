@@ -6,6 +6,9 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
+        <li class="nav-item active" v-on:click='help'>
+          <a class="nav-link text-light" href="#"> 帮助 <span class="sr-only">(current)</span></a>
+        </li>
         <li class="nav-item active" v-on:click='loadData'>
           <a class="nav-link text-light" href="#"> 本地文件 <span class="sr-only">(current)</span></a>
         </li>
@@ -17,9 +20,6 @@
         </li>
         <li class="nav-item active">
           <a class="nav-link text-light" href="#"> 后一页 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link text-light" href="#"> 帮助 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-light" href="#"> 列表 </a>
@@ -52,7 +52,11 @@
       };
     },
     methods: {
+      help: function () {
+        this.$store.commit('EDIT_SET_RIGHTPANEL', 'help');
+      },
       loadData: function () {
+        this.$store.commit('EDIT_SET_RIGHTPANEL', 'local');
         this.$store.commit('EDIT_LOAD_FILES');
       },
       serverData: function () {
