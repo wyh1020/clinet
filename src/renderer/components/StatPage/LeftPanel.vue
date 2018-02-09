@@ -32,7 +32,7 @@
       loadFile: function (x) {
         if (x.endsWith('.csv')) {
           const file = path.format({
-            dir: 'C:\\hitbdata\\stat\\',
+            dir: global.hitbdata.path.stat,
             base: x
           });
           fs.lstat(file, (err, stat) => {

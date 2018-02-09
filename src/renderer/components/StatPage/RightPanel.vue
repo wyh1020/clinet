@@ -44,7 +44,7 @@
         get() {
           const f = []
           let fileLen = this.$store.state.Stat.file.length;
-          console.log(fileLen)
+          // console.log(fileLen)
           if (fileLen > 99) { fileLen = 99 }
           for (let i = 0; i < fileLen; i += 1) {
             f.push(this.$store.state.Stat.file[i].split(','))

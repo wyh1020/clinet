@@ -38,7 +38,6 @@
 <script>
   import NavBar from './HomePage/NavBar';
   import NoticeBar from './HomePage/NoticeBar';
-  const path = require('path');
   export default {
     name: 'login-page',
     components: { NavBar, NoticeBar },
@@ -58,8 +57,7 @@
           this.$router.push('/home');
         } else {
           this.hasData = true;
-          const systemHitbTable = path.join(process.env.USERPROFILE, '\\clinet-data\\system\\')
-          this.$store.commit('SET_NOTICE', `读取系统初始化文件失败，请重新下载，放到${systemHitbTable}目录下！`)
+          this.$store.commit('SET_NOTICE', `读取系统初始化文件失败，请重新下载，放到${global.hitbdata.path.system}目录下！`)
         }
       }
     },

@@ -28,8 +28,6 @@
 
 <script>
   const fs = require('fs');
-  const path = require('path');
-  const basePath = path.format({ dir: 'C:\\hitbdata' });
   export default {
     data() {
       return {
@@ -39,7 +37,7 @@
     methods: {
       loadPath: function () {},
       getFiles: function () {
-        const files = fs.readdirSync(basePath)
+        const files = fs.readdirSync(global.hitbdata.path.home)
         this.$store.commit('SET_TOOLBAR', 'files');
         this.$store.commit('GET_FILES', files);
       },

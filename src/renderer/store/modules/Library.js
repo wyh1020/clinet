@@ -1,6 +1,4 @@
 const fs = require('fs');
-const path = require('path');
-const basePath = path.format({ dir: 'C:\\hitbdata\\library' });
 
 const state = {
   files: [],
@@ -9,7 +7,7 @@ const state = {
 
 const mutations = {
   LIBRARY_LOAD_FILES() {
-    const files = fs.readdirSync(basePath).filter(x => x.endsWith('.csv'))
+    const files = fs.readdirSync(global.hitbdata.path.library).filter(x => x.endsWith('.csv'))
     state.files = files;
   },
   LIBRARY_LOAD_FILE(state, message) {

@@ -34,24 +34,32 @@ const fs = require('fs');
 const path = require('path');
 const hitbdata = path.join(process.env.USERPROFILE, '\\clinet-data');
 if (!fs.existsSync(hitbdata)) { fs.mkdirSync(hitbdata) }
-const hitbdataSystem = path.join(process.env.USERPROFILE, '\\clinet-data\\system');
+const hitbdataSystem = path.join(hitbdata, '\\system');
 if (!fs.existsSync(hitbdataSystem)) { fs.mkdirSync(hitbdataSystem) }
-const hitbdataLoaded = path.join(process.env.USERPROFILE, '\\clinet-data\\loaded');
+const hitbdataLoaded = path.join(hitbdata, '\\loaded');
 if (!fs.existsSync(hitbdataLoaded)) { fs.mkdirSync(hitbdataLoaded) }
-const hitbdataCompare = path.join(process.env.USERPROFILE, '\\clinet-data\\compare');
+const hitbdataCompare = path.join(hitbdata, '\\compare');
 if (!fs.existsSync(hitbdataCompare)) { fs.mkdirSync(hitbdataCompare) }
-const hitbdataUser = path.join(process.env.USERPROFILE, '\\clinet-data\\user');
+const hitbdataUser = path.join(hitbdata, '\\user');
 if (!fs.existsSync(hitbdataUser)) { fs.mkdirSync(hitbdataUser) }
-const hitbdataLibrary = path.join(process.env.USERPROFILE, '\\clinet-data\\library');
+const hitbdataLibrary = path.join(hitbdata, '\\library');
 if (!fs.existsSync(hitbdataLibrary)) { fs.mkdirSync(hitbdataLibrary) }
-const hitbdataStat = path.join(process.env.USERPROFILE, '\\clinet-data\\stat');
+const hitbdataStat = path.join(hitbdata, '\\stat');
 if (!fs.existsSync(hitbdataStat)) { fs.mkdirSync(hitbdataStat) }
-
-// 读取系统初始化文件
-const systemHitbTable = path.join(process.env.USERPROFILE, '\\clinet-data\\system\\hitb_table.csv')
-const readline = require('readline');
+// 设置应用系统的全局变量
 global.hitbdata = {};
-
+global.hitbdata['path'] = {
+  home: hitbdata,
+  system: hitbdataSystem,
+  loaded: hitbdataLoaded,
+  compare: hitbdataCompare,
+  user: hitbdataUser,
+  library: hitbdataLibrary,
+  stat: hitbdataStat
+};
+// 读取系统初始化文件
+const systemHitbTable = path.join(hitbdataSystem, '\\hitb_table.csv')
+const readline = require('readline');
 if(fs.existsSync(systemHitbTable)){
   const fRead = fs.createReadStream(systemHitbTable);
   const fReadline = readline.createInterface({ input: fRead });

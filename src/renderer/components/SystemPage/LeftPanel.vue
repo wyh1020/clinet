@@ -84,7 +84,7 @@
           case 'files':
             if (data.endsWith('.csv')) {
               const file = path.format({
-                dir: 'C:\\hitbdata\\',
+                dir: global.hitbdata.path.home,
                 base: data
               });
               fs.lstat(file, (err, stat) => {
