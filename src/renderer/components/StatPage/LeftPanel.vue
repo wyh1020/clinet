@@ -12,6 +12,8 @@
 </template>
 
 <script>
+  import chartRadar from '../../utils/ChartRadar';
+  import chartScatter from '../../utils/ChartScatter';
   const fs = require('fs')
   const path = require('path');
   const readline = require('readline');
@@ -47,6 +49,8 @@
                 // console.log(f);
                 this.$store.commit('STAT_LOAD_FILE', f);
                 this.$store.commit('SET_NOTICE', 'CSV文件读取成功！');
+                chartRadar()
+                chartScatter()
               });
               fReadline.on('line', (line) => {
                 f.push(line)

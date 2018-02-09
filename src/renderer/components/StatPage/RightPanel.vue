@@ -6,10 +6,12 @@
         <left-panel></left-panel>
       </div>
       <div class="col">
-        <div id="chart1" style="width: 600px; height:400px;"></div>
+        <div id="chartLine" style="width: 600px; height:400px;"></div>
+        <div id="chartRadar" style="width: 600px; height:400px;"></div>
       </div>
       <div class="col">
-        <div id="chart2" style="width: 600px; height:400px;"></div>
+        <div id="chartBar" style="width: 600px; height:400px;"></div>
+        <div id="chartScatter" style="width: 600px; height:400px;"></div>
       </div>
       <div class="col">
         <div class="alert alert-danger" role="alert" style="height:100%; overflow-y:auto;">
