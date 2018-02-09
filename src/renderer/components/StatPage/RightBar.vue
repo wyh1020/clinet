@@ -35,10 +35,10 @@
             左图选择
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="nav-link" href="#" v-on:click='showBar'> 柱状图 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='showLine'> 折线图 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='showRadar'> 雷达图 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='showScatter'> 散点图 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" v-on:click='showChart("left", "柱状图")'> 柱状图 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" v-on:click='showChart("left", "折线图")'> 折线图 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" v-on:click='showChart("left", "雷达图")'> 雷达图 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" v-on:click='showChart("left", "散点图")'> 散点图 <span class="sr-only">(current)</span></a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -46,10 +46,10 @@
             右图选择
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="nav-link" href="#" v-on:click='showBar'> 柱状图 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='showLine'> 折线图 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='showRadar'> 雷达图 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='showScatter'> 散点图 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" v-on:click='showChart("right", "柱状图")'> 柱状图 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" v-on:click='showChart("right", "折线图")'> 折线图 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" v-on:click='showChart("right", "雷达图")'> 雷达图 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" v-on:click='showChart("right", "散点图")'> 散点图 <span class="sr-only">(current)</span></a>
           </div>
         </li>
       </ul>
@@ -82,17 +82,29 @@
       edit: function () {
         this.$router.push('/edit');
       },
-      showBar: function () {
-        chartBar()
-      },
-      showLine: function () {
-        chartLine()
-      },
-      showRadar: function () {
-        chartRadar()
-      },
-      showScatter: function () {
-        chartScatter()
+      showChart: function (x, y) {
+        let id = 'chartLeft'
+        if (x === 'right') {
+          id = 'chartRight';
+          this.$store.commit('SET_CHART_RIGHT', y);
+        } else {
+          this.$store.commit('SET_CHART_LEFT', y);
+        }
+        switch (y) {
+          case '柱状图':
+            chartBar(id)
+            break;
+          case '折线图':
+            chartLine(id)
+            break;
+          case '雷达图':
+            chartRadar(id)
+            break;
+          case '散点图':
+            chartScatter(id)
+            break;
+          default: break;
+        }
       },
       compare: function () {
 
