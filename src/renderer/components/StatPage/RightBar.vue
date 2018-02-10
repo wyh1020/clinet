@@ -58,13 +58,8 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="nav-link" href="#" v-on:click='selX("机构")'> 机构 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='selX("年度")'> 年度 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='selX("半年")'> 半年 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='selX("季度")'> 季度 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='selX("月度")'> 月度 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='selX("MDC")'> MDC <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='selX("ADRG")'> ADRG <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='selX("DRG")'> DRG <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" v-on:click='selX("时间")'> 时间 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" v-on:click='selX("病种")'> 病种 <span class="sr-only">(current)</span></a>
           </div>
         </li>
       </ul>
@@ -89,6 +84,7 @@
     },
     methods: {
       loadData: function () {
+        this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
         this.$store.commit('STAT_LOAD_FILES');
       },
       serverData: function () {
@@ -98,7 +94,7 @@
         this.$router.push('/edit');
       },
       selX: function (x) {
-        console.log(x)
+        this.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', x]);
       },
       showChart: function (id, type) {
         if (id === 'chartRight') {

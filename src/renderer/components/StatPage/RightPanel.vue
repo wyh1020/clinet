@@ -53,7 +53,7 @@
           // console.log(fileLen)
           if (fileLen > 99) { fileLen = 99 }
           for (let i = 0; i < fileLen; i += 1) {
-            f.push(this.$store.state.Stat.file[i].split(','))
+            f.push(this.$store.state.Stat.table[i])
           }
           return f
         }
@@ -88,7 +88,7 @@
         switch (type) {
           case '柱状图':
             chartBar(id, option)
-            this.$store.commit('SET_CHART_OPTION', [id, type, option])
+            this.$store.commit('STAT_SET_CHART_OPTION', [id, type, option])
             break;
           case '折线图':
             chartLine(id)

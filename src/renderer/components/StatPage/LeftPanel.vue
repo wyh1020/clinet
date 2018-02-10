@@ -1,35 +1,26 @@
 <template>
   <div style="height:400px; overflow-y:auto;">
-    <table>
-      <tr>
-        <th class="table-danger"> 数据分析文件</th>
-      </tr>
-      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
-        <td>{{data}}</td>
-      </tr>
-    </table>
+    <left-panel-file v-if="leftPanel == 'file'"></left-panel-file>
+    <left-panel-dimension v-if="leftPanel == 'dimension'"></left-panel-dimension>
   </div>
 </template>
 
 <script>
-  import loadFile from '../../utils/LoadFile';
+  import LeftPanelFile from './LeftPanelFile'
+  import LeftPanelDimension from './LeftPanelDimension'
+  
   export default {
-    data() {
-      return {
-        flag: null
-      };
-    },
+    components: { LeftPanelFile, LeftPanelDimension },
     computed: {
-      xs: {
+      leftPanel: {
         get() {
-          return this.$store.state.Stat.files
+          return this.$store.state.Stat.leftPanel
         }
       }
     },
     methods: {
       loadFile: function (data, index) {
         this.flag = index
-        loadFile(this, data, 'stat')
       },
     },
   };
