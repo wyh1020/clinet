@@ -4,7 +4,7 @@
       <tr>
         <th class="table-danger"> 维度选择</th>
       </tr>
-      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
+      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="setDimension(data, index)" v-bind:class="{'table-danger':flag == index}">
         <td>{{data}}</td>
       </tr>
     </table>
@@ -26,8 +26,9 @@
       }
     },
     methods: {
-      loadFile: function (data, index) {
+      setDimension: function (data, index) {
         this.flag = index
+        this.$store.commit('STAT_SET_DIMENSION', [this.$store.state.Stat.dimensionType, data]);
       },
     },
   };

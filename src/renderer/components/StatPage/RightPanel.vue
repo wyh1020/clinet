@@ -49,11 +49,19 @@
       xs: {
         get() {
           const f = []
-          let fileLen = this.$store.state.Stat.file.length;
+          let start = 0
+          let fileLen = this.$store.state.Stat.tableSel.length;
           // console.log(fileLen)
-          if (fileLen > 99) { fileLen = 99 }
-          for (let i = 0; i < fileLen; i += 1) {
-            f.push(this.$store.state.Stat.table[i])
+          if (fileLen > 99) {
+            if (this.$store.state.Stat.tablePage > 0) {
+              start = 100 * this.$store.state.Stat.tablePage
+              fileLen = start + 99
+            } else {
+              fileLen = 99
+            }
+          }
+          for (let i = start; i < fileLen; i += 1) {
+            f.push(this.$store.state.Stat.tableSel[i])
           }
           return f
         }

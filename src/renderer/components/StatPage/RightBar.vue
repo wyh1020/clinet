@@ -12,10 +12,10 @@
         <li class="nav-item active" v-on:click='serverData'>
           <a class="nav-link text-light" href="#"> 远程文件 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item active" v-on:click='page(-1)'>
           <a class="nav-link text-light" href="#"> 前一页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item active" v-on:click='page(1)'>
           <a class="nav-link text-light" href="#"> 后一页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='edit'>
@@ -89,6 +89,9 @@
       },
       serverData: function () {
         this.$store.commit('STAT_SERVER_FILES');
+      },
+      page: function (n) {
+        this.$store.commit('STAT_TABLE_PAGE', n);
       },
       edit: function () {
         this.$router.push('/edit');
