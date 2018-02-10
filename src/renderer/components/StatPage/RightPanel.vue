@@ -13,7 +13,7 @@
       </div>
       <div class="col">
         <div class="alert alert-danger" role="alert" style="height:100%; overflow-y:auto;">
-          <h4 class="alert-heading">数据分析提示!</h4>
+          <h4 class="alert-heading">数据分析提示</h4>
           <ol class="">
             <li class="">aaa</li>
             <li class="" aria-current="page">bbb</li>
@@ -22,8 +22,8 @@
       </div>
     </div>
     <table>
-      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger':flag == index}">
-        <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
+      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger':flag.find((n)=>n===index)}">
+        <td v-for="(field, index) in data" v-bind:key='index' v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}" v-on:click="onClickTd(data, index)">{{data[index]}}</td>
       </tr>
     </table>
   </div>
@@ -41,7 +41,8 @@
     components: { RightBar, LeftPanel },
     data() {
       return {
-        flag: null
+        flag: [],
+        flagTd: []
       };
     },
     computed: {
@@ -59,8 +60,23 @@
       }
     },
     methods: {
+      onClickTd: function (data, index) {
+        if (data[0] === 'org' && data[1] === 'time') {
+          const x = this.flagTd.indexOf(index)
+          if (x === -1) {
+            this.flagTd.push(index)
+          } else {
+            this.flagTd.splice(x, 1)
+          }
+        }
+      },
       onClick: function (data, index) {
-        this.flag = index
+        const x = this.flag.indexOf(index)
+        if (x === -1) {
+          this.flag.push(index)
+        } else {
+          this.flag.splice(x, 1)
+        }
         // console.log(this.$store.state.System.table[n])
         this.$store.commit('GET_FIELD', data);
         this.$store.commit('GET_FIELD_INDEX', index);
