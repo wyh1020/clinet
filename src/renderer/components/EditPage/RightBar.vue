@@ -10,20 +10,20 @@
           <a class="nav-link text-light" href="#"> 帮助 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='loadData'>
-          <a class="nav-link text-light" href="#"> 本地文件 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 本地 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='serverData'>
-          <a class="nav-link text-light" href="#"> 远程文件 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 远程 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link text-light" href="#"> 前一页 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link text-light" href="#"> 后一页 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            选择帮助类型
+            选择
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#">输入框提示</a>
@@ -53,6 +53,7 @@
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
       },
       loadData: function () {
+        this.$store.commit('EDIT_SET_LAST_NAV', 'edit');
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
         this.$store.commit('EDIT_LOAD_FILES');
       },

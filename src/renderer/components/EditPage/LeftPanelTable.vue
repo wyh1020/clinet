@@ -4,7 +4,7 @@
       <tr>
         <th class="table-danger"> 选择编辑条目</th>
       </tr>
-      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadDoc(data, index)" v-bind:class="{'table-danger':flag == index}">
+      <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="loadDoc(data, index)" v-bind:class="{'table-danger':flag == index}">
         <td>{{data.substr(0, 100)}}</td>
       </tr>
     </table>
@@ -14,9 +14,24 @@
 <script>
   export default {
     computed: {
-      xs: {
+      file: {
         get() {
-          return this.$store.state.Edit.file
+          const f = []
+          let start = 0
+          let fileLen = this.$store.state.Edit.file.length;
+          // console.log(fileLen)
+          if (fileLen > 99) {
+            if (this.$store.state.Edit.filePage > 0) {
+              start = 100 * this.$store.state.Edit.filePage
+              fileLen = start + 99
+            } else {
+              fileLen = 99
+            }
+          }
+          for (let i = start; i < fileLen; i += 1) {
+            f.push(this.$store.state.Edit.file[i])
+          }
+          return f
         }
       },
       flag: {

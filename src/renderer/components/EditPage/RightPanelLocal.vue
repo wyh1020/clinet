@@ -2,7 +2,7 @@
   <div>
     <table>
       <tr>
-        <th class="table-danger"> 用户本地文件</th>
+        <th class="table-danger"> {{title}}</th>
       </tr>
       <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
         <td>{{data}}</td>
@@ -16,9 +16,36 @@
   export default {
     components: { },
     computed: {
+      title: {
+        get() {
+          let x = '用户本地文件'
+          switch (this.$store.state.Edit.lastNav) {
+            case '/stat':
+              x = '数据分析文件'
+              break;
+            case '/library':
+              x = '术语字典文件'
+              break;
+            default:
+              break
+          }
+          return x
+        }
+      },
       xs: {
         get() {
-          return this.$store.state.Edit.files
+          let x = this.$store.state.Edit.files
+          switch (this.$store.state.Edit.lastNav) {
+            case '/stat':
+              x = this.$store.state.Stat.files
+              break;
+            case '/library':
+              x = this.$store.state.Library.files
+              break;
+            default:
+              break
+          }
+          return x
         }
       },
       flag: {
@@ -30,7 +57,18 @@
     methods: {
       loadFile: function (data, index) {
         this.$store.commit('EDIT_SET_FILES_INDEX', index)
-        loadFile(this, data, 'user')
+        let x = 'user'
+        switch (this.$store.state.Edit.lastNav) {
+          case '/stat':
+            x = 'stat'
+            break;
+          case '/library':
+            x = 'library'
+            break;
+          default:
+            break
+        }
+        loadFile(this, data, x, 'edit')
       },
     },
   };

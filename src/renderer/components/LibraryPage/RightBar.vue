@@ -18,7 +18,7 @@
         <li class="nav-item active">
           <a class="nav-link text-light" href="#"> 后一页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='editData'>
+        <li class="nav-item active" v-on:click='edit'>
           <a class="nav-link text-light" href="#"> 编辑数据 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -43,7 +43,9 @@
       serverData: function () {
         this.$store.commit('LIBRARY_SERVER_FILES');
       },
-      editData: function () {
+      edit: function () {
+        this.$store.commit('EDIT_SET_LAST_NAV', '/library');
+        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
         this.$router.push('/edit');
         // this.$store.commit('GET_PATH', 'paths');
       },

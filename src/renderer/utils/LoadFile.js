@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path');
 const readline = require('readline');
-export default function loadFile(obj, x, p) {
+export default function loadFile(obj, x, p, e = null) {
   let dir = global.hitbdata.path.home
   switch (p) {
     case 'user':
@@ -39,13 +39,28 @@ export default function loadFile(obj, x, p) {
               obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
               break
             case 'stat':
-              obj.$store.commit('STAT_LOAD_FILE', f);
+              if (e) {
+                obj.$store.commit('EDIT_LOAD_FILE', f);
+                obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
+              } else {
+                obj.$store.commit('STAT_LOAD_FILE', f);
+              }
               break
             case 'library':
-              obj.$store.commit('LIBRARY_LOAD_FILE', f);
+              if (e) {
+                obj.$store.commit('EDIT_LOAD_FILE', f);
+                obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
+              } else {
+                obj.$store.commit('LIBRARY_LOAD_FILE', f);
+              }
               break
             case 'system':
-              obj.$store.commit('GET_FILE', f);
+              if (e) {
+                obj.$store.commit('EDIT_LOAD_FILE', f);
+                obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
+              } else {
+                obj.$store.commit('GET_FILE', f);
+              }
               break
             default: break
           }

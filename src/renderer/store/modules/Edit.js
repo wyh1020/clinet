@@ -8,6 +8,8 @@ const state = {
   rightPanel: 'help',
   filesIndex: null,
   fileIndex: null,
+  lastNav: null,
+  filePage: 0,
 };
 
 const mutations = {
@@ -27,6 +29,9 @@ const mutations = {
   },
   EDIT_LOAD_FILE(state, message) {
     state.file = message;
+  },
+  EDIT_SET_FILE_PAGE(state, n) {
+    state.filePage += n;
   },
   EDIT_LOAD_DOC(state, message) {
     // console.log(message)
@@ -54,6 +59,9 @@ const mutations = {
   EDIT_SET_FILE_INDEX(state, message) {
     state.fileIndex = message;
   },
+  EDIT_SET_LAST_NAV(state, message) {
+    state.lastNav = message;
+  },
 
 };
 
@@ -69,6 +77,8 @@ const actions = {
     commit('EDIT_SET_RIGHT_PANEL');
     commit('EDIT_SET_FILES_INDEX');
     commit('EDIT_SET_FILE_INDEX');
+    commit('EDIT_SET_LAST_NAV');
+    commit('EDIT_SET_FILE_PAGE');
   },
 };
 

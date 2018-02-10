@@ -94,6 +94,8 @@
         this.$store.commit('STAT_TABLE_PAGE', n);
       },
       edit: function () {
+        this.$store.commit('EDIT_SET_LAST_NAV', '/stat');
+        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
         this.$router.push('/edit');
       },
       selX: function (x) {
