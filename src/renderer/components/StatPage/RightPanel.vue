@@ -15,8 +15,7 @@
         <div class="alert alert-danger" role="alert" style="height:100%; overflow-y:auto;">
           <h4 class="alert-heading">数据分析提示</h4>
           <ol class="">
-            <li class="">aaa</li>
-            <li class="" aria-current="page">bbb</li>
+            <li v-for="(data, index) in notice" v-bind:key='index'>{{data}}</li>
           </ol>
         </div>
       </div>
@@ -46,6 +45,11 @@
       };
     },
     computed: {
+      notice: {
+        get() {
+          return this.$store.state.Stat.notice
+        }
+      },
       xs: {
         get() {
           const f = []

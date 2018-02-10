@@ -23,6 +23,7 @@ const state = {
   dimensionOrgSel: [],
   dimensionTimeSel: [],
   dimensionDrgSel: [],
+  notice: [],
 };
 
 const mutations = {
@@ -37,6 +38,12 @@ const mutations = {
     state.dimensionOrg = [...new Set(state.table.map(a => a[0]))]
     state.dimensionTime = [...new Set(state.table.map(a => a[1]))]
     state.dimensionDrg = [...new Set(state.table.map(a => a[2]))]
+    state.notice = [
+      `病案总数：${state.tableSel.length - 1}`,
+      `机构总数：${state.dimensionOrg.length - 1}`,
+      `时间维度总数：${state.dimensionTime.length - 1}`,
+      `病种维度总数：${state.dimensionDrg.length - 1}`,
+    ]
   },
   STAT_TABLE_PAGE(state, n) {
     state.tablePage += n;
@@ -65,18 +72,18 @@ const mutations = {
   STAT_SET_DIMENSION(state, opt) {
     switch (opt[0]) {
       case '机构':
-        state.dimensionOrg.push(opt[1])
-        console.log(opt)
+        // state.dimensionOrg.push(opt[1])
+        // console.log(opt)
         state.tableSel = state.table.filter(x => x[0] === opt[1])
         break;
       case '时间':
-        console.log(opt)
-        state.dimensionTime.push(opt[1])
+        // console.log(opt)
+        // state.dimensionTime.push(opt[1])
         state.tableSel = state.table.filter(x => x[1] === opt[1])
         break;
       case '病种':
-        console.log(opt)
-        state.dimensionDrg.push(opt[1])
+        // console.log(opt)
+        // state.dimensionDrg.push(opt[1])
         state.tableSel = state.table.filter(x => x[2] === opt[1])
         break;
       default:
@@ -85,6 +92,9 @@ const mutations = {
         state.dimensionDrg = []
         break;
     }
+    state.notice = [
+      `病案总数：${state.tableSel.length - 1}`
+    ]
   },
   STAT_SET_CHART_OPTION(state, opt) {
     const id = opt[0]
