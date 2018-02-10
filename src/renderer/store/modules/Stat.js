@@ -3,8 +3,14 @@ const fs = require('fs');
 const state = {
   files: [],
   file: [],
-  chartLeft: 'chartLeft',
-  chartRight: 'chartRight',
+  leftBar: null,
+  leftLine: null,
+  leftRadar: null,
+  leftScatter: null,
+  rightBar: null,
+  rightLine: null,
+  rightRadar: null,
+  rightScatter: null,
 };
 
 const mutations = {
@@ -19,11 +25,45 @@ const mutations = {
     const files = []
     state.files = files;
   },
-  SET_CHART_LEFT(state, message) {
-    state.chartLeft = message;
-  },
-  SET_CHART_RIGHT(state, message) {
-    state.chartRight = message;
+  SET_CHART_OPTION(state, opt) {
+    const id = opt[0]
+    const type = opt[1]
+    const option = opt[2]
+    if (id === 'chartLeft') {
+      switch (type) {
+        case '柱状图':
+          state.leftBar = option;
+          break;
+        case '折线图':
+          state.leftLine = option;
+          break;
+        case '雷达图':
+          state.leftRadar = option;
+          break;
+        case '散点图':
+          state.leftScatter = option;
+          break;
+        default:
+          break
+      }
+    } else {
+      switch (type) {
+        case '柱状图':
+          state.rightBar = option;
+          break;
+        case '折线图':
+          state.rightLine = option;
+          break;
+        case '雷达图':
+          state.rightRadar = option;
+          break;
+        case '散点图':
+          state.rightScatter = option;
+          break;
+        default:
+          break
+      }
+    }
   },
 };
 
@@ -32,8 +72,7 @@ const actions = {
     commit('STAT_LOAD_FILES');
     commit('STAT_LOAD_FILE');
     commit('STAT_SERVER_FILES');
-    commit('SET_CHART_LEFT');
-    commit('SET_CHART_RIGHT');
+    commit('SET_CHART_OPTION');
   },
 };
 

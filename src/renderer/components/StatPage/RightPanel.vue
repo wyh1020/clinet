@@ -30,6 +30,11 @@
 </template>
 
 <script>
+  import chartData from '../../utils/ChartData';
+  import chartLine from '../../utils/ChartLine';
+  import chartScatter from '../../utils/ChartScatter';
+  import chartRadar from '../../utils/ChartRadar';
+  import chartBar from '../../utils/ChartBar';
   import RightBar from './RightBar';
   import LeftPanel from './Leftpanel';
   export default {
@@ -59,9 +64,27 @@
         // console.log(this.$store.state.System.table[n])
         this.$store.commit('GET_FIELD', data);
         this.$store.commit('GET_FIELD_INDEX', index);
-      },
-      show: function () {
-        this.showChart()
+        const id = 'chartLeft'
+        const type = '柱状图'
+        const table = this.$store.state.Stat.file
+        const option = chartData(table)
+        // console.log(option)
+        switch (type) {
+          case '柱状图':
+            chartBar(id, option)
+            this.$store.commit('SET_CHART_OPTION', [id, type, option])
+            break;
+          case '折线图':
+            chartLine(id)
+            break;
+          case '雷达图':
+            chartRadar(id)
+            break;
+          case '散点图':
+            chartScatter(id)
+            break;
+          default: break;
+        }
       },
     },
   };
