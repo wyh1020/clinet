@@ -57,10 +57,10 @@
         this.$router.push('/stat');
       },
       toTable: function () {
-        this.$store.commit('EDIT_SET_LEFTPANEL', 'table')
+        this.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
       },
       newDoc: function () {
-        this.$store.commit('EDIT_SET_LEFTPANEL', 'doc')
+        this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
       },
       save: function () {
 

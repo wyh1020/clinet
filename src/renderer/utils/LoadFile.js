@@ -36,7 +36,7 @@ export default function loadFile(obj, x, p) {
           switch (p) {
             case 'user':
               obj.$store.commit('EDIT_LOAD_FILE', f);
-              obj.$store.commit('EDIT_SET_LEFTPANEL', 'table')
+              obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
               break
             case 'stat':
               obj.$store.commit('STAT_LOAD_FILE', f);

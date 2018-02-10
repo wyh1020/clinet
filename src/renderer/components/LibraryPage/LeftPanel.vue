@@ -4,7 +4,7 @@
       <tr>
         <th class="table-danger"> 术语字典文件</th>
       </tr>
-      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data)">
+      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
         <td>{{data}}</td>
       </tr>
     </table>
@@ -27,8 +27,9 @@
       }
     },
     methods: {
-      loadFile: function (x) {
-        loadFile(this, x, 'library')
+      loadFile: function (data, index) {
+        this.flag = index;
+        loadFile(this, data, 'library')
       },
     },
   };

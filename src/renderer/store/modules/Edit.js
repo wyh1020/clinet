@@ -5,7 +5,9 @@ const state = {
   file: [],
   doc: [],
   leftPanel: 'doc',
-  rightPanel: 'help'
+  rightPanel: 'help',
+  filesIndex: null,
+  fileIndex: null,
 };
 
 const mutations = {
@@ -32,10 +34,10 @@ const mutations = {
     // console.log(x)
     state.doc = x;
   },
-  EDIT_SET_LEFTPANEL(state, message) {
+  EDIT_SET_LEFT_PANEL(state, message) {
     state.leftPanel = message;
   },
-  EDIT_SET_RIGHTPANEL(state, message) {
+  EDIT_SET_RIGHT_PANEL(state, message) {
     state.rightPanel = message;
   },
   EDIT_SERVER_FILES() {
@@ -43,6 +45,13 @@ const mutations = {
     const files = []
     state.files = files;
   },
+  EDIT_SET_FILES_INDEX(state, message) {
+    state.filesIndex = message;
+  },
+  EDIT_SET_FILE_INDEX(state, message) {
+    state.fileIndex = message;
+  },
+
 };
 
 const actions = {
@@ -52,8 +61,10 @@ const actions = {
     commit('EDIT_LOAD_FILE');
     commit('EDIT_LOAD_DOC');
     commit('EDIT_SERVER_FILES');
-    commit('EDIT_SET_LEFTPANEL');
-    commit('EDIT_SET_RIGHTPANEL');
+    commit('EDIT_SET_LEFT_PANEL');
+    commit('EDIT_SET_RIGHT_PANEL');
+    commit('EDIT_SET_FILES_INDEX');
+    commit('EDIT_SET_FILE_INDEX');
   },
 };
 

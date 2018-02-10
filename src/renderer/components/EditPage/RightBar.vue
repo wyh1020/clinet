@@ -50,10 +50,10 @@
     },
     methods: {
       help: function () {
-        this.$store.commit('EDIT_SET_RIGHTPANEL', 'help');
+        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
       },
       loadData: function () {
-        this.$store.commit('EDIT_SET_RIGHTPANEL', 'local');
+        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
         this.$store.commit('EDIT_LOAD_FILES');
       },
       serverData: function () {
