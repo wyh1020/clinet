@@ -10,7 +10,10 @@
           <a class="nav-link text-light" href="#"> 返回上级菜单 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item" v-on:click="toTable">
-          <a class="nav-link text-light" href="#">返回列表</a>
+          <a class="nav-link text-light" href="#">列表状态</a>
+        </li>
+        <li class="nav-item" v-on:click="toDoc">
+          <a class="nav-link text-light" href="#">编辑状态</a>
         </li>
         <li class="nav-item" v-on:click="newDoc">
           <a class="nav-link text-light" href="#">新建</a>
@@ -59,7 +62,11 @@
       toTable: function () {
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
       },
+      toDoc: function () {
+        this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
+      },
       newDoc: function () {
+        this.$store.commit('EDIT_SET_DOC')
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
       },
       save: function () {

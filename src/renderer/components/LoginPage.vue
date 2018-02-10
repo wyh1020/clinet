@@ -8,15 +8,15 @@
           <div class="left-side">
             <form>
               <div class="form-group">
-                <label for="exampleInputEmail1">注册的Email地址</label>
+                <label for="exampleInputEmail1" class="text-danger">注册的Email地址</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
               </div>
               <div class="form-group">
-                <label for="exampleInputPassword1">用户密码</label>
+                <label for="exampleInputPassword1" class="text-danger">用户密码</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
               </div>
             </form>
-            <button class="btn btn-primary" v-on:click="login">登陆</button>
+            <button class="btn btn-outline-primary" v-on:click="login">登陆</button>
           </div>
         </main>
       </div>

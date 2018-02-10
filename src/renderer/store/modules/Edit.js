@@ -34,6 +34,9 @@ const mutations = {
     // console.log(x)
     state.doc = x;
   },
+  EDIT_SET_DOC(state) {
+    state.doc = [];
+  },
   EDIT_SET_LEFT_PANEL(state, message) {
     state.leftPanel = message;
   },
@@ -60,6 +63,7 @@ const actions = {
     commit('EDIT_LOAD_FILES');
     commit('EDIT_LOAD_FILE');
     commit('EDIT_LOAD_DOC');
+    commit('EDIT_SET_DOC');
     commit('EDIT_SERVER_FILES');
     commit('EDIT_SET_LEFT_PANEL');
     commit('EDIT_SET_RIGHT_PANEL');
