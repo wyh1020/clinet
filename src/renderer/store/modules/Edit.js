@@ -4,25 +4,27 @@ const state = {
   files: [],
   file: [],
   doc: [],
-  leftPanel: 'doc',
-  rightPanel: 'help',
+  docIndex: 0,
   filesIndex: null,
   fileIndex: null,
+  leftPanel: 'doc',
+  rightPanel: 'help',
   lastNav: null,
   filePage: 0,
   filesPage: 0,
 };
 
 const mutations = {
-  PUSH_DOC(state, message) {
+  EDIT_PUSH_DOC(state, message) {
     // console.log(message)
     const x = message.split(' ').filter(i => i !== '');
     // console.log(x)
     state.doc.push(x);
   },
-  POP_DOC(state, message) {
-    console.log(message);
-    state.doc.pop();
+  EDIT_UPDATE_DOC(state, m) {
+    // console.log(m);
+    const x = m[1].split(' ').filter(i => i !== '');
+    state.doc[m[0]] = x;
   },
   EDIT_LOAD_FILES() {
     const files = fs.readdirSync(global.hitbdata.path.user).filter(x => x.endsWith('.csv'))
@@ -66,12 +68,18 @@ const mutations = {
   EDIT_SET_LAST_NAV(state, message) {
     state.lastNav = message;
   },
-
+  EDIT_SET_DOC_INDEX(state, m) {
+    if (m[1]) {
+      state.docIndex = 0;
+    } else {
+      state.docIndex += m[0];
+    }
+  },
 };
 
 const actions = {
   someAsyncTask({ commit }) {
-    commit('PUSH_DOC');
+    commit('EDIT_PUSH_DOC');
     commit('EDIT_LOAD_FILES');
     commit('EDIT_LOAD_FILE');
     commit('EDIT_LOAD_DOC');
@@ -84,6 +92,8 @@ const actions = {
     commit('EDIT_SET_LAST_NAV');
     commit('EDIT_SET_FILE_PAGE');
     commit('EDIT_SET_FILES_PAGE');
+    commit('EDIT_SET_DOC_INDEX');
+    commit('EDIT_UPDATE_DOC');
   },
 };
 

@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-body">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item" v-for="(item, index) in doc" v-bind:key='index'>
+          <li class="breadcrumb-item" v-for="(item, index) in doc" v-bind:key='index' v-bind:class="{'table-danger':flag == index}">
             <b>{{ item[0] }}</b>
             ：{{ item[1] }} {{ item[2] }} {{ item[3] }} {{ item[4] }}
               {{ item[5] }} {{ item[6] }} {{ item[7] }} {{ item[8] }}
@@ -18,6 +18,11 @@
 
   export default {
     computed: {
+      flag: {
+        get() {
+          return this.$store.state.Edit.docIndex
+        }
+      },
       doc: {
         get() {
           return this.$store.state.Edit.doc
