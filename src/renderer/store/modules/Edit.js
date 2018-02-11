@@ -15,16 +15,11 @@ const state = {
 };
 
 const mutations = {
-  EDIT_PUSH_DOC(state, message) {
-    // console.log(message)
-    const x = message.split(' ').filter(i => i !== '');
-    // console.log(x)
-    state.doc.push(x);
-  },
   EDIT_UPDATE_DOC(state, m) {
-    // console.log(m);
-    const x = m[1].split(' ').filter(i => i !== '');
-    state.doc[m[0]] = x;
+    state.doc[m[0]] = m[1];
+  },
+  EDIT_DELETE_ITEM(state, n) {
+    state.doc.splice(n, 1);
   },
   EDIT_LOAD_FILES() {
     const files = fs.readdirSync(global.hitbdata.path.user).filter(x => x.endsWith('.csv'))
@@ -73,13 +68,14 @@ const mutations = {
       state.docIndex = 0;
     } else {
       state.docIndex += m[0];
+      if (state.docIndex < 0) { state.docIndex = 0 }
+      if (state.docIndex > state.doc.length) { state.docIndex = state.doc.length }
     }
   },
 };
 
 const actions = {
   someAsyncTask({ commit }) {
-    commit('EDIT_PUSH_DOC');
     commit('EDIT_LOAD_FILES');
     commit('EDIT_LOAD_FILE');
     commit('EDIT_LOAD_DOC');
@@ -94,6 +90,7 @@ const actions = {
     commit('EDIT_SET_FILES_PAGE');
     commit('EDIT_SET_DOC_INDEX');
     commit('EDIT_UPDATE_DOC');
+    commit('EDIT_DELETE_ITEM');
   },
 };
 

@@ -53,6 +53,7 @@
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'left')
         this.$store.commit('EDIT_SET_DOC_INDEX', [0, true]);
+        document.getElementById('edit-input').focus()
       },
     },
   };
