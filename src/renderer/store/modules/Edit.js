@@ -17,14 +17,35 @@ const state = {
 
 const mutations = {
   EDIT_UPDATE_DOC(state, m) {
-    if (m[0] === 0) {
-      state.doc.push(m[1])
-    } else {
-      state.doc[m[0]] = m[1];
-    }
+    state.doc.splice(m[0], 1, m[1])
+    // if (m[0] === 0) {
+    //   state.doc.splice(0, 1, m[1])
+    // } else {
+    //   state.doc[m[0]] = m[1];
+    // }
   },
   EDIT_DELETE_ITEM(state, n) {
     state.doc.splice(n, 1);
+  },
+  EDIT_DELETE_DOC(state, n) {
+    state.file.splice(n, 1);
+    state.doc = [];
+  },
+  EDIT_DELETE_FILE(state, n) {
+    state.files.splice(n, 1);
+    state.file = [];
+  },
+  EDIT_ADD_DOC(state, message) {
+    state.file.push(message);
+  },
+  EDIT_ADD_FILE(state, message) {
+    state.files.push(message);
+  },
+  EDIT_SAVE_DOC(state, m) {
+    state.file.splice(m[0], 1, m[1]);
+  },
+  EDIT_SAVE_FILE(state, m) {
+    state.file.splice(m[0], 1, m[1]);
   },
   EDIT_LOAD_FILES() {
     const files = fs.readdirSync(global.hitbdata.path.user).filter(x => x.endsWith('.csv') || x.endsWith('.cda'))
@@ -99,6 +120,12 @@ const actions = {
     commit('EDIT_SET_DOC_INDEX');
     commit('EDIT_UPDATE_DOC');
     commit('EDIT_DELETE_ITEM');
+    commit('EDIT_DELETE_DOC');
+    commit('EDIT_DELETE_FILE');
+    commit('EDIT_ADD_DOC');
+    commit('EDIT_ADD_FILE');
+    commit('EDIT_SAVE_DOC');
+    commit('EDIT_SAVE_FILE');
     commit('EDIT_SET_FILE_TYPE');
   },
 };

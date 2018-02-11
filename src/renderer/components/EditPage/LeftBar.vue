@@ -33,6 +33,9 @@
         <li class="nav-item" v-on:click="save(0)">
           <a class="nav-link text-light" href="#">删除</a>
         </li>
+        <li class="nav-item" v-on:click="saveFile">
+          <a class="nav-link text-light" href="#">写文件</a>
+        </li>
         <li class="nav-item active" v-on:click='page(-1)' v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
         </li>
@@ -48,8 +51,7 @@
 </template>
 
 <script>
-  const fs = require('fs')
-  const path = require('path');
+  import saveFile from '../../utils/SaveFile'
   export default {
     data() {
       return {
@@ -63,49 +65,35 @@
       newDoc: function () {
         this.$store.commit('EDIT_SET_DOC')
         this.$store.commit('EDIT_SET_DOC_INDEX', [0, true])
+        this.$store.commit('EDIT_SET_FILE_INDEX', this.$store.state.Edit.file.length)
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
         document.getElementById('edit-input').focus()
       },
       page: function (n) {
         this.$store.commit('EDIT_SET_FILE_PAGE', n);
       },
+      saveFile: function () {
+        const x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
+        const p = this.$store.state.Edit.lastNav
+        saveFile(this, x, p)
+      },
       save: function (n) {
-        let dir = global.hitbdata.path.home
-        switch (this.$store.state.Edit.lastNav) {
-          case 'user':
-            dir = global.hitbdata.path.user
-            break
-          case 'stat':
-            dir = global.hitbdata.path.stat
-            break
-          case 'library':
-            dir = global.hitbdata.path.library
-            break
-          case 'system':
-            dir = global.hitbdata.path.system
-            break
-          default:
-            dir = global.hitbdata.path.user
-            break
-        }
-        const files = this.$store.state.Edit.files
-        const index = this.$store.state.Edit.filesIndex
-        const fileName = path.format({
-          dir: dir,
-          base: files[index]
-        });
-        const file = this.$store.state.Edit.file
         const fileIndex = this.$store.state.Edit.fileIndex
         const doc = this.$store.state.Edit.doc
-        console.log(doc)
-        console.log(file)
-        if (n > 10 && doc.length > 0) {
-          const data = doc.map(x => x[1]).toString()
-          fs.appendFile(fileName, `${data},\n`, (err) => {
-            console.log(err)
-          })
-        } else {
-          console.log(fileIndex)
+        switch (n) {
+          case 0:
+            this.$store.commit('EDIT_DELETE_DOC', fileIndex);
+            this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
+            this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
+            break;
+          case 1:
+            this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
+            break;
+          case 2:
+            this.$store.commit('EDIT_ADD_DOC', doc.toString());
+            break;
+          default:
+            break;
         }
       },
     },
