@@ -17,7 +17,11 @@ const state = {
 
 const mutations = {
   EDIT_UPDATE_DOC(state, m) {
-    state.doc[m[0]] = m[1];
+    if (m[0] === 0) {
+      state.doc.push(m[1])
+    } else {
+      state.doc[m[0]] = m[1];
+    }
   },
   EDIT_DELETE_ITEM(state, n) {
     state.doc.splice(n, 1);

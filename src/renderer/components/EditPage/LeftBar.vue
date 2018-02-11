@@ -62,7 +62,9 @@
       },
       newDoc: function () {
         this.$store.commit('EDIT_SET_DOC')
+        this.$store.commit('EDIT_SET_DOC_INDEX', [0, true])
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
+        document.getElementById('edit-input').focus()
       },
       page: function (n) {
         this.$store.commit('EDIT_SET_FILE_PAGE', n);

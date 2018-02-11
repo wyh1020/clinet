@@ -26,7 +26,7 @@
     methods: {
       enter(e) {
         const n = this.$store.state.Edit.docIndex
-        console.log(n)
+        // console.log(n)
         const v = e.target.value.split(' ').filter(i => i !== '');
         if (v.length > 0) {
           this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
