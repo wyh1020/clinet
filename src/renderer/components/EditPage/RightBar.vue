@@ -26,6 +26,9 @@
         <li class="nav-item active" v-on:click='serverData'>
           <a class="nav-link text-light" href="#"> 远程 <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active" v-on:click='user'>
+          <a class="nav-link text-light" href="#"> CDA <span class="sr-only">(current)</span></a>
+        </li>
         <li class="nav-item active" v-on:click='newFiles'>
           <a class="nav-link text-light" href="#"> 新文件 <span class="sr-only">(current)</span></a>
         </li>
@@ -54,6 +57,12 @@
     methods: {
       help: function () {
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
+      },
+      user: function () {
+        this.$store.commit('EDIT_SET_LAST_NAV', 'user');
+        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
+        this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
+        this.$store.commit('EDIT_LOAD_FILES');
       },
       localData: function () {
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');

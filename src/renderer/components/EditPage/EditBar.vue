@@ -47,7 +47,7 @@
         if (x) { this.item = x.toString().replace(/,/g, '   ') }
       },
       itemUp() {
-        if (this.$store.state.Edit.docIndex > 0) {
+        if (this.$store.state.Edit.docIndex > 0 && this.$store.state.Edit.fileType === 'cda') {
           if (this.$store.state.Edit.doc.length > this.$store.state.Edit.docIndex) {
             const n1 = this.$store.state.Edit.docIndex
             const v1 = this.$store.state.Edit.doc[n1]
@@ -60,7 +60,7 @@
         }
       },
       itemDown() {
-        if (this.$store.state.Edit.docIndex < this.$store.state.Edit.doc.length - 1) {
+        if (this.$store.state.Edit.docIndex < this.$store.state.Edit.doc.length - 1 && this.$store.state.Edit.fileType === 'cda') {
           const n1 = this.$store.state.Edit.docIndex
           const v1 = this.$store.state.Edit.doc[n1]
           const n2 = this.$store.state.Edit.docIndex + 1
@@ -71,11 +71,13 @@
         }
       },
       del() {
-        const n1 = this.$store.state.Edit.docIndex
-        const n2 = this.$store.state.Edit.docIndex + 1
-        const x = this.$store.state.Edit.doc[n2]
-        if (x) { this.item = x.toString().replace(/,/g, '   ') } else { this.item = '' }
-        this.$store.commit('EDIT_DELETE_ITEM', n1);
+        if (this.$store.state.Edit.fileType === 'cda') {
+          const n1 = this.$store.state.Edit.docIndex
+          const n2 = this.$store.state.Edit.docIndex + 1
+          const x = this.$store.state.Edit.doc[n2]
+          if (x) { this.item = x.toString().replace(/,/g, '   ') } else { this.item = '' }
+          this.$store.commit('EDIT_DELETE_ITEM', n1);
+        }
       },
       left() {
         console.log('left')
