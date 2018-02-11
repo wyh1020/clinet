@@ -9,7 +9,7 @@ const state = {
   fileIndex: null,
   leftPanel: 'doc',
   rightPanel: 'help',
-  lastNav: null,
+  lastNav: 'user',
   filePage: 0,
   filesPage: 0,
   fileType: 'csv',
@@ -53,6 +53,9 @@ const mutations = {
   },
   EDIT_LOAD_FILE(state, message) {
     state.file = message;
+  },
+  EDIT_NEW_FILES(state) {
+    console.log(state)
   },
   EDIT_SET_FILE_PAGE(state, n) {
     state.filePage += n;
@@ -127,6 +130,7 @@ const actions = {
     commit('EDIT_SAVE_DOC');
     commit('EDIT_SAVE_FILE');
     commit('EDIT_SET_FILE_TYPE');
+    commit('EDIT_NEW_FILES');
   },
 };
 

@@ -17,18 +17,18 @@ export default function saveFile(obj, x, p) {
       break
     default: break
   }
-  if (x.endsWith('.csv')) {
+  if (x && x.endsWith('.csv')) {
     const fileName = path.format({
       dir: dir,
       base: x
     });
     const data = obj.$store.state.Edit.file.map(x => `${x},\n`).toString()
-    console.log(data)
+    // console.log(data)
     console.log(fileName)
     fs.writeFile(fileName, data, (err) => {
       console.log(err)
     })
-  } if (x.endsWith('.cda')) {
+  } else if (x && x.endsWith('.cda')) {
     const fileName = path.format({
       dir: global.hitbdata.path.user,
       base: x
@@ -38,6 +38,21 @@ export default function saveFile(obj, x, p) {
       console.log(err)
     })
   } else {
-    // obj.$store.commit('SET_NOTICE', '选择的不是CSV文件，不能导入！');
+    const fileName = path.format({
+      dir: dir,
+      base: `${x}.cda`
+    });
+    if (fs.existsSync(fileName)) {
+      console.log('今日的CDA文件已经存在！')
+      obj.$store.commit('SET_NOTICE', '今日的CDA文件已经存在！');
+    } else {
+      fs.writeFile(fileName, '', (err) => {
+        if (err) {
+          console.log(err)
+        } else {
+          obj.$store.commit('SET_NOTICE', '今日的CDA文件新建成功！');
+        }
+      })
+    }
   }
 }

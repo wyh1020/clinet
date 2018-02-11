@@ -20,11 +20,14 @@
         <li class="nav-item active" v-on:click='help'>
           <a class="nav-link text-light" href="#"> 帮助 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadData'>
+        <li class="nav-item active" v-on:click='localData'>
           <a class="nav-link text-light" href="#"> 本地 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='serverData'>
           <a class="nav-link text-light" href="#"> 远程 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='newFiles'>
+          <a class="nav-link text-light" href="#"> 新文件 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
           <a class="nav-link text-light" href="#" v-on:click='page(-1)'> 前页 <span class="sr-only">(current)</span></a>
@@ -41,7 +44,7 @@
 </template>
 
 <script>
-
+  import saveFile from '../../utils/SaveFile'
   export default {
     data() {
       return {
@@ -52,11 +55,9 @@
       help: function () {
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
       },
-      loadData: function () {
-        this.$store.commit('EDIT_SET_LAST_NAV', 'edit');
+      localData: function () {
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
-        this.$store.commit('EDIT_SET_LAST_NAV', null);
         this.$store.commit('EDIT_LOAD_FILES');
       },
       serverData: function () {
@@ -69,6 +70,12 @@
         } else {
           this.$store.commit('EDIT_SET_FILES_PAGE', n);
         }
+      },
+      newFiles: function () {
+        const x = new Date().toLocaleDateString()
+        const p = this.$store.state.Edit.lastNav
+        saveFile(this, x, p)
+        // this.$store.commit('EDIT_NEW_FILES');
       },
     },
   };
