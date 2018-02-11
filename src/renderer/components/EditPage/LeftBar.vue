@@ -24,13 +24,13 @@
         <li class="nav-item" v-on:click="newDoc">
           <a class="nav-link text-light" href="#">新建</a>
         </li>
-        <li class="nav-item" v-on:click="save">
+        <li class="nav-item" v-on:click="save(1)">
           <a class="nav-link text-light" href="#">保存</a>
         </li>
-        <li class="nav-item" v-on:click="saveOther">
+        <li class="nav-item" v-on:click="save(2)">
           <a class="nav-link text-light" href="#">另存</a>
         </li>
-        <li class="nav-item" v-on:click="del">
+        <li class="nav-item" v-on:click="save(0)">
           <a class="nav-link text-light" href="#">删除</a>
         </li>
         <li class="nav-item active" v-on:click='page(-1)' v-if="this.$store.state.Edit.leftPanel == 'table'">
@@ -48,7 +48,8 @@
 </template>
 
 <script>
-
+  const fs = require('fs')
+  const path = require('path');
   export default {
     data() {
       return {
@@ -66,14 +67,44 @@
       page: function (n) {
         this.$store.commit('EDIT_SET_FILE_PAGE', n);
       },
-      save: function () {
-
-      },
-      saveOther: function () {
-
-      },
-      del: function () {
-
+      save: function (n) {
+        let dir = global.hitbdata.path.home
+        switch (this.$store.state.Edit.lastNav) {
+          case 'user':
+            dir = global.hitbdata.path.user
+            break
+          case 'stat':
+            dir = global.hitbdata.path.stat
+            break
+          case 'library':
+            dir = global.hitbdata.path.library
+            break
+          case 'system':
+            dir = global.hitbdata.path.system
+            break
+          default:
+            dir = global.hitbdata.path.user
+            break
+        }
+        const files = this.$store.state.Edit.files
+        const index = this.$store.state.Edit.filesIndex
+        const fileName = path.format({
+          dir: dir,
+          base: files[index]
+        });
+        const file = this.$store.state.Edit.file
+        const fileIndex = this.$store.state.Edit.fileIndex
+        const doc = this.$store.state.Edit.doc
+        console.log(doc)
+        console.log(file)
+        if (n > 10 && doc.length > 0) {
+          const data = doc.map(x => x[1]).toString()
+          fs.appendFile(fileName, `${data},\n`, (err) => {
+            console.log(err)
+          })
+        } else {
+          console.log(fileIndex)
+        }
       },
     },
   };
