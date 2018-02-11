@@ -10,6 +10,7 @@ const state = {
   fileIndex: null,
   lastNav: null,
   filePage: 0,
+  filesPage: 0,
 };
 
 const mutations = {
@@ -32,6 +33,9 @@ const mutations = {
   },
   EDIT_SET_FILE_PAGE(state, n) {
     state.filePage += n;
+  },
+  EDIT_SET_FILES_PAGE(state, n) {
+    state.filesPage += n;
   },
   EDIT_LOAD_DOC(state, message) {
     // console.log(message)
@@ -79,6 +83,7 @@ const actions = {
     commit('EDIT_SET_FILE_INDEX');
     commit('EDIT_SET_LAST_NAV');
     commit('EDIT_SET_FILE_PAGE');
+    commit('EDIT_SET_FILES_PAGE');
   },
 };
 

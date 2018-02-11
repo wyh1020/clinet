@@ -3,6 +3,7 @@
     <right-bar></right-bar>
     <right-panel-local v-if="rightPanel == 'local'"></right-panel-local>
     <right-panel-help v-if="rightPanel == 'help'"></right-panel-help>
+    <left-panel-table v-if="rightPanel == 'left'"></left-panel-table>
   </div>
 </template>
 
@@ -10,8 +11,9 @@
   import RightBar from './RightBar';
   import RightPanelLocal from './RightPanelLocal';
   import RightPanelHelp from './RightPanelHelp';
+  import LeftPanelTable from './LeftPanelTable';
   export default {
-    components: { RightBar, RightPanelLocal, RightPanelHelp },
+    components: { RightBar, RightPanelLocal, RightPanelHelp, LeftPanelTable },
     data() {
       return {
         flag: ''

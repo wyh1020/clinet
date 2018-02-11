@@ -6,6 +6,17 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            选择
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" v-on:click='help'>输入框提示</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" v-on:click='help'>病案历史</a>
+            <a class="dropdown-item" href="#" v-on:click='help'>病案参考</a>
+          </div>
+        </li>
         <li class="nav-item active" v-on:click='help'>
           <a class="nav-link text-light" href="#"> 帮助 <span class="sr-only">(current)</span></a>
         </li>
@@ -16,21 +27,10 @@
           <a class="nav-link text-light" href="#"> 远程 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#" v-on:click='page(-1)'> 前页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            选择
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">输入框提示</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">病案历史</a>
-            <a class="dropdown-item" href="#">病案参考</a>
-          </div>
+          <a class="nav-link text-light" href="#" v-on:click='page(1)'> 后页 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
@@ -55,10 +55,20 @@
       loadData: function () {
         this.$store.commit('EDIT_SET_LAST_NAV', 'edit');
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
+        this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
+        this.$store.commit('EDIT_SET_LAST_NAV', null);
         this.$store.commit('EDIT_LOAD_FILES');
       },
       serverData: function () {
+        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
         this.$store.commit('EDIT_SERVER_FILES');
+      },
+      page: function (n) {
+        if (this.$store.state.Edit.rightPanel === 'left') {
+          this.$store.commit('EDIT_SET_FILE_PAGE', n);
+        } else {
+          this.$store.commit('EDIT_SET_FILES_PAGE', n);
+        }
       },
     },
   };

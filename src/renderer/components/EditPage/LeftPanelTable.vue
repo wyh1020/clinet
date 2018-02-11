@@ -51,6 +51,7 @@
         });
         this.$store.commit('EDIT_LOAD_DOC', r)
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
+        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'left')
       },
     },
   };
