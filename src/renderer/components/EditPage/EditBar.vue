@@ -26,6 +26,7 @@
     methods: {
       enter(e) {
         const n = this.$store.state.Edit.docIndex
+        console.log(n)
         const v = e.target.value.split(' ').filter(i => i !== '');
         if (v.length > 0) {
           this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
@@ -37,13 +38,13 @@
         const n = this.$store.state.Edit.docIndex - 1
         const x = this.$store.state.Edit.doc[n]
         this.$store.commit('EDIT_SET_DOC_INDEX', [-1]);
-        this.item = x
+        if (x) { this.item = x.toString().replace(/,/g, '   ') }
       },
       down() {
         const n = this.$store.state.Edit.docIndex + 1
         const x = this.$store.state.Edit.doc[n]
         this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
-        this.item = x
+        if (x) { this.item = x.toString().replace(/,/g, '   ') }
       },
       itemUp() {
         if (this.$store.state.Edit.docIndex > 0) {
@@ -72,7 +73,8 @@
       del() {
         const n1 = this.$store.state.Edit.docIndex
         const n2 = this.$store.state.Edit.docIndex + 1
-        this.item = this.$store.state.Edit.doc[n2]
+        const x = this.$store.state.Edit.doc[n2]
+        if (x) { this.item = x.toString().replace(/,/g, '   ') } else { this.item = '' }
         this.$store.commit('EDIT_DELETE_ITEM', n1);
       },
       left() {

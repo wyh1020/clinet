@@ -43,12 +43,16 @@
     methods: {
       loadDoc: function (data, index) {
         this.$store.commit('EDIT_SET_FILE_INDEX', index)
-        const h = this.$store.state.Edit.file[0].split(',')
-        const b = data.split(',')
-        const r = []
-        h.forEach((d, i) => {
-          r.push(`${d} ${b[i]}`)
-        });
+        let r = []
+        if (this.$store.state.Edit.fileType === 'csv') {
+          const h = this.$store.state.Edit.file[0].split(',')
+          const b = data.split(',')
+          h.forEach((key, i) => {
+            r.push(`${key} ${b[i]}`)
+          });
+        } else {
+          r = data.split(',')
+        }
         this.$store.commit('EDIT_LOAD_DOC', r)
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'left')

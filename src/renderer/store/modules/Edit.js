@@ -12,6 +12,7 @@ const state = {
   lastNav: null,
   filePage: 0,
   filesPage: 0,
+  fileType: 'csv',
 };
 
 const mutations = {
@@ -22,7 +23,7 @@ const mutations = {
     state.doc.splice(n, 1);
   },
   EDIT_LOAD_FILES() {
-    const files = fs.readdirSync(global.hitbdata.path.user).filter(x => x.endsWith('.csv'))
+    const files = fs.readdirSync(global.hitbdata.path.user).filter(x => x.endsWith('.csv') || x.endsWith('.cda'))
     state.files = files;
   },
   EDIT_LOAD_FILE(state, message) {
@@ -60,6 +61,9 @@ const mutations = {
   EDIT_SET_FILE_INDEX(state, message) {
     state.fileIndex = message;
   },
+  EDIT_SET_FILE_TYPE(state, message) {
+    state.fileType = message;
+  },
   EDIT_SET_LAST_NAV(state, message) {
     state.lastNav = message;
   },
@@ -91,6 +95,7 @@ const actions = {
     commit('EDIT_SET_DOC_INDEX');
     commit('EDIT_UPDATE_DOC');
     commit('EDIT_DELETE_ITEM');
+    commit('EDIT_SET_FILE_TYPE');
   },
 };
 
