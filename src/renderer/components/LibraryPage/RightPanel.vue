@@ -23,7 +23,7 @@
         get() {
           const f = []
           let start = 0
-          let fileLen = this.$store.state.Library.file.length;
+          let fileLen = this.$store.state.Library.tableSel.length;
           // console.log(fileLen)
           if (fileLen > 99) {
             if (this.$store.state.Library.tablePage > 0) {
@@ -33,11 +33,11 @@
               fileLen = 99
             }
           }
-          if (fileLen > this.$store.state.Library.file.length) {
-            fileLen = this.$store.state.Library.file.length
+          if (fileLen > this.$store.state.Library.tableSel.length) {
+            fileLen = this.$store.state.Library.tableSel.length
           }
           for (let i = start; i < fileLen; i += 1) {
-            f.push(this.$store.state.Library.file[i].split(','))
+            f.push(this.$store.state.Library.tableSel[i])
           }
           return f
         }

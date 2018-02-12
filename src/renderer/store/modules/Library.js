@@ -4,6 +4,7 @@ const state = {
   files: [],
   file: [],
   table: [],
+  tableSel: [],
   tablePage: 0,
   leftPanel: 'file',
   dimension: [],
@@ -20,6 +21,17 @@ const mutations = {
   },
   LIBRARY_LOAD_FILE(state, message) {
     state.file = message;
+    state.table = message.map(x => x.split(','))
+    state.tableSel = state.table
+    state.dimensionOrg = [...new Set(state.table.map(a => a[0]))]
+    state.dimensionTime = [...new Set(state.table.map(a => a[1]))]
+    state.dimensionVersion = [...new Set(state.table.map(a => a[2]))]
+    state.notice = [
+      `术语总数：${state.tableSel.length - 1}`,
+      `机构总数：${state.dimensionOrg.length - 1}`,
+      `时间维度总数：${state.dimensionTime.length - 1}`,
+      `版本维度总数：${state.dimensionVersion.length - 1}`,
+    ]
   },
   LIBRARY_SERVER_FILES() {
     const files = []
@@ -54,6 +66,33 @@ const mutations = {
         break;
     }
   },
+  LIBRARY_SET_DIMENSION(state, opt) {
+    switch (opt[0]) {
+      case '机构':
+        // state.dimensionOrg.push(opt[1])
+        // console.log(opt)
+        state.tableSel = state.table.filter(x => x[0] === opt[1])
+        break;
+      case '时间':
+        // console.log(opt)
+        // state.dimensionTime.push(opt[1])
+        state.tableSel = state.table.filter(x => x[1] === opt[1])
+        break;
+      case '版本':
+        // console.log(opt)
+        // state.dimensionDrg.push(opt[1])
+        state.tableSel = state.table.filter(x => x[2] === opt[1])
+        break;
+      default:
+        state.dimensionOrg = []
+        state.dimensionTime = []
+        state.dimensionVersion = []
+        break;
+    }
+    state.notice = [
+      `术语总数：${state.tableSel.length - 1}`
+    ]
+  },
 };
 
 const actions = {
@@ -63,6 +102,7 @@ const actions = {
     commit('LIBRARY_SERVER_FILES');
     commit('LIBRARY_TABLE_PAGE');
     commit('LIBRARY_SET_LEFT_PANEL');
+    commit('LIBRARY_SET_DIMENSION');
   },
 };
 
