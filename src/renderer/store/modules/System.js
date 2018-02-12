@@ -1,3 +1,4 @@
+import axios from 'axios'
 const state = {
   // 页面工具栏选择
   toolbar: '',
@@ -12,11 +13,24 @@ const state = {
   // 选择要处理的field
   field: [],
   fieldIndex: null,
+  server: '',
+  port: '',
 };
 
 const mutations = {
   SYSTEM_SET_TOOLBAR(state, toolbar) {
     state.toolbar = toolbar;
+  },
+  SYSTEM_SET_SERVER(state, m) {
+    state.server = m[0][1];
+    state.port = m[0][2];
+    axios.get(`http://${m[0][1]}:${m[0][2]}`)
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   SYSTEM_GET_FILES(state, files) {
     state.files = files;
@@ -58,6 +72,8 @@ const actions = {
     commit('SYSTEM_GET_TABLE');
     commit('SYSTEM_GET_FIELD');
     commit('SYSTEM_SET_TABLE');
+    commit('SYSTEM_SET_SERVER');
+    commit('SYSTEM_SET_PORT');
   },
 };
 

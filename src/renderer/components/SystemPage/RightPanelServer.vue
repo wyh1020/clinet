@@ -20,8 +20,8 @@
         get() {
           const f = []
           let fileLen = this.$store.state.System.file.length;
-          switch (this.$store.state.Home.toolbar) {
-            case 'files':
+          switch (this.$store.state.System.toolbar) {
+            case 'getServers':
               if (fileLen > 99) { fileLen = 99 }
               for (let i = 0; i < fileLen; i += 1) {
                 f.push(this.$store.state.System.file[i].split(','))
@@ -37,9 +37,10 @@
     methods: {
       onClick: function (data, index) {
         this.flag = index
+        console.log(data)
         // console.log(this.$store.state.System.table[n])
-        this.$store.commit('SYSTEM_GET_FIELD', data);
-        this.$store.commit('SYSTEM_GET_FIELD_INDEX', index);
+        this.$store.commit('SYSTEM_SET_SERVER', [data, index]);
+        // this.$store.commit('SYSTEM_GET_FIELD_INDEX', index);
       },
     },
   };

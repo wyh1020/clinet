@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  // const fs = require('fs');
+  import loadFile from '../../utils/LoadFile';
   export default {
     data() {
       return {
@@ -39,6 +39,7 @@
     },
     methods: {
       getServers: function () {
+        loadFile(this, 'hitb_server.csv', 'system')
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServers');
       },
       getUsers: function () {

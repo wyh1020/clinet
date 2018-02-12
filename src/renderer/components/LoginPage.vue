@@ -49,9 +49,6 @@
           <h2 class="text-danger">
             {{notice}}
           </h2>
-          <hr>
-          <a href="static/hitb_table.csv">请点击下载系统初始化文件，按照提示操作，然后关闭这个应用系统，再重新打开！</a>
-          <hr>
         </div>
       </div>
     </div>
@@ -89,7 +86,7 @@
           this.$router.push('/home');
         } else {
           this.hasData = true;
-          this.$store.commit('SET_NOTICE', `读取系统初始化文件失败，请重新下载，放到${global.hitbdata.path.system}目录下！`)
+          this.$store.commit('SET_NOTICE', '初次启动，读取系统初始化文件，请先关闭系统，再打开！')
         }
       }
     },
