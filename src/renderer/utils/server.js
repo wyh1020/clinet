@@ -60,3 +60,17 @@ export function sLogin(obj, data) {
       }
     })
 }
+
+export function sRegister(obj, data) {
+  console.log(data)
+  agent.post(`http://${data[1]}:${data[2]}/hospitals/user/`)
+    .send({ user: { username: 'test', password: 'test', org: 'test', age: 20, tel: '13245678900', email: 'test@test.com', name: 'test', type: 1 } })
+    .set('header_key', 'header_value')
+    .end((err, res) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(res.body)
+      }
+    })
+}
