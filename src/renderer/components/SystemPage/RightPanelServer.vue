@@ -9,6 +9,7 @@
 </template>
 
 <script>
+  import { sGetUser, sLogin } from '../../utils/server'
   export default {
     data() {
       return {
@@ -37,10 +38,9 @@
     methods: {
       onClick: function (data, index) {
         this.flag = index
-        console.log(data)
-        // console.log(this.$store.state.System.table[n])
-        this.$store.commit('SYSTEM_SET_SERVER', [data, index]);
-        // this.$store.commit('SYSTEM_GET_FIELD_INDEX', index);
+        this.$store.commit('SYSTEM_SET_SERVER', data);
+        sGetUser(this, data, index)
+        sLogin(this, data)
       },
     },
   };

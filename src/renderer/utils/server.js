@@ -1,6 +1,7 @@
 import axios from 'axios'
 const fs = require('fs')
 const path = require('path');
+const agent = require('superagent');
 
 const serverFile = path.format({
   dir: path.join(process.env.USERPROFILE, '\\clinet-data\\system'),
@@ -33,3 +34,29 @@ export function s2() {
   }
 }
 
+export function sGetUser(obj, data, index) {
+  agent.get(`http://${data[1]}:${data[2]}/hospitals/user/`)
+    .set('header_key', 'header_value')
+    .end((err, res) => {
+      if (err) {
+        console.log(err)
+        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [index, '连接失败'])
+      } else {
+        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [index, '连接成功'])
+        console.log(res.body)
+      }
+    })
+}
+
+export function sLogin(obj, data) {
+  agent.post(`http://${data[1]}:${data[2]}/hospitals/login/`)
+    .send({ user: { username: 'test1000', password: 'test' } })
+    .set('header_key', 'header_value')
+    .end((err, res) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(res.body)
+      }
+    })
+}

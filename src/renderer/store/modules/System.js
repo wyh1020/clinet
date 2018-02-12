@@ -1,4 +1,4 @@
-import axios from 'axios'
+
 const state = {
   // 页面工具栏选择
   toolbar: '',
@@ -22,15 +22,12 @@ const mutations = {
     state.toolbar = toolbar;
   },
   SYSTEM_SET_SERVER(state, m) {
-    state.server = m[0][1];
-    state.port = m[0][2];
-    axios.get(`http://${m[0][1]}:${m[0][2]}`)
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    state.server = m[1];
+    state.port = m[2];
+  },
+  SYSTEM_SET_SERVER_STATUS(state, m) {
+    const x = `${state.file[m[0]]}连接成功`
+    state.file.splice(m[0], 1, x)
   },
   SYSTEM_GET_FILES(state, files) {
     state.files = files;
@@ -73,7 +70,7 @@ const actions = {
     commit('SYSTEM_GET_FIELD');
     commit('SYSTEM_SET_TABLE');
     commit('SYSTEM_SET_SERVER');
-    commit('SYSTEM_SET_PORT');
+    commit('SYSTEM_SET_SERVER_STATUS');
   },
 };
 
