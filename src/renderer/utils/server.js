@@ -34,7 +34,19 @@ export function s2() {
       });
   }
 }
-
+// 区块链服务节点
+const blockFile = path.format({
+  dir: path.join(process.env.USERPROFILE, '\\clinet-data\\system'),
+  base: 'hitb_blockchain.csv'
+});
+export function s3() {
+  if (!fs.existsSync(blockFile)) {
+    const data = '服务器名称,IP地址,PORT端口,连接设置\n'
+    fs.writeFile(blockFile, data, (err) => {
+      console.log(err)
+    })
+  }
+}
 
 // 2.1.1 注册
 export function sRegister(obj, data) {

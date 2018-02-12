@@ -6,7 +6,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='loadPath'>
+        <li class="nav-item active" v-on:click='getServers'>
           <a class="nav-link text-light" href="#"> 服务器节点列表 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='loadPath'>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+  import loadFile from '../../utils/LoadFile';
   export default {
     data() {
       return {
@@ -34,8 +35,12 @@
       };
     },
     methods: {
-      loadPath: function () {
-        this.$store.commit('GET_PATH', 'paths');
+      loadPath: function (n) {
+        this.$store.commit('BLOCK_SET_TOOLBAR', n);
+      },
+      getServers: function () {
+        loadFile(this, 'hitb_blockchain.csv', 'system')
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'getServers');
       },
     },
   };

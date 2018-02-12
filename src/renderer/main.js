@@ -7,9 +7,10 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import App from './App';
 import router from './router';
 import store from './store';
-import {s1, s2} from './utils/server.js';
+import {s1, s2, s3} from './utils/server.js';
 s1()
 s2()
+s3()
 // const ipc = require('electron').ipcRenderer
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'));
