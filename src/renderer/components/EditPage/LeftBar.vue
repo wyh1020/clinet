@@ -14,11 +14,17 @@
             选择
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#" v-on:click="newDoc">病案首页（卫统四）</a>
-            <a class="dropdown-item" href="#" v-on:click="newDoc">病案首页</a>
-            <a class="dropdown-item" href="#" v-on:click="newDoc">首次病程</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc">病案首页（卫统四CSV）</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="newDoc">疾病名称</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc">入院申请</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc">首次病程</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc">病程记录</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc">病案首页</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" v-on:click="newDoc">门诊病案</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" v-on:click="newDoc">健康体检</a>
+            <div class="dropdown-divider"></div>
           </div>
         </li>
         <li class="nav-item" v-on:click="newDoc">
