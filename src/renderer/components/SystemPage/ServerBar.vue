@@ -6,19 +6,19 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='getFiles'>
+        <li class="nav-item active" v-on:click='getServers'>
           <a class="nav-link text-light" href="#"> 远程服务器列表 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='getUsers'>
           <a class="nav-link text-light" href="#"> 用户设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='getOrgs'>
           <a class="nav-link text-light" href="#"> 机构设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='getPersons'>
           <a class="nav-link text-light" href="#"> 人员设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='getServerFunctions'>
           <a class="nav-link text-light" href="#"> 远程服务功能设置 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  const fs = require('fs');
+  // const fs = require('fs');
   export default {
     data() {
       return {
@@ -38,31 +38,20 @@
       };
     },
     methods: {
-      loadPath: function () {},
-      getFiles: function () {
-        const files = fs.readdirSync(global.hitbdata.path.home)
-        this.$store.commit('SET_TOOLBAR', 'files');
-        this.$store.commit('GET_FILES', files);
+      getServers: function () {
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServers');
       },
-      getTables: function () {
-        const tables = Object.keys(global.hitbdata.table)
-        this.$store.commit('SET_TOOLBAR', 'tables');
-        this.$store.commit('GET_TABLES', tables);
+      getUsers: function () {
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'getUsers');
       },
-      compareTable: function () {
-        this.$store.commit('SET_TOOLBAR', 'compareTable');
+      getOrgs: function () {
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');
       },
-      checkTable: function () {
-        this.$store.commit('SET_TOOLBAR', 'checkTable');
+      getPersons: function () {
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'getPersons');
       },
-      loadTable: function () {
-        this.$store.commit('SET_TOOLBAR', 'loadTable');
-      },
-      compDrg: function () {
-        this.$store.commit('SET_TOOLBAR', 'compDrg');
-      },
-      upLoadTableData: function () {
-        this.$store.commit('SET_TOOLBAR', 'upLoadTableData');
+      getServerFunctions: function () {
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServerFunctions');
       },
     },
   };

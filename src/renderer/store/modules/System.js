@@ -1,4 +1,6 @@
 const state = {
+  // 页面工具栏选择
+  toolbar: '',
   // 选择目录下的CSV文件列表
   files: [],
   // 选择要导入的CSV文件
@@ -13,25 +15,28 @@ const state = {
 };
 
 const mutations = {
-  GET_FILES(state, files) {
+  SYSTEM_SET_TOOLBAR(state, toolbar) {
+    state.toolbar = toolbar;
+  },
+  SYSTEM_GET_FILES(state, files) {
     state.files = files;
   },
-  GET_FILE(state, file) {
+  SYSTEM_LOAD_FILE(state, file) {
     state.file = file;
   },
-  GET_TABLES(state, tables) {
+  SYSTEM_GET_TABLES(state, tables) {
     state.tables = tables;
   },
-  GET_TABLE(state, table) {
+  SYSTEM_GET_TABLE(state, table) {
     state.table = table;
   },
-  GET_FIELD(state, field) {
+  SYSTEM_GET_FIELD(state, field) {
     state.field = field;
   },
-  GET_FIELD_INDEX(state, index) {
+  SYSTEM_GET_FIELD_INDEX(state, index) {
     state.fieldIndex = index;
   },
-  SET_TABLE(state, field) {
+  SYSTEM_SET_TABLE(state, field) {
     // console.log(field)
     // console.log(state.field)
     // console.log(state.fieldIndex)
@@ -46,13 +51,13 @@ const mutations = {
 
 const actions = {
   someAsyncTask({ commit }) {
-    // do something async
-    commit('GET_FILES');
-    commit('GET_FILE');
-    commit('GET_TABLES');
-    commit('GET_TABLE');
-    commit('GET_FIELD');
-    commit('SET_TABLE');
+    commit('SYSTEM_SET_TOOLBAR');
+    commit('SYSTEM_GET_FILES');
+    commit('SYSTEM_LOAD_FILE');
+    commit('SYSTEM_GET_TABLES');
+    commit('SYSTEM_GET_TABLE');
+    commit('SYSTEM_GET_FIELD');
+    commit('SYSTEM_SET_TABLE');
   },
 };
 

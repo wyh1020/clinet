@@ -6,16 +6,16 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='serverData'>
           <a class="nav-link text-light" href="#"> 服务器病案数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='getIndex'>
           <a class="nav-link text-light" href="#"> 选择分析指标 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='getDimension'>
           <a class="nav-link text-light" href="#"> 选择分析维度 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='statCompute'>
           <a class="nav-link text-light" href="#"> 开始计算 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -27,7 +27,6 @@
 </template>
 
 <script>
-  const fs = require('fs');
   export default {
     data() {
       return {
@@ -35,31 +34,17 @@
       };
     },
     methods: {
-      loadPath: function () {},
-      getFiles: function () {
-        const files = fs.readdirSync(global.hitbdata.path.home)
-        this.$store.commit('SET_TOOLBAR', 'files');
-        this.$store.commit('GET_FILES', files);
+      serverData: function () {
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'serverData');
       },
-      getTables: function () {
-        const tables = Object.keys(global.hitbdata.table)
-        this.$store.commit('SET_TOOLBAR', 'tables');
-        this.$store.commit('GET_TABLES', tables);
+      getIndex: function () {
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'getIndex');
       },
-      compareTable: function () {
-        this.$store.commit('SET_TOOLBAR', 'compareTable');
+      getDimension: function () {
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'getDimension');
       },
-      checkTable: function () {
-        this.$store.commit('SET_TOOLBAR', 'checkTable');
-      },
-      loadTable: function () {
-        this.$store.commit('SET_TOOLBAR', 'loadTable');
-      },
-      compDrg: function () {
-        this.$store.commit('SET_TOOLBAR', 'compDrg');
-      },
-      upLoadTableData: function () {
-        this.$store.commit('SET_TOOLBAR', 'upLoadTableData');
+      statCompute: function () {
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'statCompute');
       },
     },
   };

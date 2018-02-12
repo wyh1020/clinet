@@ -4,7 +4,7 @@ const state = {
   // 顶部导航栏选择
   navbar: '',
   // 页面工具栏选择
-  toolbar: '',
+  // toolbar: '',
   // 初始化数据加载状态
   hasData: false
 };
@@ -19,9 +19,9 @@ const mutations = {
   SET_NAVBAR(state, navbar) {
     state.navbar = navbar;
   },
-  SET_TOOLBAR(state, toolbar) {
-    state.toolbar = toolbar;
-  },
+  // SET_TOOLBAR(state, toolbar) {
+  //   state.toolbar = toolbar;
+  // },
   HAS_DATA(state) {
     state.hasData = true;
   },
@@ -33,7 +33,7 @@ const actions = {
     commit('SET_NOTICE');
     commit('DEL_NOTICE');
     commit('SET_NAVBAR');
-    commit('SET_TOOLBAR');
+    // commit('SET_TOOLBAR');
     commit('HAS_DATA');
   },
 };

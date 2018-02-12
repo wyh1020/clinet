@@ -59,7 +59,7 @@ export default function loadFile(obj, x, p, e = null) {
                 obj.$store.commit('EDIT_LOAD_FILE', f);
                 obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
               } else {
-                obj.$store.commit('GET_FILE', f);
+                obj.$store.commit('SYSTEM_LOAD_FILE', f);
               }
               break
             default: break

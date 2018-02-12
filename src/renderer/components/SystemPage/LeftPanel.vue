@@ -23,7 +23,7 @@
       x: {
         get() {
           let x = ''
-          switch (this.$store.state.Home.toolbar) {
+          switch (this.$store.state.System.toolbar) {
             case 'files':
               x = '选择CSV文件'
               break;
@@ -39,11 +39,56 @@
             case 'loadTable':
               x = '导入数据'
               break;
-            case 'compDrg':
-              x = 'Drg分组'
+            case 'saveTableData':
+              x = '保存本地文件'
               break;
             case 'upLoadTableData':
-              x = '上传数据'
+              x = '上传服务器数据'
+              break;
+            case 'getServers':
+              x = '远程服务器列表'
+              break;
+            case 'getUsers':
+              x = '服务器用户设置'
+              break;
+            case 'getOrgs':
+              x = '服务器机构设置'
+              break;
+            case 'getPersons':
+              x = '服务器人员设置'
+              break;
+            case 'getServerFunctions':
+              x = '服务器功能设置'
+              break;
+            case 'getLocalData':
+              x = '本地病案数据'
+              break;
+            case 'getServerData':
+              x = '服务器病案数据'
+              break;
+            case 'compareData':
+              x = '校验病案数据'
+              break;
+            case 'drgCompute':
+              x = 'DRG分组计算'
+              break;
+            case 'drgResult':
+              x = 'DRG分组结果'
+              break;
+            case 'drgRule':
+              x = 'DRG分组规则'
+              break;
+            case 'serverData':
+              x = '服务器数据'
+              break;
+            case 'getIndex':
+              x = '分析指标'
+              break;
+            case 'getDimension':
+              x = '分析维度'
+              break;
+            case 'statCompute':
+              x = '分析计算'
               break;
             default:
               x = '';
@@ -54,7 +99,7 @@
       xs: {
         get() {
           let xs = []
-          switch (this.$store.state.Home.toolbar) {
+          switch (this.$store.state.System.toolbar) {
             case 'files':
               xs = this.$store.state.System.files.filter(x => x.endsWith('.csv'))
               break;
@@ -78,16 +123,16 @@
     methods: {
       onClick: function (data, index) {
         this.flag = index
-        switch (this.$store.state.Home.toolbar) {
+        switch (this.$store.state.System.toolbar) {
           case 'files':
             loadFile(this, data, 'system')
             break;
           case 'tables':
-            this.$store.commit('GET_TABLE', global.hitbdata.table[data]);
+            this.$store.commit('SYSTEM_GET_TABLE', global.hitbdata.table[data]);
             this.$store.commit('SET_NOTICE', '数据表读取成功！');
             break;
           case 'compareTable':
-            this.$store.commit('SET_TABLE', data);
+            this.$store.commit('SYSTEM_SET_TABLE', data);
             break;
           default:
             break;

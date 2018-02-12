@@ -21,7 +21,7 @@
         <li class="nav-item active" v-on:click='loadTable'>
           <a class="nav-link text-light" href="#"> 导入数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='compDrg'>
+        <li class="nav-item active" v-on:click='saveTableData'>
           <a class="nav-link text-light" href="#"> 保存本地文件 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='upLoadTableData'>
@@ -47,28 +47,28 @@
       loadPath: function () {},
       getFiles: function () {
         const files = fs.readdirSync(global.hitbdata.path.home)
-        this.$store.commit('SET_TOOLBAR', 'files');
-        this.$store.commit('GET_FILES', files);
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'files');
+        this.$store.commit('SYSTEM_GET_FILES', files);
       },
       getTables: function () {
         const tables = Object.keys(global.hitbdata.table)
-        this.$store.commit('SET_TOOLBAR', 'tables');
-        this.$store.commit('GET_TABLES', tables);
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'tables');
+        this.$store.commit('SYSTEM_GET_TABLES', tables);
       },
       compareTable: function () {
-        this.$store.commit('SET_TOOLBAR', 'compareTable');
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'compareTable');
       },
       checkTable: function () {
-        this.$store.commit('SET_TOOLBAR', 'checkTable');
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'checkTable');
       },
       loadTable: function () {
-        this.$store.commit('SET_TOOLBAR', 'loadTable');
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'loadTable');
       },
-      compDrg: function () {
-        this.$store.commit('SET_TOOLBAR', 'compDrg');
+      saveTableData: function () {
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'saveTableData');
       },
       upLoadTableData: function () {
-        this.$store.commit('SET_TOOLBAR', 'upLoadTableData');
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'upLoadTableData');
       },
     },
   };
