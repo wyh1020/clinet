@@ -6,16 +6,16 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='serverStatData'>
           <a class="nav-link text-light" href="#"> 服务器病案数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='getIndex'>
           <a class="nav-link text-light" href="#"> 选择分析指标 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='getDimension'>
           <a class="nav-link text-light" href="#"> 选择分析维度 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='compStat'>
           <a class="nav-link text-light" href="#"> 开始计算 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -34,13 +34,17 @@
       };
     },
     methods: {
-      loadPath: function () {
-        this.$store.commit('GET_PATH', 'paths');
+      serverStatData: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'serverStatData');
       },
-      getTables: function () {
-        const tables = Object.keys(global.hitbdata.table)
-        this.$store.commit('SET_TOOLBAR', 'tables');
-        this.$store.commit('GET_TABLES', tables);
+      getIndex: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'getIndex');
+      },
+      getDimension: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'getDimension');
+      },
+      compStat: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'compStat');
       },
     },
   };

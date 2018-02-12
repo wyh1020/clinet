@@ -6,16 +6,16 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='loadPath'>
+        <li class="nav-item active" v-on:click='setUser'>
           <a class="nav-link text-light" href="#"> 账户设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadPath'>
+        <li class="nav-item active" v-on:click='account'>
           <a class="nav-link text-light" href="#"> 账户余额 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadPath'>
+        <li class="nav-item active" v-on:click='transaction'>
           <a class="nav-link text-light" href="#"> 转账交易 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadPath'>
+        <li class="nav-item active" v-on:click='transRecord'>
           <a class="nav-link text-light" href="#"> 账户交易记录 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -34,8 +34,17 @@
       };
     },
     methods: {
-      loadPath: function () {
-        this.$store.commit('GET_PATH', 'paths');
+      setUser: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'setUser');
+      },
+      account: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'account');
+      },
+      transaction: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'transaction');
+      },
+      transRecord: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'transRecord');
       },
     },
   };

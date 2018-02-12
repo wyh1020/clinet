@@ -6,13 +6,13 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='loadPath'>
+        <li class="nav-item active" v-on:click='blockList'>
           <a class="nav-link text-light" href="#"> 区块列表 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadPath'>
+        <li class="nav-item active" v-on:click='block'>
           <a class="nav-link text-light" href="#"> 区块内容 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadPath'>
+        <li class="nav-item active" v-on:click='blockInfo'>
           <a class="nav-link text-light" href="#"> 区块内容明细 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -31,8 +31,14 @@
       };
     },
     methods: {
-      loadPath: function () {
-        this.$store.commit('GET_PATH', 'paths');
+      blockList: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'blockList');
+      },
+      block: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'block');
+      },
+      blockInfo: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'blockInfo');
       },
     },
   };

@@ -6,22 +6,22 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='localData'>
           <a class="nav-link text-light" href="#"> 本地病案数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='serverData'>
           <a class="nav-link text-light" href="#"> 服务器病案数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='checkData'>
           <a class="nav-link text-light" href="#"> 校验数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='compareTable'>
+        <li class="nav-item active" v-on:click='compDrg'>
           <a class="nav-link text-light" href="#"> 调用Drg分组服务 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='compareTable'>
+        <li class="nav-item active" v-on:click='drgResult'>
           <a class="nav-link text-light" href="#"> 查看Drg分组结果 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='compareTable'>
+        <li class="nav-item active" v-on:click='drgRule'>
           <a class="nav-link text-light" href="#"> 查看Drg分组规则 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -40,16 +40,23 @@
       };
     },
     methods: {
-      loadPath: function () {
-        this.$store.commit('GET_PATH', 'paths');
+      localData: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'localData');
       },
-      getTables: function () {
-        const tables = Object.keys(global.hitbdata.table)
-        this.$store.commit('SET_TOOLBAR', 'tables');
-        this.$store.commit('GET_TABLES', tables);
+      serverData: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'serverData');
       },
-      compareTable: function () {
-        this.$store.commit('SET_TOOLBAR', 'compareTable');
+      checkData: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'checkData');
+      },
+      compDrg: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'compDrg');
+      },
+      drgResult: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'drgResult');
+      },
+      drgRule: function () {
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'drgRule');
       },
     },
   };
