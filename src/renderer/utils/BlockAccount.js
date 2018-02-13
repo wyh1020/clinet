@@ -23,9 +23,9 @@ console.log(b)
 // /peer相关的api，在请求时都需要设置一个header
 // key为magic，testnet value:594fe0f3, mainnet value:5f5b3cf5
 // key为version，value为''
-export function transactions() {
+export function transactions(obj, data) {
   Request
-    .post('127.0.0.1:4096/peer/transactions')
+    .post(`${data[0]}:${data[1]}/peer/transactions`)
     .send({ transaction: trans })
     .set('Content-Type', 'application/json')
     .set('magic', '594fe0f3')
@@ -40,9 +40,9 @@ export function transactions() {
     })
 }
 
-export function open2() {
+export function open2(obj, data) {
   Request
-    .post('127.0.0.1:4096/api/accounts/open2/')
+    .post(`${data[0]}:${data[1]}/api/accounts/open2/`)
     .send({ publicKey: publicKey })
     .set('Content-Type', 'application/json')
     .end((err, res) => {
@@ -55,9 +55,9 @@ export function open2() {
     })
 }
 
-export function open() {
+export function open(obj, data) {
   Request
-    .post('127.0.0.1:4096/api/accounts/open/')
+    .post(`${data[0]}:${data[1]}/api/accounts/open/`)
     .send({ secret: secret })
     .set('Content-Type', 'application/json')
     .end((err, res) => {
@@ -70,9 +70,9 @@ export function open() {
     })
 }
 
-export function accounts() {
+export function accounts(obj, data) {
   Request
-    .get(`127.0.0.1:4096/api/accounts?address=${address}`)
+    .get(`${data[0]}:${data[1]}/api/accounts?address=${data[2]}`)
     .end((err, res) => {
       console.log('根据地址获取账户信息')
       if (err) {
@@ -83,9 +83,9 @@ export function accounts() {
     })
 }
 
-export function getBalance() {
+export function getBalance(obj, data) {
   Request
-    .get(`127.0.0.1:4096/api/accounts/getBalance?address=${address}`)
+    .get(`${data[0]}:${data[1]}/api/accounts/getBalance?address=${data[2]}`)
     .end((err, res) => {
       console.log('获取账户余额')
       if (err) {
@@ -96,9 +96,9 @@ export function getBalance() {
     })
 }
 
-export function getPublickey() {
+export function getPublickey(obj, data) {
   Request
-    .get(`127.0.0.1:4096/api/accounts/getPublickey?address=${address}`)
+    .get(`${data[0]}:${data[1]}/api/accounts/getPublickey?address=${data[2]}`)
     .end((err, res) => {
       console.log('根据地址获取账户公钥')
       if (err) {
@@ -109,9 +109,9 @@ export function getPublickey() {
     })
 }
 
-export function generatePublickey() {
+export function generatePublickey(obj, data) {
   Request
-    .post('127.0.0.1:4096/api/accounts/generatePublickey/')
+    .post(`${data[0]}:${data[1]}/api/accounts/generatePublickey/`)
     .send({ secret: secret })
     .set('Content-Type', 'application/json')
     .end((err, res) => {
@@ -124,9 +124,9 @@ export function generatePublickey() {
     })
 }
 
-export function delegatesAddress() {
+export function delegatesAddress(obj, data) {
   Request
-    .get(`127.0.0.1:4096/api/accounts/delegates?address=${address}`)
+    .get(`${data[0]}:${data[1]}/api/accounts/delegates?address=${data[2]}`)
     .end((err, res) => {
       console.log('根据地址获取其投票列表')
       if (err) {
@@ -137,9 +137,9 @@ export function delegatesAddress() {
     })
 }
 
-export function delegatesFee() {
+export function delegatesFee(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/accounts/delegates/fee')
+    .get(`${data[0]}:${data[1]}/api/accounts/delegates/fee`)
     .end((err, res) => {
       console.log('获取受托人手续费设置')
       if (err) {
@@ -150,9 +150,9 @@ export function delegatesFee() {
     })
 }
 
-export function delegates() {
+export function delegates(obj, data) {
   Request
-    .put('127.0.0.1:4096/api/accounts/delegates/')
+    .put(`${data[0]}:${data[1]}/api/accounts/delegates/`)
     .send({ secret: secret,
       publicKey: publicKey,
       delegates: [`+${address}`]
@@ -167,9 +167,9 @@ export function delegates() {
     })
 }
 
-export function accountsNew() {
+export function accountsNew(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/accounts/new')
+    .get(`${data[0]}:${data[1]}/api/accounts/new`)
     .end((err, res) => {
       console.log('生成新账户')
       if (err) {
@@ -180,9 +180,9 @@ export function accountsNew() {
     })
 }
 
-export function accountsTop() {
+export function accountsTop(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/accounts/top?limit=2&offset=0')
+    .get(`${data[0]}:${data[1]}/api/accounts/top?limit=2&offset=0`)
     .end((err, res) => {
       console.log('获取账户排行榜前100名')
       if (err) {
@@ -193,9 +193,9 @@ export function accountsTop() {
     })
 }
 
-export function accountsCount() {
+export function accountsCount(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/accounts/count')
+    .get(`${data[0]}:${data[1]}/api/accounts/count`)
     .end((err, res) => {
       console.log('获取当前链上账户总个数')
       if (err) {
@@ -206,9 +206,9 @@ export function accountsCount() {
     })
 }
 
-export function signatures() {
+export function signatures(obj, data) {
   Request
-    .put('127.0.0.1:4096/api/signatures')
+    .put(`${data[0]}:${data[1]}/api/signatures`)
     .send({ secret: secret, secondSecret: '123456' })
     .set('Content-Type', 'application/json')
     .set('magic', '5f5b3cf5')
@@ -223,9 +223,9 @@ export function signatures() {
     })
 }
 
-export function signaturesFee() {
+export function signaturesFee(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/signatures/fee')
+    .get(`${data[0]}:${data[1]}/api/signatures/fee`)
     .end((err, res) => {
       console.log('获取二级密码设置手续费')
       if (err) {
@@ -236,9 +236,9 @@ export function signaturesFee() {
     })
 }
 
-export function multisignatures() {
+export function multisignatures(obj, data) {
   Request
-    .put('127.0.0.1:4096/api/multisignatures')
+    .put(`${data[0]}:${data[1]}/api/multisignatures`)
     .send({ secret: secret,
       secondSecret: '123456',
       min: 2,
@@ -255,9 +255,9 @@ export function multisignatures() {
     })
 }
 
-export function multisignaturesPending() {
+export function multisignaturesPending(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/multisignatures/pending?publicKey=2cef5711e61bb5361c544077aa08aebc4d962a1d656571901c48d716382ad4fd')
+    .get(`${data[0]}:${data[1]}/api/multisignatures/pending?publicKey=2cef5711e61bb5361c544077aa08aebc4d962a1d656571901c48d716382ad4fd`)
     .end((err, res) => {
       console.log('根据公钥获取挂起的多重签名交易详情')
       if (err) {
@@ -268,9 +268,9 @@ export function multisignaturesPending() {
     })
 }
 
-export function multisignaturesSign() {
+export function multisignaturesSign(obj, data) {
   Request
-    .post('127.0.0.1:4096/api/multisignatures/sign')
+    .post(`${data[0]}:${data[1]}/api/multisignatures/sign`)
     .send({ secret: secret,
       secondSecret: secondSecret,
       transactionId: '17620378998277022323' })
@@ -285,9 +285,9 @@ export function multisignaturesSign() {
     })
 }
 
-export function multisignaturesAccounts() {
+export function multisignaturesAccounts(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/multisignatures/accounts?publicKey=eb48b9ab7c9a34a9b7cdf860265d65b31af774355cabf1b3a387d14a1925dc97')
+    .get(`${data[0]}:${data[1]}/api/multisignatures/accounts?publicKey=eb48b9ab7c9a34a9b7cdf860265d65b31af774355cabf1b3a387d14a1925dc97`)
     .end((err, res) => {
       console.log('获取多重签名账户信息')
       if (err) {

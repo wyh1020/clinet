@@ -44,9 +44,9 @@ const g = AschJS.uia.createFlags(currency, flagType, flag, secret, secondSecret)
 console.log('资产注销')
 console.log(g)
 
-export function issuers() {
+export function issuers(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/uia/issuers?offset=0&limit=1')
+    .get(`${data[0]}:${data[1]}/api/uia/issuers?offset=0&limit=1`)
     .end((req, res) => {
       console.log('获取全网所有发行商')
       if (res) {
@@ -55,9 +55,9 @@ export function issuers() {
     })
 }
 
-export function getIssuer() {
+export function getIssuer(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/uia/issuers/zhenxi')
+    .get(`${data[0]}:${data[1]}/api/uia/issuers/zhenxi`)
     .end((req, res) => {
       console.log('查询指定发行商的信息')
       if (res) {
@@ -66,9 +66,9 @@ export function getIssuer() {
     })
 }
 
-export function getIssuerInfo() {
+export function getIssuerInfo(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/uia/issuers/zhenxi/assets?offset=0&limit=2')
+    .get(`${data[0]}:${data[1]}/api/uia/issuers/zhenxi/assets?offset=0&limit=2`)
     .end((req, res) => {
       console.log('查看指定发行商的资产')
       if (res) {
@@ -77,9 +77,9 @@ export function getIssuerInfo() {
     })
 }
 
-export function assets() {
+export function assets(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/uia/assets?offset=0&limit=2')
+    .get(`${data[0]}:${data[1]}/api/uia/assets?offset=0&limit=2`)
     .end((req, res) => {
       console.log('获取全网所有资产信息')
       if (res) {
@@ -88,9 +88,9 @@ export function assets() {
     })
 }
 
-export function getAsset() {
+export function getAsset(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/uia/assets/zhenxi.UIA')
+    .get(`${data[0]}:${data[1]}/api/uia/assets/zhenxi.UIA`)
     .end((req, res) => {
       console.log('获取指定资产信息')
       if (res) {
@@ -99,9 +99,9 @@ export function getAsset() {
     })
 }
 
-export function getAssetAcl() {
+export function getAssetAcl(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/uia/assets/zhenxi.UIA/acl/1')
+    .get(`${data[0]}:${data[1]}/api/uia/assets/zhenxi.UIA/acl/1`)
     .end((req, res) => {
       console.log('获取指定资产的访问控制列表（acl）')
       if (res) {
@@ -110,9 +110,9 @@ export function getAssetAcl() {
     })
 }
 
-export function balances() {
+export function balances(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/uia/balances/AKKHPvQb2A119LNicCQWLZQDFxhGVEY57a')
+    .get(`${data[0]}:${data[1]}/api/uia/balances/AKKHPvQb2A119LNicCQWLZQDFxhGVEY57a`)
     .end((req, res) => {
       console.log('获取指定账户所有uia的余额')
       if (res) {
@@ -121,9 +121,9 @@ export function balances() {
     })
 }
 
-export function transactions() {
+export function transactions(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/uia/my/transactions/16358246403719868041?offset=0&limit=2')
+    .get(`${data[0]}:${data[1]}/api/uia/my/transactions/16358246403719868041?offset=0&limit=2`)
     .end((req, res) => {
       console.log('获取指定账户所有资产相关操作记录')
       if (res) {
@@ -132,9 +132,9 @@ export function transactions() {
     })
 }
 
-export function getBalance() {
+export function getBalance(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/uia/balances/16358246403719868041/IssuerName.CNY')
+    .get(`${data[0]}:${data[1]}/api/uia/balances/16358246403719868041/IssuerName.CNY`)
     .end((req, res) => {
       console.log('获取指定账户指定资产的余额')
       if (res) {
@@ -143,9 +143,9 @@ export function getBalance() {
     })
 }
 
-export function getTransaction1() {
+export function getTransaction1(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/uia/transactions/my/16358246403719868041/IssuerName.CNY')
+    .get(`${data[0]}:${data[1]}/api/uia/transactions/my/16358246403719868041/IssuerName.CNY`)
     .end((req, res) => {
       console.log('获取指定账户指定资产转账记录')
       if (res) {
@@ -154,9 +154,9 @@ export function getTransaction1() {
     })
 }
 
-export function getTransaction2() {
+export function getTransaction2(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/uia/transactions/absorb.YLB')
+    .get(`${data[0]}:${data[1]}/api/uia/transactions/absorb.YLB`)
     .end((req, res) => {
       console.log('获取指定资产转账记录')
       if (res) {

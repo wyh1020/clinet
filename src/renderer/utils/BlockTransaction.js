@@ -19,9 +19,9 @@ console.log(transId)
 // key为magic，testnet value:594fe0f3, mainnet value:5f5b3cf5
 // key为version，value为''
 
-export function transactions1() {
+export function transactions1(obj, data) {
   Request
-    .post('127.0.0.1:4096/peer/transactions')
+    .post(`${data[0]}:${data[1]}/peer/transactions`)
     .send({ transaction: trans })
     .set('Content-Type', 'application/json')
     .set('magic', '594fe0f3')
@@ -36,9 +36,9 @@ export function transactions1() {
     })
 }
 
-export function transactions2() {
+export function transactions2(obj, data) {
   Request
-    .put('127.0.0.1:4096/api/transactions')
+    .put(`${data[0]}:${data[1]}/api/transactions`)
     .send({ secret: secret,
       amount: 10000,
       recipientId: '16723473400748954103'
@@ -53,9 +53,9 @@ export function transactions2() {
     })
 }
 
-export function getTransactions() {
+export function getTransactions(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/transactions?limit=2')
+    .get(`${data[0]}:${data[1]}/api/transactions?limit=2`)
     .end((err, res) => {
       console.log('获取交易信息')
       if (err) {
@@ -66,9 +66,9 @@ export function getTransactions() {
     })
 }
 
-export function getTransactionsById() {
+export function getTransactionsById(obj, data) {
   Request
-    .get(`127.0.0.1:4096/api/transactions/get?id=${transId}`)
+    .get(`${data[0]}:${data[1]}/api/transactions/get?id=${transId}`)
     .end((err, res) => {
       console.log('根据交易id查看交易详情')
       if (err) {
@@ -79,9 +79,9 @@ export function getTransactionsById() {
     })
 }
 
-export function transactionsUnconfirmed() {
+export function transactionsUnconfirmed(obj, data) {
   Request
-    .get(`127.0.0.1:4096/api/transactions/unconfirmed/get?id=${transId}`)
+    .get(`${data[0]}:${data[1]}/api/transactions/unconfirmed/get?id=${transId}`)
     .end((err, res) => {
       console.log('根据未确认交易id查看详情')
       if (err) {
@@ -92,9 +92,9 @@ export function transactionsUnconfirmed() {
     })
 }
 
-export function transactionsUnconfirmedAll() {
+export function transactionsUnconfirmedAll(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/transactions/unconfirmed?limit=2')
+    .get(`${data[0]}:${data[1]}/api/transactions/unconfirmed?limit=2`)
     .end((err, res) => {
       console.log('获取[全网所有]未确认的交易详情')
       if (err) {

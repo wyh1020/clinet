@@ -23,9 +23,9 @@ const nowTime = AschJS.utils.slots.getRealTime(nowTimeAsch)
 console.log('真实的 unix时间戳* 1000，毫秒单位')
 console.log(nowTime)
 
-export function loaderStatus() {
+export function loaderStatus(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/loader/status')
+    .get(`${data[0]}:${data[1]}/api/loader/status`)
     .end((req, res) => {
       console.log('查看本地区块链加载状态')
       if (res) {
@@ -34,9 +34,9 @@ export function loaderStatus() {
     })
 }
 
-export function loaderStatusSync() {
+export function loaderStatusSync(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/loader/status/sync')
+    .get(`${data[0]}:${data[1]}/api/loader/status/sync`)
     .end((req, res) => {
       console.log('查看区块同步信息')
       if (res) {

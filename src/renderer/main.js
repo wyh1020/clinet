@@ -49,7 +49,7 @@ const hitbdataLibrary = path.join(hitbdata, '\\library');
 if (!fs.existsSync(hitbdataLibrary)) { fs.mkdirSync(hitbdataLibrary) }
 const hitbdataStat = path.join(hitbdata, '\\stat');
 if (!fs.existsSync(hitbdataStat)) { fs.mkdirSync(hitbdataStat) }
-// 设置应用系统的全局变量
+// 设置应用系统的全局变量-文件存储位置
 global.hitbdata = {};
 global.hitbdata['path'] = {
   home: hitbdata,
@@ -60,7 +60,7 @@ global.hitbdata['path'] = {
   library: hitbdataLibrary,
   stat: hitbdataStat
 };
-// 读取系统初始化文件
+// 读取系统初始化文件-数据表结构
 const systemHitbTable = path.join(hitbdataSystem, '\\hitb_table.csv')
 const readline = require('readline');
 if(fs.existsSync(systemHitbTable)){
@@ -86,4 +86,53 @@ if(fs.existsSync(systemHitbTable)){
 }else{
   console.log('读取系统初始化文件失败!');
 }
+// 读取系统初始化文件-远程服务器节点列表
+const systemHitbServer = path.join(hitbdataSystem, '\\hitb_server.csv')
+if(fs.existsSync(systemHitbServer)){
+  const fRead = fs.createReadStream(systemHitbServer);
+  const fReadline = readline.createInterface({ input: fRead });
+  const f = []; // 将CSV文件逐行读到数组中
+  const t = {}; // 将数组逐行转换为js对象
+  
+  fReadline.on('close', () => {
+    f.shift();
+    f.forEach((line)=>{
+      let x = line.split(',');
+      if(!t[x[0]]){t[x[0]] = [];}
+      const a = x.shift();
+      t[a].push(x);
+    })
+    global.hitbdata['server'] = t;
+  });
 
+  fReadline.on('line', (line) => {
+    f.push(line)
+  })
+}else{
+  console.log('读取系统初始化文件失败!');
+}
+// 读取系统初始化文件-区块链服务器节点列表
+const systemHitbBlockChain = path.join(hitbdataSystem, '\\hitb_blockchain.csv')
+if(fs.existsSync(systemHitbBlockChain)){
+  const fRead = fs.createReadStream(systemHitbBlockChain);
+  const fReadline = readline.createInterface({ input: fRead });
+  const f = []; // 将CSV文件逐行读到数组中
+  const t = {}; // 将数组逐行转换为js对象
+  
+  fReadline.on('close', () => {
+    f.shift();
+    f.forEach((line)=>{
+      let x = line.split(',');
+      if(!t[x[0]]){t[x[0]] = [];}
+      const a = x.shift();
+      t[a].push(x);
+    })
+    global.hitbdata['blockchain'] = t;
+  });
+
+  fReadline.on('line', (line) => {
+    f.push(line)
+  })
+}else{
+  console.log('读取系统初始化文件失败!');
+}

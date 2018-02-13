@@ -18,9 +18,9 @@ const b = AschJS.vote.createVote(voteContent, secret, secondSecret || undefined)
 console.log('给受托人增加/取消投票')
 console.log(b)
 
-export function delegates() {
+export function delegates(obj, data) {
   Request
-    .put('127.0.0.1:4096/api/delegates')
+    .put(`${data[0]}:${data[1]}/api/delegates`)
     .send({ secret: secret, username: 'delegate_0821' })
     .set('Content-Type', 'application/json')
     .end((err, res) => {
@@ -33,9 +33,9 @@ export function delegates() {
     })
 }
 
-export function delegatesCount() {
+export function delegatesCount(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/delegates/count')
+    .get(`${data[0]}:${data[1]}/api/delegates/count`)
     .end((err, res) => {
       console.log('获取受托人总个数')
       if (err) {
@@ -46,9 +46,9 @@ export function delegatesCount() {
     })
 }
 
-export function delegatesList() {
+export function delegatesList(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/delegates?orderby=approval:desc&limit=2')
+    .get(`${data[0]}:${data[1]}/api/delegates?orderby=approval:desc&limit=2`)
     .end((err, res) => {
       console.log('获取受托人列表')
       if (err) {
@@ -59,9 +59,9 @@ export function delegatesList() {
     })
 }
 
-export function delegatesVoters() {
+export function delegatesVoters(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/delegates/voters?publicKey=ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7')
+    .get(`${data[0]}:${data[1]}/api/delegates/voters?publicKey=ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7`)
     .end((err, res) => {
       console.log('根据受托人公钥查看哪些人为其投了票')
       if (err) {
@@ -72,9 +72,9 @@ export function delegatesVoters() {
     })
 }
 
-export function getDelegatesByKey() {
+export function getDelegatesByKey(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/delegates/get?publicKey=bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9')
+    .get(`${data[0]}:${data[1]}/api/delegates/get?publicKey=bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9`)
     .end((err, res) => {
       console.log('根据公钥获取受托人详情')
       if (err) {
@@ -85,9 +85,9 @@ export function getDelegatesByKey() {
     })
 }
 
-export function getDelegatesByName() {
+export function getDelegatesByName(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/delegates/get?username=delegate_register')
+    .get(`${data[0]}:${data[1]}/api/delegates/get?username=delegate_register`)
     .end((err, res) => {
       console.log('根据用户名获取受托人详情')
       if (err) {
@@ -98,9 +98,9 @@ export function getDelegatesByName() {
     })
 }
 
-export function delegatesFee() {
+export function delegatesFee(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/delegates/fee?publicKey=ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7')
+    .get(`${data[0]}:${data[1]}/api/delegates/fee?publicKey=ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7`)
     .end((err, res) => {
       console.log('获取受托人设置的转账费')
       if (err) {
@@ -111,9 +111,9 @@ export function delegatesFee() {
     })
 }
 
-export function getForgedByAccount() {
+export function getForgedByAccount(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/delegates/forging/getForgedByAccount?generatorPublicKey=ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7')
+    .get(`${data[0]}:${data[1]}/api/delegates/forging/getForgedByAccount?generatorPublicKey=ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7`)
     .end((err, res) => {
       console.log('根据公钥查看其锻造情况')
       if (err) {
@@ -124,9 +124,9 @@ export function getForgedByAccount() {
     })
 }
 
-export function forgingEnable() {
+export function forgingEnable(obj, data) {
   Request
-    .post('127.0.0.1:4096/api/delegates/forging/enable/')
+    .post(`${data[0]}:${data[1]}/api/delegates/forging/enable/`)
     .send({ secret: secret })
     .set('Content-Type', 'application/json')
     .end((err, res) => {
@@ -139,9 +139,9 @@ export function forgingEnable() {
     })
 }
 
-export function forgingDisable() {
+export function forgingDisable(obj, data) {
   Request
-    .post('127.0.0.1:4096/api/delegates/forging/disable/')
+    .post(`${data[0]}:${data[1]}/api/delegates/forging/disable/`)
     .send({ secret: secret })
     .set('Content-Type', 'application/json')
     .end((err, res) => {
@@ -154,9 +154,9 @@ export function forgingDisable() {
     })
 }
 
-export function forgingStatus() {
+export function forgingStatus(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/delegates/forging/status?publicKey=fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575')
+    .get(`${data[0]}:${data[1]}/api/delegates/forging/status?publicKey=fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575`)
     .end((err, res) => {
       console.log('受托人锻造状态查看')
       if (err) {

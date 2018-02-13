@@ -9,9 +9,9 @@ const trans = AschJS.storage.createStorage(content, secret, secondSecret)
 console.log('创建存储交易')
 console.log(trans)
 
-export function storages() {
+export function storages(obj, data) {
   Request
-    .put('127.0.0.1:4096/api/storages')
+    .put(`${data[0]}:${data[1]}/api/storages`)
     .send({ secret: secret,
       secondSecret: secondSecret,
       content: content,
@@ -28,9 +28,9 @@ export function storages() {
     })
 }
 
-export function transactions() {
+export function transactions(obj, data) {
   Request
-    .post('127.0.0.1:4096/peer/transactions')
+    .post(`${data[0]}:${data[1]}/peer/transactions`)
     .send({ transaction: trans })
     .set('Content-Type', 'application/json')
     .set('magic', '594fe0f3')
@@ -45,9 +45,9 @@ export function transactions() {
     })
 }
 
-export function storagesGetById() {
+export function storagesGetById(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/storages/get?id=2ae89f859f20e6e9be7aeef5f7ff7b8c6a457ff712100a1b694436bddd9800c0')
+    .get(`${data[0]}:${data[1]}/api/storages/get?id=2ae89f859f20e6e9be7aeef5f7ff7b8c6a457ff712100a1b694436bddd9800c0`)
     .end((err, res) => {
       console.log('根据交易id查询存储的数据-1')
       if (err) {
@@ -58,9 +58,9 @@ export function storagesGetById() {
     })
 }
 
-export function storagesData() {
+export function storagesData(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/storages/2ae89f859f20e6e9be7aeef5f7ff7b8c6a457ff712100a1b694436bddd9800c0')
+    .get(`${data[0]}:${data[1]}/api/storages/2ae89f859f20e6e9be7aeef5f7ff7b8c6a457ff712100a1b694436bddd9800c0`)
     .end((err, res) => {
       console.log('根据交易id查询存储的数据-2')
       if (err) {

@@ -36,7 +36,7 @@
     },
     methods: {
       getServers: function () {
-        loadFile(this, 'hitb_blockchain.csv', 'system')
+        loadFile(this, 'hitb_blockchain.csv', 'block')
         this.$store.commit('BLOCK_SET_TOOLBAR', 'getServers');
       },
       setNodes: function () {

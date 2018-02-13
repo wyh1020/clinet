@@ -16,6 +16,9 @@ export default function loadFile(obj, x, p, e = null) {
     case 'system':
       dir = global.hitbdata.path.system
       break
+    case 'block':
+      dir = global.hitbdata.path.system
+      break
     default: break
   }
   if (x.endsWith('.csv')) {
@@ -60,6 +63,14 @@ export default function loadFile(obj, x, p, e = null) {
                 obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
               } else {
                 obj.$store.commit('SYSTEM_LOAD_FILE', f);
+              }
+              break
+            case 'block':
+              if (e) {
+                obj.$store.commit('EDIT_LOAD_FILE', f);
+                obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
+              } else {
+                obj.$store.commit('BLOCK_LOAD_FILE', f);
               }
               break
             default: break

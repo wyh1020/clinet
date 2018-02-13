@@ -25,7 +25,7 @@ const mutations = {
     state.port = m[2];
   },
   BLOCK_SET_SERVER_STATUS(state, m) {
-    const x = `${state.file[m[0]]}连接成功`
+    const x = `${state.file[m[0]]}${m[1]}`
     state.file.splice(m[0], 1, x)
   },
   BLOCK_GET_FILES(state, files) {

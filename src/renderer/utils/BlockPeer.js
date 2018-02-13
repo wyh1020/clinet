@@ -1,20 +1,22 @@
 // const AschJS = require('asch-js');
 const Request = require('superagent');
 
-export function serverStatus() {
+export function serverStatus(obj, data) {
   Request
-    .get('127.0.0.1:4096')
+    .get(`${data[0]}:${data[1]}`)
     .end((req, res) => {
-      console.log('测试服务器连接')
-      if (res) {
-        console.log(res.statusCode)
+      // console.log(res.statusCode === 200)
+      if (res && res.statusCode === 200) {
+        obj.$store.commit('BLOCK_SET_SERVER_STATUS', [data[2], '连接成功'])
+      } else {
+        console.log(res)
       }
     })
 }
 
-export function peers() {
+export function peers(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/peers?limit=2')
+    .get(`${data[0]}:${data[1]}/api/peers?limit=2`)
     .end((req, res) => {
       console.log('获取本机连接的所有节点信息')
       if (res) {
@@ -23,9 +25,9 @@ export function peers() {
     })
 }
 
-export function peersVersion() {
+export function peersVersion(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/peers/version')
+    .get(`${data[0]}:${data[1]}/api/peers/version`)
     .end((req, res) => {
       console.log('获取本节点版本号等信息')
       if (res) {
@@ -34,9 +36,9 @@ export function peersVersion() {
     })
 }
 
-export function peersGetIp() {
+export function peersGetIp(obj, data) {
   Request
-    .get('127.0.0.1:4096/api/peers/get?ip=192.168.0.1&port=4096')
+    .get(`${data[0]}:${data[1]}/api/peers/get?ip=192.168.0.1&port=4096`)
     .end((req, res) => {
       console.log('获取指定ip节点信息')
       if (res) {
@@ -45,9 +47,9 @@ export function peersGetIp() {
     })
 }
 
-export function peerList() {
+export function peerList(obj, data) {
   Request
-    .get('127.0.0.1:4096/peer/list')
+    .get(`${data[0]}:${data[1]}/peer/list`)
     .set('magic', '594fe0f3')
     .set('version', '')
     .end((req, res) => {
@@ -58,9 +60,9 @@ export function peerList() {
     })
 }
 
-export function peerBlocks() {
+export function peerBlocks(obj, data) {
   Request
-    .get('127.0.0.1:4096/peer/blocks/common')
+    .get(`${data[0]}:${data[1]}/peer/blocks/common`)
     .set('magic', '594fe0f3')
     .set('version', '')
     .end((req, res) => {

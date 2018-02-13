@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import s1 from '../../utils/block'
+  import { serverStatus, peers } from '../../utils/blockPeer'
   export default {
     data() {
       return {
@@ -20,10 +20,10 @@
       file: {
         get() {
           const f = [];
-          let len = this.$store.state.System.file.length;
+          let len = this.$store.state.Block.file.length;
           if (len > 99) { len = 99 }
           for (let i = 0; i < len; i += 1) {
-            f.push(this.$store.state.System.file[i].split(','))
+            f.push(this.$store.state.Block.file[i].split(','))
           }
           return f
         }
@@ -31,10 +31,19 @@
     },
     methods: {
       onClick: function (data, index) {
-        console.log(data)
-        console.log(index)
-        s1()
+        // console.log(data)
+        // console.log(index)
+        this.flag = index
+        this.$store.commit('BLOCK_SET_SERVER', data);
+        // console.log(this.$store.state.Block.toolbar)
+        if (this.$store.state.Block.toolbar === 'getServers') {
+          serverStatus(this, [data[1], data[2], index])
+          peers(this, [data[1], data[2]])
+        }
       },
+      // login: function () {
+      //   s1(this, [this.$store.state.Block.server, this.$store.state.Block.port])
+      // },
     },
   };
 </script>
