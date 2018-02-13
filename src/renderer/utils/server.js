@@ -2,10 +2,20 @@ import axios from 'axios'
 const fs = require('fs')
 const path = require('path');
 const agent = require('superagent');
-
+console.log(process.env)
 // 服务器配置文件
+let pathHome = ''
+let pathSystem = ''
+if (process.env.USERPROFILE) {
+  pathHome = process.env.USERPROFILE
+  pathSystem = '\\clinet-data\\system'
+} else {
+  pathHome = process.env.HOME
+  pathSystem = '/clinet-data/system'
+}
+
 const serverFile = path.format({
-  dir: path.join(process.env.USERPROFILE, '\\clinet-data\\system'),
+  dir: path.join(pathHome, pathSystem),
   base: 'hitb_server.csv'
 });
 export function s1() {
@@ -18,7 +28,7 @@ export function s1() {
 }
 // 导入数据，系统表结构
 const tableFile = path.format({
-  dir: path.join(process.env.USERPROFILE, '\\clinet-data\\system'),
+  dir: path.join(pathHome, pathSystem),
   base: 'hitb_table.csv'
 });
 export function s2() {
@@ -36,7 +46,7 @@ export function s2() {
 }
 // 区块链服务节点
 const blockFile = path.format({
-  dir: path.join(process.env.USERPROFILE, '\\clinet-data\\system'),
+  dir: path.join(pathHome, pathSystem),
   base: 'hitb_blockchain.csv'
 });
 export function s3() {

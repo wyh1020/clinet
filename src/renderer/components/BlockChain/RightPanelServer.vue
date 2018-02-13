@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import { serverStatus, peers } from '../../utils/blockPeer'
+  import { serverStatus, peers } from '../../utils/BlockPeer'
   export default {
     data() {
       return {

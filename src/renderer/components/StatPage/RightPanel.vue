@@ -35,7 +35,7 @@
   import chartRadar from '../../utils/ChartRadar';
   import chartBar from '../../utils/ChartBar';
   import RightBar from './RightBar';
-  import LeftPanel from './Leftpanel';
+  import LeftPanel from './LeftPanel';
   export default {
     components: { RightBar, LeftPanel },
     data() {

@@ -8,9 +8,7 @@ import App from './App';
 import router from './router';
 import store from './store';
 import {s1, s2, s3} from './utils/server.js';
-s1()
-s2()
-s3()
+
 // const ipc = require('electron').ipcRenderer
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'));
@@ -35,20 +33,53 @@ new Vue({
 // 文件保存位置
 const fs = require('fs');
 const path = require('path');
-const hitbdata = path.join(process.env.USERPROFILE, '\\clinet-data');
+let pathHome = ''
+let pathData = ''
+let pathSystem = ''
+let pathLoaded = ''
+let pathCompare = ''
+let pathUser = ''
+let pathLibrary = ''
+let pathStat = ''
+if (process.env.USERPROFILE) {
+  pathHome = process.env.USERPROFILE
+  pathData = '\\clinet-data'
+  pathSystem = '\\system'
+  pathLoaded = '\\loaded'
+  pathCompare = '\\compare'
+  pathUser = '\\user'
+  pathLibrary = '\\library'
+  pathStat = '\\stat'
+} else {
+  pathHome = process.env.HOME
+  pathSystem = '/system'
+  pathData = '/clinet-data'
+  pathSystem = '/system'
+  pathLoaded = '/loaded'
+  pathCompare = '/compare'
+  pathUser = '/user'
+  pathLibrary = '/library'
+  pathStat = '/stat'
+}
+
+if (!pathHome) { pathHome = process.env.HOME }
+const hitbdata = path.join(pathHome, pathData);
 if (!fs.existsSync(hitbdata)) { fs.mkdirSync(hitbdata) }
-const hitbdataSystem = path.join(hitbdata, '\\system');
+const hitbdataSystem = path.join(hitbdata, pathSystem);
 if (!fs.existsSync(hitbdataSystem)) { fs.mkdirSync(hitbdataSystem) }
-const hitbdataLoaded = path.join(hitbdata, '\\loaded');
+const hitbdataLoaded = path.join(hitbdata, pathLoaded);
 if (!fs.existsSync(hitbdataLoaded)) { fs.mkdirSync(hitbdataLoaded) }
-const hitbdataCompare = path.join(hitbdata, '\\compare');
+const hitbdataCompare = path.join(hitbdata, pathCompare);
 if (!fs.existsSync(hitbdataCompare)) { fs.mkdirSync(hitbdataCompare) }
-const hitbdataUser = path.join(hitbdata, '\\user');
+const hitbdataUser = path.join(hitbdata, pathUser);
 if (!fs.existsSync(hitbdataUser)) { fs.mkdirSync(hitbdataUser) }
-const hitbdataLibrary = path.join(hitbdata, '\\library');
+const hitbdataLibrary = path.join(hitbdata, pathLibrary);
 if (!fs.existsSync(hitbdataLibrary)) { fs.mkdirSync(hitbdataLibrary) }
-const hitbdataStat = path.join(hitbdata, '\\stat');
+const hitbdataStat = path.join(hitbdata, pathStat);
 if (!fs.existsSync(hitbdataStat)) { fs.mkdirSync(hitbdataStat) }
+s1()
+s2()
+s3()
 // 设置应用系统的全局变量-文件存储位置
 global.hitbdata = {};
 global.hitbdata['path'] = {
@@ -61,7 +92,11 @@ global.hitbdata['path'] = {
   stat: hitbdataStat
 };
 // 读取系统初始化文件-数据表结构
-const systemHitbTable = path.join(hitbdataSystem, '\\hitb_table.csv')
+const systemHitbTable = path.format({
+  dir: hitbdataSystem,
+  base: 'hitb_table.csv'
+});
+// path.join(hitbdataSystem, '\\hitb_table.csv')
 const readline = require('readline');
 if(fs.existsSync(systemHitbTable)){
   const fRead = fs.createReadStream(systemHitbTable);
@@ -87,7 +122,10 @@ if(fs.existsSync(systemHitbTable)){
   console.log('读取系统初始化文件失败!');
 }
 // 读取系统初始化文件-远程服务器节点列表
-const systemHitbServer = path.join(hitbdataSystem, '\\hitb_server.csv')
+const systemHitbServer = path.format({
+  dir: hitbdataSystem,
+  base: 'hitb_server.csv'
+});
 if(fs.existsSync(systemHitbServer)){
   const fRead = fs.createReadStream(systemHitbServer);
   const fReadline = readline.createInterface({ input: fRead });
@@ -112,7 +150,10 @@ if(fs.existsSync(systemHitbServer)){
   console.log('读取系统初始化文件失败!');
 }
 // 读取系统初始化文件-区块链服务器节点列表
-const systemHitbBlockChain = path.join(hitbdataSystem, '\\hitb_blockchain.csv')
+const systemHitbBlockChain = path.format({
+  dir: hitbdataSystem,
+  base: 'hitb_blockchain.csv'
+});
 if(fs.existsSync(systemHitbBlockChain)){
   const fRead = fs.createReadStream(systemHitbBlockChain);
   const fReadline = readline.createInterface({ input: fRead });
