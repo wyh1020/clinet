@@ -2,7 +2,7 @@ import axios from 'axios'
 const fs = require('fs')
 const path = require('path');
 const agent = require('superagent');
-console.log(process.env)
+// console.log(process.env)
 // 服务器配置文件
 let pathHome = ''
 let pathSystem = ''
