@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom">
-    <a class="navbar-brand" href="#" v-on:click="load(0)">系统通知：{{notice}}</a>
+    <a id="notice-bar" class="navbar-brand" href="#" v-on:click="load(0)">系统通知：{{notice}}</a>
   </nav>
 </template>
 

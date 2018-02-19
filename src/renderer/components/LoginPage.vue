@@ -16,7 +16,7 @@
                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
               </div>
             </form>
-            <button class="btn btn-outline-primary" v-on:click="login">登陆</button>
+            <button id="login" class="btn btn-outline-primary" v-on:click="login">登陆</button>
           </div>
         </main>
       </div>
