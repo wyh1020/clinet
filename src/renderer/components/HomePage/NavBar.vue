@@ -7,7 +7,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown" v-on:click="onClick('数据采集-数据采集')">
+        <li id="edit-page" class="nav-item dropdown" v-on:click="onClick('数据采集-数据采集')">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             数据采集
           </a>
@@ -16,7 +16,7 @@
             <div class="dropdown-divider"></div>
           </div>
         </li>
-        <li class="nav-item dropdown" v-on:click="onClick('数据分析-数据分析')">
+        <li id="stat-page" class="nav-item dropdown" v-on:click="onClick('数据分析-数据分析')">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             数据分析
           </a>
@@ -25,7 +25,7 @@
             <div class="dropdown-divider"></div>
           </div>
         </li>
-        <li class="nav-item dropdown" v-on:click="onClick('术语字典-术语字典')">
+        <li id="library-page" class="nav-item dropdown" v-on:click="onClick('术语字典-术语字典')">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             术语字典
           </a>
