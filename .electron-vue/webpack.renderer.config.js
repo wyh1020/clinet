@@ -115,8 +115,6 @@ let rendererConfig = {
       jQuery: "jquery",
       "windows.jQuery": "jquery",
       Popper: ['popper.js', 'default'],
-      "global.GENTLY": "GENTLY",
-      GENTLY: "GENTLY",
     }),
     new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({
