@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  // import { serverStatus, peers } from '../../utils/BlockPeer'
+  import { serverStatus, peers } from '../../utils/BlockPeer'
   export default {
     data() {
       return {
@@ -37,8 +37,8 @@
         this.$store.commit('BLOCK_SET_SERVER', data);
         // console.log(this.$store.state.Block.toolbar)
         if (this.$store.state.Block.toolbar === 'getServers') {
-          // serverStatus(this, [data[1], data[2], index])
-          // peers(this, [data[1], data[2]])
+          serverStatus(this, [data[1], data[2], index])
+          peers(this, [data[1], data[2]])
         }
       },
       // login: function () {

@@ -1,29 +1,49 @@
-// // const AschJS = require('asch-js');
+// const AschJS = require('asch-js');
 // const Request = require('superagent');
+const axios = require('axios');
+axios.defaults.headers.post['content-Type'] = 'appliction/x-www-form-urlencoded';
 
-// export function serverStatus(obj, data) {
-//   Request
-//     .get(`${data[0]}:${data[1]}`)
-//     .end((req, res) => {
-//       // console.log(res.statusCode === 200)
-//       if (res && res.statusCode === 200) {
-//         obj.$store.commit('BLOCK_SET_SERVER_STATUS', [data[2], '连接成功'])
-//       } else {
-//         console.log(res)
-//       }
-//     })
-// }
+export function serverStatus(obj, data) {
+  // Request
+  //   .get(`${data[0]}:${data[1]}`)
+  //   .end((req, res) => {
+  //     // console.log(res.statusCode === 200)
+  //     if (res && res.statusCode === 200) {
+  //       obj.$store.commit('BLOCK_SET_SERVER_STATUS', [data[2], '连接成功'])
+  //     } else {
+  //       console.log(res)
+  //     }
+  //   })
 
-// export function peers(obj, data) {
-//   Request
-//     .get(`${data[0]}:${data[1]}/api/peers?limit=2`)
-//     .end((req, res) => {
-//       console.log('获取本机连接的所有节点信息')
-//       if (res) {
-//         console.log(res.body)
-//       }
-//     })
-// }
+  axios.get(`http://${data[0]}:${data[1]}`)
+    .then((res) => {
+      if (res.status === 200) {
+        obj.$store.commit('BLOCK_SET_SERVER_STATUS', [data[2], '连接成功'])
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export function peers(obj, data) {
+  // Request
+  //   .get(`${data[0]}:${data[1]}/api/peers?limit=2`)
+  //   .end((req, res) => {
+  //     console.log('获取本机连接的所有节点信息')
+  //     if (res) {
+  //       console.log(res.body)
+  //     }
+  //   })
+
+  axios.get(`http://${data[0]}:${data[1]}/api/peers?limit=2`)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
 // export function peersVersion(obj, data) {
 //   Request
