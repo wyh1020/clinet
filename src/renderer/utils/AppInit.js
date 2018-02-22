@@ -19,7 +19,7 @@ const serverFile = path.format({
 });
 export function s1() {
   if (!fs.existsSync(serverFile)) {
-    const data = '服务器名称,IP地址,PORT端口,连接设置\n'
+    const data = '服务器名称,IP地址,PORT端口,连接设置\n远程测试服务器,139.129.165.56,3010,'
     fs.writeFile(serverFile, data, (err) => {
       console.log(err)
     })
@@ -50,7 +50,7 @@ const blockFile = path.format({
 });
 export function s3() {
   if (!fs.existsSync(blockFile)) {
-    const data = '服务器名称,IP地址,PORT端口,连接设置\n'
+    const data = '服务器名称,IP地址,PORT端口,连接设置\n本地测试服务器,127.0.0.1,4096,'
     fs.writeFile(blockFile, data, (err) => {
       console.log(err)
     })

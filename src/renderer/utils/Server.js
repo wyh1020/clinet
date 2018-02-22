@@ -1,47 +1,85 @@
-// // import axios from 'axios'
+const axios = require('axios');
+const qs = require('qs');
 // const agent = require('superagent');
 
-// // 2.1.1 注册
-// export function sRegister(obj, data) {
-//   console.log(data)
-//   agent.post(`http://${data[0]}:${data[1]}/hospitals/user/`)
-//     .send({ user: { username: 'test', password: 'test', org: 'test', age: 20, tel: '13245678900', email: 'test@test.com', name: 'test', type: 1 } })
-//     .set('header_key', 'header_value')
-//     .end((err, res) => {
-//       if (err) {
-//         console.log(err)
-//       } else {
-//         console.log(res.body)
-//       }
-//     })
-// }
-// // 2.1.2 登录
-// export function sLogin(obj, data) {
-//   agent.post(`http://${data[0]}:${data[1]}/hospitals/login/`)
-//     .send({ user: { username: 'test1000', password: 'test' } })
-//     .set('header_key', 'header_value')
-//     .end((err, res) => {
-//       if (err) {
-//         console.log(err)
-//       } else {
-//         console.log(res.body)
-//       }
-//     })
-// }
-// // 2.1.3 获取用户列表
-// export function sGetUser(obj, data) {
-//   agent.get(`http://${data[0]}:${data[1]}/hospitals/user/`)
-//     .set('header_key', 'header_value')
-//     .end((err, res) => {
-//       if (err) {
-//         console.log(err)
-//         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
-//       } else {
-//         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
-//         console.log(res.body)
-//       }
-//     })
-// }
+// 2.1.1 注册
+export function sRegister(obj, data) {
+  console.log(data)
+  // agent.post(`http://${data[0]}:${data[1]}/hospitals/user/`)
+  //   .send({ user: { username: 'test', password: 'test', org: 'test', age: 20, tel: '13245678900', email: 'test@test.com', name: 'test', type: 1 } })
+  //   .set('header_key', 'header_value')
+  //   .end((err, res) => {
+  //     if (err) {
+  //       console.log(err)
+  //     } else {
+  //       console.log(res.body)
+  //     }
+  //   })
+
+  axios({
+    method: 'post',
+    url: `http://${data[0]}:${data[1]}/hospitals/user/`,
+    data: qs.stringify({ user: { username: 'test30', password: 'test', org: 'test', age: 20, tel: '13245678900', email: 'test@test.com', name: 'test', type: 1 } }),
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    responseType: 'json'
+  }).then((res) => {
+    console.log(res)
+  }).catch((err) => {
+    console.log(err)
+  })
+}
+// 2.1.2 登录
+export function sLogin(obj, data) {
+  // agent.post(`http://${data[0]}:${data[1]}/hospitals/login/`)
+  //   .send({ user: { username: 'test1000', password: 'test' } })
+  //   .set('header_key', 'header_value')
+  //   .end((err, res) => {
+  //     if (err) {
+  //       console.log(err)
+  //     } else {
+  //       console.log(res.body)
+  //     }
+  //   })
+
+  axios({
+    method: 'post',
+    url: `http://${data[0]}:${data[1]}/hospitals/login/`,
+    data: qs.stringify({ user: { username: 'test30', password: 'test' } }),
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    responseType: 'json'
+  }).then((res) => {
+    console.log(res)
+  }).catch((err) => {
+    console.log(err)
+  })
+}
+// 2.1.3 获取用户列表
+export function sGetUser(obj, data) {
+  // agent.get(`http://${data[0]}:${data[1]}/hospitals/user/`)
+  //   .set('header_key', 'header_value')
+  //   .end((err, res) => {
+  //     if (err) {
+  //       console.log(err)
+  //       obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
+  //     } else {
+  //       obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
+  //       console.log(res.body)
+  //     }
+  //   })
+
+  axios.get(`http://${data[0]}:${data[1]}/hospitals/user/`)
+    .then((res) => {
+      if (res.status === 200) {
+        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
+      } else {
+        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
+      }
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 // // 2.1.4 更新用户信息
 // export function sUpdateUser(obj, data) {
 //   agent.post(`http://${data[0]}:${data[1]}/hospitals/user/1`)

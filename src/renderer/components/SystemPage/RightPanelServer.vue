@@ -49,7 +49,7 @@
 
 <script>
   // import { sGetOrg, sCreateOrg, sUpdateOrg, sGetDepart, sCreateDepart, sUpdateDepart, sGetSystemDepart, sUploadDoc, sCheckDoc, sInsertDoc, sStatDoc, sCompDrg, sUpdateUser, sGetStat, sGetStatInfo, sGetStatInfoChart, sdownLoadStatInfo, sSaveDefined, sGetRule, sSearchRule, sGetUser, sLogin, sRegister } from '../../utils/server'
-  // import { sGetUser, sLogin, sRegister } from '../../utils/Server'
+  import { sGetUser, sLogin, sRegister } from '../../utils/Server'
   export default {
     data() {
       return {
@@ -90,14 +90,14 @@
         this.flag = index
         this.$store.commit('SYSTEM_SET_SERVER', data);
         if (this.$store.state.System.toolbar === 'getServers') {
-          // sGetUser(this, [data[1], data[2], index])
-          // sLogin(this, [data[1], data[2]])
+          sGetUser(this, [data[1], data[2], index])
+          sLogin(this, [data[1], data[2]])
         }
       },
       register: function () {
         console.log(this.email)
         console.log(this.password)
-        // sRegister(this, [this.$store.state.System.server, this.$store.state.System.port, this.email, this.password])
+        sRegister(this, [this.$store.state.System.server, this.$store.state.System.port, this.email, this.password])
         // sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.email, this.password])
       }
     },
