@@ -6,25 +6,37 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link text-light" href="#"> 帮助 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" href="#"> 列表 </a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             选择
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#" v-on:click='help'>输入框提示</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="#" v-on:click='help'>病案历史</a>
+            <a class="dropdown-item" href="#" v-on:click='help'>病案参考</a>
           </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
+        <li class="nav-item active" v-on:click='help'>
+          <a class="nav-link text-light" href="#"> 帮助 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='localData'>
+          <a class="nav-link text-light" href="#"> 本地 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='serverData'>
+          <a class="nav-link text-light" href="#"> 远程 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='user'>
+          <a class="nav-link text-light" href="#"> CDA <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='newFiles'>
+          <a class="nav-link text-light" href="#"> 新文件 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link text-light" href="#" v-on:click='page(-1)'> 前页 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link text-light" href="#" v-on:click='page(1)'> 后页 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
@@ -35,7 +47,7 @@
 </template>
 
 <script>
-
+  import saveFile from '../../utils/SaveFile'
   export default {
     data() {
       return {
@@ -43,16 +55,36 @@
       };
     },
     methods: {
-      created: function () {
-        this.$nextTick(function () {
-          this.timer()
-        })
+      help: function () {
+        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
       },
-      timer: function () {
-        this.getTime = () => {
-          this.currentTime = new Date().toLocaleString();
+      user: function () {
+        this.$store.commit('EDIT_SET_LAST_NAV', 'user');
+        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
+        this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
+        this.$store.commit('EDIT_LOAD_FILES');
+      },
+      localData: function () {
+        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
+        this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
+        this.$store.commit('EDIT_LOAD_FILES');
+      },
+      serverData: function () {
+        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
+        this.$store.commit('EDIT_SERVER_FILES');
+      },
+      page: function (n) {
+        if (this.$store.state.Edit.rightPanel === 'left') {
+          this.$store.commit('EDIT_SET_FILE_PAGE', n);
+        } else {
+          this.$store.commit('EDIT_SET_FILES_PAGE', n);
         }
-        setInterval(this.getTime, 1000);
+      },
+      newFiles: function () {
+        const x = new Date().toLocaleDateString()
+        const p = this.$store.state.Edit.lastNav
+        saveFile(this, x, p)
+        // this.$store.commit('EDIT_NEW_FILES');
       },
     },
   };

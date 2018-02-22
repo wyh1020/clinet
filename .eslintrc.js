@@ -32,6 +32,7 @@ module.exports = {
     "no-irregular-whitespace": 0,
     'no-comma-dangle': 0,
     'comma-dangle': 0,
+    "max-len": [0, 180, 4],
   }
 }
 

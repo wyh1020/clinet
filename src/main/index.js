@@ -1,19 +1,5 @@
 import { app, BrowserWindow } from 'electron' // eslint-disable-line
 // const { ipcMain } = require('electron')
-// 文件保存位置
-const fs = require('fs');
-const path = require('path');
-const hitbdata = path.format({ dir: 'C:\\hitbdata' });
-if (!fs.existsSync(hitbdata)) { fs.mkdirSync(hitbdata) }
-const hitbdataSystem = path.format({ dir: 'C:\\hitbdata\\system' });
-if (!fs.existsSync(hitbdataSystem)) { fs.mkdirSync(hitbdataSystem) }
-const hitbdataLoaded = path.format({ dir: 'C:\\hitbdata\\loaded' });
-if (!fs.existsSync(hitbdataLoaded)) { fs.mkdirSync(hitbdataLoaded) }
-const hitbdataCompare = path.format({ dir: 'C:\\hitbdata\\compare' });
-if (!fs.existsSync(hitbdataCompare)) { fs.mkdirSync(hitbdataCompare) }
-const hitbdataUser = path.format({ dir: 'C:\\hitbdata\\user' });
-if (!fs.existsSync(hitbdataUser)) { fs.mkdirSync(hitbdataUser) }
-
 // todo:'electron' should be listed in the project's dependencies, not devDependencies
 // ipcMain.on('asynchronous-message', (event, arg) => {
 //   console.log(arg) // prints "ping"

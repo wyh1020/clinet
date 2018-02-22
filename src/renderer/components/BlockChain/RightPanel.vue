@@ -1,43 +1,47 @@
 <template>
   <div>
-    <right-bar></right-bar>
-    <table>
-      <tr v-for="(line, index) in file" v-bind:key='index'>
-        <td v-for="(filed, index) in line" v-bind:key='index'>{{line[index]}}</td>
-      </tr>
-    </table>
+    <server-bar v-if="toolbar == '区块链服务-服务器节点设置'"></server-bar>
+    <user-bar v-if="toolbar == '区块链服务-账户设置'"></user-bar>
+    <block-bar v-if="toolbar == '区块链服务-区块查询'"></block-bar>
+    <drg-bar v-if="toolbar == '区块链服务-DRG分组服务'"></drg-bar>
+    <stat-bar v-if="toolbar == '区块链服务-DRG分析计算'"></stat-bar>
+
+    <right-panel-server v-if="toolbar == '区块链服务-服务器节点设置'"></right-panel-server>
+    <right-panel-user v-if="toolbar == '区块链服务-账户设置'"></right-panel-user>
+    <right-panel-block v-if="toolbar == '区块链服务-区块查询'"></right-panel-block>
+    <right-panel-drg v-if="toolbar == '区块链服务-DRG分组服务'"></right-panel-drg>
+    <right-panel-stat v-if="toolbar == '区块链服务-DRG分析计算'"></right-panel-stat>
   </div>
 </template>
 
 <script>
-  import RightBar from './RightBar';
+  import UserBar from './UserBar';
+  import BlockBar from './BlockBar';
+  import ServerBar from './ServerBar';
+  import DrgBar from './DrgBar';
+  import StatBar from './StatBar';
+  import RightPanelUser from './RightPanelUser';
+  import RightPanelBlock from './RightPanelBlock';
+  import RightPanelServer from './RightPanelServer';
+  import RightPanelDrg from './RightPanelDrg';
+  import RightPanelStat from './RightPanelStat';
 
   export default {
-    components: { RightBar },
-
+    components: { DrgBar, ServerBar, UserBar, StatBar, BlockBar, RightPanelUser, RightPanelBlock, RightPanelServer, RightPanelDrg, RightPanelStat },
+    data() {
+      return {
+        flag: null
+      }
+    },
     computed: {
-      file: {
+      toolbar: {
         get() {
-          const f = [];
-          let len = this.$store.state.System.file.length;
-          if (len > 99) { len = 99 }
-          for (let i = 0; i < len; i += 1) {
-            f.push(this.$store.state.System.file[i].split(','))
-          }
-          return f
+          // console.log(this.$store.state.Home.navbar)
+          return this.$store.state.Home.navbar
         }
       }
     },
     methods: {
-      load: function (n) {
-        switch (n) {
-          case 1:
-            this.$router.push('/edit');
-            break;
-          default:
-            this.$router.push('/edit');
-        }
-      },
     },
   };
 </script>

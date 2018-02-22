@@ -1,61 +1,39 @@
 <template>
   <div>
     <right-bar></right-bar>
-    <table>
-      <tr>
-        <th v-on:click="load(1)">数据采集</th>
-        <th v-on:click="load(2)">数据分析</th>
-        <th v-on:click="load(3)">术语字典</th>
-        <th v-on:click="load(4)">系统设置</th>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>    
-    </table>
+    <right-panel-local v-if="rightPanel == 'local'"></right-panel-local>
+    <right-panel-help v-if="rightPanel == 'help'"></right-panel-help>
+    <left-panel-table v-if="rightPanel == 'left'"></left-panel-table>
   </div>
 </template>
 
 <script>
   import RightBar from './RightBar';
+  import RightPanelLocal from './RightPanelLocal';
+  import RightPanelHelp from './RightPanelHelp';
+  import LeftPanelTable from './LeftPanelTable';
   export default {
-    components: { RightBar },
+    components: { RightBar, RightPanelLocal, RightPanelHelp, LeftPanelTable },
     data() {
       return {
-        name: this.$route.name
+        flag: ''
       };
     },
-    methods: {
-      load: function (n) {
-        switch (n) {
-          case 1:
-            this.$router.push('/edit');
-            break;
-          case 2:
-            this.$router.push('/stat');
-            break;
-          case 3:
-            this.$router.push('/library');
-            break;
-          case 4:
-            this.$router.push('/system');
-            break;
-          default:
-            this.$router.push('/edit');
+    computed: {
+      rightPanel: {
+        get() {
+          return this.$store.state.Edit.rightPanel
         }
-      },
+      }
     },
   };
 </script>
 
 <style scoped>
+  * {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 70px;
+  }
 
 </style>

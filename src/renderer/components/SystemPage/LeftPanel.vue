@@ -2,7 +2,7 @@
   <div>
     <table>
       <tr>
-        <th>{{x}}</th>
+        <th class="table-danger">{{x}}</th>
       </tr>
       <tr v-for="(data, index) in xs" v-bind:key='index' v-bind:class="{'table-danger':flag == index}" v-on:click="onClick(data, index)">
         <td>{{data}}</td>
@@ -12,9 +12,7 @@
 </template>
 
 <script>
-  const fs = require('fs')
-  const path = require('path');
-  const readline = require('readline');
+  import loadFile from '../../utils/LoadFile';
   export default {
     data() {
       return {
@@ -25,7 +23,7 @@
       x: {
         get() {
           let x = ''
-          switch (this.$store.state.Home.toolbar) {
+          switch (this.$store.state.System.toolbar) {
             case 'files':
               x = '选择CSV文件'
               break;
@@ -33,19 +31,64 @@
               x = '选择数据表'
               break;
             case 'compareTable':
-              x = '对照数据表'
+              x = '对照数据'
               break;
             case 'checkTable':
-              x = '校验数据表'
+              x = '校验数据'
               break;
             case 'loadTable':
-              x = '导入数据表'
+              x = '导入数据'
               break;
-            case 'compDrg':
-              x = 'Drg分组'
+            case 'saveTableData':
+              x = '保存本地文件'
               break;
-            case 'statDrg':
-              x = 'Drg分析'
+            case 'upLoadTableData':
+              x = '上传服务器数据'
+              break;
+            case 'getServers':
+              x = '远程服务器列表'
+              break;
+            case 'getUsers':
+              x = '服务器用户设置'
+              break;
+            case 'getOrgs':
+              x = '服务器机构设置'
+              break;
+            case 'getPersons':
+              x = '服务器人员设置'
+              break;
+            case 'getServerFunctions':
+              x = '服务器功能设置'
+              break;
+            case 'getLocalData':
+              x = '本地病案数据'
+              break;
+            case 'getServerData':
+              x = '服务器病案数据'
+              break;
+            case 'compareData':
+              x = '校验病案数据'
+              break;
+            case 'drgCompute':
+              x = 'DRG分组计算'
+              break;
+            case 'drgResult':
+              x = 'DRG分组结果'
+              break;
+            case 'drgRule':
+              x = 'DRG分组规则'
+              break;
+            case 'serverData':
+              x = '服务器数据'
+              break;
+            case 'getIndex':
+              x = '分析指标'
+              break;
+            case 'getDimension':
+              x = '分析维度'
+              break;
+            case 'statCompute':
+              x = '分析计算'
               break;
             default:
               x = '';
@@ -56,9 +99,9 @@
       xs: {
         get() {
           let xs = []
-          switch (this.$store.state.Home.toolbar) {
+          switch (this.$store.state.System.toolbar) {
             case 'files':
-              xs = this.$store.state.System.files
+              xs = this.$store.state.System.files.filter(x => x.endsWith('.csv'))
               break;
             case 'tables':
               xs = this.$store.state.System.tables
@@ -80,43 +123,16 @@
     methods: {
       onClick: function (data, index) {
         this.flag = index
-        switch (this.$store.state.Home.toolbar) {
+        switch (this.$store.state.System.toolbar) {
           case 'files':
-            if (data.endsWith('.csv')) {
-              const file = path.format({
-                dir: 'C:\\hitbdata\\',
-                base: data
-              });
-              fs.lstat(file, (err, stat) => {
-                if (stat.isDirectory()) {
-                  this.$store.commit('SET_NOTICE', '目录不能导入，请选择文件！');
-                } else if (stat.size < 1000 * 5000) {
-                  this.$store.commit('SET_NOTICE', '正在读取文件，请等待！');
-                  const fRead = fs.createReadStream(file);
-                  const fReadline = readline.createInterface({ input: fRead });
-                  const f = [];
-                  fReadline.on('close', () => {
-                    // console.log(f);
-                    this.$store.commit('GET_FILE', f);
-                    this.$store.commit('SET_NOTICE', 'CSV文件读取成功！');
-                  });
-                  fReadline.on('line', (line) => {
-                    f.push(line)
-                  })
-                } else {
-                  this.$store.commit('SET_NOTICE', '文件大于5M，无法导入，请拆成小文件！');
-                }
-              })
-            } else {
-              this.$store.commit('SET_NOTICE', '选择的不是CSV文件，不能导入！');
-            }
+            loadFile(this, data, 'system')
             break;
           case 'tables':
-            this.$store.commit('GET_TABLE', global.hitbdata.table[data]);
+            this.$store.commit('SYSTEM_GET_TABLE', global.hitbdata.table[data]);
             this.$store.commit('SET_NOTICE', '数据表读取成功！');
             break;
           case 'compareTable':
-            this.$store.commit('SET_TABLE', data);
+            this.$store.commit('SYSTEM_SET_TABLE', data);
             break;
           default:
             break;
