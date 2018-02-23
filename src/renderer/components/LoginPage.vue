@@ -82,7 +82,7 @@
         this.$electron.shell.openExternal(link);
       },
       login() {
-        if (global.hitbdata.table) {
+        if (global.hitbdata) {
           this.$store.commit('SET_NOTICE', '未注册用户登陆！');
           this.$store.commit('SET_NAVBAR', 'home');
           this.$store.commit('HAS_DATA');

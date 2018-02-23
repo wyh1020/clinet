@@ -125,7 +125,7 @@
         this.flag = index
         switch (this.$store.state.System.toolbar) {
           case 'files':
-            loadFile(this, data, 'system')
+            loadFile(this, data, 'system-home')
             break;
           case 'tables':
             this.$store.commit('SYSTEM_GET_TABLE', global.hitbdata.table[data]);
