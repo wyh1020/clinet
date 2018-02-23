@@ -2,9 +2,9 @@
   <div>
     <table>
       <tr>
-        <th class="table-danger"> 术语字典文件</th>
+        <th class="table-danger" id="library-leftpanel">术语字典文件</th>
       </tr>
-      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
+      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}" id="library-leftlist">
         <td>{{data}}</td>
       </tr>
     </table>
