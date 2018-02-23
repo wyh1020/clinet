@@ -49,7 +49,7 @@
 
 <script>
   // import { sGetOrg, sCreateOrg, sUpdateOrg, sGetDepart, sCreateDepart, sUpdateDepart, sGetSystemDepart, sUploadDoc, sCheckDoc, sInsertDoc, sStatDoc, sCompDrg, sUpdateUser, sGetStat, sGetStatInfo, sGetStatInfoChart, sdownLoadStatInfo, sSaveDefined, sGetRule, sSearchRule, sGetUser, sLogin, sRegister } from '../../utils/server'
-  import { sGetUser, sLogin, sRegister } from '../../utils/server'
+  import { sGetUser, sLogin, sRegister } from '../../utils/Server'
   export default {
     data() {
       return {
