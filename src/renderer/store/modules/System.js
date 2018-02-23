@@ -26,8 +26,10 @@ const mutations = {
     state.port = m[2];
   },
   SYSTEM_SET_SERVER_STATUS(state, m) {
-    const x = `${state.file[m[0]]}连接成功`
-    state.file.splice(m[0], 1, x)
+    const a = state.file[m[0]]
+    const b = a.split(',')
+    b.splice(3, 1, m[1])
+    state.file.splice(m[0], 1, b.join(','))
   },
   SYSTEM_GET_FILES(state, files) {
     state.files = files;
