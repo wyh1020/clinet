@@ -22,5 +22,27 @@ describe('Library', function () {
         console.log(noticeText)
         expect(noticeText).to.equal('系统通知：未注册用户登陆！');
       })
+    // 点击工具栏的本地文件(local-file)，浏览本地文件
+      .click('#local-file')
+      .waitUntilTextExists('#library-leftpanel', '术语字典文件')
+      .getText('#library-leftpanel')
+      .then(function (leftpanel) {
+        console.log(leftpanel)
+        expect(leftpanel).to.equal('术语字典文件');
+      })
+    // 点击左侧列表(library-leftlist)，读取文件内容
+      .click('#library-leftlist')
+      // .waitUntilTextExists('#library-rightpanel', '未注册用户登陆！')
+      // .getText('#library-rightpanel')
+      // .then(function (rightpanel) {
+      //   console.log(rightpanel)
+      //   // expect(noticeText).to.equal('系统通知：未注册用户登陆！');
+      // })
+      .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')
+      .getText('#notice-bar')
+      .then(function (noticeText) {
+        console.log(noticeText)
+        expect(noticeText).to.equal('系统通知：CSV文件读取成功！');
+      })
   })
 });
