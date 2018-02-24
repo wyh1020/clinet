@@ -47,8 +47,8 @@
       onClick: function (data, index) {
         this.flag = index
         // console.log(this.$store.state.System.table[n])
-        this.$store.commit('GET_FIELD', data);
-        this.$store.commit('GET_FIELD_INDEX', index);
+        this.$store.commit('LIBRARY_GET_FIELD', data);
+        this.$store.commit('LIBRARY_GET_FIELD_INDEX', index);
       },
     },
   };

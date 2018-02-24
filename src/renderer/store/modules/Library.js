@@ -12,6 +12,8 @@ const state = {
   dimensionOrg: [],
   dimensionTime: [],
   dimensionVersion: [],
+  field: '',
+  fieldIndex: null,
 };
 
 const mutations = {
@@ -93,6 +95,12 @@ const mutations = {
       `术语总数：${state.tableSel.length - 1}`
     ]
   },
+  LIBRARY_GET_FIELD(state, field) {
+    state.field = field;
+  },
+  LIBRARY_GET_FIELD_INDEX(state, index) {
+    state.fieldIndex = index;
+  },
 };
 
 const actions = {
@@ -103,6 +111,8 @@ const actions = {
     commit('LIBRARY_TABLE_PAGE');
     commit('LIBRARY_SET_LEFT_PANEL');
     commit('LIBRARY_SET_DIMENSION');
+    commit('LIBRARY_GET_FIELD');
+    commit('LIBRARY_GET_FIELD_INDEX');
   },
 };
 
