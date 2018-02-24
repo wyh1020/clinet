@@ -128,6 +128,25 @@ export default function appInit() {
     })
   }
 
+  // 区块链用户口令
+  const blockPWD = path.format({
+    dir: hitbdataSystem,
+    base: 'hitb_blockchain_user.csv'
+  });
+  if (fs.existsSync(blockPWD)) {
+    const fRead = fs.createReadStream(blockPWD);
+    const fReadline = readline.createInterface({ input: fRead });
+    fReadline.on('line', (line) => {
+      global.hitbdata.blockchain_user = line
+    })
+  } else {
+    const data = 'someone manual strong movie roof episode eight spatial brown soldier soup motor'
+    global.hitbdata.blockchain_user = data
+    fs.writeFile(blockPWD, data, (err) => {
+      console.log(err)
+    })
+  }
+
   // 导入数据，系统表结构
   const tableFile = path.format({
     dir: hitbdataSystem,

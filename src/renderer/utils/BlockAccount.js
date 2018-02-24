@@ -1,6 +1,5 @@
 const AschJS = require('asch-js');
 const axios = require('axios');
-const qs = require('qs');
 
 const secret = 'someone manual strong movie roof episode eight spatial brown soldier soup motor';
 const keys = AschJS.crypto.getKeys(secret);
@@ -62,12 +61,18 @@ export default function open(obj, data) {
   axios({
     method: 'post',
     url: `http://${data[0]}:${data[1]}/api/accounts/open/`,
-    data: qs.stringify({ secret: secret }),
+    data: { secret: data[2] },
     headers: { 'Content-Type': 'application/json' },
     responseType: 'json'
   }).then((res) => {
     console.log(res)
+    if (res.status === 200) {
+      obj.$store.commit('SET_NOTICE', '区块链服务登录成功!')
+    } else {
+      obj.$store.commit('SET_NOTICE', '区块链服务登录失败!')
+    }
   }).catch((err) => {
+    obj.$store.commit('SET_NOTICE', '区块链服务登录失败!')
     console.log(err)
   })
 //   Request

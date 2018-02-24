@@ -63,10 +63,10 @@
       login: function () {
         const ip = this.$store.state.Block.server
         const port = this.$store.state.Block.port
-        const user = this.password
-        console.log(ip)
+        const user = global.hitbdata.blockchain_user
+        // console.log(ip)
         open(this, [ip, port, user])
-        console.log(this.email)
+        // console.log(this.email)
       }
     },
   };
