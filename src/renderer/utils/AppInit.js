@@ -258,6 +258,36 @@ export default function appInit() {
       });
   }
   // 用户导入文件
+  const orgFile1 = path.format({
+    dir: hitbdata,
+    base: 'test_org.csv'
+  });
+  if (!fs.existsSync(orgFile1)) {
+    axios.get('/static/test_org.csv')
+      .then((res) => {
+        fs.writeFile(orgFile1, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  const deptFile1 = path.format({
+    dir: hitbdata,
+    base: 'test_department.csv'
+  });
+  if (!fs.existsSync(deptFile1)) {
+    axios.get('/static/test_department.csv')
+      .then((res) => {
+        fs.writeFile(deptFile1, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   const wt4File1 = path.format({
     dir: hitbdata,
     base: 'test_wt4_2015年1月.csv'
@@ -289,14 +319,14 @@ export default function appInit() {
       });
   }
   // 用户本地文件
-  const orgFile = path.format({
+  const orgFile2 = path.format({
     dir: hitbdataUser,
     base: 'test_org.csv'
   });
-  if (!fs.existsSync(orgFile)) {
+  if (!fs.existsSync(orgFile2)) {
     axios.get('/static/test_org.csv')
       .then((res) => {
-        fs.writeFile(orgFile, res.data, (err) => {
+        fs.writeFile(orgFile2, res.data, (err) => {
           console.log(err)
         })
       })
@@ -304,14 +334,44 @@ export default function appInit() {
         console.log(error);
       });
   }
-  const deptFile = path.format({
+  const deptFile2 = path.format({
     dir: hitbdataUser,
     base: 'test_department.csv'
   });
-  if (!fs.existsSync(deptFile)) {
+  if (!fs.existsSync(deptFile2)) {
     axios.get('/static/test_department.csv')
       .then((res) => {
-        fs.writeFile(deptFile, res.data, (err) => {
+        fs.writeFile(deptFile2, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  const wt4File3 = path.format({
+    dir: hitbdataUser,
+    base: 'test_wt4_2015年1月.csv'
+  });
+  if (!fs.existsSync(wt4File3)) {
+    axios.get('/static/test_wt4_2015年1月.csv')
+      .then((res) => {
+        fs.writeFile(wt4File3, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  const wt4File4 = path.format({
+    dir: hitbdataUser,
+    base: 'test_wt4_2015年2月.csv'
+  });
+  if (!fs.existsSync(wt4File4)) {
+    axios.get('/static/test_wt4_2015年2月.csv')
+      .then((res) => {
+        fs.writeFile(wt4File4, res.data, (err) => {
           console.log(err)
         })
       })

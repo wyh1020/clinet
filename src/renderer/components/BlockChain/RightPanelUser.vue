@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div>
+    <div v-if="toolbar == 'setUser'">
       <form>
         <div class="form-group">
           <label for="exampleInputEmail1" class="text-danger">注册的Email地址</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <input v-model="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1" class="text-danger">用户密码</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
         
       </form>
@@ -23,13 +23,21 @@
 </template>
 
 <script>
+  import open from '../../utils/BlockAccount'
   export default {
     data() {
       return {
-        flag: null
+        flag: null,
+        email: '',
+        password: ''
       }
     },
     computed: {
+      toolbar: {
+        get() {
+          return this.$store.state.Block.toolbar
+        }
+      },
       file: {
         get() {
           const f = [];
@@ -53,7 +61,12 @@
         }
       },
       login: function () {
-
+        const ip = this.$store.state.Block.server
+        const port = this.$store.state.Block.port
+        const user = this.password
+        console.log(ip)
+        open(this, [ip, port, user])
+        console.log(this.email)
       }
     },
   };

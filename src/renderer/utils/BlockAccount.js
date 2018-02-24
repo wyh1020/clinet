@@ -1,28 +1,29 @@
-// const AschJS = require('asch-js');
-// const Request = require('superagent');
+const AschJS = require('asch-js');
+const axios = require('axios');
+const qs = require('qs');
 
-// const secret = 'someone manual strong movie roof episode eight spatial brown soldier soup motor';
-// const keys = AschJS.crypto.getKeys(secret);
-// console.log('根据密码生成公钥、私钥');
-// console.log(keys);
+const secret = 'someone manual strong movie roof episode eight spatial brown soldier soup motor';
+const keys = AschJS.crypto.getKeys(secret);
+console.log('根据密码生成公钥、私钥');
+console.log(keys);
 
-// const publicKey = keys.publicKey
-// const address = AschJS.crypto.getAddress(publicKey);
-// console.log('根据公钥生成地址')
-// console.log(address)
+const publicKey = keys.publicKey
+const address = AschJS.crypto.getAddress(publicKey);
+console.log('根据公钥生成地址')
+console.log(address)
 
-// const secondSecret = '123456'
-// const trans = AschJS.signature.createSignature(secret, secondSecret)
-// console.log('设置二级密码')
-// console.log(trans)
+const secondSecret = '123456'
+const trans = AschJS.signature.createSignature(secret, secondSecret)
+console.log('设置二级密码')
+console.log(trans)
 
-// const b = AschJS.transaction.createLock(8130, secret, secondSecret)
-// console.log('账户锁仓')
-// console.log(b)
+const b = AschJS.transaction.createLock(8130, secret, secondSecret)
+console.log('账户锁仓')
+console.log(b)
 
-// // /peer相关的api，在请求时都需要设置一个header
-// // key为magic，testnet value:594fe0f3, mainnet value:5f5b3cf5
-// // key为version，value为''
+// /peer相关的api，在请求时都需要设置一个header
+// key为magic，testnet value:594fe0f3, mainnet value:5f5b3cf5
+// key为version，value为''
 // export function transactions(obj, data) {
 //   Request
 //     .post(`${data[0]}:${data[1]}/peer/transactions`)
@@ -55,7 +56,20 @@
 //     })
 // }
 
-// export function open(obj, data) {
+// 本地不加密直接登陆
+export default function open(obj, data) {
+  console.log(`http://${data[0]}:${data[1]}/api/accounts/open/`)
+  axios({
+    method: 'post',
+    url: `http://${data[0]}:${data[1]}/api/accounts/open/`,
+    data: qs.stringify({ secret: secret }),
+    headers: { 'Content-Type': 'application/json' },
+    responseType: 'json'
+  }).then((res) => {
+    console.log(res)
+  }).catch((err) => {
+    console.log(err)
+  })
 //   Request
 //     .post(`${data[0]}:${data[1]}/api/accounts/open/`)
 //     .send({ secret: secret })
@@ -68,7 +82,7 @@
 //         console.log(res.body)
 //       }
 //     })
-// }
+}
 
 // export function accounts(obj, data) {
 //   Request

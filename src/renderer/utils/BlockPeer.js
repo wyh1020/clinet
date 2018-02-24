@@ -1,24 +1,11 @@
 // const AschJS = require('asch-js');
-// const Request = require('superagent');
 const axios = require('axios');
-axios.defaults.headers.post['content-Type'] = 'appliction/x-www-form-urlencoded';
 
-export function serverStatus(obj, data) {
-  // Request
-  //   .get(`${data[0]}:${data[1]}`)
-  //   .end((req, res) => {
-  //     // console.log(res.statusCode === 200)
-  //     if (res && res.statusCode === 200) {
-  //       obj.$store.commit('BLOCK_SET_SERVER_STATUS', [data[2], '连接成功'])
-  //     } else {
-  //       console.log(res)
-  //     }
-  //   })
-
-  axios.get(`http://${data[0]}:${data[1]}`)
+export function peers(obj, data) {
+  axios.get(`http://${data[0]}:${data[1]}/api/peers?limit=2`)
     .then((res) => {
       if (res.status === 200) {
-        obj.$store.commit('BLOCK_SET_SERVER_STATUS', [data[2], '连接成功'])
+        obj.$store.commit('BLOCK_SET_PEERS', res.data.peers)
       }
     })
     .catch((err) => {
@@ -26,21 +13,19 @@ export function serverStatus(obj, data) {
     });
 }
 
-export function peers(obj, data) {
-  // Request
-  //   .get(`${data[0]}:${data[1]}/api/peers?limit=2`)
-  //   .end((req, res) => {
-  //     console.log('获取本机连接的所有节点信息')
-  //     if (res) {
-  //       console.log(res.body)
-  //     }
-  //   })
-
-  axios.get(`http://${data[0]}:${data[1]}/api/peers?limit=2`)
+export function serverStatus(obj, data) {
+  axios.get(`http://${data[0]}:${data[1]}`)
     .then((res) => {
-      console.log(res);
+      if (res.status === 200) {
+        obj.$store.commit('BLOCK_SET_SERVER_STATUS', [data[2], '连接成功'])
+        obj.$store.commit('BLOCK_SET_SERVER', data);
+        peers(obj, data)
+      } else {
+        obj.$store.commit('BLOCK_SET_SERVER_STATUS', [data[2], '连接失败'])
+      }
     })
     .catch((err) => {
+      obj.$store.commit('BLOCK_SET_SERVER_STATUS', [data[2], '连接失败'])
       console.log(err);
     });
 }
