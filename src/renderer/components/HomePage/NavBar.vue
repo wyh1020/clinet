@@ -98,61 +98,51 @@
         setInterval(this.getTime, 1000);
       },
       onClick: function (n) {
+        this.$store.commit('SET_NAVBAR', n);
+        this.$store.commit('SET_NOTICE', n);
         switch (n) {
           case '首页':
-            this.$store.commit('SET_NAVBAR', '首页');
             this.$router.push('/home');
             break;
           case '数据采集-数据采集':
-            this.$store.commit('SET_NAVBAR', '数据采集-数据采集');
             this.$router.push('/edit');
             break;
           case '数据分析-数据分析':
-            this.$store.commit('SET_NAVBAR', '数据分析-数据分析');
             this.$router.push('/stat');
             break;
           case '术语字典-术语字典':
-            this.$store.commit('SET_NAVBAR', '术语字典-术语字典');
             this.$router.push('/library');
             break;
           case '系统服务-本地文件导入':
-            this.$store.commit('SET_NAVBAR', '系统服务-本地文件导入');
             this.$router.push('/system');
             break;
           case '系统服务-远程服务器设置':
-            this.$store.commit('SET_NAVBAR', '系统服务-远程服务器设置');
             this.$router.push('/system');
             break;
           case '系统服务-DRG分组服务':
-            this.$store.commit('SET_NAVBAR', '系统服务-DRG分组服务');
             this.$router.push('/system');
             break;
           case '系统服务-DRG分析计算':
-            this.$store.commit('SET_NAVBAR', '系统服务-DRG分析计算');
             this.$router.push('/system');
             break;
           case '区块链服务-服务器节点设置':
-            this.$store.commit('SET_NAVBAR', '区块链服务-服务器节点设置');
             this.$router.push('/blockChain');
             break;
           case '区块链服务-账户设置':
-            this.$store.commit('SET_NAVBAR', '区块链服务-账户设置');
             this.$router.push('/blockChain');
             break;
           case '区块链服务-区块查询':
-            this.$store.commit('SET_NAVBAR', '区块链服务-区块查询');
             this.$router.push('/blockChain');
             break;
           case '区块链服务-DRG分组服务':
-            this.$store.commit('SET_NAVBAR', '区块链服务-DRG分组服务');
             this.$router.push('/blockChain');
             break;
           case '区块链服务-DRG分析计算':
-            this.$store.commit('SET_NAVBAR', '区块链服务-DRG分析计算');
             this.$router.push('/blockChain');
             break;
           default:
             this.$store.commit('SET_NAVBAR', '登陆页');
+            this.$store.commit('SET_NOTICE', '登陆页');
             this.$router.push('/');
         }
       },
