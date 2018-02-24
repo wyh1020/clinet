@@ -95,6 +95,39 @@ export default function appInit() {
     })
   }
 
+  // 区块链服务节点
+  const blockFile = path.format({
+    dir: hitbdataSystem,
+    base: 'hitb_blockchain.csv'
+  });
+  if (fs.existsSync(blockFile)) {
+    const fRead = fs.createReadStream(blockFile);
+    const fReadline = readline.createInterface({ input: fRead });
+    const f = []; // 将CSV文件逐行读到数组中
+    const t = {}; // 将数组逐行转换为js对象
+
+    fReadline.on('close', () => {
+      f.shift();
+      f.forEach((line) => {
+        const x = line.split(',');
+        if (!t[x[0]]) { t[x[0]] = []; }
+        const a = x.shift();
+        t[a].push(x);
+      })
+      global.hitbdata.blockchain = t;
+    });
+
+    fReadline.on('line', (line) => {
+      f.push(line)
+    })
+  } else {
+    const data = '服务器名称,IP地址,PORT端口,连接设置\n本地测试服务器,127.0.0.1,4096,'
+    global.hitbdata.blockchain = { 本地测试服务器: ['127.0.0.1', '4096', ''] }
+    fs.writeFile(blockFile, data, (err) => {
+      console.log(err)
+    })
+  }
+
   // 导入数据，系统表结构
   const tableFile = path.format({
     dir: hitbdataSystem,
@@ -132,37 +165,159 @@ export default function appInit() {
       });
   }
 
-  // 区块链服务节点
-  const blockFile = path.format({
-    dir: hitbdataSystem,
-    base: 'hitb_blockchain.csv'
+  // 术语字典文件
+  const mdcFile = path.format({
+    dir: hitbdataLibrary,
+    base: 'test_mdc.csv'
   });
-  if (fs.existsSync(blockFile)) {
-    const fRead = fs.createReadStream(blockFile);
-    const fReadline = readline.createInterface({ input: fRead });
-    const f = []; // 将CSV文件逐行读到数组中
-    const t = {}; // 将数组逐行转换为js对象
-
-    fReadline.on('close', () => {
-      f.shift();
-      f.forEach((line) => {
-        const x = line.split(',');
-        if (!t[x[0]]) { t[x[0]] = []; }
-        const a = x.shift();
-        t[a].push(x);
+  if (!fs.existsSync(mdcFile)) {
+    axios.get('/static/test_mdc.csv')
+      .then((res) => {
+        fs.writeFile(mdcFile, res.data, (err) => {
+          console.log(err)
+        })
       })
-      global.hitbdata.blockchain = t;
-    });
-
-    fReadline.on('line', (line) => {
-      f.push(line)
-    })
-  } else {
-    const data = '服务器名称,IP地址,PORT端口,连接设置\n本地测试服务器,127.0.0.1,4096,'
-    global.hitbdata.blockchain = { 本地测试服务器: ['127.0.0.1', '4096', ''] }
-    fs.writeFile(blockFile, data, (err) => {
-      console.log(err)
-    })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  const adrgFile = path.format({
+    dir: hitbdataLibrary,
+    base: 'test_adrg.csv'
+  });
+  if (!fs.existsSync(adrgFile)) {
+    axios.get('/static/test_adrg.csv')
+      .then((res) => {
+        fs.writeFile(adrgFile, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  const drgFile = path.format({
+    dir: hitbdataLibrary,
+    base: 'test_drg.csv'
+  });
+  if (!fs.existsSync(drgFile)) {
+    axios.get('/static/test_drg.csv')
+      .then((res) => {
+        fs.writeFile(drgFile, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  const icd10File = path.format({
+    dir: hitbdataLibrary,
+    base: 'test_icd10.csv'
+  });
+  if (!fs.existsSync(icd10File)) {
+    axios.get('/static/test_icd10.csv')
+      .then((res) => {
+        fs.writeFile(icd10File, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  const icd9File = path.format({
+    dir: hitbdataLibrary,
+    base: 'test_icd9.csv'
+  });
+  if (!fs.existsSync(icd9File)) {
+    axios.get('/static/test_icd9.csv')
+      .then((res) => {
+        fs.writeFile(icd9File, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  // stat分析文件
+  const statFile = path.format({
+    dir: hitbdataStat,
+    base: 'test_stat_1.csv'
+  });
+  if (!fs.existsSync(statFile)) {
+    axios.get('/static/test_stat_1.csv')
+      .then((res) => {
+        fs.writeFile(statFile, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  // 用户导入文件
+  const wt4File1 = path.format({
+    dir: hitbdata,
+    base: 'test_wt4_2015年1月.csv'
+  });
+  if (!fs.existsSync(wt4File1)) {
+    axios.get('/static/test_wt4_2015年1月.csv')
+      .then((res) => {
+        fs.writeFile(wt4File1, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  const wt4File2 = path.format({
+    dir: hitbdata,
+    base: 'test_wt4_2015年2月.csv'
+  });
+  if (!fs.existsSync(wt4File2)) {
+    axios.get('/static/test_wt4_2015年2月.csv')
+      .then((res) => {
+        fs.writeFile(wt4File2, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  // 用户本地文件
+  const orgFile = path.format({
+    dir: hitbdataUser,
+    base: 'test_org.csv'
+  });
+  if (!fs.existsSync(orgFile)) {
+    axios.get('/static/test_org.csv')
+      .then((res) => {
+        fs.writeFile(orgFile, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  const deptFile = path.format({
+    dir: hitbdataUser,
+    base: 'test_department.csv'
+  });
+  if (!fs.existsSync(deptFile)) {
+    axios.get('/static/test_department.csv')
+      .then((res) => {
+        fs.writeFile(deptFile, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }
 
