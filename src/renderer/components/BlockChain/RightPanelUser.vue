@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import open from '../../utils/BlockAccount'
+  import { open } from '../../utils/BlockAccount'
   export default {
     data() {
       return {

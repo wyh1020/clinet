@@ -1,5 +1,5 @@
 // const AschJS = require('asch-js');
-// const Request = require('superagent');
+const axios = require('axios');
 
 // AschJS.options.set('secret', 'minor borrow display rebel depart core buzz right distance avocado immense push')
 
@@ -23,25 +23,31 @@
 // console.log('真实的 unix时间戳* 1000，毫秒单位')
 // console.log(nowTime)
 
-// export function loaderStatus(obj, data) {
-//   Request
-//     .get(`${data[0]}:${data[1]}/api/loader/status`)
-//     .end((req, res) => {
-//       console.log('查看本地区块链加载状态')
-//       if (res) {
-//         console.log(res.body)
-//       }
-//     })
-// }
+// 查看本地区块链加载状态
+export function loaderStatus(obj, data) {
+  axios.get(`http://${data[0]}:${data[1]}/api/loader/status`)
+    .then((res) => {
+      console.log(res)
+      if (res.status === 200) {
+      // obj.$store.commit('BLOCK_SET_PEERS', res.data.peers)
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
-// export function loaderStatusSync(obj, data) {
-//   Request
-//     .get(`${data[0]}:${data[1]}/api/loader/status/sync`)
-//     .end((req, res) => {
-//       console.log('查看区块同步信息')
-//       if (res) {
-//         console.log(res.body)
-//       }
-//     })
-// }
+// 查看区块同步信息
+export function loaderStatusSync(obj, data) {
+  axios.get(`http://${data[0]}:${data[1]}/api/loader/status/sync`)
+    .then((res) => {
+      console.log(res)
+      if (res.status === 200) {
+        // obj.$store.commit('BLOCK_SET_PEERS', res.data.peers)
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
