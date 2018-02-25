@@ -10,7 +10,7 @@ describe('Library', function () {
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
       .waitUntilTextExists('#notice-bar', '未注册用户登陆！')
     // 点击顶部导航栏的libary-page，进入libary页
-      .click('#library-page')
+      .click('#navbar-library')
       .waitUntilTextExists('#notice-bar', '系统通知：术语字典-术语字典')
     // 点击工具栏的本地文件(local-file)，浏览本地文件
       .click('#local-file')

@@ -6,16 +6,16 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='getServers'>
+        <li class="nav-item active" v-on:click='getServers' id="block-get-servers">
           <a class="nav-link text-light" href="#"> 服务器节点列表 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='setNodes'>
+        <li class="nav-item active" v-on:click='setNodes' id="block-set-nodes">
           <a class="nav-link text-light" href="#"> 设置连接节点 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='blockChainInfo'>
+        <li class="nav-item active" v-on:click='blockChainInfo' id="block-chain-info">
           <a class="nav-link text-light" href="#"> 区块链服务介绍 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='blockChainFunction'>
+        <li class="nav-item active" v-on:click='blockChainFunction' id="block-chain-function">
           <a class="nav-link text-light" href="#"> 区块链服务功能列表 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -29,24 +29,23 @@
 <script>
   import loadFile from '../../utils/LoadFile';
   export default {
-    data() {
-      return {
-        paths: []
-      };
-    },
     methods: {
       getServers: function () {
         loadFile(this, 'hitb_blockchain.csv', 'block')
         this.$store.commit('BLOCK_SET_TOOLBAR', 'getServers');
+        this.$store.commit('SET_NOTICE', '服务器节点列表');
       },
       setNodes: function () {
         this.$store.commit('BLOCK_SET_TOOLBAR', 'setNodes');
+        this.$store.commit('SET_NOTICE', '设置连接节点');
       },
       blockChainInfo: function () {
         this.$store.commit('BLOCK_SET_TOOLBAR', 'blockChainInfo');
+        this.$store.commit('SET_NOTICE', '区块链服务介绍');
       },
       blockChainFunction: function () {
         this.$store.commit('BLOCK_SET_TOOLBAR', 'blockChainFunction');
+        this.$store.commit('SET_NOTICE', '区块链服务功能列表');
       },
     },
   };

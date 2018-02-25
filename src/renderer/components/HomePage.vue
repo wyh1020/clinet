@@ -19,11 +19,6 @@
   export default {
     name: 'home-page',
     components: { HomeInformation, NavBar, NoticeBar },
-    methods: {
-      open(link) {
-        this.$electron.shell.openExternal(link);
-      },
-    },
   };
 </script>
 

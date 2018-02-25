@@ -10,7 +10,7 @@ describe('Edit', function () {
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
       .waitUntilTextExists('#notice-bar', '未注册用户登陆！')
     // 点击顶部导航栏的edit-page，进入edit页
-      .click('#edit-page')
+      .click('#navbar-edit')
       .waitUntilTextExists('#edit-input', '')
     // 底部输入框edit-input的内容为空
       .getText('#edit-input')

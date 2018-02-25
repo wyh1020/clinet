@@ -13,11 +13,6 @@
 
 <script>
   export default {
-    data() {
-      return {
-        name: this.$route.name
-      };
-    },
     computed: {
       x: {
         get() {

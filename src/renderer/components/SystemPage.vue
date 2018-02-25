@@ -24,11 +24,6 @@
   export default {
     name: 'system-page',
     components: { NavBar, LeftPanel, RightPanel, NoticeBar },
-    methods: {
-      open(link) {
-        this.$electron.shell.openExternal(link);
-      }
-    },
   };
 </script>
 

@@ -71,9 +71,7 @@
         const ip = this.$store.state.Block.server
         const port = this.$store.state.Block.port
         const user = global.hitbdata.blockchain_user
-        // console.log(ip)
         open(this, [ip, port, user])
-        // console.log(this.email)
       }
     },
   };

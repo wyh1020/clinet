@@ -6,7 +6,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click="lastNav" v-if="this.$store.state.Edit.lastNav">
+        <li class="nav-item active" v-on:click="lastNav" v-if="this.$store.state.Edit.lastNav" id="edit-last-nav">
           <a class="nav-link text-light" href="#"> 返回 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
@@ -27,25 +27,25 @@
             <div class="dropdown-divider"></div>
           </div>
         </li>
-        <li class="nav-item" v-on:click="newDoc">
+        <li class="nav-item" v-on:click="newDoc" id="edit-new-doc">
           <a class="nav-link text-light" href="#">新建</a>
         </li>
-        <li class="nav-item" v-on:click="save(1)">
+        <li class="nav-item" v-on:click="save(1)" id="edit-save-1">
           <a class="nav-link text-light" href="#">保存</a>
         </li>
-        <li class="nav-item" v-on:click="save(2)">
+        <li class="nav-item" v-on:click="save(2)" id="edit-save-2">
           <a class="nav-link text-light" href="#">另存</a>
         </li>
-        <li class="nav-item" v-on:click="save(0)">
+        <li class="nav-item" v-on:click="save(0)" id="edit-save-0">
           <a class="nav-link text-light" href="#">删除</a>
         </li>
-        <li class="nav-item" v-on:click="saveFile">
+        <li class="nav-item" v-on:click="saveFile" id="edit-save-file">
           <a class="nav-link text-light" href="#">写文件</a>
         </li>
-        <li class="nav-item active" v-on:click='page(-1)' v-if="this.$store.state.Edit.leftPanel == 'table'">
+        <li class="nav-item active" v-on:click='page(-1)' id="edit-page-1" v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='page(1)' v-if="this.$store.state.Edit.leftPanel == 'table'">
+        <li class="nav-item active" v-on:click='page(1)' id="edit-page-2" v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
         </li>
       </ul>

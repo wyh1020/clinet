@@ -10,7 +10,7 @@ describe('Stat', function () {
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
       .waitUntilTextExists('#notice-bar', '未注册用户登陆！')
     // 点击顶部导航栏的stat-page，进入stat页
-      .click('#stat-page')
+      .click('#navbar-stat')
       .waitUntilTextExists('#notice-bar', '数据分析-数据分析')
   })
 });
