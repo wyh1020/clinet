@@ -6,20 +6,20 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='loadData'>
-          <a class="nav-link text-light" href="#" id="local-file"> 本地文件 <span class="sr-only">(current)</span></a>
+        <li class="nav-item active" v-on:click='loadData' id="library-local-file">
+          <a class="nav-link text-light" href="#"> 本地文件 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='serverData'>
-          <a class="nav-link text-light" href="#" id="remote-file"> 远程文件 <span class="sr-only">(current)</span></a>
+        <li class="nav-item active" v-on:click='serverData' id="library-remote-file">
+          <a class="nav-link text-light" href="#"> 远程文件 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='page(-1)'>
-          <a class="nav-link text-light" href="#" id="library-up"> 前一页 <span class="sr-only">(current)</span></a>
+        <li class="nav-item active" v-on:click='page(-1)' id="library-up">
+          <a class="nav-link text-light" href="#"> 前一页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='page(1)'>
-          <a class="nav-link text-light" href="#" id="library-down"> 后一页 <span class="sr-only">(current)</span></a>
+        <li class="nav-item active" v-on:click='page(1)' id="library-down">
+          <a class="nav-link text-light" href="#"> 后一页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='edit'>
-          <a class="nav-link text-light" href="#" id="library-edit"> 编辑数据 <span class="sr-only">(current)</span></a>
+        <li class="nav-item active" v-on:click='edit' id="library-edit">
+          <a class="nav-link text-light" href="#"> 编辑数据 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="library-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,12 +52,15 @@
       loadData: function () {
         this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
         this.$store.commit('LIBRARY_LOAD_FILES');
+        this.$store.commit('SET_NOTICE', '本地文件');
       },
       serverData: function () {
         this.$store.commit('LIBRARY_SERVER_FILES');
+        this.$store.commit('SET_NOTICE', '远程文件');
       },
       page: function (n) {
         this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
+        this.$store.commit('SET_NOTICE', '翻页');
       },
       edit: function () {
         this.$store.commit('EDIT_SET_LAST_NAV', '/library');
@@ -67,6 +70,8 @@
       },
       selX: function (x) {
         this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['dimension', x]);
+        this.$store.commit('SET_NOTICE', '区块列表');
+        this.$store.commit('SET_NOTICE', '维度选择');
       },
     },
   };

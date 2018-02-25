@@ -11,7 +11,6 @@ describe('Home', function () {
       .waitUntilTextExists('#notice-bar', '未注册用户登陆！')
       .getText('#notice-bar')
       .then(function (noticeText) {
-        console.log(noticeText)
         expect(noticeText).to.equal('系统通知：未注册用户登陆！');
       })
   })

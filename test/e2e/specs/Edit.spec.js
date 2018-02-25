@@ -15,7 +15,7 @@ describe('Edit', function () {
     // 底部输入框edit-input的内容为空
       .getText('#edit-input')
       .then(function (editText) {
-        console.log(`editText: ${editText}`)
+        // console.log(`editText: ${editText}`)
         expect(editText).to.equal('');
       })
   })

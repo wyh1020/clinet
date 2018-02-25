@@ -4,13 +4,7 @@ describe('Launch', function () {
   beforeEach(utils.beforeEach);
   afterEach(utils.afterEach);
 
-  // it('shows the proper application title', function () {
-  //   return this.app.client.getTitle()
-  //     .then((title) => {
-  //       expect(title).to.equal('clinet---医生工作站，应用区块链技术，连接成clinic-net');
-  //     });
-  // });
-
+  // 系统正常启动
   it('Launch-测试1', function () {
     return this.app.client.browserWindow.isVisible()
       .then((isVisible) => {
@@ -19,13 +13,11 @@ describe('Launch', function () {
       // 获取title
       .getTitle()
       .then((title) => {
-        console.log(title)
         expect(title).to.equal('clinet---医生工作站，应用区块链技术，连接成clinic-net');
       })
       // 获取底部通知栏内容
       .getText('#notice-bar')
       .then(function (noticeText) {
-        console.log(noticeText)
         expect(noticeText).to.equal('系统通知：未注册用户可以直接登陆！使用单机版功能！用户注册可以选择远程服务或者区块链服务！');
       })
   });
@@ -36,6 +28,7 @@ describe('Launch', function () {
 // https://electronjs.org/spectron
 // The client API is WebdriverIO's browser object.
 // http://webdriver.io/api.html
+// https://github.com/electron/spectron
 // E2E 测试的常用操作如下：
 // 打开网页，跳转网页：打开 login, home, edit, stat, library, server, blockchain等等；
 // 填写输入框，提交表单：键入搜索词，提交搜索表单；
