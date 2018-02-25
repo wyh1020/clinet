@@ -68,6 +68,7 @@ export default function open(obj, data) {
     console.log(res)
     if (res.status === 200) {
       obj.$store.commit('SET_NOTICE', '区块链服务登录成功!')
+      obj.$store.commit('BLOCK_SET_ACCOUNT', res.data.account)
     } else {
       obj.$store.commit('SET_NOTICE', '区块链服务登录失败!')
     }

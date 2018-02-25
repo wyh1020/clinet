@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="toolbar == 'setUser'">
-      <form>
+      <form v-if="!account">
         <div class="form-group">
           <label for="exampleInputEmail1" class="text-danger">注册的Email地址</label>
           <input v-model="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -10,15 +10,23 @@
           <label for="exampleInputPassword1" class="text-danger">用户密码</label>
           <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
-        
       </form>
-      <button id="login" class="btn btn-outline-primary" v-on:click="login">登陆</button>
+      <button v-if="!account" id="login" class="btn btn-outline-primary" v-on:click="login">登陆</button>
+      <div  v-if="account">
+        <table>
+          <tr v-for="(line, index) in Object.entries(account)" v-bind:key='index'>
+            <td v-for="(filed, index) in line" v-bind:key='index'>{{line[index]}}</td>
+          </tr>
+        </table>
+      </div>
     </div>
-    <table>
-      <tr v-for="(line, index) in file" v-bind:key='index'>
-        <td v-for="(filed, index) in line" v-bind:key='index'>{{line[index]}}</td>
-      </tr>
-    </table>
+    <div v-if="toolbar == 'account'">
+      {{account.balance}}
+    </div>
+    <div v-if="toolbar == 'transRecord'">
+      trans
+      {{trans}}
+    </div>
   </div>
 </template>
 
@@ -38,17 +46,16 @@
           return this.$store.state.Block.toolbar
         }
       },
-      file: {
+      account: {
         get() {
-          const f = [];
-          let len = this.$store.state.System.file.length;
-          if (len > 99) { len = 99 }
-          for (let i = 0; i < len; i += 1) {
-            f.push(this.$store.state.System.file[i].split(','))
-          }
-          return f
+          return this.$store.state.Block.account
         }
       },
+      trans: {
+        get() {
+          return this.$store.state.Block.trans
+        }
+      }
     },
     methods: {
       load: function (n) {

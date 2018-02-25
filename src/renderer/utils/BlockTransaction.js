@@ -1,23 +1,23 @@
-// const AschJS = require('asch-js');
-// const Request = require('superagent');
+const AschJS = require('asch-js');
+const axios = require('axios');
 
-// const targetAddress = '16358246403719868041';
-// const amount = 100 * 100000000; // 100 XAS
-// const message = '备注';
-// const secret = 'someone manual strong movie roof episode eight spatial brown soldier soup motor';
-// const secondSecret = '123456'
+const targetAddress = '16358246403719868041';
+const amount = 100 * 100000000; // 100 XAS
+const message = '备注';
+const secret = 'someone manual strong movie roof episode eight spatial brown soldier soup motor';
+const secondSecret = '123456'
 
-// const trans = AschJS.transaction.createTransaction(targetAddress, amount, message, secret, secondSecret || undefined)
-// console.log('在主链转账')
-// console.log(trans)
+const trans = AschJS.transaction.createTransaction(targetAddress, amount, message, secret, secondSecret || undefined)
+console.log('在主链转账')
+console.log(trans)
 
-// const transId = AschJS.crypto.getId(trans)
-// console.log('获取交易ID')
-// console.log(transId)
+const transId = AschJS.crypto.getId(trans)
+console.log('获取交易ID')
+console.log(transId)
 
-// // /peer相关的api，在请求时都需要设置一个header
-// // key为magic，testnet value:594fe0f3, mainnet value:5f5b3cf5
-// // key为version，value为''
+// /peer相关的api，在请求时都需要设置一个header
+// key为magic，testnet value:594fe0f3, mainnet value:5f5b3cf5
+// key为version，value为''
 
 // export function transactions1(obj, data) {
 //   Request
@@ -52,19 +52,19 @@
 //       }
 //     })
 // }
-
-// export function getTransactions(obj, data) {
-//   Request
-//     .get(`${data[0]}:${data[1]}/api/transactions?limit=2`)
-//     .end((err, res) => {
-//       console.log('获取交易信息')
-//       if (err) {
-//         console.log(err)
-//       } else {
-//         console.log(res.body)
-//       }
-//     })
-// }
+// 获取交易信息
+export function getTransactions(obj, data) {
+  axios.get(`http://${data[0]}:${data[1]}/api/transactions?limit=2`)
+    .then((res) => {
+      console.log(res)
+      if (res.status === 200) {
+        obj.$store.commit('BLOCK_SET_TRANS', res.data)
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
 // export function getTransactionsById(obj, data) {
 //   Request
@@ -92,15 +92,15 @@
 //     })
 // }
 
-// export function transactionsUnconfirmedAll(obj, data) {
-//   Request
-//     .get(`${data[0]}:${data[1]}/api/transactions/unconfirmed?limit=2`)
-//     .end((err, res) => {
-//       console.log('获取[全网所有]未确认的交易详情')
-//       if (err) {
-//         console.log(err)
-//       } else {
-//         console.log(res.body)
-//       }
-//     })
-// }
+export function transactionsUnconfirmedAll(obj, data) {
+  axios.get(`http://${data[0]}:${data[1]}/api/transactions/unconfirmed?limit=2`)
+    .then((res) => {
+      console.log(res)
+      if (res.status === 200) {
+        obj.$store.commit('BLOCK_SET_TRANSUN', res.data)
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}

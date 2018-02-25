@@ -27,6 +27,7 @@
 </template>
 
 <script>
+  import { getTransactions, transactionsUnconfirmedAll } from '../../utils/BlockTransaction'
   export default {
     data() {
       return {
@@ -44,6 +45,12 @@
         this.$store.commit('BLOCK_SET_TOOLBAR', 'transaction');
       },
       transRecord: function () {
+        const ip = this.$store.state.Block.server
+        const port = this.$store.state.Block.port
+        const user = global.hitbdata.blockchain_user
+        // console.log(ip)
+        getTransactions(this, [ip, port, user])
+        transactionsUnconfirmedAll(this, [ip, port, user])
         this.$store.commit('BLOCK_SET_TOOLBAR', 'transRecord');
       },
     },
