@@ -261,14 +261,29 @@ export default function appInit() {
       });
   }
   // stat分析文件
-  const statFile = path.format({
+  const statFile1 = path.format({
     dir: hitbdataStat,
     base: 'test_stat_1.csv'
   });
-  if (!fs.existsSync(statFile)) {
+  if (!fs.existsSync(statFile1)) {
     axios.get('/static/test_stat_1.csv')
       .then((res) => {
-        fs.writeFile(statFile, res.data, (err) => {
+        fs.writeFile(statFile1, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  const statFile2 = path.format({
+    dir: hitbdataStat,
+    base: 'test_stat_2.csv'
+  });
+  if (!fs.existsSync(statFile2)) {
+    axios.get('/static/test_stat_2.csv')
+      .then((res) => {
+        fs.writeFile(statFile2, res.data, (err) => {
           console.log(err)
         })
       })
