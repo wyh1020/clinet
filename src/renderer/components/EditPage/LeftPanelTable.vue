@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table>
+    <table id="edit-left-table">
       <tr>
         <th class="table-danger"> 选择编辑条目</th>
       </tr>
