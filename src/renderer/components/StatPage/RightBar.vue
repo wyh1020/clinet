@@ -6,37 +6,37 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='loadData'>
+        <li class="nav-item active" id="stat-local-doc" v-on:click='loadData'>
           <a class="nav-link text-light" href="#"> 本地文件 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='serverData'>
+        <li class="nav-item active" id="stat-remote-file" v-on:click='serverData'>
           <a class="nav-link text-light" href="#"> 远程文件 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='page(-1)'>
+        <li class="nav-item active" id="stat-prev-page" v-on:click='page(-1)'>
           <a class="nav-link text-light" href="#"> 前一页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='page(1)'>
+        <li class="nav-item active" id="stat-next-page" v-on:click='page(1)'>
           <a class="nav-link text-light" href="#"> 后一页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='edit'>
+        <li class="nav-item active" id="stat-edit-data" v-on:click='edit'>
           <a class="nav-link text-light" href="#"> 编辑数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='compare'>
+        <li class="nav-item active" id="stat-join-contrast" v-on:click='compare'>
           <a class="nav-link text-light" href="#"> 加入对比 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='showCompare'>
+        <li class="nav-item active" id="stat-show-contrast" v-on:click='showCompare'>
           <a class="nav-link text-light" href="#"> 显示对比 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='showCompare'>
+        <li class="nav-item active" id="stat-save-contrast" v-on:click='showCompare'>
           <a class="nav-link text-light" href="#"> 保存对比 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle text-light" href="#" id="stat-bar-left-chart" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             左图选择
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="nav-link" href="#" v-on:click='showChart("chartLeft", "柱状图")'> 柱状图 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='showChart("chartLeft", "折线图")'> 折线图 <span class="sr-only">(current)</span></a>
+            <a id="stat-left-bar" class="nav-link" href="#" v-on:click='showChart("chartLeft", "柱状图")'> 柱状图 <span class="sr-only">(current)</span></a>
+            <a id="stat-left-discount" class="nav-link" href="#" v-on:click='showChart("chartLeft", "折线图")'> 折线图 <span class="sr-only">(current)</span></a>
             <a class="nav-link" href="#" v-on:click='showChart("chartLeft", "雷达图")'> 雷达图 <span class="sr-only">(current)</span></a>
             <a class="nav-link" href="#" v-on:click='showChart("chartLeft", "散点图")'> 散点图 <span class="sr-only">(current)</span></a>
           </div>

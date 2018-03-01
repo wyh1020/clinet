@@ -13,16 +13,48 @@ describe('Stat', function () {
       .click('#navbar-stat')
       .waitUntilTextExists('#notice-bar', '数据分析-数据分析')
     // 2.1、本地文件 leftPanel显示本地文件列表
+      .click('#stat-local-doc')
+      .waitUntilTextExists('.stat-left-file-tr', 'test_stat_1.csv')
     // 2.1.1 点击leftPanel列表 rightPanel数据表显示当前文件的前十条数据 chart显示当前数据图表 提示显示当前数据提示内容
+      // .click('.stat-left-file-tr')
+      // .waitUntilWindowLoaded(500)
+      // .getText('#stat-right-table')
+      // .then(function (rightTable) {
+      //   expect(rightTable).to.be.an('string');
+      // })
     // 2.1.1.1 点击rightPanel数据表的单条或多条数据高亮显示 rightPanel的chart及提示显示当前数据的图表及提示内容
+      // .click('.stat-right-table')
+      // .waitUntilWindowLoaded(500)
+      // .getCssProperty('.stat-right-table')
+      // .then(function (rightTableTr) {
+      //   console.log(rightTableTr)
+      // })
     // 2.1.1.1.1 点击工具栏的加入对比 将rightPanel数据表中选中的数据加入到对比数据中
     // 2.1.1.1.2 点击工具栏的显示对比 将对比数据显示到rightPanel的数据表中
     // 2.1.1.1.3 点击工具栏的保存对比
     // 2.1.1.1.4 点击工具栏的前一页 rightPanel显示当前数据的前十条数据并且当前行高亮显示 如果为第一页则提示"当前已是第一页"
+      // .click('#stat-prev-page')
+      // .waitUntilWindowLoaded(500)
+      // .getText('#stat-right-table')
+      // .then(function (rightTable) {
+      //   console.log(rightTable)
+      //   expect(rightTable).to.be.an('array');
+      // })
     // 2.1.1.1.5 点击工具栏的后一页 rightPanel显示当前数据的后十条数据并且当前行高亮显示 如果为最后一页则提示"当前已是最后一页"
+      // .click('#stat-next-page')
+      // .waitUntilWindowLoaded(500)
+      // .getText('#stat-right-table')
+      // .then(function (rightTable) {
+      //   console.log(rightTable)
+      //   expect(rightTable).to.be.an('array');
+      // })
     // 2.1.1.1.6 点击工具栏的编辑数据 将当前本地文件数据显示传到Edit的rightPanel中并高亮显示当前选中数据 leftPanel显示选中的第一条数据内容
     // 2.1.1.1.7 点击工具栏的左图选择 下拉框显示可选图形
+      // .click('#stat-bar-left-chart')
+      // .waitUntilTextExists('#stat-left-bar', '柱状图')
     // 2.1.1.1.7.1 点击柱状图 rightPanel左部chart数据展示为柱状图
+      // .click('#stat-left-discount')
+      // .waitUntilTextExists('#stat-left-discount', '柱状图')
     // 2.1.1.1.7.2 点击折线图 rightPanel左部chart数据展示为折线图
     // 2.1.1.1.7.3 点击散点图 rightPanel左部chart数据展示为散点图
     // 2.1.1.1.7.4 点击雷达图 rightPanel左部chart数据展示为雷达图

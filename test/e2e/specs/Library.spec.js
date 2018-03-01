@@ -23,11 +23,11 @@ describe('Library', function () {
       .waitUntilTextExists('#notice-bar', '系统通知：CSV文件读取成功！')
     // 2.1.1.1、点击表中一行（例：第四行），当前行高亮显示
     // 2.1.2、点击工具栏的前一页(library-up)，右侧表中显示上一页内容第四行高亮并提示：翻页成功！table底部页数减一，提示翻页成功，若减一后页数小于0，提示：当前已经是第一页！
-      .click('#library-up')
-      .waitUntilTextExists('#notice-bar', '系统通知：翻页')
+      // .click('#library-up')
+      // .waitUntilTextExists('#notice-bar', '系统通知：翻页')
     // 2.1.3、点击工具栏的后一页(library-down)，右侧表中显示下一页内容第四行高亮并提示：翻页成功！table底部页数加一，提示翻页成功，若加一后页数大于当前总页数，提示：当前已经是最后一页！
-      .click('#library-down')
-      .waitUntilTextExists('#notice-bar', '系统通知：翻页')
+      // .click('#library-down')
+      // .waitUntilTextExists('#notice-bar', '系统通知：翻页')
     // 2.1.4、点击工具栏的编辑数据(remote-file)，进入编辑页面，编辑页面右侧显示当前数据，左侧显示第四行高亮的内容（传入id到编辑页面用于返回）
       .click('#library-edit')
       .waitUntilTextExists('#edit-input', '')
