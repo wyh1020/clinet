@@ -6,10 +6,10 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='getFiles'>
+        <li class="nav-item active" v-on:click='getFiles' id="server-load-loaclfile">
           <a class="nav-link text-light" href="#"> 选择CSV文件 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getTables'>
+        <li class="nav-item active" v-on:click='getTables' id="server-choose-database">
           <a class="nav-link text-light" href="#"> 选择数据表 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='compareTable'>
