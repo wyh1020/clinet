@@ -16,7 +16,6 @@ export function sConnect(obj, data) {
         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
       }
     } else {
-      obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '连接失败'])
       obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
     }
   }).catch((err) => {
@@ -67,12 +66,12 @@ export function sRegister(obj, data) {
     obj.$store.commit('SYSTEM_REGISTER_USER', [user, info, false])
   }
 }
-// 2.1.2 登录
+// 登录
 export function sLogin(obj, data) {
   axios({
     method: 'post',
     url: `http://${data[0]}:${data[1]}/servers/login/`,
-    data: qs.stringify({ user: { username: 'test30', password: 'test' } }),
+    data: qs.stringify({ user: data[2] }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
