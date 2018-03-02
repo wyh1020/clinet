@@ -88,8 +88,8 @@ export default function appInit() {
       f.push(line)
     })
   } else {
-    const data = '服务器名称,IP地址,PORT端口,连接设置\n远程测试服务器,139.129.165.56,3010,'
-    global.hitbdata.server = { 远程测试服务器: ['139.129.165.56', '3010', ''] }
+    const data = '服务器名称,IP地址,PORT端口,连接设置\n远程测试服务器,www.jiankanglaifu.com,80,'
+    global.hitbdata.server = { 远程测试服务器: ['www.jiankanglaifu.com', '80', ''] }
     fs.writeFile(serverFile, data, (err) => {
       console.log(err)
     })
@@ -414,4 +414,3 @@ export default function appInit() {
       });
   }
 }
-
