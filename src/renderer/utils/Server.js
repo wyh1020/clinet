@@ -76,30 +76,30 @@ export function sLogin(obj, data) {
     responseType: 'json'
   }).then((res) => {
     if (res.data.login) {
-      obj.$store.commit('SYSTEM_SRT_USER', ['用户登录成功', res.data.login])
+      obj.$store.commit('SYSTEM_SET_USER', ['用户登录成功', res.data])
     } else {
-      obj.$store.commit('SYSTEM_SRT_USER', ['用户名或密码错误', res.data.login])
+      obj.$store.commit('SYSTEM_SET_USER', ['用户名或密码错误', res.data])
     }
   }).catch((err) => {
     console.log(err)
-    obj.$store.commit('SYSTEM_SRT_USER', ['用户登录失败', false])
+    obj.$store.commit('SYSTEM_SET_USER', ['用户登录失败', { username: '', login: false }])
   })
 }
-// 2.1.3 获取用户列表
-export function sGetUser(obj, data) {
+// 获取用户列表
+export function sGetUsers(obj, data) {
   axios.get(`http://${data[0]}:${data[1]}/servers/user/`)
     .then((res) => {
       if (res.status === 200) {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
+        obj.$store.commit('SYSTEM_SET_USERS', [data[2], '连接成功'])
       } else {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
+        obj.$store.commit('SYSTEM_SET_USERS', [data[2], '连接失败'])
       }
-      console.log(res);
     })
     .catch((err) => {
       console.log(err);
     });
 }
+
 // 2.1.4 更新用户信息
 export function sUpdateUser(obj, data) {
   axios({
@@ -114,6 +114,32 @@ export function sUpdateUser(obj, data) {
     console.log(err)
   })
 }
+
+// 获取机构信息多条
+export function sGetOrg(obj, data) {
+  const userOrg = data[2].org
+  const userType = data[2].type
+  let url = ''
+  // 根据用户权限判断取值
+  if (userType === 1) {
+    url = `http://${data[0]}:${data[1]}/servers/org`
+  } else {
+    url = `http://${data[0]}:${data[1]}/servers/org?name=${userOrg}`
+  }
+  axios.get(url)
+    .then((res) => {
+      if (res.status === 200) {
+        obj.$store.commit('SYSTEM_GET_ORGS', res.data)
+      } else {
+        obj.$store.commit('SYSTEM_GET_ORGS', [])
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      obj.$store.commit('SYSTEM_GET_ORGS', [])
+    });
+}
+
 // 2.2.1 获取分析记录
 export function sGetStat(obj, data) {
   axios.get(`http://${data[0]}:${data[1]}/servers/api/stat_json/`)
@@ -218,21 +244,7 @@ export function sSearchRule(obj, data) {
       console.log(err);
     });
 }
-// 2.4.1 获取机构列表
-export function sGetOrg(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/servers/org`)
-    .then((res) => {
-      if (res.status === 200) {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
-      } else {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
-      }
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
+
 // 2.4.2 新建机构
 export function sCreateOrg(obj, data) {
   axios({
