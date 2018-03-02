@@ -1,17 +1,39 @@
 <template>
   <div>
     <div v-if="this.$store.state.System.toolbar === 'getUsers'">
-      <form>
-        <div class="form-group">
-          <label for="InputEmail">用户注册的Email地址</label>
-          <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" v-model="email">
-        </div>
-        <div class="form-group">
-          <label for="InputPassword">用户密码</label>
-          <input type="password" class="form-control" id="InputPassword" placeholder="Password" v-model="password">
-        </div>
-      </form>
-      <button type="submit" class="btn btn-primary" v-on:click="register">注册用户</button>
+      <div v-if="this.$store.state.System.registerInfo === '用户创建成功'">
+        {{this.$store.state.System.registerInfo}}
+        <button class="btn btn-primary" v-on:click="new_register">重新创建用户</button>
+      </div>
+      <div v-else>
+        <form>
+          <div class="form-group">
+            <label for="InputEmail">用户注册的Email地址</label>
+            <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" v-model="email">
+          </div>
+          <div class="form-group">
+            <label for="InputPassword">用户密码</label>
+            <input type="password" class="form-control" id="InputPassword" placeholder="Password" v-model="password">
+          </div>
+          <div class="form-group">
+            <label for="InputOrg">机构</label>
+            <input type="text" class="form-control" id="InputOrg" placeholder="InputOrg" v-model="org">
+          </div>
+          <div class="form-group">
+            <label for="InputAge">年龄</label>
+            <input type="number" class="form-control" id="InputAge" placeholder="Age" v-model="age">
+          </div>
+          <div class="form-group">
+            <label for="InputTel">电话</label>
+            <input type="text" class="form-control" id="InputTel" placeholder="Tel" v-model="tel">
+          </div>
+          <div class="form-group">
+            <label for="InputPersonname">姓名</label>
+            <input type="password" class="form-control" id="InputPersonname" placeholder="Personname" v-model="personname">
+          </div>
+        </form>
+        <button type="submit" class="btn btn-primary" v-on:click="register">注册用户</button>
+      </div>
     </div>
     <div v-if="this.$store.state.System.toolbar === 'getOrgs'">
       <form>
@@ -55,7 +77,11 @@
       return {
         flag: null,
         email: '',
-        password: ''
+        password: '',
+        org: '',
+        age: '',
+        tel: '',
+        personname: ''
       }
     },
     computed: {
@@ -88,17 +114,19 @@
     methods: {
       onClick: function (data, index) {
         this.flag = index
-        this.$store.commit('SYSTEM_SET_SERVER', data);
+        this.$store.commit('SYSTEM_SET_SERVER', data)
         if (this.$store.state.System.toolbar === 'getServers') {
           sGetUser(this, [data[1], data[2], index])
           sLogin(this, [data[1], data[2]])
         }
       },
       register: function () {
-        console.log(this.email)
-        console.log(this.password)
-        sRegister(this, [this.$store.state.System.server, this.$store.state.System.port, this.email, this.password])
+        const user = { username: this.email, password: this.password, org: this.org, age: this.age, tel: this.tel, email: this.email, name: this.personname, type: 2 }
+        sRegister(this, [this.$store.state.System.server, this.$store.state.System.port, user])
         // sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.email, this.password])
+      },
+      new_register: function () {
+        this.$store.commit('SYSTEM_REGISTER_USER', [{}, '重新创建用户'])
       }
     },
   };

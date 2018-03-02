@@ -15,6 +15,8 @@ const state = {
   fieldIndex: null,
   server: '',
   port: '',
+  // 用户创建信息
+  registerInfo: ''
 };
 
 const mutations = {
@@ -60,6 +62,9 @@ const mutations = {
     state.table[state.fieldIndex].push(field)
     state.table = state.table;
   },
+  SYSTEM_REGISTER_USER(state, field) {
+    state.registerInfo = field[1]
+  },
 };
 
 const actions = {
@@ -73,6 +78,7 @@ const actions = {
     commit('SYSTEM_SET_TABLE');
     commit('SYSTEM_SET_SERVER');
     commit('SYSTEM_SET_SERVER_STATUS');
+    commit('SYSTEM_REGISTER_USER');
   },
 };
 

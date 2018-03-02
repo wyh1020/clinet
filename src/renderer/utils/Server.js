@@ -5,21 +5,30 @@ const qs = require('qs');
 export function sRegister(obj, data) {
   axios({
     method: 'post',
-    url: `http://${data[0]}:${data[1]}/hospitals/user/`,
-    data: qs.stringify({ user: { username: 'test30', password: 'test', org: 'test', age: 20, tel: '13245678900', email: 'test@test.com', name: 'test', type: 1 } }),
+    url: `http://${data[0]}:${data[1]}/servers/user/`,
+    data: qs.stringify({ user: data[2] }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
-    console.log(res)
+    if (res.status === 201) {
+      if (res.data.success) {
+        obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '用户创建成功'])
+      } else {
+        obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '用户创建失败,用户名重复'])
+      }
+    } else {
+      obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '连接失败'])
+    }
   }).catch((err) => {
-    console.log(err)
+    console.log(err);
+    obj.$store.commit('SYSTEM_REGISTER_USER', [false, '连接失败'])
   })
 }
 // 2.1.2 登录
 export function sLogin(obj, data) {
   axios({
     method: 'post',
-    url: `http://${data[0]}:${data[1]}/hospitals/login/`,
+    url: `http://${data[0]}:${data[1]}/servers/login/`,
     data: qs.stringify({ user: { username: 'test30', password: 'test' } }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
@@ -31,7 +40,7 @@ export function sLogin(obj, data) {
 }
 // 2.1.3 获取用户列表
 export function sGetUser(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/hospitals/user/`)
+  axios.get(`http://${data[0]}:${data[1]}/servers/user/`)
     .then((res) => {
       if (res.status === 200) {
         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
@@ -48,7 +57,7 @@ export function sGetUser(obj, data) {
 export function sUpdateUser(obj, data) {
   axios({
     method: 'post',
-    url: `http://${data[0]}:${data[1]}/hospitals/user/1`,
+    url: `http://${data[0]}:${data[1]}/servers/user/1`,
     data: qs.stringify({ user: { age: 21 } }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
@@ -60,7 +69,7 @@ export function sUpdateUser(obj, data) {
 }
 // 2.2.1 获取分析记录
 export function sGetStat(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/hospitals/api/stat_json/`)
+  axios.get(`http://${data[0]}:${data[1]}/servers/api/stat_json/`)
     .then((res) => {
       if (res.status === 200) {
         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
@@ -75,7 +84,7 @@ export function sGetStat(obj, data) {
 }
 // 2.2.2 分析记录的同比环比数据
 export function sGetStatInfo(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/hospitals/api/stat_info?id=19057`)
+  axios.get(`http://${data[0]}:${data[1]}/stat/stat_info?id=19057`)
     .then((res) => {
       if (res.status === 200) {
         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
@@ -90,7 +99,7 @@ export function sGetStatInfo(obj, data) {
 }
 // 2.2.3 分析记录的同比环比图
 export function sGetStatInfoChart(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/hospitals/api/stat_chart?id=19057&chart_type=radar`)
+  axios.get(`http://${data[0]}:${data[1]}/stat/stat_chart?id=19057&chart_type=radar`)
     .then((res) => {
       if (res.status === 200) {
         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
@@ -105,7 +114,7 @@ export function sGetStatInfoChart(obj, data) {
 }
 // 2.2.4 下载分析记录
 export function sdownLoadStatInfo(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/hospitals/api/download_stat`)
+  axios.get(`http://${data[0]}:${data[1]}/stat/download_stat`)
     .then((res) => {
       if (res.status === 200) {
         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
@@ -122,7 +131,7 @@ export function sdownLoadStatInfo(obj, data) {
 export function sSaveDefined(obj, data) {
   axios({
     method: 'post',
-    url: `http://${data[0]}:${data[1]}/hospitals/api/save_defined/`,
+    url: `http://${data[0]}:${data[1]}/stat/save_defined/`,
     data: qs.stringify({ username: 'hitb', key: ['fee_avg'] }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
@@ -134,7 +143,7 @@ export function sSaveDefined(obj, data) {
 }
 // 2.3.1 规则字典库查询
 export function sGetRule(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/hospitals/api/rule`)
+  axios.get(`http://${data[0]}:${data[1]}/library/rule`)
     .then((res) => {
       if (res.status === 200) {
         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
@@ -149,7 +158,7 @@ export function sGetRule(obj, data) {
 }
 // 2.3.2 规则搜索
 export function sSearchRule(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/hospitals/api/search_rule?table=mdc&code=F`)
+  axios.get(`http://${data[0]}:${data[1]}/library/search_rule?table=mdc&code=F`)
     .then((res) => {
       if (res.status === 200) {
         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
@@ -164,7 +173,7 @@ export function sSearchRule(obj, data) {
 }
 // 2.4.1 获取机构列表
 export function sGetOrg(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/hospitals/org`)
+  axios.get(`http://${data[0]}:${data[1]}/servers/org`)
     .then((res) => {
       if (res.status === 200) {
         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
@@ -181,7 +190,7 @@ export function sGetOrg(obj, data) {
 export function sCreateOrg(obj, data) {
   axios({
     method: 'post',
-    url: `http://${data[0]}:${data[1]}/hospitals/org/`,
+    url: `http://${data[0]}:${data[1]}/servers/org/`,
     data: qs.stringify({ org: { code: 'test03', name: '医院2', level: '三级', type: '综合医院', province: '北京市', city: '北京市', person_name: 'dzc', tel: '18515290901', email: 'duanzhichao2008@gmail.com', is_show: true, is_ban: true, county: '海淀区', stat_org_name: '3' } }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
@@ -195,7 +204,7 @@ export function sCreateOrg(obj, data) {
 export function sUpdateOrg(obj, data) {
   axios({
     method: 'put',
-    url: `http://${data[0]}:${data[1]}/hospitals/org/3`,
+    url: `http://${data[0]}:${data[1]}/servers/org/3`,
     data: qs.stringify({ org: { name: '医院3' } }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
@@ -207,7 +216,7 @@ export function sUpdateOrg(obj, data) {
 }
 // 2.4.4 获取科室列表
 export function sGetDepart(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/hospitals/customize_department`)
+  axios.get(`http://${data[0]}:${data[1]}/servers/customize_department`)
     .then((res) => {
       if (res.status === 200) {
         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
@@ -224,7 +233,7 @@ export function sGetDepart(obj, data) {
 export function sCreateDepart(obj, data) {
   axios({
     method: 'post',
-    url: `http://${data[0]}:${data[1]}/hospitals/customize_department/`,
+    url: `http://${data[0]}:${data[1]}/servers/customize_department/`,
     data: qs.stringify({ customize_department: { wt_code: 'test03', wt_name: '医院2', c_user: 'hitb', class: '03-内科', department: '0303-神经内科专业', cherf_department: 'a', professor: 'b', is_spe: true, is_imp: true, is_ban: true, org: 'test1' } }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
@@ -238,7 +247,7 @@ export function sCreateDepart(obj, data) {
 export function sUpdateDepart(obj, data) {
   axios({
     method: 'put',
-    url: `http://${data[0]}:${data[1]}/hospitals/customize_department/45`,
+    url: `http://${data[0]}:${data[1]}/servers/customize_department/45`,
     data: qs.stringify({ customize_department: { wt_name: 'test04' } }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
@@ -250,7 +259,7 @@ export function sUpdateDepart(obj, data) {
 }
 // 2.4.7 获取标准科室列表
 export function sGetSystemDepart(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/hospitals/department`)
+  axios.get(`http://${data[0]}:${data[1]}/servers/department`)
     .then((res) => {
       if (res.status === 200) {
         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
