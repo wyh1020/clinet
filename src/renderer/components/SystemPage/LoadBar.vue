@@ -12,19 +12,19 @@
         <li class="nav-item active" v-on:click='getTables' id="server-choose-database">
           <a class="nav-link text-light" href="#"> 选择数据表 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='compareTable'>
+        <li class="nav-item active" v-on:click='compareTable' id="server-contrast-data">
           <a class="nav-link text-light" href="#"> 对照数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='checkTable'>
+        <li class="nav-item active" v-on:click='checkTable' id="server-load-checkdata">
           <a class="nav-link text-light" href="#"> 校验数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadTable'>
+        <li class="nav-item active" v-on:click='loadTable' id="server-export-data">
           <a class="nav-link text-light" href="#"> 导入数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='saveTableData'>
+        <li class="nav-item active" v-on:click='saveTableData' id="server-save-localfile">
           <a class="nav-link text-light" href="#"> 保存本地文件 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='upLoadTableData'>
+        <li class="nav-item active" v-on:click='upLoadTableData' id="server-upload-data">
           <a class="nav-link text-light" href="#"> 上传服务器数据 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
