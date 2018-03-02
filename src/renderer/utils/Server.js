@@ -1,6 +1,30 @@
 const axios = require('axios');
 const qs = require('qs');
 
+//  测试连接服务器
+export function sConnect(obj, data) {
+  axios({
+    method: 'get',
+    url: `http://${data[0]}:${data[1]}/servers/connect/`,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    responseType: 'json'
+  }).then((res) => {
+    if (res.status === 200) {
+      if (res.data.success) {
+        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
+      } else {
+        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
+      }
+    } else {
+      obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '连接失败'])
+      obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
+    }
+  }).catch((err) => {
+    console.log(err)
+    obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
+  })
+}
+
 // 2.1.1 注册
 export function sRegister(obj, data) {
   axios({
