@@ -16,7 +16,14 @@ const state = {
   server: '',
   port: '',
   // 用户创建信息
-  registerInfo: ''
+  registerInfo: [],
+  // 连接状态
+  connectInfo: false,
+  // 用户状态
+  user: { username: 'hitb', org: 'hitb', type: 1, login: true },
+  // 机构信息
+  orgs: [],
+  org: []
 };
 
 const mutations = {
@@ -32,6 +39,12 @@ const mutations = {
     const b = a.split(',')
     b.splice(3, 1, m[1])
     state.file.splice(m[0], 1, b.join(','))
+    if (m[1] === '连接成功') {
+      state.connectInfo = true
+    } else {
+      state.connectInfo = false
+    }
+    console.log(state.connectInfo)
   },
   SYSTEM_GET_FILES(state, files) {
     state.files = files;
@@ -52,19 +65,34 @@ const mutations = {
     state.fieldIndex = index;
   },
   SYSTEM_SET_TABLE(state, field) {
-    // console.log(field)
-    // console.log(state.field)
-    // console.log(state.fieldIndex)
-    // console.log(state.table[state.fieldIndex])
     if (state.table[state.fieldIndex].length > 5) {
       state.table[state.fieldIndex].pop()
     }
     state.table[state.fieldIndex].push(field)
     state.table = state.table;
   },
+  // 用户注册
   SYSTEM_REGISTER_USER(state, field) {
-    state.registerInfo = field[1]
+    state.registerInfo = field
   },
+  // 用户登录-登录无故刷新项目
+  SYSTEM_SET_USER(state, field) {
+    console.log(field);
+    // state.user = field
+  },
+  // 用户信息
+  SYSTEM_INFO_USER(state, field) {
+    console.log(field);
+    // state.user = field
+  },
+  SYSTEM_GET_ORGS(state, field) {
+    console.log(field);
+    state.orgs = field
+  },
+  SYSTEM_NEW_ORG(state, field) {
+    console.log(field)
+    state.org = field
+  }
 };
 
 const actions = {
@@ -79,6 +107,10 @@ const actions = {
     commit('SYSTEM_SET_SERVER');
     commit('SYSTEM_SET_SERVER_STATUS');
     commit('SYSTEM_REGISTER_USER');
+    commit('SYSTEM_SET_USER');
+    commit('SYSTEM_INFO_USER');
+    commit('SYSTEM_GET_ORGS');
+    commit('SYSTEM_NEW_ORG');
   },
 };
 
