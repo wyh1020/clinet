@@ -1,5 +1,8 @@
 const axios = require('axios');
 const qs = require('qs');
+// 正则表达式
+const regEmail = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
+const regTel = /^1[34578]\d{9}$/
 
 //  测试连接服务器
 export function sConnect(obj, data) {
@@ -26,9 +29,6 @@ export function sConnect(obj, data) {
 
 // 注册
 export function sRegister(obj, data) {
-  // 正则表达式
-  const regEmail = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
-  const regTel = /^1[34578]\d{9}$/
   // 取出user
   const user = data[2]
   const isEmail = regEmail.test(user.username)
@@ -100,7 +100,7 @@ export function sGetUsers(obj, data) {
     });
 }
 
-// 2.1.4 更新用户信息
+// 更新用户信息
 export function sUpdateUser(obj, data) {
   axios({
     method: 'post',
@@ -138,6 +138,44 @@ export function sGetOrg(obj, data) {
       console.log(err);
       obj.$store.commit('SYSTEM_GET_ORGS', [])
     });
+}
+// 新建机构
+export function sCreateOrg(obj, data) {
+  const org = data[2]
+  // 正则判断
+  const isEmail = regEmail.test(org.email)
+  const isTel = regTel.test(org.tel)
+  if (isEmail && isTel) {
+    axios({
+      method: 'post',
+      url: `http://${data[0]}:${data[1]}/servers/org/`,
+      data: qs.stringify({ org: { code: org.code, name: org.name, level: org.level, type: org.type, province: org.province, city: org.city, person_name: org.person_name, tel: org.tel, email: org.email, is_show: false, is_ban: false, county: org.county, stat_org_name: '1' } }),
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+      responseType: 'json'
+    }).then((res) => {
+      if (res.status === 201) {
+        if (res.data.success) {
+          obj.$store.commit('SYSTEM_NEW_ORG', [res.data, '机构创建成功', true])
+          obj.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs')
+        } else {
+          obj.$store.commit('SYSTEM_NEW_ORG', [res.data, '机构创建失败,机构编码重复', false])
+        }
+      } else {
+        obj.$store.commit('SYSTEM_NEW_ORG', [res.data, '连接失败', false])
+      }
+    }).catch((err) => {
+      console.log(err);
+      obj.$store.commit('SYSTEM_NEW_ORG', [{}, '连接失败', false])
+    })
+  } else {
+    let info = ''
+    if (isEmail) {
+      info = '请输入正确的Email地址'
+    } else {
+      info = '请输入正确的手机号码'
+    }
+    obj.$store.commit('SYSTEM_NEW_ORG', [org, info, false])
+  }
 }
 
 // 2.2.1 获取分析记录
@@ -245,20 +283,7 @@ export function sSearchRule(obj, data) {
     });
 }
 
-// 2.4.2 新建机构
-export function sCreateOrg(obj, data) {
-  axios({
-    method: 'post',
-    url: `http://${data[0]}:${data[1]}/servers/org/`,
-    data: qs.stringify({ org: { code: 'test03', name: '医院2', level: '三级', type: '综合医院', province: '北京市', city: '北京市', person_name: 'dzc', tel: '18515290901', email: 'duanzhichao2008@gmail.com', is_show: true, is_ban: true, county: '海淀区', stat_org_name: '3' } }),
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-    responseType: 'json'
-  }).then((res) => {
-    console.log(res)
-  }).catch((err) => {
-    console.log(err)
-  })
-}
+
 // 2.4.3 更新机构信息
 export function sUpdateOrg(obj, data) {
   axios({
