@@ -30,6 +30,7 @@
 </template>
 
 <script>
+  import { sGetOrg } from '../../utils/Server'
   import loadFile from '../../utils/LoadFile';
   export default {
     data() {
@@ -47,6 +48,7 @@
       },
       getOrgs: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');
+        sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user]);
       },
       getPersons: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getPersons');
