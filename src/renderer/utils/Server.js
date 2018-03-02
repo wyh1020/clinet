@@ -76,7 +76,7 @@ export function sLogin(obj, data) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
-    if (res.data.login){
+    if (res.data.login) {
       obj.$store.commit('SYSTEM_SRT_USER', ['用户登录成功', res.data.login])
     } else {
       obj.$store.commit('SYSTEM_SRT_USER', ['用户名或密码错误', res.data.login])
