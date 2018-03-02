@@ -76,9 +76,14 @@ export function sLogin(obj, data) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
-    console.log(res)
+    if (res.data.login){
+      obj.$store.commit('SYSTEM_SRT_USER', ['用户登录成功', res.data.login])
+    } else {
+      obj.$store.commit('SYSTEM_SRT_USER', ['用户名或密码错误', res.data.login])
+    }
   }).catch((err) => {
     console.log(err)
+    obj.$store.commit('SYSTEM_SRT_USER', ['用户登录失败', false])
   })
 }
 // 2.1.3 获取用户列表
