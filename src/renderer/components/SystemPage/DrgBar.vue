@@ -6,22 +6,22 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='getLocalData'>
+        <li class="nav-item active" v-on:click='getLocalData' id="server-localcase-data">
           <a class="nav-link text-light" href="#"> 本地病案数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getServerData'>
+        <li class="nav-item active" v-on:click='getServerData' id="server-sercase-data">
           <a class="nav-link text-light" href="#"> 服务器病案数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='compareData'>
+        <li class="nav-item active" v-on:click='compareData' id="server-drg-checkdata">
           <a class="nav-link text-light" href="#"> 校验数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='drgCompute'>
+        <li class="nav-item active" v-on:click='drgCompute' id="server-drg-comp">
           <a class="nav-link text-light" href="#"> 调用Drg分组服务 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='drgResult'>
+        <li class="nav-item active" v-on:click='drgResult' id="server-drg-result">
           <a class="nav-link text-light" href="#"> 查看Drg分组结果 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='drgRule'>
+        <li class="nav-item active" v-on:click='drgRule' id="server-drg-rule">
           <a class="nav-link text-light" href="#"> 查看Drg分组规则 <span class="sr-only">(current)</span></a>
         </li>
       </ul>

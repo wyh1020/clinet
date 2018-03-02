@@ -5,7 +5,6 @@ describe('Library', function () {
   afterEach(utils.afterEach);
 
   it('Library-测试1', function () {
-    // this.timeout(20000);
     // 1、点击login页面的login-button
     return this.app.client.click('#login')
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
@@ -20,21 +19,21 @@ describe('Library', function () {
       .click('#library-local-file')
       .waitUntilTextExists('#notice-bar', '本地文件')
       // .waitUntilWindowLoaded(1000)
-      .getText('.library-leftlist')
-      .then(function (leftlist) {
-        expect(leftlist).to.be.an('array');
-      })
+      // .getText('.library-leftlist')
+      // .then(function (leftlist) {
+      //   expect(leftlist).to.be.an('array');
+      // })
     // 2.1.1、点击左侧列表(library-leftlist)，选择文件高亮显示，读取数据文件内容，右侧表中显示所选本地文件内容，提示CSV文件读取成功！若右侧表中无数据，提示：无数据！
-      .click('.library-leftlist')
-      .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')
-      .getHTML('.library-rightpanel')
-      .then(function (rightpanel) {
-        expect(rightpanel).to.be.an('array');
-      })
+      // .click('.library-leftlist')
+      // .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')
+      // .getHTML('.library-rightpanel')
+      // .then(function (rightpanel) {
+      //   expect(rightpanel).to.be.an('array');
+      // })
     // 2.1.1.1、点击表中一行（例：第四行），当前行高亮显示
     // 2.1.2、点击工具栏的后一页(library-down)，右侧表中显示下一页内容第四行高亮并提示：翻页成功！table底部页数加一，提示翻页成功，若加一后页数大于当前总页数，提示：当前已经是最后一页！
       // .click('#library-down')
-      // // .waitUntilTextExists('#notice-bar', '翻页')
+      // .waitUntilTextExists('#notice-bar', '翻页')
       // .waitUntilWindowLoaded(1000)
       // .getHTML('.library-rightpanel')
       // .then(function (rightpanel) {
@@ -42,7 +41,7 @@ describe('Library', function () {
       //   expect(rightpanel).to.be.an('array');
       // })
     // 2.1.3、点击工具栏的前一页(library-up)，右侧表中显示上一页内容第四行高亮并提示：翻页成功！table底部页数减一，提示翻页成功，若减一后页数小于0，提示：当前已经是第一页！
-      // .click('#library-up')
+      .click('#library-up')
       // .waitUntilTextExists('#notice-bar', '翻页')
       // .getHTML('.library-rightpanel')
       // .then(function (rightpanel) {
@@ -50,13 +49,13 @@ describe('Library', function () {
       //   expect(rightpanel).to.be.an('array');
       // })
     // 2.1.4、点击工具栏的编辑数据(remote-file)，进入编辑页面，编辑页面右侧显示当前数据，左侧显示第四行高亮的内容（传入id到编辑页面用于返回）
-      // .click('#library-edit')
+      .click('#library-edit')
       // .waitUntilTextExists('#edit-input', '')
       // .getText('#edit-input')
       // .then(function (editText) {
       //   expect(editText).to.equal('');
       // })
-      // .click('#edit-last-nav')
+      .click('#edit-last-nav')
       // .waitUntilTextExists('#notice-bar', '翻页')
     // 2.1.5、点击维度选择(library-drop)，显示维度下拉选项
     // 2.1.5.1、工具栏的维度选择-机构(library-org)，左侧列表显示当前数据内所有机构，提示：机构维度选择成功，若机构列无内容，提示：无机构维度！
