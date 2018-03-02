@@ -25,28 +25,47 @@ export function sConnect(obj, data) {
   })
 }
 
-// 2.1.1 注册
+// 注册
 export function sRegister(obj, data) {
-  axios({
-    method: 'post',
-    url: `http://${data[0]}:${data[1]}/servers/user/`,
-    data: qs.stringify({ user: data[2] }),
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-    responseType: 'json'
-  }).then((res) => {
-    if (res.status === 201) {
-      if (res.data.success) {
-        obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '用户创建成功'])
+  // 正则表达式
+  const regEmail = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
+  const regTel = /^1[34578]\d{9}$/
+  // 取出user
+  const user = data[2]
+  const isEmail = regEmail.test(user.username)
+  const isTel = regTel.test(user.tel)
+  if (isEmail && isTel && user.password !== '') {
+    axios({
+      method: 'post',
+      url: `http://${data[0]}:${data[1]}/servers/user/`,
+      data: qs.stringify({ user: data[2] }),
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+      responseType: 'json'
+    }).then((res) => {
+      if (res.status === 201) {
+        if (res.data.success) {
+          obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '用户创建成功', true])
+        } else {
+          obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '用户创建失败,用户名重复', false])
+        }
       } else {
-        obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '用户创建失败,用户名重复'])
+        obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '连接失败', false])
       }
+    }).catch((err) => {
+      console.log(err);
+      obj.$store.commit('SYSTEM_REGISTER_USER', [{}, '连接失败', false])
+    })
+  } else {
+    let info = ''
+    if (user.password === '') {
+      info = '密码未填写'
+    } else if (isEmail) {
+      info = '请输入正确的Email地址'
     } else {
-      obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '连接失败'])
+      info = '请输入正确的手机号码'
     }
-  }).catch((err) => {
-    console.log(err);
-    obj.$store.commit('SYSTEM_REGISTER_USER', [false, '连接失败'])
-  })
+    obj.$store.commit('SYSTEM_REGISTER_USER', [user, info, false])
+  }
 }
 // 2.1.2 登录
 export function sLogin(obj, data) {
