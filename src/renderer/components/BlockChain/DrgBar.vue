@@ -19,7 +19,7 @@
           <a class="nav-link text-light" href="#"> 调用Drg分组服务 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='drgResult' id="drg-result">
-          <a class="nav-link text-light" href="#"> 查看Drg分组结果 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 停止Drg分组服务 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='drgRule' id="drg-rule">
           <a class="nav-link text-light" href="#"> 查看Drg分组规则 <span class="sr-only">(current)</span></a>
@@ -53,7 +53,7 @@
       },
       drgResult: function () {
         this.$store.commit('BLOCK_SET_TOOLBAR', 'drgResult');
-        this.$store.commit('SET_NOTICE', '查看Drg分组结果');
+        this.$store.commit('SET_NOTICE', '停止Drg分组服务');
       },
       drgRule: function () {
         this.$store.commit('BLOCK_SET_TOOLBAR', 'drgRule');

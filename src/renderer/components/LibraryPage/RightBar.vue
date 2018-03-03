@@ -13,10 +13,10 @@
           <a class="nav-link text-light" href="#"> 远程文件 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='page(-1)' id="library-up">
-          <a class="nav-link text-light" href="#"> 前一页 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='page(1)' id="library-down">
-          <a class="nav-link text-light" href="#"> 后一页 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='edit' id="library-edit">
           <a class="nav-link text-light" href="#"> 编辑数据 <span class="sr-only">(current)</span></a>

@@ -18,6 +18,9 @@
         <li class="nav-item active" v-on:click='checkTable' id="server-load-checkdata">
           <a class="nav-link text-light" href="#"> 校验数据 <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active" v-on:click='editTable' id="server-load-checkdata">
+          <a class="nav-link text-light" href="#"> 编辑数据 <span class="sr-only">(current)</span></a>
+        </li>
         <li class="nav-item active" v-on:click='loadTable' id="server-export-data">
           <a class="nav-link text-light" href="#"> 导入数据 <span class="sr-only">(current)</span></a>
         </li>
@@ -60,6 +63,9 @@
       },
       checkTable: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'checkTable');
+      },
+      editTable: function () {
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'editTable');
       },
       loadTable: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'loadTable');
