@@ -1,11 +1,12 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="alert alert-warning" role="alert" style="width: 100%; position: fixed; bottom: 40px">提示内容</div>
+      <div class="alert alert-warning" role="alert" style="width: 100%; position: fixed; bottom: 40px"><span v-bind:key='index' v-for="(data, index) in hint">{{index + 1}}.{{data}}</span></div>
     </nav>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom">
-      <input id="edit-input" style="line-height: 3" type="text" class="form-control" placeholder="请输入。。。" aria-label="Username" aria-describedby="basic-addon1" v-model="item"  v-on:keyup.enter="enter" v-on:keyup.up="up" 
-      v-on:keyup.down="down" v-on:keyup.left="left" v-on:keyup.right="right" v-on:keyup.space="space"    v-on:keyup.ctrl.left="itemUp" v-on:keyup.ctrl.right="itemDown" v-on:keyup.ctrl.delete="del">
+      <input id="edit-input" style="line-height: 3" type="text" class="form-control" placeholder="请输入……" aria-label="Username" aria-describedby="basic-addon1" v-model="item"  v-on:keyup.enter="enter" v-on:keyup.up="up" 
+      v-on:keyup.down="down" v-on:keyup.left="left" v-on:keyup.right="right" v-on:keyup.space="space"    v-on:keyup.ctrl.left="itemUp" v-on:keyup.ctrl.right="itemDown" v-on:keyup.ctrl.delete="del" v-on:keyup.ctrl.0="hintDown"
+      v-on:keyup.ctrl.110="hintUp">
     </nav>
   </div>
 </template>
@@ -22,6 +23,17 @@
       this.$nextTick(() => {
         document.getElementById('edit-input').focus()
       })
+    },
+    computed: {
+      hint: {
+        get() {
+          const content = ['aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll']
+          const hintSkip = this.$store.state.Edit.hintPage
+          const num = hintSkip * 10
+          const hintContent = content.slice(num, num + 10)
+          return hintContent
+        }
+      },
     },
     methods: {
       enter(e) {
@@ -87,7 +99,19 @@
       },
       space() {
         console.log('space')
-      }
+      },
+      hintUp() {
+        const content = ['aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll']
+        const pageNum = Math.ceil(content.length / 10)
+        if (this.$store.state.Edit.hintPage < pageNum - 1) {
+          this.$store.commit('EDIT_SET_HINT_PAGE', 'up');
+        }
+      },
+      hintDown() {
+        if (this.$store.state.Edit.hintPage > 0) {
+          this.$store.commit('EDIT_SET_HINT_PAGE', 'down');
+        }
+      },
     },
   };
 </script>
@@ -100,5 +124,8 @@
   }
   input {
     width: 100%
+  }
+  span {
+    margin-right: 20px;
   }
 </style>

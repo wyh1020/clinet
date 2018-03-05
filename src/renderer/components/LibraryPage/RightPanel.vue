@@ -39,6 +39,8 @@
           for (let i = start; i < fileLen; i += 1) {
             f.push(this.$store.state.Library.tableSel[i])
           }
+          const a = this.$store.state.Library.tableHeader[0]
+          f.splice(0, 0, a)
           return f
         }
       }

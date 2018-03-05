@@ -14,6 +14,7 @@ const state = {
   dimensionVersion: [],
   field: '',
   fieldIndex: null,
+  tableHeader: [],
 };
 
 const mutations = {
@@ -24,7 +25,9 @@ const mutations = {
   LIBRARY_LOAD_FILE(state, message) {
     state.file = message;
     state.table = message.map(x => x.split(','))
+    state.tableHeader = state.table.slice(0, 1)
     state.tableSel = state.table
+    state.tableSel.splice(0, 1)
     state.dimensionOrg = [...new Set(state.table.map(a => a[0]))]
     state.dimensionTime = [...new Set(state.table.map(a => a[1]))]
     state.dimensionVersion = [...new Set(state.table.map(a => a[2]))]
