@@ -75,6 +75,7 @@
   import chartScatter from '../../utils/ChartScatter';
   import chartRadar from '../../utils/ChartRadar';
   import chartBar from '../../utils/ChartBar';
+  import addContrast from '../../utils/StatContrast';
   
   export default {
     data() {
@@ -139,10 +140,13 @@
         }
       },
       compare: function () {
-
+        const table = this.$store.state.Stat.tableSel
+        const header = this.$store.state.Stat.tableHeader
+        const col = this.$store.state.Stat.selectedCol
+        const row = this.$store.state.Stat.selectedRow
+        addContrast(this, table, header, col, row)
       },
       showCompare: function () {
-
       },
     },
   };
