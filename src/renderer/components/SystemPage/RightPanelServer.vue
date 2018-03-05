@@ -22,8 +22,8 @@
                   <label for="exampleInputPassword1">密码</label>
                   <input type="password" class="form-control" placeholder="Password" v-model="loginpassword">
                 </div>
-                <button type="submit" class="btn btn-primary" v-on:click="login()">提交</button>
               </form>
+                <button type="submit" class="btn btn-primary" v-on:click="login()">提交</button>
           </div>
           <div v-if="this.$store.state.System.toolbar === 'createUsers'">
             <div v-if="this.$store.state.System.registerInfo[2] == true">

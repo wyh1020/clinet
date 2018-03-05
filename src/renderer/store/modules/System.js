@@ -20,7 +20,7 @@ const state = {
   // 连接状态
   connectInfo: false,
   // 用户状态
-  user: { username: 'hitb', org: 'hitb', type: 1, login: true },
+  user: { username: '', org: '', type: 2, login: false },
   // 机构信息
   orgs: [],
   org: []
@@ -77,13 +77,11 @@ const mutations = {
   },
   // 用户登录-登录无故刷新项目
   SYSTEM_SET_USER(state, field) {
-    console.log(field);
-    // state.user = field
+    state.user = field[1];
   },
   // 用户信息
   SYSTEM_INFO_USER(state, field) {
-    console.log(field);
-    // state.user = field
+    state.user = field[1]
   },
   SYSTEM_GET_ORGS(state, field) {
     console.log(field);
