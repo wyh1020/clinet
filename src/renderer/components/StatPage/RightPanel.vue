@@ -41,7 +41,7 @@
     data() {
       return {
         flag: [],
-        flagTd: []
+        flagTd: [],
       };
     },
     computed: {
@@ -67,6 +67,8 @@
           for (let i = start; i < fileLen; i += 1) {
             f.push(this.$store.state.Stat.tableSel[i])
           }
+          const a = this.$store.state.Stat.tableHeader[0]
+          f.splice(0, 0, a)
           return f
         }
       }
@@ -90,8 +92,8 @@
           this.flag.splice(x, 1)
         }
         // console.log(this.$store.state.System.table[n])
-        this.$store.commit('GET_FIELD', data);
-        this.$store.commit('GET_FIELD_INDEX', index);
+        this.$store.commit('STAT_GET_FIELD', data);
+        this.$store.commit('STAT_GET_FIELD_INDEX', index);
         const id = 'chartLeft'
         const type = '柱状图'
         const table = this.$store.state.Stat.file
