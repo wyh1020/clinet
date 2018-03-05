@@ -4,7 +4,7 @@
       <tr>
         <th class="table-danger">{{x}}</th>
       </tr>
-      <tr v-for="(data, index) in xs" v-bind:key='index' v-bind:class="{'table-danger':flag == index}" v-on:click="onClick(data, index)">
+      <tr v-for="(data, index) in xs" v-bind:key='index' v-bind:class="{'table-danger':flag == index}" v-on:click="onClick(data, index)" class="server-leftpanel">
         <td>{{data}}</td>
       </tr>
     </table>
@@ -125,7 +125,7 @@
         this.flag = index
         switch (this.$store.state.System.toolbar) {
           case 'files':
-            loadFile(this, data, 'system')
+            loadFile(this, data, 'system-home')
             break;
           case 'tables':
             this.$store.commit('SYSTEM_GET_TABLE', global.hitbdata.table[data]);

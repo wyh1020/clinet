@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <table>
+    <table id="stat-right-table">
       <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger':flag.find((n)=>n===index)}">
         <td v-for="(field, index) in data" v-bind:key='index' v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}" v-on:click="onClickTd(data, index)">{{data[index]}}</td>
       </tr>
@@ -41,7 +41,7 @@
     data() {
       return {
         flag: [],
-        flagTd: []
+        flagTd: [],
       };
     },
     computed: {
@@ -67,6 +67,8 @@
           for (let i = start; i < fileLen; i += 1) {
             f.push(this.$store.state.Stat.tableSel[i])
           }
+          const a = this.$store.state.Stat.tableHeader[0]
+          f.splice(0, 0, a)
           return f
         }
       }
@@ -80,6 +82,7 @@
           } else {
             this.flagTd.splice(x, 1)
           }
+          this.$store.commit('STAT_SET_COL', index);
         }
       },
       onClick: function (data, index) {
@@ -89,9 +92,9 @@
         } else {
           this.flag.splice(x, 1)
         }
-        // console.log(this.$store.state.System.table[n])
-        this.$store.commit('GET_FIELD', data);
-        this.$store.commit('GET_FIELD_INDEX', index);
+        this.$store.commit('STAT_SET_ROW', index);
+        this.$store.commit('STAT_GET_FIELD', data);
+        this.$store.commit('STAT_GET_FIELD_INDEX', index);
         const id = 'chartLeft'
         const type = '柱状图'
         const table = this.$store.state.Stat.file

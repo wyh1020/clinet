@@ -28,20 +28,12 @@
 
   export default {
     components: { DrgBar, ServerBar, UserBar, StatBar, BlockBar, RightPanelUser, RightPanelBlock, RightPanelServer, RightPanelDrg, RightPanelStat },
-    data() {
-      return {
-        flag: null
-      }
-    },
     computed: {
       toolbar: {
         get() {
-          // console.log(this.$store.state.Home.navbar)
           return this.$store.state.Home.navbar
         }
       }
-    },
-    methods: {
     },
   };
 </script>

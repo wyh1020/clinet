@@ -6,7 +6,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click="lastNav" v-if="this.$store.state.Edit.lastNav">
+        <li class="nav-item active" v-on:click="lastNav" v-if="this.$store.state.Edit.lastNav" id="edit-last-nav">
           <a class="nav-link text-light" href="#"> 返回 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
@@ -14,38 +14,38 @@
             选择
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#" v-on:click="newDoc">病案首页（卫统四CSV）</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc" id="edit-leftbar-wt4">病案首页（卫统四CSV）</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="newDoc">入院申请</a>
-            <a class="dropdown-item" href="#" v-on:click="newDoc">首次病程</a>
-            <a class="dropdown-item" href="#" v-on:click="newDoc">病程记录</a>
-            <a class="dropdown-item" href="#" v-on:click="newDoc">病案首页</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc" id="eidt-leftbar-admissionApplication">入院申请</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc" id="eidt-leftbar-firstDisease">首次病程</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc" id="eidt-leftbar-diseaseRecord">病程记录</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc" id="eidt-leftbar-medicalHome">病案首页</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="newDoc">门诊病案</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc" id="eidt-leftbar-outpatientMedical">门诊病案</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="newDoc">健康体检</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc" id="eidt-leftbar-healthExamination">健康体检</a>
             <div class="dropdown-divider"></div>
           </div>
         </li>
-        <li class="nav-item" v-on:click="newDoc">
+        <li class="nav-item" v-on:click="newDoc" id="edit-new-doc">
           <a class="nav-link text-light" href="#">新建</a>
         </li>
-        <li class="nav-item" v-on:click="save(1)">
+        <li class="nav-item" v-on:click="save(1)" id="edit-save-1">
           <a class="nav-link text-light" href="#">保存</a>
         </li>
-        <li class="nav-item" v-on:click="save(2)">
+        <li class="nav-item" v-on:click="save(2)" id="edit-save-2">
           <a class="nav-link text-light" href="#">另存</a>
         </li>
-        <li class="nav-item" v-on:click="save(0)">
+        <li class="nav-item" v-on:click="save(0)" id="edit-save-0">
           <a class="nav-link text-light" href="#">删除</a>
         </li>
-        <li class="nav-item" v-on:click="saveFile">
+        <li class="nav-item" v-on:click="saveFile" id="edit-save-file">
           <a class="nav-link text-light" href="#">写文件</a>
         </li>
-        <li class="nav-item active" v-on:click='page(-1)' v-if="this.$store.state.Edit.leftPanel == 'table'">
+        <li class="nav-item active" v-on:click='page(-1)' id="edit-page-1" v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='page(1)' v-if="this.$store.state.Edit.leftPanel == 'table'">
+        <li class="nav-item active" v-on:click='page(1)' id="edit-page-2" v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
         </li>
       </ul>

@@ -23,14 +23,6 @@
   export default {
     name: 'edit-page',
     components: { NavBar, EditBar, LeftPanel, RightPanel },
-    methods: {
-      open(link) {
-        this.$electron.shell.openExternal(link);
-      },
-      load() {
-        this.$router.push('/home');
-      },
-    },
   };
 </script>
 

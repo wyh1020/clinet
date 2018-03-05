@@ -6,19 +6,19 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='getServers'>
+        <li class="nav-item active" v-on:click='getServers' id="server-remote-list">
           <a class="nav-link text-light" href="#"> 远程服务器列表 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getUsers'>
+        <li class="nav-item active" v-on:click='getUsers' id="server-user-sys">
           <a class="nav-link text-light" href="#"> 用户设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getOrgs'>
+        <li class="nav-item active" v-on:click='getOrgs' id="server-org-sys">
           <a class="nav-link text-light" href="#"> 机构设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getPersons'>
+        <li class="nav-item active" v-on:click='getPersons' id="server-people-sys">
           <a class="nav-link text-light" href="#"> 人员设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getServerFunctions'>
+        <li class="nav-item active" v-on:click='getServerFunctions' id="server-remote-function-sys">
           <a class="nav-link text-light" href="#"> 远程服务功能设置 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+  import { sGetOrg } from '../../utils/Server'
   import loadFile from '../../utils/LoadFile';
   export default {
     data() {
@@ -47,6 +48,7 @@
       },
       getOrgs: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');
+        sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user]);
       },
       getPersons: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getPersons');

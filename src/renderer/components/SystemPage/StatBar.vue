@@ -6,16 +6,16 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='serverData'>
+        <li class="nav-item active" v-on:click='serverData' id="server-case-data">
           <a class="nav-link text-light" href="#"> 服务器病案数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getIndex'>
+        <li class="nav-item active" v-on:click='getIndex' id="server-choose-index">
           <a class="nav-link text-light" href="#"> 选择分析指标 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getDimension'>
+        <li class="nav-item active" v-on:click='getDimension' id="server-choose-stat">
           <a class="nav-link text-light" href="#"> 选择分析维度 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='statCompute'>
+        <li class="nav-item active" v-on:click='statCompute' id="server-start-count">
           <a class="nav-link text-light" href="#"> 开始计算 <span class="sr-only">(current)</span></a>
         </li>
       </ul>

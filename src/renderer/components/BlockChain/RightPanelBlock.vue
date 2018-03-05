@@ -10,11 +10,6 @@
 
 <script>
   export default {
-    data() {
-      return {
-        flag: null
-      }
-    },
     computed: {
       file: {
         get() {

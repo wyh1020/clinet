@@ -17,26 +17,23 @@
             <a class="dropdown-item" href="#" v-on:click='help'>病案参考</a>
           </div>
         </li>
-        <li class="nav-item active" v-on:click='help'>
+        <li class="nav-item active" v-on:click='help' id="edit-help">
           <a class="nav-link text-light" href="#"> 帮助 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='localData'>
+        <li class="nav-item active" v-on:click='localData' id="edit-local-data">
           <a class="nav-link text-light" href="#"> 本地 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='serverData'>
+        <li class="nav-item active" v-on:click='serverData' id="edit-server-data">
           <a class="nav-link text-light" href="#"> 远程 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='user'>
-          <a class="nav-link text-light" href="#"> CDA <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active" v-on:click='newFiles'>
+        <li class="nav-item active" v-on:click='newFiles' id="edit-new-files">
           <a class="nav-link text-light" href="#"> 新文件 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link text-light" href="#" v-on:click='page(-1)'> 前页 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#" v-on:click='page(-1)' id="edit-page-3"> 前页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link text-light" href="#" v-on:click='page(1)'> 后页 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#" v-on:click='page(1)' id="edit-page-4"> 后页 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
@@ -58,13 +55,8 @@
       help: function () {
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
       },
-      user: function () {
-        this.$store.commit('EDIT_SET_LAST_NAV', 'user');
-        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
-        this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
-        this.$store.commit('EDIT_LOAD_FILES');
-      },
       localData: function () {
+        this.$store.commit('EDIT_SET_LAST_NAV', 'user');
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
         this.$store.commit('EDIT_LOAD_FILES');

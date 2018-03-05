@@ -57,11 +57,8 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  // import qs from 'qs';
   import NavBar from './HomePage/NavBar';
   import NoticeBar from './HomePage/NoticeBar';
-  // const agent = require('superagent');
   export default {
     name: 'login-page',
     components: { NavBar, NoticeBar },
@@ -82,7 +79,7 @@
         this.$electron.shell.openExternal(link);
       },
       login() {
-        if (global.hitbdata.table) {
+        if (global.hitbdata) {
           this.$store.commit('SET_NOTICE', '未注册用户登陆！');
           this.$store.commit('SET_NAVBAR', 'home');
           this.$store.commit('HAS_DATA');
@@ -92,29 +89,6 @@
           this.$store.commit('SET_NOTICE', '初次启动，读取系统初始化文件，请先关闭系统，再打开！')
         }
       },
-      log() {
-        console.log('aaaaaaaaaa')
-        const conf = {
-          baseURL: 'http://www.baidu.com',
-          method: 'GET',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          withCredentials: true,
-          xsrfCookieName: 'XSRF-TOKEN',
-          xsrfHeaderName: 'X-XSRF-TOKEN',
-        }
-        axios('/', conf).catch((error) => {
-          console.log(error.config)
-        });
-        // axios.get('http://www.baidu.com')
-        //   .set('headers': {'Content-Type': 'application/x-www-form-urlencoded'})
-        //   .then((res) => {
-        //     console.log(res)
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
-        // console.log(agent)
-      }
     },
   };
 </script>

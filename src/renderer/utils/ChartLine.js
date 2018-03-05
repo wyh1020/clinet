@@ -1,41 +1,37 @@
 const echarts = require('echarts');
-export default function chartLine(id) {
-  // 基于准备好的dom，初始化echarts实例
+export default function chartLine(id, opt = null) {
+  // 取得表头并删除前两位
+  const th = opt[0]
+  th.splice(0, 2)
+  // 定义xaxis
+  const xAxis = { data: th, type: 'category' }
+  // 取得要显示的列
+  const stat = opt
+  stat.shift()
+  const series = []
+  const chartKeys = []
+  stat.forEach((v) => {
+    const name = `${v[0]} ${v[1]}`
+    v.splice(0, 2)
+    chartKeys.push(name)
+    series.push({ data: v, name: name, type: 'line' })
+  })
+  // 显示图
   const myChart = echarts.init(document.getElementById(id));
-  // 指定图表的配置项和数据
   const option = {
-    tooltip: {
-      trigger: 'axis'
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true
-    },
-    toolbox: {
-      feature: {
-        saveAsImage: {}
-      }
-    },
-    xAxis: {
-      type: 'category',
-      boundaryGap: false,
-      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-    },
-    yAxis: {
-      type: 'value'
-    },
-    series: [
-      {
-        name: '总量',
-        type: 'line',
-        stack: '总量',
-        data: [120, 132, 101, 134, 90, 230, 210]
-      },
-    ]
+    tooltip: { trigger: 'axis' },
+    legend: { data: chartKeys },
+    // toolbox: {
+    //   show: true,
+    //   feature: {
+    //     magicType: { type: ['bar', 'line', 'stack', 'tiled'] },
+    //     saveAsImage: {}
+    //   }
+    // },
+    calculable: true,
+    xAxis: xAxis,
+    yAxis: { type: 'value' },
+    series: series
   };
-
-  // 使用刚指定的配置项和数据显示图表。
   myChart.setOption(option, true);
 }

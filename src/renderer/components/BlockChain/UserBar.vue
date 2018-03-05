@@ -6,16 +6,16 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='setUser'>
+        <li class="nav-item active" v-on:click='setUser' id="set-user">
           <a class="nav-link text-light" href="#"> 账户设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='account'>
+        <li class="nav-item active" v-on:click='account' id="account">
           <a class="nav-link text-light" href="#"> 账户余额 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='transaction'>
+        <li class="nav-item active" v-on:click='transaction' id="transaction">
           <a class="nav-link text-light" href="#"> 转账交易 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='transRecord'>
+        <li class="nav-item active" v-on:click='transRecord' id="trans-record">
           <a class="nav-link text-light" href="#"> 账户交易记录 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+  import { getTransactions, transactionsUnconfirmedAll } from '../../utils/BlockTransaction'
   export default {
     data() {
       return {
@@ -36,15 +37,25 @@
     methods: {
       setUser: function () {
         this.$store.commit('BLOCK_SET_TOOLBAR', 'setUser');
+        this.$store.commit('SET_NOTICE', '账户设置');
       },
       account: function () {
         this.$store.commit('BLOCK_SET_TOOLBAR', 'account');
+        this.$store.commit('SET_NOTICE', '账户余额');
       },
       transaction: function () {
         this.$store.commit('BLOCK_SET_TOOLBAR', 'transaction');
+        this.$store.commit('SET_NOTICE', '转账交易');
       },
       transRecord: function () {
+        const ip = this.$store.state.Block.server
+        const port = this.$store.state.Block.port
+        const user = global.hitbdata.blockchain_user
+        // console.log(ip)
+        getTransactions(this, [ip, port, user])
+        transactionsUnconfirmedAll(this, [ip, port, user])
         this.$store.commit('BLOCK_SET_TOOLBAR', 'transRecord');
+        this.$store.commit('SET_NOTICE', '账户交易记录');
       },
     },
   };

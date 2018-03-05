@@ -13,6 +13,7 @@ const state = {
   filePage: 0,
   filesPage: 0,
   fileType: 'csv',
+  hintPage: 0,
 };
 
 const mutations = {
@@ -48,7 +49,7 @@ const mutations = {
     state.file.splice(m[0], 1, m[1]);
   },
   EDIT_LOAD_FILES() {
-    const files = fs.readdirSync(global.hitbdata.path.user).filter(x => x.endsWith('.csv') || x.endsWith('.cda'))
+    const files = fs.readdirSync(global.hitbdata.path.user).filter(x => x.endsWith('.cda'))
     state.files = files;
   },
   EDIT_LOAD_FILE(state, message) {
@@ -104,6 +105,13 @@ const mutations = {
       if (state.docIndex > state.doc.length) { state.docIndex = state.doc.length }
     }
   },
+  EDIT_SET_HINT_PAGE(state, page) {
+    if (page === 'up') {
+      state.hintPage += 1
+    } else {
+      state.hintPage -= 1
+    }
+  },
 };
 
 const actions = {
@@ -131,6 +139,7 @@ const actions = {
     commit('EDIT_SAVE_FILE');
     commit('EDIT_SET_FILE_TYPE');
     commit('EDIT_NEW_FILES');
+    commit('EDIT_SET_HINT_PAGE');
   },
 };
 
