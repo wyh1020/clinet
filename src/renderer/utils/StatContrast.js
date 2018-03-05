@@ -1,7 +1,7 @@
 let xArr = [];
 let yArr = [];
 // 加入对比方法(当前分析,行选中,列选中)(addContrast(this.$store.state.Stat.table, [], []))
-export function addContrast(stat, xid, yid) {
+export function addContrast(stat, xid = [], yid = []) {
   const th = stat[0]
   // 去除多余的行
   if (xArr.length === 0) {

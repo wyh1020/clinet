@@ -98,15 +98,14 @@
         const id = 'chartLeft'
         const type = '柱状图'
         const table = this.$store.state.Stat.file
-        const option = chartData(table)
-        // console.log(option)
+        const option = chartData(table, this.flag, this.flagTd)
         switch (type) {
           case '柱状图':
             chartBar(id, option)
             this.$store.commit('STAT_SET_CHART_OPTION', [id, type, option])
             break;
           case '折线图':
-            chartLine(id)
+            chartLine(id, option)
             break;
           case '雷达图':
             chartRadar(id)

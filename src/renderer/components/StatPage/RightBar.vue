@@ -76,7 +76,8 @@
   import chartRadar from '../../utils/ChartRadar';
   import chartBar from '../../utils/ChartBar';
   import addContrast from '../../utils/StatContrast';
-  
+  import chartData from '../../utils/ChartData';
+
   export default {
     data() {
       return {
@@ -103,14 +104,17 @@
         this.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', x]);
       },
       showChart: function (id, type) {
+        const table = this.$store.state.Stat.file
+        const option = chartData(table, this.flag, this.flagTd)
+        console.log(option);
         if (id === 'chartRight') {
           // this.$store.commit('SET_CHART_RIGHT', type);
           switch (type) {
             case '柱状图':
-              chartBar(id, this.$store.state.Stat.rightBar)
+              chartBar(id, option)
               break;
             case '折线图':
-              chartLine(id)
+              chartLine(id, option)
               break;
             case '雷达图':
               chartRadar(id)
@@ -124,10 +128,10 @@
           // this.$store.commit('SET_CHART_LEFT', type);
           switch (type) {
             case '柱状图':
-              chartBar(id, this.$store.state.Stat.leftBar)
+              chartBar(id, option)
               break;
             case '折线图':
-              chartLine(id)
+              chartLine(id, option)
               break;
             case '雷达图':
               chartRadar(id)
