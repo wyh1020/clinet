@@ -27,8 +27,7 @@ export function sConnect(obj, data) {
     obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
   })
 }
-// ------------
-// 用户管理
+// ------------用户管理
 // 注册
 export function sRegister(obj, data) {
   // 取出user
@@ -118,9 +117,7 @@ export function sUpdateUser(obj, data) {
     obj.$store.commit('SYSTEM_SET_USER', ['更新用户信息失败', { username: '', login: false }])
   })
 }
-// 用户管理
-// ----------------
-// 机构管理
+// ------------机构管理
 // 获取机构信息多条
 export function sGetOrg(obj, data) {
   const userOrg = data[2].org
@@ -234,8 +231,6 @@ export function sCreateDepart(obj, data) {
     obj.$store.commit('SYSTEM_NEW_DEPAERT', [{}, '连接失败', false])
   })
 }
-// 机构管理
-// ------------
 // 2.2.1 获取分析记录
 export function sGetStat(obj, data) {
   axios.get(`http://${data[0]}:${data[1]}/servers/api/stat_json/`)
