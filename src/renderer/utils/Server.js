@@ -15,6 +15,7 @@ export function sConnect(obj, data) {
     if (res.status === 200) {
       if (res.data.success) {
         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
+        obj.$store.commit('SET_NOTICE', '连接成功')
       } else {
         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
       }
@@ -78,8 +79,10 @@ export function sLogin(obj, data) {
   }).then((res) => {
     if (res.data.login) {
       obj.$store.commit('SYSTEM_SET_USER', ['用户登录成功', res.data])
+      obj.$store.commit('SET_NOTICE', '用户登录成功')
     } else {
       obj.$store.commit('SYSTEM_SET_USER', ['用户名或密码错误', res.data])
+      obj.$store.commit('SET_NOTICE', '用户登录成功')
     }
   }).catch((err) => {
     console.log(err)
@@ -109,10 +112,10 @@ export function sUpdateUser(obj, data) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
-    obj.$store.commit('SYSTEM_SET_USER', ['用户登录成功', res.data])
+    obj.$store.commit('SYSTEM_SET_USER', ['更新用户信息成功', res.data])
   }).catch((err) => {
     console.log(err)
-    obj.$store.commit('SYSTEM_SET_USER', ['修改失败', { username: '', login: false }])
+    obj.$store.commit('SYSTEM_SET_USER', ['更新用户信息失败', { username: '', login: false }])
   })
 }
 // 用户管理
@@ -160,6 +163,7 @@ export function sCreateOrg(obj, data) {
         if (res.data.success) {
           obj.$store.commit('SYSTEM_NEW_ORG', [res.data, '机构创建成功', true])
           obj.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs')
+          obj.$store.commit('SET_NOTICE', '机构创建成功')
         } else {
           obj.$store.commit('SYSTEM_NEW_ORG', [res.data, '机构创建失败,机构编码重复', false])
         }
