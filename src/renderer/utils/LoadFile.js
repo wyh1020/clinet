@@ -38,7 +38,6 @@ export default function loadFile(obj, x, p, e = null) {
         const fReadline = readline.createInterface({ input: fRead });
         const f = [];
         fReadline.on('close', () => {
-          // console.log(f);
           switch (p) {
             case 'user':
               obj.$store.commit('EDIT_LOAD_FILE', f);

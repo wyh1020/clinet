@@ -24,6 +24,7 @@ const state = {
   dimensionTimeSel: [],
   dimensionDrgSel: [],
   notice: [],
+  tableHeader: [],
 };
 
 const mutations = {
@@ -34,7 +35,9 @@ const mutations = {
   STAT_LOAD_FILE(state, message) {
     state.file = message;
     state.table = message.map(x => x.split(','))
+    state.tableHeader = state.table.slice(0, 1)
     state.tableSel = state.table
+    state.tableSel.splice(0, 1)
     state.dimensionOrg = [...new Set(state.table.map(a => a[0]))]
     state.dimensionTime = [...new Set(state.table.map(a => a[1]))]
     state.dimensionDrg = [...new Set(state.table.map(a => a[2]))]
@@ -136,6 +139,12 @@ const mutations = {
       }
     }
   },
+  STAT_GET_FIELD(state, field) {
+    state.field = field;
+  },
+  STAT_GET_FIELD_INDEX(state, index) {
+    state.fieldIndex = index;
+  },
 };
 
 const actions = {
@@ -147,6 +156,8 @@ const actions = {
     commit('STAT_SET_LEFT_PANEL');
     commit('STAT_TABLE_PAGE');
     commit('STAT_SET_DIMENSION');
+    commit('STAT_GET_FIELD');
+    commit('STAT_GET_FIELD_INDEX');
   },
 };
 
