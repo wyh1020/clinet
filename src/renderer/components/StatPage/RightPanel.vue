@@ -82,6 +82,7 @@
           } else {
             this.flagTd.splice(x, 1)
           }
+          this.$store.commit('STAT_SET_COL', index);
         }
       },
       onClick: function (data, index) {
@@ -91,7 +92,7 @@
         } else {
           this.flag.splice(x, 1)
         }
-        // console.log(this.$store.state.System.table[n])
+        this.$store.commit('STAT_SET_ROW', index);
         this.$store.commit('STAT_GET_FIELD', data);
         this.$store.commit('STAT_GET_FIELD_INDEX', index);
         const id = 'chartLeft'

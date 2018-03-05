@@ -25,6 +25,9 @@ const state = {
   dimensionDrgSel: [],
   notice: [],
   tableHeader: [],
+  selectedRow: [],
+  selectedCol: [],
+  compareTable: [],
 };
 
 const mutations = {
@@ -145,6 +148,25 @@ const mutations = {
   STAT_GET_FIELD_INDEX(state, index) {
     state.fieldIndex = index;
   },
+  STAT_SET_COL(state, index) {
+    const x = state.selectedCol.indexOf(index)
+    if (x === -1) {
+      state.selectedCol.push(index)
+    } else {
+      state.selectedCol.splice(x, 1)
+    }
+  },
+  STAT_SET_ROW(state, index) {
+    const x = state.selectedRow.indexOf(index)
+    if (x === -1) {
+      state.selectedRow.push(index)
+    } else {
+      state.selectedRow.splice(x, 1)
+    }
+  },
+  STAT_SET_COMPARE_TABLE(state, data) {
+    state.compareTable = data
+  },
 };
 
 const actions = {
@@ -158,6 +180,9 @@ const actions = {
     commit('STAT_SET_DIMENSION');
     commit('STAT_GET_FIELD');
     commit('STAT_GET_FIELD_INDEX');
+    commit('STAT_SET_COL');
+    commit('STAT_SET_ROW');
+    commit('STAT_SET_COMPARE_TABLE');
   },
 };
 
