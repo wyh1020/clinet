@@ -5,7 +5,7 @@ describe('Library', function () {
   afterEach(utils.afterEach);
 
   it('Library-测试1', function () {
-    this.timeout(20000)
+    this.timeout(10000)
     // 1、点击login页面的login-button
     return this.app.client.click('#login')
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
@@ -57,14 +57,13 @@ describe('Library', function () {
       // .waitUntilTextExists('#notice-bar', '翻页')
     // 2.1.5、点击维度选择(library-drop)，显示维度下拉选项
     // 2.1.5.1、工具栏的维度选择-机构(library-org)，左侧列表显示当前数据内所有机构，提示：机构维度选择成功，若机构列无内容，提示：无机构维度！
-      // .click('#library-dropdown')
-      // .click('#library-dropdown-org')
-      // .waitUntilTextExists('#notice-bar', '维度选择')
-      // .getText('#library-dropdown-org')
-      // .then(function (org) {
-      //   console.log(org);
-      //   expect(org).to.equal('机构');
-      // })
+      .click('#library-dropdown')
+      .click('#library-dropdown-org')
+      .waitUntilTextExists('#notice-bar', '维度选择')
+      .getText('#library-dropdown-org')
+      .then(function (org) {
+        expect(org).to.equal('');
+      })
       // .click('#library-leftlist')
       // .getText('#library-rightpanel')
       // .then(function (leftlist) {
@@ -73,24 +72,22 @@ describe('Library', function () {
       // })
     // 2.1.5.1.1、点击左侧列表(library-leftlist)，右侧表中显示所选机构的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
     // 2.1.5.2、工具栏的维度选择-时间(library-time)，左侧列表显示当前数据内所有时间，提示：时间维度选择成功，若时间列无内容，提示：无时间维度！
-      // .click('#library-dropdown')
-      // .click('#library-dropdown-time')
-      // .waitUntilTextExists('#notice-bar', '维度选择')
-      // .getText('#library-dropdown-time')
-      // .then(function (time) {
-      //   console.log(time);
-      //   expect(time).to.equal('时间');
-      // })
+      .click('#library-dropdown')
+      .click('#library-dropdown-time')
+      .waitUntilTextExists('#notice-bar', '维度选择')
+      .getText('#library-dropdown-time')
+      .then(function (time) {
+        expect(time).to.equal('');
+      })
     // 2.1.5.2.1、点击左侧列表(library-leftlist)，右侧表中显示所选时间的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
     // 2.1.5.3、工具栏的维度选择-版本(library-version)，左侧列表显示当前数据内所有版本，提示：版本维度选择成功，若版本列无内容，提示：无版本维度！
-      // .click('#library-dropdown')
-      // .click('#library-dropdown-version')
-      // .waitUntilTextExists('#notice-bar', '系统通知：维度选择')
-      // .getText('#library-dropdown-version')
-      // .then(function (version) {
-      //   console.log(version);
-      //   expect(version).to.equal('机构');
-      // })
+      .click('#library-dropdown')
+      .click('#library-dropdown-version')
+      .waitUntilTextExists('#notice-bar', '系统通知：维度选择')
+      .getText('#library-dropdown-version')
+      .then(function (version) {
+        expect(version).to.equal('');
+      })
     // 2.1.5.3.1、点击左侧列表(library-leftlist)，右侧表中显示所选版本的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
     // 2.1.5.4、点击表中任意一列
     // 2.1.5.5、点击添加列维度，左侧列表显示选中列中的内容（去重），若选中列无内容，提示维度内容为空不可添加！
