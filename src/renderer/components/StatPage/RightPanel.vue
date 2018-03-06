@@ -12,7 +12,7 @@
         <div id="chartRight" style="width: 600px; height:400px;"></div>
       </div>
       <div class="col">
-        <div class="alert alert-danger" role="alert" style="height:100%; overflow-y:auto;">
+        <div class="alert alert-danger" id="stat-right-prompt" role="alert" style="height:100%; overflow-y:auto;">
           <h4 class="alert-heading">数据分析提示</h4>
           <ol class="">
             <li v-for="(data, index) in notice" v-bind:key='index'>{{data}}</li>
@@ -21,8 +21,8 @@
       </div>
     </div>
     <table id="stat-right-table">
-      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger':flag.find((n)=>n===index)}">
-        <td v-for="(field, index) in data" v-bind:key='index' v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}" v-on:click="onClickTd(data, index)">{{data[index]}}</td>
+      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" id="stat-right-table-tr" v-bind:class="{'table-danger':flag.find((n)=>n===index)}">
+        <td v-for="(field, index) in data" v-bind:key='index' v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}" v-on:click="onClickTd(data, index)" id="stat-right-table-td">{{data[index]}}</td>
       </tr>
     </table>
   </div>

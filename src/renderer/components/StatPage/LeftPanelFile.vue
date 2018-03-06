@@ -1,8 +1,8 @@
 <template>
   <div style="height:400px; overflow-y:auto;">
-    <table>
+    <table id="stat-left-file-table">
       <tr>
-        <th class="table-danger"> 数据分析文件</th>
+        <th id="stat-left-file-th" class="table-danger"> 数据分析文件</th>
       </tr>
       <tr class="stat-left-file-tr" v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
         <td>{{data}}</td>
