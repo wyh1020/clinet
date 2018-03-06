@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="edit-leftpaneldoc-doc">
     <div class="card">
       <div class="card-body">
         <ol class="breadcrumb">

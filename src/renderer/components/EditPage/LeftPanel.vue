@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="edit-leftpanel">
     <left-bar></left-bar>
     <left-panel-doc v-if="leftPanel == 'doc'"></left-panel-doc>
     <left-panel-table v-if="leftPanel == 'table'"></left-panel-table>

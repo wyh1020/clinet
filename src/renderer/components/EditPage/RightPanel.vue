@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="edit-rightpanel">
     <right-bar></right-bar>
     <right-panel-local v-if="rightPanel == 'local'"></right-panel-local>
     <right-panel-help v-if="rightPanel == 'help'"></right-panel-help>
