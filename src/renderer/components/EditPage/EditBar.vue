@@ -1,10 +1,10 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="alert alert-warning" role="alert" style="width: 100%; position: fixed; bottom: 40px"><span v-bind:key='index' v-for="(data, index) in hint">{{index + 1}}.{{data}}</span></div>
+      <div class="alert alert-warning" id="edit-bar-prompt" role="alert" style="width: 100%; position: fixed; bottom: 40px"><span v-bind:key='index' v-for="(data, index) in hint">{{index + 1}}.{{data}}</span></div>
     </nav>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom">
-      <input id="edit-input" style="line-height: 3" type="text" class="form-control" placeholder="请输入……" aria-label="Username" aria-describedby="basic-addon1" v-model="item"  v-on:keyup.enter="enter" v-on:keyup.up="up" 
+      <input id="edit-bar-input" style="line-height: 3" type="text" class="form-control" placeholder="请输入……" aria-label="Username" aria-describedby="basic-addon1" v-model="item"  v-on:keyup.enter="enter" v-on:keyup.up="up" 
       v-on:keyup.down="down" v-on:keyup.left="left" v-on:keyup.right="right" v-on:keyup.space="space"    v-on:keyup.ctrl.left="itemUp" v-on:keyup.ctrl.right="itemDown" v-on:keyup.ctrl.delete="del" v-on:keyup.ctrl.0="hintDown"
       v-on:keyup.ctrl.110="hintUp">
     </nav>
@@ -21,7 +21,7 @@
     },
     mounted: function () {
       this.$nextTick(() => {
-        document.getElementById('edit-input').focus()
+        document.getElementById('edit-bar-input').focus()
       })
     },
     computed: {
