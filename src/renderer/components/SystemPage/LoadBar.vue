@@ -9,30 +9,30 @@
         <li class="nav-item active" v-on:click='getFiles' id="server-load-loaclfile">
           <a class="nav-link text-light" href="#"> 选择CSV文件 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getTables' id="server-choose-database">
+        <li class="nav-item active" v-on:click='getTables' id="server-load-choosedb">
           <a class="nav-link text-light" href="#"> 选择数据表 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='compareTable' id="server-contrast-data">
+        <li class="nav-item active" v-on:click='compareTable' id="server-load-contrast">
           <a class="nav-link text-light" href="#"> 对照数据 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='checkTable' id="server-load-checkdata">
           <a class="nav-link text-light" href="#"> 校验数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='editTable' id="server-load-checkdata">
+        <li class="nav-item active" v-on:click='editTable' id="server-load-editdata">
           <a class="nav-link text-light" href="#"> 编辑数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadTable' id="server-export-data">
+        <li class="nav-item active" v-on:click='loadTable' id="server-load-import">
           <a class="nav-link text-light" href="#"> 导入数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='saveTableData' id="server-save-localfile">
+        <li class="nav-item active" v-on:click='saveTableData' id="server-load-savelocal">
           <a class="nav-link text-light" href="#"> 保存本地文件 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='upLoadTableData' id="server-upload-data">
+        <li class="nav-item active" v-on:click='upLoadTableData' id="server-load-uploaddata">
           <a class="nav-link text-light" href="#"> 上传服务器数据 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="server-load-search">
       </form>
     </div>
   </nav>
@@ -86,5 +86,4 @@
     margin: 0;
     padding: 0;
   }
-
 </style>

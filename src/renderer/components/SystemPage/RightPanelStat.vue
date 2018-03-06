@@ -1,7 +1,7 @@
 <template>
   <div>
     <table>
-      <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger':flag == index}" class="server-stat-rightpanel">
+      <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger':flag == index}" class="server-stat-rightpanel-tr">
         <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
       </tr>
     </table>
@@ -46,5 +46,4 @@
 </script>
 
 <style scoped>
-
 </style>
