@@ -11,22 +11,22 @@ describe('Edit', function () {
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
       .waitUntilTextExists('#notice-bar', '未注册用户登陆！')
     // 2、点击顶部导航栏的edit-page，进入edit页
-      // .click('#navbar-edit')
-      // .waitUntilTextExists('#edit-input', '')
-    // 底部输入框edit-input的内容为空
-      // .getText('#edit-input')
-      // .then(function (editText) {
-      //   expect(editText).to.equal('');
-      // })
+      .click('#navbar-edit')
+      .waitUntilTextExists('#edit-editbar-input', '')
+    // 底部输入框edit-editbar-input的内容为空
+      .getText('#edit-editbar-input')
+      .then(function (editText) {
+        expect(editText).to.equal('');
+      })
     // +++++++++++++直接点击工具栏按钮++++++++++++++++++
-    // 2.1、点击左侧工具栏 返回按钮edit-last-nav, 页面返回首页
-      // .click('#edit-last-nav')
-      // .waitUntilTextExists('#notice-bar', '数据采集-数据采集')
-    // 2.2、点击左侧工具栏 选择下拉按钮 navbarDropdown
+    // 2.1、点击左侧工具栏 返回按钮edit-leftbar-back, 页面返回首页
+      .click('#edit-leftbar-back')
+      .waitUntilTextExists('#notice-bar', '数据采集-数据采集')
+    // 2.2、点击左侧工具栏 选择下拉按钮 edit-leftbar-choice
     // 该 选择按钮id 更改完 会报错 Error: An element could not be located on the page using the given search parameters
-      // .click('#navbarDropdown')
-      // .hasFocus('[aria-labelledby="navbarDropdown"]')
-      // .getText('#edit-input')
+      // .click('#edit-leftbar-choice')
+      // .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
+      // .getText('#edit-editbar-input')
       // .then(function (editText) {
       //   expect(editText).to.equal('');
       // })
@@ -40,16 +40,21 @@ describe('Edit', function () {
     // 2.3、点击左侧工具栏 新建按钮 edit-new-doc
     // 2.4、点击左侧工具栏 保存按钮 edit-save-1
     // 2.5、点击左侧工具栏 另存按钮 edit-save-2
-    // 2.6、点击左侧工具栏 删除按钮 edit-save-0
-      // .click('#edit-save-0')
-      // .waitUntilTextExists('#edit-right-title', '用户本地文件')
+    // 2.6、点击左侧工具栏 删除按钮 edit-leftbar-del
+      // .click('#edit-leftbar-del')
+      // .waitUntilTextExists('#edit-rightpanellocal-title', '用户本地文件')
     // 2.7、点击左侧工具栏 写文件按钮 edit-save-file
-    // 2.8、点击右侧工具栏 选择下拉按钮 navbarDropdown
+    // 2.8、点击右侧工具栏 选择下拉按钮 edit-leftbar-choice
     // 2.9、点击右侧工具栏 帮助按钮 edit-help
-    // 2.10、点击右侧工具栏 本地按钮 edit-local-data 右侧出现当前本地文件
-      // .click('#edit-local-data')
-      // .waitUntilTextExists('#edit-right-title', '用户本地文件')
-      // .getText('#edit-right-table')
+    // 2.10、点击右侧工具栏 本地按钮 edit-rightbar-local 右侧出现当前本地文件
+      // .click('#edit-rightbar-local')
+      // .waitUntilTextExists('#edit-rightpanellocal-title', '用户本地文件')
+      // .getText('.edit-rightpanellocal-tr')
+      // .then(function (editText) {
+      //   console.log(editText)
+      //   // expect(editText).to.not.equal('');
+      // })
+      // .getText('#edit-rightpanellocal-table')
       // .then(function (editText) {
       //   expect(editText).to.not.equal('');
       // })
@@ -66,14 +71,14 @@ describe('Edit', function () {
     // 2.10.1.1 点击左侧工具栏 保存按钮 对该病历进行保存
     // 2.10.1.2 点击左侧工具栏 另存按钮 对该病历进行另存
     // 2.10.1.3 点击左侧工具栏 删除按钮 对该病历进行删除
-      // .click('#edit-save-0')
-      // .waitUntilTextExists('#edit-right-title', '用户本地文件')
+      // .click('#edit-leftbar-del')
+      // .waitUntilTextExists('#edit-rightpanellocal-title', '用户本地文件')
     // 2.10.1.4 点击左侧工具栏 前页按钮 对该病历进行跳页
     // 2.10.1.5 点击左侧工具栏 后页按钮 对该病历进行跳页
     // 2.10.1.6 点击左侧工具栏 选择按钮
-      // .click('#navbarDropdown')
-      // .hasFocus('[aria-labelledby="navbarDropdown"]')
-      // .getText('#edit-input')
+      // .click('#edit-leftbar-choice')
+      // .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
+      // .getText('#edit-editbar-input')
       // .then(function (editText) {
       //   expect(editText).to.equal('');
       // })
@@ -98,14 +103,14 @@ describe('Edit', function () {
     // 2.10.2.1.3 点击左侧工具栏 保存按钮 对该病历进行保存
     // 2.10.2.1.4 点击左侧工具栏 另存按钮 对该病历进行另存
     // 2.10.2.1.5 点击左侧工具栏 删除按钮 对该病历进行删除
-      // .click('#edit-save-0')
-      // .waitUntilTextExists('#edit-right-title', '用户本地文件')
+      // .click('#edit-leftbar-del')
+      // .waitUntilTextExists('#edit-rightpanellocal-title', '用户本地文件')
     // 2.10.2.1.6 点击左侧工具栏 前页按钮 对该病历进行跳页
     // 2.10.2.1.7 点击左侧工具栏 后页按钮 对该病历进行跳页
     // 2.10.2.1.6 点击左侧工具栏 选择按钮
-      // .click('#navbarDropdown')
-      // .hasFocus('[aria-labelledby="navbarDropdown"]')
-      // .getText('#edit-input')
+      // .click('#edit-leftbar-choice')
+      // .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
+      // .getText('#edit-editbar-input')
       // .then(function (editText) {
       //   expect(editText).to.equal('');
       // })
@@ -123,14 +128,14 @@ describe('Edit', function () {
     // 2.10.2.2.1 点击左侧工具栏 保存按钮
     // 2.10.2.2.2 点击左侧工具栏 另存按钮
     // 2.10.2.2.3 点击左侧工具栏 删除按钮
-      // .click('#edit-save-0')
-      // .waitUntilTextExists('#edit-right-title', '用户本地文件')
+      // .click('#edit-leftbar-del')
+      // .waitUntilTextExists('#edit-rightpanellocal-title', '用户本地文件')
     // 2.10.2.2.4 点击左侧工具栏 前页按钮
     // 2.10.2.2.5 点击左侧工具栏 后页按钮
     // 2.10.2.2.6 点击左侧工具栏 选择按钮
-      // .click('#navbarDropdown')
-      // .hasFocus('[aria-labelledby="navbarDropdown"]')
-      // .getText('#edit-input')
+      // .click('#edit-leftbar-choice')
+      // .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
+      // .getText('#edit-editbar-input')
       // .then(function (editText) {
       //   expect(editText).to.equal('');
       // })
