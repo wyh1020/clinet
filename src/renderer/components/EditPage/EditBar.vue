@@ -4,9 +4,15 @@
       <div class="alert alert-warning" id="edit-bar-prompt" role="alert" style="width: 100%; position: fixed; bottom: 40px"><span v-bind:key='index' v-for="(data, index) in hint">{{index + 1}}.{{data}}</span></div>
     </nav>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom">
-      <input id="edit-bar-input" style="line-height: 3" type="text" class="form-control" placeholder="请输入……" aria-label="Username" aria-describedby="basic-addon1" v-model="item"  v-on:keyup.enter="enter" v-on:keyup.up="up" 
-      v-on:keyup.down="down" v-on:keyup.left="left" v-on:keyup.right="right" v-on:keyup.space="space"    v-on:keyup.ctrl.left="itemUp" v-on:keyup.ctrl.right="itemDown" v-on:keyup.ctrl.delete="del" v-on:keyup.ctrl.0="hintDown"
-      v-on:keyup.ctrl.110="hintUp">
+      <input id="edit-editbar-input" style="line-height: 3" type="text" class="form-control"
+      placeholder="请输入……" aria-label="Username" aria-describedby="basic-addon1" v-model="item"
+      v-on:keyup.enter="enter" v-on:keyup.up="up" v-on:keyup.down="down" v-on:keyup.left="left"
+      v-on:keyup.right="right" v-on:keyup.space="space" v-on:keyup.ctrl.left="itemUp"
+      v-on:keyup.ctrl.right="itemDown" v-on:keyup.ctrl.delete="del" v-on:keyup.ctrl.0="hintDown"
+      v-on:keyup.ctrl.110="hintUp" v-on:keyup.ctrl.97="hint1" v-on:keyup.ctrl.98="hint2"
+      v-on:keyup.ctrl.99="hint3" v-on:keyup.ctrl.100="hint4" v-on:keyup.ctrl.101="hint5"
+      v-on:keyup.ctrl.102="hint6" v-on:keyup.ctrl.103="hint7" v-on:keyup.ctrl.104="hint8"
+      v-on:keyup.ctrl.105="hint9" v-on:input="change">
     </nav>
   </div>
 </template>
@@ -21,7 +27,7 @@
     },
     mounted: function () {
       this.$nextTick(() => {
-        document.getElementById('edit-bar-input').focus()
+        document.getElementById('edit-editbar-input').focus()
       })
     },
     computed: {
@@ -38,7 +44,6 @@
     methods: {
       enter(e) {
         const n = this.$store.state.Edit.docIndex
-        // console.log(n)
         const v = e.target.value.split(' ').filter(i => i !== '');
         if (v.length > 0) {
           this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
@@ -112,6 +117,56 @@
           this.$store.commit('EDIT_SET_HINT_PAGE', 'down');
         }
       },
+      hint1() {
+        const content = ['aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll']
+        this.$store.commit('EDIT_CONCAT_BAR_VALUE', content[0]);
+        this.item = this.$store.state.Edit.editBarValue;
+      },
+      hint2() {
+        const content = ['aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll']
+        this.$store.commit('EDIT_CONCAT_BAR_VALUE', content[1]);
+        this.item = this.$store.state.Edit.editBarValue;
+      },
+      hint3() {
+        const content = ['aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll']
+        this.$store.commit('EDIT_CONCAT_BAR_VALUE', content[2]);
+        this.item = this.$store.state.Edit.editBarValue;
+      },
+      hint4() {
+        const content = ['aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll']
+        this.$store.commit('EDIT_CONCAT_BAR_VALUE', content[3]);
+        this.item = this.$store.state.Edit.editBarValue;
+      },
+      hint5() {
+        const content = ['aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll']
+        this.$store.commit('EDIT_CONCAT_BAR_VALUE', content[4]);
+        this.item = this.$store.state.Edit.editBarValue;
+      },
+      hint6() {
+        const content = ['aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll']
+        this.$store.commit('EDIT_CONCAT_BAR_VALUE', content[5]);
+        this.item = this.$store.state.Edit.editBarValue;
+      },
+      hint7() {
+        const content = ['aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll']
+        this.$store.commit('EDIT_CONCAT_BAR_VALUE', content[6]);
+        this.item = this.$store.state.Edit.editBarValue;
+      },
+      hint8() {
+        const content = ['aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll']
+        this.$store.commit('EDIT_CONCAT_BAR_VALUE', content[7]);
+        this.item = this.$store.state.Edit.editBarValue;
+      },
+      hint9() {
+        const content = ['aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll']
+        this.$store.commit('EDIT_CONCAT_BAR_VALUE', content[8]);
+        this.item = this.$store.state.Edit.editBarValue;
+      },
+      change() {
+        const value = document.getElementById('edit-editbar-input').value
+        this.$store.commit('EDIT_SET_BAR_VALUE', value);
+        console.log(value)
+      }
     },
   };
 </script>
