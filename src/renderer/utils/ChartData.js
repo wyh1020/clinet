@@ -5,13 +5,12 @@ export default function chartData(table, xid = [], yid = []) {
   const stat = []
   // 按照逗号切分并取得表头
   table = table.map(x => x.split(','))
+  // table = table.map(x => x.pop)
   const th = table[0]
+  th.pop()
   // 列是否选择
   if (yid.length === 0) {
-    yArr = []
-    th.forEach((v, i) => {
-      yArr.push(i)
-    })
+    yArr = th.map((v, i) => i)
   } else {
     yid.map(x => yArr.push(x))
   }
