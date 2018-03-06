@@ -1,18 +1,57 @@
 const echarts = require('echarts');
-export default function chartRadar(id) {
+export default function chartRadar(id, opt = []) {
+  // 取得表头并删除前两位
+  const th = opt[0]
+  // 判断是否存在drg2字段
+  let drg2 = false
+  if (th.indexOf('drg2') > 0) {
+    th.splice(0, 3)
+    drg2 = true
+  } else {
+    th.splice(0, 2)
+    drg2 = false
+  }
+  const data = []
+  const legendData = []
+  const indicator = []
+  // 删除表头
+  const stat = opt
+  stat.shift()
+  const max = stat[0]
+  // 取得每个维度的最大值
+  th.forEach((v, i) => {
+    stat.forEach((v2) => {
+      if (v2[i] > max[i]) {
+        max[i] = v2[i]
+      }
+    })
+  })
+  // 取得图设置的indicator字段
+  max.forEach((v, i) => {
+    indicator.push({ max: v * 1.2, name: th[i] })
+  })
+  // 生成图的其他字段
+  stat.forEach((v) => {
+    let name = ''
+    if (drg2) {
+      name = `${v[0]} ${v[1]} ${v[2]}`
+      v.splice(0, 3)
+    } else {
+      name = `${v[0]} ${v[1]}`
+      v.splice(0, 2)
+    }
+    legendData.push(name)
+    data.push({ value: v, name: name })
+  })
   // 基于准备好的dom，初始化echarts实例
   const myChart = echarts.init(document.getElementById(id));
   // 指定图表的配置项和数据
   const option = {
-    title: {
-      text: '基础雷达图'
-    },
     tooltip: {},
     legend: {
-      data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+      data: legendData
     },
     radar: {
-      // shape: 'circle',
       name: {
         textStyle: {
           color: '#fff',
@@ -21,29 +60,11 @@ export default function chartRadar(id) {
           padding: [3, 5]
         }
       },
-      indicator: [
-        { name: '销售（sales）', max: 6500 },
-        { name: '管理（Administration）', max: 16000 },
-        { name: '信息技术（Information Techology）', max: 30000 },
-        { name: '客服（Customer Support）', max: 38000 },
-        { name: '研发（Development）', max: 52000 },
-        { name: '市场（Marketing）', max: 25000 }
-      ]
+      indicator: indicator
     },
     series: [{
-      name: '预算 vs 开销（Budget vs spending）',
       type: 'radar',
-      // areaStyle: {normal: {}},
-      data: [
-        {
-          value: [4300, 10000, 28000, 35000, 50000, 19000],
-          name: '预算分配（Allocated Budget）'
-        },
-        {
-          value: [5000, 14000, 28000, 31000, 42000, 21000],
-          name: '实际开销（Actual Spending）'
-        }
-      ]
+      data: data
     }]
   };
 
