@@ -1,19 +1,19 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-primary sticky-top">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#edit-leftbar-nav" aria-controls="edit-leftbar-nav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="edit-leftbar-nav">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click="lastNav" v-if="this.$store.state.Edit.lastNav" id="edit-last-nav">
+        <li class="nav-item active" id="edit-leftbar-back" v-on:click="lastNav" v-if="this.$store.state.Edit.lastNav">
           <a class="nav-link text-light" href="#"> 返回 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle text-light" href="#" id="edit-leftbar-choice" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             选择
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="dropdown-menu" aria-labelledby="edit-leftbar-choice">
             <a class="dropdown-item" href="#" v-on:click="newDoc" id="edit-leftbar-wt4">病案首页（卫统四CSV）</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" v-on:click="newDoc" id="eidt-leftbar-admissionApplication">入院申请</a>
@@ -27,25 +27,25 @@
             <div class="dropdown-divider"></div>
           </div>
         </li>
-        <li class="nav-item" v-on:click="newDoc" id="edit-new-doc">
+        <li class="nav-item" v-on:click="newDoc" id="edit-leftbar-newdoc">
           <a class="nav-link text-light" href="#">新建</a>
         </li>
-        <li class="nav-item" v-on:click="save(1)" id="edit-save-1">
+        <li class="nav-item" v-on:click="save(1)" id="edit-leftbar-preservation">
           <a class="nav-link text-light" href="#">保存</a>
         </li>
-        <li class="nav-item" v-on:click="save(2)" id="edit-save-2">
+        <li class="nav-item" v-on:click="save(2)" id="edit-leftbar-save">
           <a class="nav-link text-light" href="#">另存</a>
         </li>
-        <li class="nav-item" v-on:click="save(0)" id="edit-save-0">
+        <li class="nav-item" v-on:click="save(0)" id="edit-leftbar-del">
           <a class="nav-link text-light" href="#">删除</a>
         </li>
-        <li class="nav-item" v-on:click="saveFile" id="edit-save-file">
+        <li class="nav-item" v-on:click="saveFile" id="edit-leftbar-file">
           <a class="nav-link text-light" href="#">写文件</a>
         </li>
-        <li class="nav-item active" v-on:click='page(-1)' id="edit-page-1" v-if="this.$store.state.Edit.leftPanel == 'table'">
+        <li class="nav-item active" v-on:click='page(-1)' id="edit-leftbar-uppage" v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='page(1)' id="edit-page-2" v-if="this.$store.state.Edit.leftPanel == 'table'">
+        <li class="nav-item active" v-on:click='page(1)' id="edit-leftbar-downpage" v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -73,7 +73,7 @@
         this.$store.commit('EDIT_SET_DOC_INDEX', [0, true])
         this.$store.commit('EDIT_SET_FILE_INDEX', this.$store.state.Edit.file.length)
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
-        document.getElementById('edit-input').focus()
+        document.getElementById('edit-editbar-input').focus()
       },
       page: function (n) {
         this.$store.commit('EDIT_SET_FILE_PAGE', n);

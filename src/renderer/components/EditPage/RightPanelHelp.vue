@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="edit-rightpanelhelp">
     <table>
       <tr>
         <th class="table-danger"> 编辑器使用帮助</th>

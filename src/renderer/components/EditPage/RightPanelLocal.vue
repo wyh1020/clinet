@@ -1,8 +1,8 @@
 <template>
   <div>
-    <table id="edit-right-table">
+    <table id="edit-rightpanellocal-table">
       <tr>
-        <th class="table-danger" id="edit-right-title"> {{title}}</th>
+        <th class="table-danger" id="edit-rightpanellocal-title"> {{title}}</th>
       </tr>
       <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
         <td>{{data}}</td>
