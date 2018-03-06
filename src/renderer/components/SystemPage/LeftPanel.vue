@@ -4,7 +4,7 @@
       <tr>
         <th class="table-danger">{{x}}</th>
       </tr>
-      <tr v-for="(data, index) in xs" v-bind:key='index' v-bind:class="{'table-danger':flag == index}" v-on:click="onClick(data, index)" class="server-leftpanel-tr">
+      <tr v-for="(data, index) in xs" v-bind:key='index' v-bind:class="{'table-danger':flag == index}" v-on:click="onClick(data, index)" class="server-leftpanel">
         <td>{{data}}</td>
       </tr>
     </table>
