@@ -105,7 +105,7 @@
       },
       showChart: function (id, type) {
         const table = this.$store.state.Stat.file
-        const option = chartData(table, this.flag, this.flagTd)
+        const option = chartData(table, this.$store.state.Stat.selectedRow, this.$store.state.Stat.selectedCol)
         console.log(option);
         if (id === 'chartRight') {
           // this.$store.commit('SET_CHART_RIGHT', type);

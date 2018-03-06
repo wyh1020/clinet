@@ -3,7 +3,14 @@ export default function chartLine(id, opt = null) {
   if (opt) {
     // 取得表头并删除前两位
     const th = opt[0]
-    th.splice(0, 2)
+    let drg2 = false
+    if (th.indexOf('drg2') > 0) {
+      th.splice(0, 3)
+      drg2 = true
+    } else {
+      th.splice(0, 2)
+      drg2 = false
+    }
     // 定义xaxis
     const xAxis = { data: th, type: 'category' }
     // 取得要显示的列
@@ -12,8 +19,14 @@ export default function chartLine(id, opt = null) {
     const series = []
     const chartKeys = []
     stat.forEach((v) => {
-      const name = `${v[0]} ${v[1]}`
-      v.splice(0, 2)
+      let name = ''
+      if (drg2) {
+        name = `${v[0]} ${v[1]} ${v[2]}`
+        v.splice(0, 3)
+      } else {
+        name = `${v[0]} ${v[1]}`
+        v.splice(0, 2)
+      }
       chartKeys.push(name)
       series.push({ data: v, name: name, type: 'line' })
     })
