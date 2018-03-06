@@ -6,27 +6,27 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='localData' id="local-data">
+        <li class="nav-item active" v-on:click='localData' id="block-local-data">
           <a class="nav-link text-light" href="#"> 本地病案数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='serverData' id="server-data">
+        <li class="nav-item active" v-on:click='serverData' id="block-server-data">
           <a class="nav-link text-light" href="#"> 服务器病案数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='checkData' id="check-data">
+        <li class="nav-item active" v-on:click='checkData' id="block-check-data">
           <a class="nav-link text-light" href="#"> 校验数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='compDrg' id="comp-drg">
+        <li class="nav-item active" v-on:click='compDrg' id="block-comp-drg">
           <a class="nav-link text-light" href="#"> 调用Drg分组服务 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='drgResult' id="drg-result">
+        <li class="nav-item active" v-on:click='drgResult' id="block-drg-result">
           <a class="nav-link text-light" href="#"> 停止Drg分组服务 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='drgRule' id="drg-rule">
+        <li class="nav-item active" v-on:click='drgRule' id="block-drg-rule">
           <a class="nav-link text-light" href="#"> 查看Drg分组规则 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="block-drg-search">
       </form>
     </div>
   </nav>
