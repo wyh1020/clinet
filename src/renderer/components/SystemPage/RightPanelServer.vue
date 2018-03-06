@@ -2,7 +2,7 @@
   <div>
     <div v-if="this.$store.state.System.toolbar === 'getServers'">
       <table>
-        <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="connect(data, index)" v-bind:class="{'table-danger':flag == index}">
+        <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="connect(data, index)" v-bind:class="{'table-danger':flag == index}" class="server-rightpanel-list-tr">
           <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
         </tr>
       </table>
@@ -16,49 +16,49 @@
             <form>
                 <div class="form-group">
                   <label for="exampleInputEmail1andname">输入用户名或emails</label>
-                  <input type="text" class="form-control" placeholder="exampleInputEmail1andname" v-on:blur="logininput()" v-model="emailorname">
+                  <input type="text" class="form-control" placeholder="exampleInputEmail1andname" v-on:blur="logininput()" id="server-login-username" v-model="emailorname">
                 </div>
                 <div class="form-group" v-if="this.loginpass == true">
                   <label for="exampleInputPassword1">密码</label>
-                  <input type="password" class="form-control" placeholder="Password" v-model="loginpassword">
+                  <input type="password" class="form-control" placeholder="Password" id="server-login-password" v-model="loginpassword">
                 </div>
               </form>
-                <button type="submit" class="btn btn-primary" v-on:click="login()">提交</button>
+              <button type="submit" class="btn btn-primary" v-on:click="login()" id="server-login">提交</button>
           </div>
           <div v-if="this.$store.state.System.toolbar === 'createUsers'">
             <div v-if="this.$store.state.System.registerInfo[2] == true">
               {{this.$store.state.System.registerInfo[1]}}
-              <button class="btn btn-primary" v-on:click="new_register">重新创建用户</button>
+              <button class="btn btn-primary" v-on:click="new_register" id="server-recreate-user">重新创建用户</button>
             </div>
             <div v-else>
               <h3  v-if="this.$store.state.System.registerInfo[2] == false">{{this.$store.state.System.registerInfo[1]}}, &nbsp; &nbsp; &nbsp;请重新注册</h3>
               <form>
                 <div class="form-group">
                   <label for="InputEmail">用户注册的Email地址</label>
-                  <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" v-model="email">
+                  <input type="email" class="form-control" id="server-register-email" aria-describedby="emailHelp" placeholder="Enter email" v-model="email">
                 </div>
                 <div class="form-group">
                   <label for="InputPassword">用户密码</label>
-                  <input type="password" class="form-control" id="InputPassword" placeholder="Password" v-model="password">
+                  <input type="password" class="form-control" id="server-register-password" placeholder="Password" v-model="password">
                 </div>
                 <div class="form-group">
                   <label for="InputOrg">机构</label>
-                  <input type="text" class="form-control" id="InputOrg" placeholder="InputOrg" v-model="org">
+                  <input type="text" class="form-control" id="server-register-org" placeholder="InputOrg" v-model="org">
                 </div>
                 <div class="form-group">
                   <label for="InputAge">年龄</label>
-                  <input type="number" class="form-control" id="InputAge" placeholder="Age" v-model="age">
+                  <input type="number" class="form-control" id="server-register-age" placeholder="Age" v-model="age">
                 </div>
                 <div class="form-group">
                   <label for="InputTel">电话</label>
-                  <input type="text" class="form-control" id="InputTel" placeholder="Tel" v-model="tel">
+                  <input type="text" class="form-control" id="server-register-tel" placeholder="Tel" v-model="tel">
                 </div>
                 <div class="form-group">
                   <label for="InputPersonname">姓名</label>
-                  <input type="password" class="form-control" id="InputPersonname" placeholder="Personname" v-model="personname">
+                  <input type="password" class="form-control" id="server-register-personname" placeholder="Personname" v-model="personname">
                 </div>
               </form>
-              <button type="submit" class="btn btn-primary" v-on:click="register">注册用户</button>
+              <button type="submit" class="btn btn-primary" v-on:click="register" id="server-register-user">注册用户</button>
             </div>
           </div>
         </div>
@@ -120,59 +120,59 @@
             <form>
               <div class="form-group">
                 <label for="InputOrgCode">机构编码</label>
-                <input type="text" class="form-control" placeholder="OrgCode" v-model="Orgcode">
+                <input type="text" class="form-control" placeholder="OrgCode" v-model="Orgcode" id="server-org-code">
               </div>
               <div class="form-group">
                 <label for="InputOrgName">机构名称</label>
-                <input type="text" class="form-control" placeholder="OrgName" v-model="Orgname">
+                <input type="text" class="form-control" placeholder="OrgName" v-model="Orgname" id="server-org-name">
               </div>
               <div class="form-group">
                 <label for="InputOrgLevel">机构等级</label>
-                <input type="text" class="form-control" placeholder="OrgLevel" v-model="Orglevel">
+                <input type="text" class="form-control" placeholder="OrgLevel" v-model="Orglevel" id="server-org-level">
               </div>
               <div class="form-group">
                 <label for="InputOrgType">机构类别</label>
-                <input type="text" class="form-control" placeholder="OrgType" v-model="Orgtype">
+                <input type="text" class="form-control" placeholder="OrgType" v-model="Orgtype" id="server-org-type">
               </div>
               <div class="form-group">
                 <label for="InputOrgProvince">省份</label>
-                <input type="text" class="form-control" placeholder="Province" v-model="Orgprovince">
+                <input type="text" class="form-control" placeholder="Province" v-model="Orgprovince" id="server-org-province">
               </div>
               <div class="form-group">
                 <label for="InputOrgCity">市</label>
-                <input type="text" class="form-control" placeholder="City" v-model="Orgcity">
+                <input type="text" class="form-control" placeholder="City" v-model="Orgcity" id="server-org-city">
               </div>
               <div class="form-group">
                 <label for="InputOrgCounty">机构县</label>
-                <input type="text" class="form-control" placeholder="County" v-model="Orgcounty">
+                <input type="text" class="form-control" placeholder="County" v-model="Orgcounty" id="server-org-county">
               </div>
               <div class="form-group">
                 <label for="InputOrgPerson_name">联系人</label>
-                <input type="text" class="form-control" placeholder="Person_name" v-model="Orgperson_name">
+                <input type="text" class="form-control" placeholder="Person_name" v-model="Orgperson_name" id="server-org-contacts">
               </div>
               <div class="form-group">
                 <label for="InputOrgTel">联系电话</label>
-                <input type="text" class="form-control" placeholder="Tel" v-model="Orgtel">
+                <input type="text" class="form-control" placeholder="Tel" v-model="Orgtel" id="server-org-tel">
               </div>
               <div class="form-group">
                 <label for="InputOrgEmail">Email</label>
-                <input type="email" class="form-control" placeholder="Email" v-model="Orgemail">
+                <input type="email" class="form-control" placeholder="Email" v-model="Orgemail" id="server-org-email">
               </div>
             </form>
-            <button type="submit" class="btn btn-primary" v-on:click="orgRegister">添加机构</button>
+            <button type="submit" class="btn btn-primary" v-on:click="orgRegister" id="server-add-org">添加机构</button>
           </div>
           <div v-if="this.$store.state.System.toolbar === 'getPersons'">
             <form>
               <div class="form-group">
                 <label for="InputEmail">机构人员设置</label>
-                <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" v-model="email">
+                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" v-model="email" id="server-orgper-setup">
               </div>
               <div class="form-group">
                 <label for="InputPassword">用户密码</label>
-                <input type="password" class="form-control" id="InputPassword" placeholder="Password" v-model="password">
+                <input type="password" class="form-control" id="server-orgpassword-setup" placeholder="Password" v-model="password">
               </div>
             </form>
-            <button type="submit" class="btn btn-primary" v-on:click="register">添加机构</button>
+            <button type="submit" class="btn btn-primary" v-on:click="register" id="server-add-org">添加机构</button>
           </div>
         </div>
         <!-- 已登录 -->
@@ -302,5 +302,4 @@
 </script>
 
 <style scoped>
-
 </style>

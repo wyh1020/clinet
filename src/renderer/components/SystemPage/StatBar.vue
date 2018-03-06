@@ -6,21 +6,21 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='serverData' id="server-case-data">
+        <li class="nav-item active" v-on:click='serverData' id="server-stat-case-data">
           <a class="nav-link text-light" href="#"> 服务器病案数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getIndex' id="server-choose-index">
+        <li class="nav-item active" v-on:click='getIndex' id="server-stat-choose-index">
           <a class="nav-link text-light" href="#"> 选择分析指标 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getDimension' id="server-choose-stat">
+        <li class="nav-item active" v-on:click='getDimension' id="server-stat-choose-stat">
           <a class="nav-link text-light" href="#"> 选择分析维度 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='statCompute' id="server-start-count">
+        <li class="nav-item active" v-on:click='statCompute' id="server-stat-start-count">
           <a class="nav-link text-light" href="#"> 开始计算 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="server-stat-search">
       </form>
     </div>
   </nav>
@@ -56,5 +56,4 @@
     margin: 0;
     padding: 0;
   }
-
 </style>

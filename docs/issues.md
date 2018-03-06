@@ -175,7 +175,7 @@
 
 #### DRG分组服务
 ##### 本地病案数据
-* 读取clinetd-data/stat目录下的以wt4开头的CSV文件目录，显示在左列表
+* 读取clinet-data/stat目录下的以wt4开头的CSV文件目录，显示在左列表
 * 点击左列表，读入state.system.wt4，显示在table中
 
 ##### 服务器病案数据，调用服务器API，获取该用户的wt4数据

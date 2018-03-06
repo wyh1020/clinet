@@ -9,21 +9,21 @@
         <li class="nav-item active" v-on:click='getServers' id="server-remote-list">
           <a class="nav-link text-light" href="#"> 远程服务器列表 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getUsers' id="server-user-sys">
+        <li class="nav-item active" v-on:click='getUsers' id="server-user-setup">
           <a class="nav-link text-light" href="#"> 用户设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getOrgs' id="server-org-sys">
+        <li class="nav-item active" v-on:click='getOrgs' id="server-org-setup">
           <a class="nav-link text-light" href="#"> 机构设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getPersons' id="server-people-sys">
+        <li class="nav-item active" v-on:click='getPersons' id="server-people-setup">
           <a class="nav-link text-light" href="#"> 人员设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getServerFunctions' id="server-remote-function-sys">
+        <li class="nav-item active" v-on:click='getServerFunctions' id="server-remote-function-setup">
           <a class="nav-link text-light" href="#"> 远程服务功能设置 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="server-search">
       </form>
     </div>
   </nav>
@@ -66,5 +66,4 @@
     margin: 0;
     padding: 0;
   }
-
 </style>
