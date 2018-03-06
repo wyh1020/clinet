@@ -285,7 +285,7 @@ export function sUpdateDepart(obj, data) {
 export function sGetWt4(obj, data) {
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/library/wt4？page=${data[2]}`,
+    url: `http://${data[0]}:${data[1]}/library/wt4?page=${data[2]}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {

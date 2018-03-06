@@ -21,7 +21,7 @@ export default function addContrast(obj, table = null, th = [], yid = [], xid = 
     const stat = []
     // 按照列index取得对应结果
     xArr.map(xs => stat.push(yArr.map(x => xs[x])))
-    obj.$store.commit('SYSTEM_SET_COMPARE_TABLE', stat)
+    obj.$store.commit('STAT_SET_COMPARE_TABLE', stat)
   }
 }
 
