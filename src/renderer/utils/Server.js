@@ -231,6 +231,24 @@ export function sCreateDepart(obj, data) {
     obj.$store.commit('SYSTEM_NEW_DEPAERT', [{}, '连接失败', false])
   })
 }
+// ------------病案
+export function sGetWt4(obj, data) {
+  axios({
+    method: 'get',
+    url: `http://${data[0]}:${data[1]}/library/wt4？page=${data[2]}`,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    responseType: 'json'
+  }).then((res) => {
+    if (res.status === 200) {
+      obj.$store.commit('SYSTEM_SET_WT4', [res.data, '病案查询成功', true])
+    } else {
+      obj.$store.commit('SYSTEM_SET_WT4', [{}, '病案查询失败', false])
+    }
+  }).catch((err) => {
+    console.log(err);
+    obj.$store.commit('SYSTEM_SET_WT4', [{}, '连接失败', false])
+  })
+}
 // 2.2.1 获取分析记录
 export function sGetStat(obj, data) {
   axios.get(`http://${data[0]}:${data[1]}/servers/api/stat_json/`)
