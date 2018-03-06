@@ -236,9 +236,10 @@ export function sCreateDepart(obj, data) {
 }
 // ------------病案
 export function sGetWt4(obj, data) {
+  console.log(data)
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/library/wt4？page=${data[2]}`,
+    url: `http://${data[0]}:${data[1]}/library/wt4?page=${data[2]}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {

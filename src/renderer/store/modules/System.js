@@ -28,7 +28,9 @@ const state = {
   // 科室信息
   departments: [],
   department: [],
-  departmentInfo: { org: '', cherf_department: '', class: '', department: '', is_imp: false, is_spe: false, professor: '', wt_code: '', wt_name: '' }
+  departmentInfo: { org: '', cherf_department: '', class: '', department: '', is_imp: false, is_spe: false, professor: '', wt_code: '', wt_name: '' },
+  wt4: [],
+  wt4Page
 };
 
 const mutations = {
@@ -96,7 +98,7 @@ const mutations = {
     console.log(field)
     state.org = field
   },
-  SYSTEM_GET_DEPAETMENTS(state, field) {
+  SYSTEM_GET_DEPARTMENTS(state, field) {
     console.log(field)
     state.departments = field
   },
@@ -108,7 +110,11 @@ const mutations = {
   },
   SYSTEM_GET_DEPARTMENT_INFO(state, field) {
     state.departmentInfo = field
-  }
+  },
+  SYSTEM_SET_WT4(state, field) {
+    state.wt4 = field[0]
+    console.log(state.wt4)
+  },
 };
 
 const actions = {
@@ -131,6 +137,7 @@ const actions = {
     commit('SYSTEM_NEW_DEPARTMENT');
     commit('SYSTEM_GET_ORG_INFO');
     commit('SYSTEM_GET_DEPARTMENT_INFO');
+    commit('SYSTEM_SET_WT4');
   },
 };
 
