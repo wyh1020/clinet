@@ -21,7 +21,7 @@
       </div>
     </div>
     <table id="stat-right-table">
-      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" id="stat-right-table-tr" v-bind:class="{'table-danger':flag.find((n)=>n===index)}">
+      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" class="stat-right-table-tr" v-bind:class="{'table-danger':flag.find((n)=>n===index)}">
         <td v-for="(field, index) in data" v-bind:key='index' v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}" v-on:click="onClickTd(data, index)" id="stat-right-table-td">{{data[index]}}</td>
       </tr>
     </table>

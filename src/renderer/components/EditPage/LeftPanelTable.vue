@@ -1,10 +1,10 @@
 <template>
   <div>
-    <table id="edit-left-table">
+    <table id="edit-leftpaneltable-table">
       <tr>
         <th class="table-danger"> 选择编辑条目</th>
       </tr>
-      <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="loadDoc(data, index)" v-bind:class="{'table-danger':flag == index}">
+      <tr class="edit-leftpaneltable-tr" v-for="(data, index) in file" v-bind:key='index' v-on:click="loadDoc(data, index)" v-bind:class="{'table-danger':flag == index}">
         <td>{{data.substr(0, 100)}}</td>
       </tr>
     </table>
