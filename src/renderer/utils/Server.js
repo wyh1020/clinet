@@ -283,6 +283,7 @@ export function sUpdateDepart(obj, data) {
 // ------------病案
 // 病案查询
 export function sGetWt4(obj, data) {
+  console.log(data)
   axios({
     method: 'get',
     url: `http://${data[0]}:${data[1]}/library/wt4?page=${data[2]}`,

@@ -33,6 +33,7 @@
 </template>
 
 <script>
+  import { sGetWt4 } from '../../utils/Server'
   export default {
     data() {
       return {
@@ -42,6 +43,7 @@
     methods: {
       getLocalData: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getLocalData');
+        sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, 1])
       },
       getServerData: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServerData');
