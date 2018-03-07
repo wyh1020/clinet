@@ -22,6 +22,9 @@ export default function loadFile(obj, x, p, e = null) {
     case 'block':
       dir = global.hitbdata.path.system
       break
+    case 'wt4':
+      dir = global.hitbdata.path.stat
+      break
     default: break
   }
   if (x.endsWith('.csv')) {
@@ -81,6 +84,14 @@ export default function loadFile(obj, x, p, e = null) {
                 obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
               } else {
                 obj.$store.commit('BLOCK_LOAD_FILE', f);
+              }
+              break
+            case 'wt4':
+              if (e) {
+                obj.$store.commit('EDIT_LOAD_FILE', f);
+                obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
+              } else {
+                obj.$store.commit('SYSTEM_LOAD_WT4_FILE', f);
               }
               break
             default: break

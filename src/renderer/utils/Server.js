@@ -220,14 +220,14 @@ export function sGetDepart(obj, data) {
   axios.get(url)
     .then((res) => {
       if (res.status === 200) {
-        obj.$store.commit('SYSTEM_GET_DEPAETMENTS', res.data)
+        obj.$store.commit('SYSTEM_GET_DEPARTMENTS', res.data)
       } else {
-        obj.$store.commit('SYSTEM_GET_DEPAETMENTS', [])
+        obj.$store.commit('SYSTEM_GET_DEPARTMENTS', [])
       }
     })
     .catch((err) => {
       console.log(err);
-      obj.$store.commit('SYSTEM_GET_DEPAETMENTS', [])
+      obj.$store.commit('SYSTEM_GET_DEPARTMENTS', [])
     });
 }
 // 新建科室([url,port,user,obj])
@@ -243,17 +243,17 @@ export function sCreateDepart(obj, data) {
   }).then((res) => {
     if (res.status === 201) {
       if (res.data.success) {
-        obj.$store.commit('SYSTEM_NEW_DEPAERT', [res.data, '机构创建成功', true])
+        obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '机构创建成功', true])
         obj.$store.commit('SYSTEM_SET_TOOLBAR', 'getDepartments')
       } else {
-        obj.$store.commit('SYSTEM_NEW_DEPAERT', [res.data, '机构创建失败,机构编码重复', false])
+        obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '机构创建失败,机构编码重复', false])
       }
     } else {
-      obj.$store.commit('SYSTEM_NEW_DEPAERT', [res.data, '连接失败', false])
+      obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '连接失败', false])
     }
   }).catch((err) => {
     console.log(err);
-    obj.$store.commit('SYSTEM_NEW_DEPAERT', [{}, '连接失败', false])
+    obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [{}, '连接失败', false])
   })
 }
 // 更新科室信息
@@ -267,17 +267,17 @@ export function sUpdateDepart(obj, data) {
   }).then((res) => {
     if (res.status === 201) {
       if (res.data.success) {
-        obj.$store.commit('SYSTEM_NEW_DEPAERT', [res.data, '机构更新成功', true])
+        obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '机构更新成功', true])
         obj.$store.commit('SYSTEM_SET_TOOLBAR', 'getDepart')
       } else {
-        obj.$store.commit('SYSTEM_NEW_DEPAERT', [res.data, '机构更新失败,机构编码重复', false])
+        obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '机构更新失败,机构编码重复', false])
       }
     } else {
-      obj.$store.commit('SYSTEM_NEW_DEPAERT', [res.data, '连接失败', false])
+      obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '连接失败', false])
     }
   }).catch((err) => {
     console.log(err);
-    obj.$store.commit('SYSTEM_NEW_DEPAERT', [{}, '连接失败', false])
+    obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [{}, '连接失败', false])
   })
 }
 // ------------病案
@@ -300,11 +300,17 @@ export function sGetWt4(obj, data) {
   })
 }
 // 单条分组
-export function sCompDrg(obj, data) {
+export function sCompDrg(obj, data, type = '') {
   const dataWt4 = data[2]
+  let diagsCode = dataWt4.diags_code
+  let opersCode = dataWt4.opers_code
   if (dataWt4) {
-    const diagsCode = dataWt4.opers_code.join('","')
-    const opersCode = dataWt4.opers_code.join('","')
+    if (type !== '') {
+      diagsCode = diagsCode.split('-')
+      opersCode = opersCode.split('-')
+    }
+    diagsCode = diagsCode.join('","')
+    opersCode = opersCode.join('","')
     const wt4 = { ACCTUAL_DAYS: dataWt4.acctual_days, B_WT4_V1_ID: dataWt4.b_wt4_v1_id, DISEASE_CODE: dataWt4.disease_code, AGE: dataWt4.age, GENDER: dataWt4.gender, SF0100: dataWt4.sf0100, SF0102: dataWt4.sf0102, SF0104: dataWt4.sf0104, SF0108: dataWt4.sf0108, TOTAL_EXPENSE: dataWt4.total_expense, diags_code: `["${diagsCode}"]`, opers_code: `["${opersCode}"]` }
     axios({
       method: 'post',
