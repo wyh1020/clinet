@@ -117,7 +117,7 @@
               chartLine(id, option)
               break;
             case '雷达图':
-              chartRadar(id)
+              chartRadar(id, option)
               break;
             case '散点图':
               chartScatter(id)
@@ -134,7 +134,7 @@
               chartLine(id, option)
               break;
             case '雷达图':
-              chartRadar(id)
+              chartRadar(id, option)
               break;
             case '散点图':
               chartScatter(id)
