@@ -88,13 +88,9 @@
       loadData: function () {
         this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
         this.$store.commit('STAT_LOAD_FILES');
-        this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
-        this.$store.commit('SET_NOTICE', '读取本地文件');
       },
       serverData: function () {
         this.$store.commit('STAT_SERVER_FILES');
-        this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
-        this.$store.commit('SET_NOTICE', '读取远程文件');
       },
       page: function (n) {
         this.$store.commit('STAT_TABLE_PAGE', n);
@@ -112,7 +108,7 @@
         const option = chartData(table, this.$store.state.Stat.selectedRow, this.$store.state.Stat.selectedCol)
         console.log(option);
         if (id === 'chartRight') {
-          // this.$store.commit('SET_CHART_RIGHT', type);
+          this.$store.commit('SET_CHART_RIGHT', type);
           switch (type) {
             case '柱状图':
               chartBar(id, option)
@@ -121,7 +117,7 @@
               chartLine(id, option)
               break;
             case '雷达图':
-              chartRadar(id, option)
+              chartRadar(id)
               break;
             case '散点图':
               chartScatter(id)
@@ -129,7 +125,7 @@
             default: break;
           }
         } else {
-          // this.$store.commit('SET_CHART_LEFT', type);
+          this.$store.commit('SET_CHART_LEFT', type);
           switch (type) {
             case '柱状图':
               chartBar(id, option)
@@ -138,7 +134,7 @@
               chartLine(id, option)
               break;
             case '雷达图':
-              chartRadar(id, option)
+              chartRadar(id)
               break;
             case '散点图':
               chartScatter(id)
@@ -155,7 +151,6 @@
         addContrast(this, table, header, col, row)
       },
       showCompare: function () {
-        this.$store.commit('STAT_SET_TABLE_TYPE', 'compare');
       },
     },
   };

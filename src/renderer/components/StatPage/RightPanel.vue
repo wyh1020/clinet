@@ -52,31 +52,24 @@
       },
       xs: {
         get() {
-          let table = []
-          if (this.$store.state.Stat.tableType === 'local') {
-            const f = []
-            let start = 0
-            let fileLen = this.$store.state.Stat.tableSel.length;
-            // console.log(fileLen)
-            if (fileLen > 99) {
-              if (this.$store.state.Stat.tablePage > 0) {
-                start = 100 * this.$store.state.Stat.tablePage
-                fileLen = start + 99
-              } else {
-                fileLen = 99
-              }
+          const f = []
+          let start = 0
+          let fileLen = this.$store.state.Stat.tableSel.length;
+          // console.log(fileLen)
+          if (fileLen > 99) {
+            if (this.$store.state.Stat.tablePage > 0) {
+              start = 100 * this.$store.state.Stat.tablePage
+              fileLen = start + 99
+            } else {
+              fileLen = 99
             }
-            for (let i = start; i < fileLen; i += 1) {
-              f.push(this.$store.state.Stat.tableSel[i])
-            }
-            const a = this.$store.state.Stat.tableHeader[0]
-            f.splice(0, 0, a)
-            // return f
-            table = f
-          } else {
-            table = this.$store.state.Stat.compareTable
           }
-          return table
+          for (let i = start; i < fileLen; i += 1) {
+            f.push(this.$store.state.Stat.tableSel[i])
+          }
+          const a = this.$store.state.Stat.tableHeader[0]
+          f.splice(0, 0, a)
+          return f
         }
       }
     },
@@ -103,7 +96,8 @@
         this.$store.commit('STAT_GET_FIELD', data);
         this.$store.commit('STAT_GET_FIELD_INDEX', index);
         const id = 'chartLeft'
-        const type = '柱状图'
+        const type = this.$store.state.Stat.chartLeft
+
         const table = this.$store.state.Stat.file
         const option = chartData(table, this.flag, this.flagTd)
         switch (type) {
@@ -115,10 +109,28 @@
             chartLine(id, option)
             break;
           case '雷达图':
-            chartRadar(id)
+            chartRadar(id, option)
             break;
           case '散点图':
             chartScatter(id)
+            break;
+          default: break;
+        }
+        const idRight = 'chartRight'
+        const typeRight = this.$store.state.Stat.chartRight
+        const optionRight = chartData(table, this.flag, this.flagTd)
+        switch (typeRight) {
+          case '柱状图':
+            chartBar(idRight, optionRight)
+            break;
+          case '折线图':
+            chartLine(idRight, optionRight)
+            break;
+          case '雷达图':
+            chartRadar(idRight, optionRight)
+            break;
+          case '散点图':
+            chartScatter(idRight)
             break;
           default: break;
         }
