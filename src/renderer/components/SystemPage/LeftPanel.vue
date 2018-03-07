@@ -113,6 +113,9 @@
                 this.$store.commit('SET_NOTICE', '请先选择CSV文件，然后再做对照！');
               }
               break;
+            case 'getLocalData':
+              xs = this.$store.state.System.wt4Files
+              break;
             default:
               xs = [];
           }
@@ -133,6 +136,9 @@
             break;
           case 'compareTable':
             this.$store.commit('SYSTEM_SET_TABLE', data);
+            break;
+          case 'getLocalData':
+            loadFile(this, data, 'wt4')
             break;
           default:
             break;

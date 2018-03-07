@@ -1,4 +1,4 @@
-
+const fs = require('fs');
 const state = {
   // 页面工具栏选择
   toolbar: '',
@@ -31,6 +31,12 @@ const state = {
   departmentInfo: { org: '', cherf_department: '', class: '', department: '', is_imp: false, is_spe: false, professor: '', wt_code: '', wt_name: '' },
   wt4: [],
   wt4Page: 0,
+  wt4Files: [],
+  wt4File: [],
+  wt4Table: [],
+  wt4Row: [],
+  wt4Comp: [],
+  wt4LocalRow: [],
 };
 
 const mutations = {
@@ -113,7 +119,53 @@ const mutations = {
   },
   SYSTEM_SET_WT4(state, field) {
     state.wt4 = field[0]
-    console.log(state.wt4)
+  },
+  SYSTEM_GET_WT4ROW(state, field) {
+    if (state.wt4Row.includes(field)) {
+      state.wt4Row.splice(state.wt4Row.findIndex(v => v === field), 1)
+    } else {
+      state.wt4Row = [...state.wt4Row, field]
+    }
+  },
+  SYSTEM_GET_WT4_COMP(state, field) {
+    if (state.wt4Comp.includes(field)) {
+      state.wt4Comp.splice(state.wt4Comp.findIndex(v => v === field), 1)
+    } else {
+      state.wt4Comp = [...state.wt4Comp, field]
+    }
+  },
+  // 读取本地wt4文件目录
+  SYSTEM_LOAD_WT4_FILES() {
+    const files = fs.readdirSync(global.hitbdata.path.stat).filter(x => x.endsWith('.csv')).filter(x => x.startsWith('wt4') === true)
+    state.wt4Files = files;
+  },
+  // 读取本地wt4文件
+  SYSTEM_LOAD_WT4_FILE(state, message) {
+    state.wt4File = message;
+    // 按照,号切字符
+    message = message.map(x => x.split(','))
+    // 取得表头
+    const header = message[0]
+    const objs = []
+    // 去除表头
+    message.splice(0, 1)
+    // 生成obj
+    message.forEach((xs) => {
+      const obj = {}
+      xs.forEach((x, i) => {
+        obj[header[i]] = x;
+      })
+      objs.push(obj);
+    })
+    state.wt4Table = objs
+    console.log(objs)
+  },
+  SYSTEM_GET_WT4_LOCAL_ROW(state, field) {
+    if (state.wt4LocalRow.includes(field)) {
+      state.wt4LocalRow.splice(state.wt4LocalRow.findIndex(v => v === field), 1)
+    } else {
+      state.wt4LocalRow = [...state.wt4LocalRow, field]
+    }
   },
 };
 
@@ -138,6 +190,11 @@ const actions = {
     commit('SYSTEM_GET_ORG_INFO');
     commit('SYSTEM_GET_DEPARTMENT_INFO');
     commit('SYSTEM_SET_WT4');
+    commit('SYSTEM_LOAD_WT4_FILES');
+    commit('SYSTEM_LOAD_WT4_FILE');
+    commit('SYSTEM_GET_WT4ROW');
+    commit('SYSTEM_GET_WT4_COMP');
+    commit('SYSTEM_GET_WT4_LOCAL_ROW')
   },
 };
 

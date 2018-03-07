@@ -6,57 +6,126 @@
       </tr>
     </table>
     <div v-if="this.$store.state.System.toolbar === 'getLocalData'">
+      <!-- {{this.$store.state.System.wt4LocalRow}} -->
       <table class="table">
         <thead>
           <tr>
-            <th>年龄</th>
-            <th>性别</th>
-            <th>出院转归</th>
-            <th>ICD10编码</th>
-            <th>ICD9编码</th>
-            <th>新生儿出生天数</th>
-            <th>新生儿入院体重</th>
-            <th>呼吸机使用小时数</th>
-            <th>其他诊断</th>
-            <th>住院天数</th>
+            <th>年龄age</th>
+            <th>性别gender</th>
+            <th>出院转归sf0108</th>
+            <th>主要诊断disease_code</th>
+            <th>其他诊断diags_code</th>
+            <th>手术操作opers_code</th>
+            <th>新生儿出生天数sf0100</th>
+            <th>新生儿入院体重sf0102</th>
+            <th>呼吸机使用小时数sf0104</th>
+            <th>总费用total_expense</th>
+            <th>住院天数acctual_days</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(value, index) in this.$store.state.System.wt4.data"  v-bind:key="index">
+          <tr v-for="(value, index) in this.$store.state.System.wt4Table"  v-bind:key="index" v-on:click="getWt4LocalRecord(index)" v-bind:class="{'table-danger': localHightLight.includes(index)}">
             <td>{{value.age}}</td>
             <td>{{value.gender}}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{value.sf0108}}</td>
+            <td>{{value.disease_code}}</td>
+            <td>{{value.diags_code}}</td>
+            <td>{{value.opers_code}}</td>
+            <td>{{value.sf0100}}</td>
+            <td>{{value.sf0102}}</td>
+            <td>{{value.sf0104}}</td>
+            <td>{{value.total_expense}}</td>
+            <td>{{value.acctual_days}}</td>
           </tr>
         </tbody>
       </table>
       <div class="row">
-        <div class="col-9" />
+        <div class="col-5" />
         <nav aria-label="Page navigation example">
           <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#" v-on:click="wt4Page('up')">上一页</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#" v-on:click="wt4Page('down')">下一页</a></li>
+            <li class="page-item" v-for="(value, index) in this.$store.state.System.wt4.page_list" v-bind:class="{'disabled': value.page === page}" v-on:click="wt4Page(value.page)">
+              <a class="page-link" href="#">{{value.num}}</a>
+            </li>
           </ul>
         </nav>
       </div>
+    </div>
+    <div v-if="this.$store.state.System.toolbar === 'getServerData'">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>年龄age</th>
+            <th>性别gender</th>
+            <th>出院转归sf0108</th>
+            <th>主要诊断disease_code</th>
+            <th>其他诊断diags_code</th>
+            <th>手术操作opers_code</th>
+            <th>新生儿出生天数sf0100</th>
+            <th>新生儿入院体重sf0102</th>
+            <th>呼吸机使用小时数sf0104</th>
+            <th>总费用total_expense</th>
+            <th>住院天数acctual_days</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(value, index) in this.$store.state.System.wt4.data"  v-bind:key="index" v-on:click="getWt4Record(index)" v-bind:class="{'table-danger': highLight.includes(index)}">
+            <td>{{value.age}}</td>
+            <td>{{value.gender}}</td>
+            <td>{{value.sf0108}}</td>
+            <td>{{value.disease_code}}</td>
+            <td>{{value.diags_code.join(',')}}</td>
+            <td>{{value.opers_code.join(',')}}</td>
+            <td>{{value.sf0100}}</td>
+            <td>{{value.sf0102}}</td>
+            <td>{{value.sf0104}}</td>
+            <td>{{value.total_expense}}</td>
+            <td>{{value.acctual_days}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col-5" />
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item" v-for="(value, index) in this.$store.state.System.wt4.page_list" v-bind:class="{'disabled': value.page === page}" v-on:click="wt4Page(value.page)">
+              <a class="page-link" href="#">{{value.num}}</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div v-if="this.$store.state.System.toolbar === 'drgCompute'">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>病案号</th>
+            <th>DRG</th>
+            <th>分组日志</th>
+            <th>结果</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(value, index) in this.$store.state.System.wt4Comp"  v-bind:key="index">
+            <td>{{value[0].B_WT4_V1_ID}}</td>
+            <td>{{value[0].drg}}</td>
+            <td>{{value[0].log}}</td>
+            <td>{{value[2]}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
 
 <script>
+  import { sGetWt4 } from '../../utils/Server'
   export default {
     data() {
       return {
-        flag: null
+        flag: [],
+        highLight: [],
+        page: this.$store.state.System.wt4.page_num,
+        localHightLight: []
       }
     },
     computed: {
@@ -85,16 +154,25 @@
         this.$store.commit('SYSTEM_GET_FIELD_INDEX', index);
       },
       wt4Page: function (value) {
-        switch (value) {
-          case 'up':
-            console.log(value)
-            break;
-          case 'down':
-            console.log(value)
-            break;
-          default:
-            break;
+        this.page = value
+        sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, this.page])
+      },
+      getWt4Record: function (value) {
+        if (this.highLight.includes(value)) {
+          this.highLight.splice(this.highLight.findIndex(v => v === value), 1)
+        } else {
+          this.highLight = [...this.highLight, value]
         }
+        this.$store.commit('SYSTEM_GET_WT4ROW', value);
+        // console.log(this.$store.state.System.wt4.data[value]);
+      },
+      getWt4LocalRecord: function (value) {
+        if (this.localHightLight.includes(value)) {
+          this.localHightLight.splice(this.localHightLight.findIndex(v => v === value), 1)
+        } else {
+          this.localHightLight = [...this.localHightLight, value]
+        }
+        this.$store.commit('SYSTEM_GET_WT4_LOCAL_ROW', value);
       }
     },
   };

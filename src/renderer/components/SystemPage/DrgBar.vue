@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import { sGetWt4 } from '../../utils/Server'
+  import { sGetWt4, sCompDrg } from '../../utils/Server'
   export default {
     data() {
       return {
@@ -43,15 +43,29 @@
     methods: {
       getLocalData: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getLocalData');
-        sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, 1])
+        this.$store.commit('SYSTEM_LOAD_WT4_FILES');
       },
       getServerData: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServerData');
+        sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, 1])
       },
       compareData: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'compareData');
       },
       drgCompute: function () {
+        switch (this.$store.state.System.toolbar) {
+          case 'getLocalData':
+            this.$store.state.System.wt4LocalRow.forEach((n) => {
+              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Table[n]], 'getLocalData')
+            })
+            break;
+          case 'getServerData':
+            this.$store.state.System.wt4Row.forEach((n) => {
+              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4.data[n]])
+            })
+            break;
+          default:
+        }
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgCompute');
       },
       drgResult: function () {
