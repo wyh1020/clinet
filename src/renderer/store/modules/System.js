@@ -30,7 +30,7 @@ const state = {
   department: [],
   departmentInfo: { org: '', cherf_department: '', class: '', department: '', is_imp: false, is_spe: false, professor: '', wt_code: '', wt_name: '' },
   wt4: [],
-  wt4Page
+  wt4Page: 0,
 };
 
 const mutations = {
