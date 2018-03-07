@@ -1,7 +1,9 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="alert alert-warning" id="edit-bar-prompt" role="alert" style="width: 100%; position: fixed; bottom: 40px"><span v-bind:key='index' v-for="(data, index) in hint">{{index + 1}}.{{data}}</span></div>
+      <div class="alert alert-warning" id="edit-bar-prompt" role="alert" style="width: 100%; position: fixed; bottom: 40px">
+        <span v-bind:key='index' v-for="(data, index) in hint">{{data}}</span>
+      </div>
     </nav>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom">
       <input id="edit-editbar-input" style="line-height: 3" type="text" class="form-control"
@@ -12,7 +14,7 @@
       v-on:keyup.ctrl.110="hintUp" v-on:keyup.ctrl.97="hintSet(1)" v-on:keyup.ctrl.98="hintSet(2)"
       v-on:keyup.ctrl.99="hintSet(3)" v-on:keyup.ctrl.100="hintSet(4)" v-on:keyup.ctrl.101="hintSet(5)"
       v-on:keyup.ctrl.102="hintSet(6)" v-on:keyup.ctrl.103="hintSet(7)" v-on:keyup.ctrl.104="hintSet(8)"
-      v-on:keyup.ctrl.105="hintSet(9)" v-on:input="change">
+      v-on:keyup.ctrl.105="hintSet(9)" v-on:input="change" v-on:focus="focus">
     </nav>
   </div>
 </template>
@@ -34,10 +36,17 @@
     computed: {
       hint: {
         get() {
-          const hintSkip = this.$store.state.Edit.hintPage
-          const num = hintSkip * 9
-          const hintContent = this.content.slice(num, num + 9)
-          return hintContent
+          let content1 = []
+          if (this.$store.state.Edit.hintType === 'hint') {
+            const hintSkip = this.$store.state.Edit.hintPage
+            const num = hintSkip * 9
+            const hint = this.content.slice(num, num + 9)
+            const hint1 = hint.map((x, index) => index + 1 + '.'.concat(x))
+            content1 = hint1
+          } else {
+            content1 = this.$store.state.Home.notice
+          }
+          return content1
         }
       },
     },
@@ -109,11 +118,17 @@
         const pageNum = Math.ceil(this.content.length / 9)
         if (this.$store.state.Edit.hintPage < pageNum - 1) {
           this.$store.commit('EDIT_SET_HINT_PAGE', 'up');
+        } else {
+          this.$store.commit('SET_NOTICE', '当前提示已为最后一页');
+          this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
         }
       },
       hintDown() {
         if (this.$store.state.Edit.hintPage > 0) {
           this.$store.commit('EDIT_SET_HINT_PAGE', 'down');
+        } else {
+          this.$store.commit('SET_NOTICE', '当前提示已为第一页');
+          this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
         }
       },
       hintSet(num) {
@@ -123,7 +138,9 @@
       change() {
         const value = document.getElementById('edit-editbar-input').value
         this.$store.commit('EDIT_SET_BAR_VALUE', value);
-        console.log(value)
+      },
+      focus() {
+        this.$store.commit('EDIT_SET_HINT_TYPE', 'hint');
       }
     },
   };

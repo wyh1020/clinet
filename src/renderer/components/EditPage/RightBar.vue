@@ -60,10 +60,14 @@
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
         this.$store.commit('EDIT_LOAD_FILES');
+        this.$store.commit('SET_NOTICE', '读取本地文件');
+        this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
       },
       serverData: function () {
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
         this.$store.commit('EDIT_SERVER_FILES');
+        this.$store.commit('SET_NOTICE', '读取远程文件');
+        this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
       },
       page: function (n) {
         if (this.$store.state.Edit.rightPanel === 'left') {
@@ -76,6 +80,7 @@
         const x = new Date().toLocaleDateString()
         const p = this.$store.state.Edit.lastNav
         saveFile(this, x, p)
+        this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
         // this.$store.commit('EDIT_NEW_FILES');
       },
     },

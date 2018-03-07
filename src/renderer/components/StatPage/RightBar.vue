@@ -88,9 +88,13 @@
       loadData: function () {
         this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
         this.$store.commit('STAT_LOAD_FILES');
+        this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
+        this.$store.commit('SET_NOTICE', '读取本地文件');
       },
       serverData: function () {
         this.$store.commit('STAT_SERVER_FILES');
+        this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
+        this.$store.commit('SET_NOTICE', '读取远程文件');
       },
       page: function (n) {
         this.$store.commit('STAT_TABLE_PAGE', n);
