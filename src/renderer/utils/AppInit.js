@@ -413,4 +413,10 @@ export default function appInit() {
         console.log(error);
       });
   }
+  // // 读取提示的cdh文件
+  // const editFile = path.format({
+  //   dir: hitbdataSystem,
+  //   base: 'hitb_edit.cdh'
+  // });
+  // console.log(editFile);
 }

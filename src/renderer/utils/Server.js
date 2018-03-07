@@ -283,7 +283,6 @@ export function sUpdateDepart(obj, data) {
 // ------------病案
 // 病案查询
 export function sGetWt4(obj, data) {
-  console.log(data)
   axios({
     method: 'get',
     url: `http://${data[0]}:${data[1]}/library/wt4?page=${data[2]}`,
@@ -302,22 +301,30 @@ export function sGetWt4(obj, data) {
 }
 // 单条分组
 export function sCompDrg(obj, data) {
-  axios({
-    method: 'post',
-    url: `http://${data[0]}:${data[1]}/hospitals/api/comp_drg/`,
-    data: qs.stringify(data[3]),
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-    responseType: 'json'
-  }).then((res) => {
-    if (res.status === 200) {
-      obj.$store.commit('SYSTEM_COMP_RESULT', [res.data, '病案分组成功', true])
-    } else {
-      obj.$store.commit('SYSTEM_COMP_RESULT', [{}, '病案分组失败', true])
-    }
-  }).catch((err) => {
-    console.log(err)
-    obj.$store.commit('SYSTEM_COMP_RESULT', [{}, '病案分组失败', true])
-  })
+  const dataWt4 = data[2]
+  if (dataWt4) {
+    const diagsCode = dataWt4.opers_code.join('","')
+    const opersCode = dataWt4.opers_code.join('","')
+    const wt4 = { ACCTUAL_DAYS: dataWt4.acctual_days, B_WT4_V1_ID: dataWt4.b_wt4_v1_id, DISEASE_CODE: dataWt4.disease_code, AGE: dataWt4.age, GENDER: dataWt4.gender, SF0100: dataWt4.sf0100, SF0102: dataWt4.sf0102, SF0104: dataWt4.sf0104, SF0108: dataWt4.sf0108, TOTAL_EXPENSE: dataWt4.total_expense, diags_code: `["${diagsCode}"]`, opers_code: `["${opersCode}"]` }
+    axios({
+      method: 'post',
+      url: `http://${data[0]}:${data[1]}/drgserver/comp_drg/`,
+      data: qs.stringify(wt4),
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+      responseType: 'json'
+    }).then((res) => {
+      if (res.status === 200) {
+        obj.$store.commit('SYSTEM_GET_WT4_COMP', [res.data.result, '病案分组成功', true])
+      } else {
+        obj.$store.commit('SYSTEM_GET_WT4_COMP', [{}, '病案分组失败', true])
+      }
+    }).catch((err) => {
+      console.log(err)
+      obj.$store.commit('SYSTEM_GET_WT4_COMP', [{}, '连接失败', true])
+    })
+  } else {
+    obj.$store.commit('SYSTEM_GET_WT4_COMP', [{}, '病案分组失败,病案不存在', true])
+  }
 }
 // 2.2.1 获取分析记录
 export function sGetStat(obj, data) {
