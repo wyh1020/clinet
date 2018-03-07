@@ -151,6 +151,7 @@
         addContrast(this, table, header, col, row)
       },
       showCompare: function () {
+        this.$store.commit('STAT_SET_TABLE_TYPE', 'compare');
       },
     },
   };
