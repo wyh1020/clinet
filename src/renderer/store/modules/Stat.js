@@ -169,6 +169,9 @@ const mutations = {
   STAT_SET_COMPARE_TABLE(state, data) {
     state.compareTable = data
   },
+  STAT_SET_TABLE_TYPE(state, data) {
+    state.tableType = data
+  },
   SET_CHART_LEFT(state, data) {
     state.chartLeft = data
   },
@@ -193,6 +196,7 @@ const actions = {
     commit('STAT_SET_COMPARE_TABLE');
     commit('SET_CHART_LEFT');
     commit('SET_CHART_RIGHT');
+    commit('STAT_SET_TABLE_TYPE');
   },
 };
 

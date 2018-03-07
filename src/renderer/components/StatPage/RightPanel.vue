@@ -52,24 +52,30 @@
       },
       xs: {
         get() {
-          const f = []
-          let start = 0
-          let fileLen = this.$store.state.Stat.tableSel.length;
-          // console.log(fileLen)
-          if (fileLen > 99) {
-            if (this.$store.state.Stat.tablePage > 0) {
-              start = 100 * this.$store.state.Stat.tablePage
-              fileLen = start + 99
-            } else {
-              fileLen = 99
+          let table = []
+          if (this.$store.state.Stat.tableType === 'local') {
+            const f = []
+            let start = 0
+            let fileLen = this.$store.state.Stat.tableSel.length;
+            // console.log(fileLen)
+            if (fileLen > 99) {
+              if (this.$store.state.Stat.tablePage > 0) {
+                start = 100 * this.$store.state.Stat.tablePage
+                fileLen = start + 99
+              } else {
+                fileLen = 99
+              }
             }
+            for (let i = start; i < fileLen; i += 1) {
+              f.push(this.$store.state.Stat.tableSel[i])
+            }
+            const a = this.$store.state.Stat.tableHeader[0]
+            f.splice(0, 0, a)
+            table = f
+          } else {
+            table = this.$store.state.Stat.compareTable
           }
-          for (let i = start; i < fileLen; i += 1) {
-            f.push(this.$store.state.Stat.tableSel[i])
-          }
-          const a = this.$store.state.Stat.tableHeader[0]
-          f.splice(0, 0, a)
-          return f
+          return table
         }
       }
     },

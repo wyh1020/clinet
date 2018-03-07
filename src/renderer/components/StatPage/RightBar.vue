@@ -27,7 +27,7 @@
         <li class="nav-item active" id="stat-show-contrast" v-on:click='showCompare'>
           <a class="nav-link text-light" href="#"> 显示对比 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" id="stat-save-contrast" v-on:click='showCompare'>
+        <li class="nav-item active" id="stat-save-contrast" v-on:click='saveCompare'>
           <a class="nav-link text-light" href="#"> 保存对比 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
@@ -77,6 +77,7 @@
   import chartBar from '../../utils/ChartBar';
   import addContrast from '../../utils/StatContrast';
   import chartData from '../../utils/ChartData';
+  import saveFile from '../../utils/SaveFile';
 
   export default {
     data() {
@@ -151,6 +152,13 @@
         addContrast(this, table, header, col, row)
       },
       showCompare: function () {
+        this.$store.commit('STAT_SET_TABLE_TYPE', 'compare');
+      },
+      saveCompare: function () {
+        const d = new Date();
+        const datetime = `${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}`
+        this.$store.commit('STAT_LOAD_FILE', this.$store.state.Stat.compareTable);
+        saveFile(this, `${datetime}stat.csv`, 'stat')
       },
     },
   };
