@@ -15,7 +15,7 @@
 </template>
 
 <script>
-
+  import editDoc from '../../utils/EditDoc'
   export default {
     computed: {
       flag: {
@@ -25,7 +25,10 @@
       },
       doc: {
         get() {
-          return this.$store.state.Edit.doc
+          const doc = this.$store.state.Edit.doc
+          const doc1 = editDoc(doc)
+          console.log(doc1)
+          return doc
         }
       }
     },
