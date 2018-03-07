@@ -167,11 +167,9 @@ const mutations = {
   },
   STAT_SET_COMPARE_TABLE(state, data) {
     state.compareTable = data
-    console.log(state.compareTable)
   },
   STAT_SET_TABLE_TYPE(state, data) {
     state.tableType = data
-    console.log(state.tableType)
   },
 };
 

@@ -115,9 +115,9 @@ const mutations = {
     }
   },
   EDIT_CONCAT_BAR_VALUE(state, value) {
-    if (state.editBarValue.includes(value) === false) {
+    if (state.editBarValue[state.editBarValue.length - 1] === ' ') {
       const v = state.editBarValue.split(' ')
-      v[1] = value
+      v.push(value)
       state.editBarValue = v.join(' ')
     }
   },
