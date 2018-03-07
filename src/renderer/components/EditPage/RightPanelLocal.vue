@@ -4,7 +4,7 @@
       <tr>
         <th class="table-danger" id="edit-rightpanellocal-title"> {{title}}</th>
       </tr>
-      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
+      <tr class="edit-rightpanellocal-tr" v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
         <td>{{data}}</td>
       </tr>
     </table>

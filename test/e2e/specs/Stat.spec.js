@@ -5,23 +5,24 @@ describe('Stat', function () {
   afterEach(utils.afterEach);
 
   it('Stat-测试1', function () {
+    // this.timeout(8000)
     // 1、点击login页面的login-button
     return this.app.client.click('#login')
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
       .waitUntilTextExists('#notice-bar', '未注册用户登陆！')
     // 2、点击顶部导航栏的stat-page，进入stat页
-      // .click('#navbar-stat')
-      // .waitUntilTextExists('#notice-bar', '数据分析-数据分析')
+      .click('#navbar-stat')
+      .waitUntilTextExists('#notice-bar', '数据分析-数据分析')
     // 2.1、本地文件 leftPanel显示本地文件列表
-      // .click('#stat-local-doc')
-      // .waitUntilTextExists('.stat-left-file-tr', 'test_stat_1.csv')
+      .click('#stat-local-doc')
+      .waitUntilTextExists('.stat-left-file-tr', 'test_stat_1.csv')
     // 2.1.1 点击leftPanel列表 rightPanel数据表显示当前文件的前十条数据 chart显示当前数据图表 提示显示当前数据提示内容
-      // .click('.stat-left-file-tr')
-      // .waitUntilWindowLoaded(500)
-      // .getText('#stat-right-table')
-      // .then(function (rightTable) {
-      //   expect(rightTable).to.be.an('string');
-      // })
+      .click('.stat-left-file-tr')
+      .waitUntilWindowLoaded(500)
+      .getText('#stat-right-table')
+      .then(function (rightTable) {
+        expect(rightTable).to.be.an('string');
+      })
     // 2.1.1.1 点击rightPanel数据表的单条或多条数据高亮显示 rightPanel的chart及提示显示当前数据的图表及提示内容
       // .click('.stat-right-table')
       // .waitUntilWindowLoaded(500)
