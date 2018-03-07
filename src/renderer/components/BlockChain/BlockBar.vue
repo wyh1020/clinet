@@ -9,7 +9,7 @@
         <li class="nav-item active" v-on:click='blockList' id="block-list">
           <a class="nav-link text-light" href="#"> 区块列表 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='block' id="block">
+        <li class="nav-item active" v-on:click='block' id="block-content">
           <a class="nav-link text-light" href="#"> 区块内容 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='blockInfo' id="block-info">
@@ -17,7 +17,7 @@
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="block-search">
       </form>
     </div>
   </nav>

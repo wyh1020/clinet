@@ -4,14 +4,14 @@
       <form v-if="!account">
         <div class="form-group">
           <label for="exampleInputEmail1" class="text-danger">注册的Email地址</label>
-          <input v-model="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <input v-model="email" type="email" class="form-control" id="block-rightpanel-register-email" aria-describedby="emailHelp" placeholder="Enter email">
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1" class="text-danger">用户密码</label>
-          <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <input v-model="password" type="password" class="form-control" id="block-rightpanel-register-password" placeholder="Password">
         </div>
       </form>
-      <button v-if="!account" id="login" class="btn btn-outline-primary" v-on:click="login">登陆</button>
+      <button v-if="!account" id="block-rightpanel-login" class="btn btn-outline-primary" v-on:click="login">登陆</button>
       <div  v-if="account">
         <table>
           <tr v-for="(line, index) in Object.entries(account)" v-bind:key='index'>

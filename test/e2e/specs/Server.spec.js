@@ -5,27 +5,28 @@ describe('Server', function () {
   afterEach(utils.afterEach);
 
   it('Server-测试1', function () {
-    this.timeout(20000);
+    // this.timeout(30000);
     // 1、点击login页面的login-button
     return this.app.client.click('#login')
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
       .waitUntilTextExists('#notice-bar', '未注册用户登陆！')
     // 2.1、本地文件导入
-      .click('#navbar-system')
-      .click('#navbar-system-local')
-      .waitUntilTextExists('#notice-bar', '系统服务-本地文件导入')
+      // .click('#navbar-system')
+      // .click('#navbar-system-local')
+      // .waitUntilTextExists('#notice-bar', '系统服务-本地文件导入')
       // 2.1.1、选择csv文件(server-load-loaclfile)
       // .click('#server-load-loaclfile')
       // .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')
-      // .getHTML('.server-leftpanel')
+      // .getText('.server-leftpanel')
       // .then(function (leftpanel) {
       //   expect(leftpanel).to.be.an('array');
       // })
       // 2.1.1.1、点击左侧列表，读取文件
       // .click('.server-leftpanel')
       // .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')
-      // .getHTML('.server-load-rightpanel')
+      // .getText('.server-load-rightpanel-tr')
       // .then(function (rightpanel) {
+      //   console.log(rightpanel);
       //   expect(rightpanel).to.be.an('array');
       // })
       // 2.1.2、选择数据表(server-choose-database)

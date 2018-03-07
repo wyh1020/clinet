@@ -6,21 +6,21 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='setUser' id="set-user">
+        <li class="nav-item active" v-on:click='setUser' id="block-user-setup">
           <a class="nav-link text-light" href="#"> 账户设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='account' id="account">
+        <li class="nav-item active" v-on:click='account' id="block-user-account">
           <a class="nav-link text-light" href="#"> 账户余额 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='transaction' id="transaction">
+        <li class="nav-item active" v-on:click='transaction' id="block-user-transaction">
           <a class="nav-link text-light" href="#"> 转账交易 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='transRecord' id="trans-record">
+        <li class="nav-item active" v-on:click='transRecord' id="block-user-trans-record">
           <a class="nav-link text-light" href="#"> 账户交易记录 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="block-user-search">
       </form>
     </div>
   </nav>
