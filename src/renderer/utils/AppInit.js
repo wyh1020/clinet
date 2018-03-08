@@ -414,30 +414,29 @@ export default function appInit() {
       });
   }
   // 读取提示的cdh文件
-  // const editFile = path.format({
-  //   dir: hitbdataSystem,
-  //   base: 'hitb_edit.cdh'
-  // });
-  // if (fs.existsSync(editFile)) {
-  //   fs.lstat(editFile, (err) => {
-  //     if (!err) {
-  //       const fRead = fs.createReadStream(editFile);
-  //       const fReadline = readline.createInterface({ input: fRead });
-  //       const f = [];
-  //       fReadline.on('close', () => {
-  //         const obj = {}
-  //         f.forEach((x) => {
-  //           const s = x.split(' ').filter(i => i !== '');
-  //           const k = s.shift()
-  //           obj[k] = s
-  //         })
-  //         global.hitbdata.cdh = obj
-  //       });
-  //       fReadline.on('line', (line) => {
-  //         f.push(line)
-  //       })
-  //       // console.log(f);
-  //     }
-  //   })
-  // }
+  const editFile = path.format({
+    dir: hitbdataSystem,
+    base: 'hitb_edit.cdh'
+  });
+  if (fs.existsSync(editFile)) {
+    fs.lstat(editFile, (err) => {
+      if (!err) {
+        const fRead = fs.createReadStream(editFile);
+        const fReadline = readline.createInterface({ input: fRead });
+        const f = [];
+        fReadline.on('close', () => {
+          const obj = {}
+          f.forEach((x) => {
+            const s = x.split(' ').filter(i => i !== '');
+            const k = s.shift()
+            obj[k] = s
+          })
+          global.hitbdata.cdh = obj
+        });
+        fReadline.on('line', (line) => {
+          f.push(line)
+        })
+      }
+    })
+  }
 }
