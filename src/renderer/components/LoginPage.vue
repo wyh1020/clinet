@@ -9,11 +9,11 @@
             <form>
               <div class="form-group">
                 <label for="exampleInputEmail1" class="text-danger">注册的Email地址</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" v-model="loginName">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1" class="text-danger">用户密码</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" v-model="loginPassword">
               </div>
             </form>
             <button id="login" class="btn btn-outline-primary" v-on:click="login">登陆</button>
@@ -40,7 +40,7 @@
               <li>使用互联网上的远程服务，数据上传到服务器</li>
               <li>使用互联网上的区块链服务，数据发布到区块链</li>
               <li>
-                <a href="#" v-on:click="open('http://www.hitb.com.cn')">联系我们</a>                
+                <a href="#" v-on:click="open('http://www.hitb.com.cn')">联系我们</a>
                 ，建立自己私有的远程服务或区块链服务</li>
             </ul>
           </p>
@@ -59,12 +59,16 @@
 <script>
   import NavBar from './HomePage/NavBar';
   import NoticeBar from './HomePage/NoticeBar';
+  import { sLogin } from '../utils/Server';
+  import { open } from '../utils/BlockAccount'
   export default {
     name: 'login-page',
     components: { NavBar, NoticeBar },
     data() {
       return {
-        hasData: false
+        hasData: false,
+        loginName: '',
+        loginPassword: ''
       };
     },
     computed: {
@@ -80,10 +84,39 @@
       },
       login() {
         if (global.hitbdata) {
-          this.$store.commit('SET_NOTICE', '未注册用户登陆！');
-          this.$store.commit('SET_NAVBAR', 'home');
-          this.$store.commit('HAS_DATA');
-          this.$router.push('/home');
+          const name = this.loginName;
+          const pass = this.loginPassword;
+          if (name === '' && pass === '') {
+            this.$store.commit('SET_NOTICE', '未注册用户登陆！');
+            this.$store.commit('SET_NAVBAR', 'home');
+            this.$store.commit('HAS_DATA');
+            this.$router.push('/home');
+          } else {
+            const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
+            if (reg.test(name)) {
+              if (pass !== '') {
+                const user = { username: name, password: pass }
+                const server = global.hitbdata.server['远程测试服务器'][0];
+                sLogin(this, [server[0], server[1], user])
+                if (this.$store.state.System.user.login) {
+                  this.$store.commit('SET_NAVBAR', 'home');
+                  this.$store.commit('HAS_DATA');
+                  this.$router.push('/home');
+                } else {
+                  console.log('登录失败');
+                }
+              } else {
+                console.log('登录失败');
+              }
+            } else if (name.length === 16) {
+              console.log('区块链登录');
+              const server = global.hitbdata.server['远程测试服务器'][0];
+              console.log(server);
+              open(this, [server[0], server[1], name]);
+            } else {
+              console.log('登录失败');
+            }
+          }
         } else {
           this.hasData = true;
           this.$store.commit('SET_NOTICE', '初次启动，读取系统初始化文件，请先关闭系统，再打开！')
