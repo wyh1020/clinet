@@ -16,6 +16,7 @@ const state = {
   hintPage: 0,
   editBarValue: '',
   hintType: '',
+  hint: [],
 };
 
 const mutations = {
@@ -126,8 +127,10 @@ const mutations = {
   },
   EDIT_SET_HINT_TYPE(state, value) {
     state.hintType = value
-    console.log(state.hintType)
   },
+  EDIT_SET_HINT(state, value) {
+    state.hint = value
+  }
 };
 
 const actions = {
@@ -159,6 +162,7 @@ const actions = {
     commit('EDIT_SET_BAR_VALUE');
     commit('EDIT_CONCAT_BAR_VALUE');
     commit('EDIT_SET_HINT_TYPE');
+    commit('EDIT_SET_HINT');
   },
 };
 

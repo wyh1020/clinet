@@ -25,7 +25,6 @@
     data() {
       return {
         item: '',
-        content: ['aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll']
       };
     },
     mounted: function () {
@@ -37,10 +36,10 @@
       hint: {
         get() {
           let content1 = []
-          if (this.$store.state.Edit.hintType === 'hint') {
+          if (this.$store.state.Edit.hintType === 'hint' && this.$store.state.Edit.hint.length > 1) {
             const hintSkip = this.$store.state.Edit.hintPage
             const num = hintSkip * 9
-            const hint = this.content.slice(num, num + 9)
+            const hint = this.$store.state.Edit.hint.slice(num, num + 9)
             const hint1 = hint.map((x, index) => index + 1 + '.'.concat(x))
             content1 = hint1
           } else {
@@ -112,7 +111,10 @@
         console.log('right')
       },
       space() {
-        console.log('space')
+        const value = this.$store.state.Edit.editBarValue
+        if (value.indexOf(' ') === -1) {
+          this.$store.commit('EDIT_SET_HINT', global.hitbdata.cdh[value]);
+        }
       },
       hintUp() {
         const pageNum = Math.ceil(this.content.length / 9)
@@ -132,7 +134,7 @@
         }
       },
       hintSet(num) {
-        this.$store.commit('EDIT_CONCAT_BAR_VALUE', this.content[num - 1]);
+        this.$store.commit('EDIT_CONCAT_BAR_VALUE', this.$store.state.Edit.hint[num - 1]);
         this.item = this.$store.state.Edit.editBarValue;
       },
       change() {
