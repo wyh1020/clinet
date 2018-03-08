@@ -174,10 +174,10 @@ const mutations = {
   STAT_SET_TABLE_TYPE(state, data) {
     state.tableType = data
   },
-  SET_CHART_LEFT(state, data) {
+  STAT_SET_CHART_LEFT(state, data) {
     state.chartLeft = data
   },
-  SET_CHART_RIGHT(state, data) {
+  STAT_SET_CHART_RIGHT(state, data) {
     state.chartRight = data
   },
   STAT_SET_FILE_INDEX(state, index) {
@@ -199,8 +199,8 @@ const actions = {
     commit('STAT_SET_COL');
     commit('STAT_SET_ROW');
     commit('STAT_SET_COMPARE_TABLE');
-    commit('SET_CHART_LEFT');
-    commit('SET_CHART_RIGHT');
+    commit('STAT_SET_CHART_LEFT');
+    commit('STAT_SET_CHART_RIGHT');
     commit('STAT_SET_TABLE_TYPE');
     commit('STAT_SET_FILE_INDEX');
   },

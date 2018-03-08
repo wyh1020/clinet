@@ -37,6 +37,7 @@ const state = {
   wt4Row: [],
   wt4Comp: [],
   wt4LocalRow: [],
+  comprule: []
 };
 
 const mutations = {
@@ -88,7 +89,7 @@ const mutations = {
   SYSTEM_REGISTER_USER(state, field) {
     state.registerInfo = field
   },
-  // 用户登录-登录无故刷新项目
+  // 用户登录
   SYSTEM_SET_USER(state, field) {
     state.user = field[1];
   },
@@ -166,6 +167,9 @@ const mutations = {
     } else {
       state.wt4LocalRow = [...state.wt4LocalRow, field]
     }
+  },
+  SYSTEM_GET_COMPRULE(state, field) {
+    state.comprule = field;
   },
 };
 

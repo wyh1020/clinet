@@ -299,6 +299,41 @@ export function sGetWt4(obj, data) {
     obj.$store.commit('SYSTEM_SET_WT4', [{}, '连接失败', false])
   })
 }
+// 分组规则查询
+export function sGetCompRule(obj, data) {
+  const table = data[2]
+  const rule = data[3]
+  let code = ''
+  switch (table) {
+    case 'mdc':
+      code = '';
+      break;
+    case 'adrg':
+      code = rule.mdc;
+      break;
+    case 'drg':
+      code = rule.code;
+      break;
+    default:
+      code = '';
+  }
+  axios({
+    method: 'get',
+    url: `http://${data[0]}:${data[1]}/drgserver/rule?table=${table}&code=${code}`,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    responseType: 'json'
+  }).then((res) => {
+    if (res.status === 200) {
+      console.log(res.data);
+      obj.$store.commit('SYSTEM_GET_COMPRULE', [res.data, '规则查询成功', true])
+    } else {
+      obj.$store.commit('SYSTEM_GET_COMPRULE', [{}, '规则查询成功', false])
+    }
+  }).catch((err) => {
+    console.log(err);
+    obj.$store.commit('SYSTEM_GET_COMPRULE', [{}, '连接失败', false])
+  })
+}
 // 单条分组
 export function sCompDrg(obj, data, type = '') {
   const dataWt4 = data[2]
