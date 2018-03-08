@@ -29,6 +29,7 @@
     methods: {
       loadFile: function (data, index) {
         this.flag = index
+        this.$store.commit('STAT_SET_FILE_INDEX', index);
         loadFile(this, data, 'stat')
       },
     },

@@ -30,7 +30,8 @@ const state = {
   compareTable: [],
   chartLeft: '柱状图',
   chartRight: '柱状图',
-  tableType: 'local'
+  tableType: 'local',
+  fileIndex: null,
 };
 
 const mutations = {
@@ -178,6 +179,9 @@ const mutations = {
   },
   SET_CHART_RIGHT(state, data) {
     state.chartRight = data
+  },
+  STAT_SET_FILE_INDEX(state, index) {
+    state.fileIndex = index
   }
 };
 
@@ -198,6 +202,7 @@ const actions = {
     commit('SET_CHART_LEFT');
     commit('SET_CHART_RIGHT');
     commit('STAT_SET_TABLE_TYPE');
+    commit('STAT_SET_FILE_INDEX');
   },
 };
 

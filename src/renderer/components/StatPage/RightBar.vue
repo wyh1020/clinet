@@ -99,6 +99,7 @@
       edit: function () {
         this.$store.commit('EDIT_SET_LAST_NAV', '/stat');
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
+        this.$store.commit('EDIT_SET_FILES_INDEX', this.$store.state.Stat.fileIndex);
         this.$router.push('/edit');
       },
       selX: function (x) {
