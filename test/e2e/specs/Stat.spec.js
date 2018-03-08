@@ -51,11 +51,21 @@ describe('Stat', function () {
       })
     // 2.1.1.1.6 点击工具栏的编辑数据 将当前本地文件数据显示传到Edit的rightPanel中并高亮显示当前选中数据 leftPanel显示选中的第一条数据内容
     // 2.1.1.1.7 点击工具栏的左图选择 下拉框显示可选图形
-      // .click('#stat-bar-left-chart')
+      .click('#stat-left-chart')
       // .waitUntilTextExists('#stat-left-bar', '柱状图')
+      .hasFocus('[aria-labelledby="stat-left-chart"]')
+      .then(function (rightTable) {
+        console.log(rightTable)
+        // expect(rightTable).to.be.an('string');
+      })
     // 2.1.1.1.7.1 点击柱状图 rightPanel左部chart数据展示为柱状图
-      // .click('#stat-left-discount')
+      .click('#stat-right-chart')
       // .waitUntilTextExists('#stat-left-discount', '柱状图')
+      .hasFocus('[aria-labelledby="stat-left-chart"]')
+      .then(function (rightTable) {
+        console.log(rightTable)
+        // expect(rightTable).to.be.an('string');
+      })
     // 2.1.1.1.7.2 点击折线图 rightPanel左部chart数据展示为折线图
     // 2.1.1.1.7.3 点击散点图 rightPanel左部chart数据展示为散点图
     // 2.1.1.1.7.4 点击雷达图 rightPanel左部chart数据展示为雷达图
