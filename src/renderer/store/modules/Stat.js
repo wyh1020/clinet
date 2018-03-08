@@ -36,7 +36,7 @@ const state = {
 
 const mutations = {
   STAT_LOAD_FILES() {
-    const files = fs.readdirSync(global.hitbdata.path.stat).filter(x => x.endsWith('.csv'))
+    const files = fs.readdirSync(global.hitbdata.path.stat).filter(x => x.endsWith('.csv')).filter(x => x.indexOf("stat") >= 0)
     state.files = files;
   },
   STAT_LOAD_FILE(state, message) {

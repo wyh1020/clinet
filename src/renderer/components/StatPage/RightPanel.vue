@@ -58,12 +58,12 @@
             let start = 0
             let fileLen = this.$store.state.Stat.tableSel.length;
             // console.log(fileLen)
-            if (fileLen > 99) {
+            if (fileLen > 19) {
               if (this.$store.state.Stat.tablePage > 0) {
-                start = 100 * this.$store.state.Stat.tablePage
-                fileLen = start + 99
+                start = 20 * this.$store.state.Stat.tablePage
+                fileLen = start + 19
               } else {
-                fileLen = 99
+                fileLen = 19
               }
             }
             for (let i = start; i < fileLen; i += 1) {

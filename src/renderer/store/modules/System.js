@@ -169,7 +169,7 @@ const mutations = {
     }
   },
   SYSTEM_GET_COMPRULE(state, field) {
-    state.comprule = field;
+    state.comprule = field[0].data;
   },
 };
 
