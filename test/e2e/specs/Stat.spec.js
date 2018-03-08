@@ -5,7 +5,7 @@ describe('Stat', function () {
   afterEach(utils.afterEach);
 
   it('Stat-测试1', function () {
-    // this.timeout(8000)
+    this.timeout(8000)
     // 1、点击login页面的login-button
     return this.app.client.click('#login')
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
@@ -24,9 +24,9 @@ describe('Stat', function () {
         expect(rightTable).to.be.an('string');
       })
     // 2.1.1.1 点击rightPanel数据表的单条或多条数据高亮显示 rightPanel的chart及提示显示当前数据的图表及提示内容
-      // .click('.stat-right-table')
+      // .click('.stat-right-table-tr')
       // .waitUntilWindowLoaded(500)
-      // .getCssProperty('.stat-right-table')
+      // .getCssProperty('#stat-right-table')
       // .then(function (rightTableTr) {
       //   console.log(rightTableTr)
       // })
@@ -34,21 +34,21 @@ describe('Stat', function () {
     // 2.1.1.1.2 点击工具栏的显示对比 将对比数据显示到rightPanel的数据表中
     // 2.1.1.1.3 点击工具栏的保存对比
     // 2.1.1.1.4 点击工具栏的前一页 rightPanel显示当前数据的前十条数据并且当前行高亮显示 如果为第一页则提示"当前已是第一页"
-      // .click('#stat-prev-page')
-      // .waitUntilWindowLoaded(500)
-      // .getText('#stat-right-table')
-      // .then(function (rightTable) {
-      //   console.log(rightTable)
-      //   expect(rightTable).to.be.an('array');
-      // })
+      .click('#stat-prev-page')
+      .waitUntilWindowLoaded(500)
+      .getText('#stat-right-table')
+      .then(function (rightTable) {
+        // console.log(rightTable)
+        expect(rightTable).to.be.an('string');
+      })
     // 2.1.1.1.5 点击工具栏的后一页 rightPanel显示当前数据的后十条数据并且当前行高亮显示 如果为最后一页则提示"当前已是最后一页"
-      // .click('#stat-next-page')
-      // .waitUntilWindowLoaded(500)
-      // .getText('#stat-right-table')
-      // .then(function (rightTable) {
-      //   console.log(rightTable)
-      //   expect(rightTable).to.be.an('array');
-      // })
+      .click('#stat-next-page')
+      .waitUntilWindowLoaded(500)
+      .getText('#stat-right-table')
+      .then(function (rightTable) {
+        // console.log(rightTable)
+        expect(rightTable).to.be.an('string');
+      })
     // 2.1.1.1.6 点击工具栏的编辑数据 将当前本地文件数据显示传到Edit的rightPanel中并高亮显示当前选中数据 leftPanel显示选中的第一条数据内容
     // 2.1.1.1.7 点击工具栏的左图选择 下拉框显示可选图形
       // .click('#stat-bar-left-chart')

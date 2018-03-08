@@ -27,25 +27,25 @@
             <div class="dropdown-divider"></div>
           </div>
         </li>
-        <li class="nav-item" v-on:click="newDoc" id="edit-leftbar-newdoc">
+        <li class="nav-item" id="edit-leftbar-newdoc" v-on:click="newDoc">
           <a class="nav-link text-light" href="#">新建</a>
         </li>
-        <li class="nav-item" v-on:click="save(1)" id="edit-leftbar-preservation">
+        <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save(1)">
           <a class="nav-link text-light" href="#">保存</a>
         </li>
-        <li class="nav-item" v-on:click="save(2)" id="edit-leftbar-save">
+        <li class="nav-item" id="edit-leftbar-save" v-on:click="save(2)">
           <a class="nav-link text-light" href="#">另存</a>
         </li>
-        <li class="nav-item" v-on:click="save(0)" id="edit-leftbar-del">
+        <li class="nav-item" id="edit-leftbar-del" v-on:click="save(0)">
           <a class="nav-link text-light" href="#">删除</a>
         </li>
-        <li class="nav-item" v-on:click="saveFile" id="edit-leftbar-file">
+        <li class="nav-item" id="edit-leftbar-file" v-on:click="saveFile">
           <a class="nav-link text-light" href="#">写文件</a>
         </li>
-        <li class="nav-item active" v-on:click='page(-1)' id="edit-leftbar-uppage" v-if="this.$store.state.Edit.leftPanel == 'table'">
+        <li class="nav-item active" id="edit-leftbar-uppage" v-on:click='page(-1)' v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='page(1)' id="edit-leftbar-downpage" v-if="this.$store.state.Edit.leftPanel == 'table'">
+        <li class="nav-item active" id="edit-leftbar-downpage" v-on:click='page(1)' v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
