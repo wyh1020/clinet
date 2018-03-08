@@ -157,8 +157,8 @@
       },
       saveCompare: function () {
         const d = new Date();
-        const datetime = `${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}`
-        this.$store.commit('STAT_LOAD_FILE', this.$store.state.Stat.compareTable);
+        const datetime = `${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}`
+        this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.compareTable);
         saveFile(this, `${datetime}stat.csv`, 'stat')
       },
     },

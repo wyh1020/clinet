@@ -31,6 +31,7 @@
         this.flag = index
         this.$store.commit('STAT_SET_FILE_INDEX', index);
         loadFile(this, data, 'stat')
+        this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
       },
     },
   };

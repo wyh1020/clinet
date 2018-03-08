@@ -1,7 +1,8 @@
-let xArr = []; // 行分析数据
-let yArr = []; // 列index
 // 加入对比方法(obj,当前分析,表头,列选中(index),行选中(index))
 export default function addContrast(obj, table = null, th = [], yid = [], xid = []) {
+  const xArr = []; // 行分析数据
+  let yArr = []; // 列index
+  console.log(yid);
   if (table) {
     th = th[0]
     // 当从未执行过加入对比时,将表头数据添加至对比行数据内
@@ -9,7 +10,7 @@ export default function addContrast(obj, table = null, th = [], yid = [], xid = 
       xArr.push(th);
     }
     // 按照行index从table取得对应结果
-    xid.map(x => xArr.push(table[x]));
+    xid.map(x => xArr.push(table[x - 1]));
     // 当没有选中列时,为全部列
     if (yid.length === 0) {
       yid = th
@@ -21,14 +22,16 @@ export default function addContrast(obj, table = null, th = [], yid = [], xid = 
     const stat = []
     // 按照列index取得对应结果
     xArr.map(xs => stat.push(yArr.map(x => xs[x])))
+    obj.$store.commit('SET_NOTICE', '加入成功')
     obj.$store.commit('STAT_SET_COMPARE_TABLE', stat)
   }
 }
 
 // 清空对比
-export function clearContrast() {
-  xArr = [];
-  yArr = [];
+export function clearContrast(obj) {
+  // xArr = [];
+  // yArr = [];
+  obj.$store.commit('STAT_SET_COMPARE_TABLE', [])
   return true
 }
 

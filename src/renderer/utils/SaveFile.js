@@ -22,11 +22,11 @@ export default function saveFile(obj, x, p) {
       dir: dir,
       base: x
     });
-    const data = obj.$store.state.Edit.file.map(x => `${x},\n`).toString()
-    // console.log(data)
-    console.log(fileName)
+    const data = obj.$store.state.Edit.file.map(x => x.join(',')).join('\n')
     fs.writeFile(fileName, data, (err) => {
-      console.log(err)
+      if (!err) {
+        obj.$store.commit('SET_NOTICE', '文件保存成功！')
+      }
     })
   } else if (x && x.endsWith('.cda')) {
     const fileName = path.format({
@@ -35,7 +35,9 @@ export default function saveFile(obj, x, p) {
     });
     const data = obj.$store.state.Edit.file.map(x => `${x},\n`).toString()
     fs.writeFile(fileName, data, (err) => {
-      console.log(err)
+      if (!err) {
+        obj.$store.commit('SET_NOTICE', '文件保存成功！')
+      }
     })
   } else {
     const fileName = path.format({
