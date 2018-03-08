@@ -2,13 +2,14 @@
 export default function addContrast(obj, table = null, th = [], yid = [], xid = []) {
   const xArr = []; // 行分析数据
   let yArr = []; // 列index
-  console.log(yid);
   if (table) {
     th = th[0]
     // 当从未执行过加入对比时,将表头数据添加至对比行数据内
     if (xArr.length === 0) {
       xArr.push(th);
     }
+    // 去除选中列后行列表中多余的0
+    xid = xid.filter(t => t !== 0)
     // 按照行index从table取得对应结果
     xid.map(x => xArr.push(table[x - 1]));
     // 当没有选中列时,为全部列
