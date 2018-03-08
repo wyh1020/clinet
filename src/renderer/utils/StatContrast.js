@@ -21,8 +21,16 @@ export default function addContrast(obj, table = null, th = [], yid = [], xid = 
       yArr = yid
     }
     const stat = []
-    // 按照列index取得对应结果
-    xArr.map(xs => stat.push(yArr.map(x => xs[x])))
+    // 存储之前添加的对比
+    stat.push(obj.$store.state.Stat.compareTable)
+    // 取得之前添加过的对比的关键信息
+    const statVal = stat.map(x => `${x[0]}${x[1]}${x[2]}`)
+    // 按照列index取得对应结果,没有被存储过会添加
+    xArr.forEach((xs) => {
+      if (!statVal.includes(`${xs[0]}${xs[1]}${xs[2]}`)) {
+        stat.push(yArr.map(x => xs[x]))
+      }
+    })
     obj.$store.commit('SET_NOTICE', '加入成功')
     obj.$store.commit('STAT_SET_COMPARE_TABLE', stat)
   }
