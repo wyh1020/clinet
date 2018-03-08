@@ -29,7 +29,8 @@ const state = {
   selectedCol: [],
   compareTable: [],
   chartLeft: '柱状图',
-  chartRight: '柱状图'
+  chartRight: '柱状图',
+  tableType: 'local'
 };
 
 const mutations = {
