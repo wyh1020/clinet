@@ -13,6 +13,7 @@ function editDoc(x) {
     } else {
       key = x[0]
       obj[key] = []
+      obj[x[0]].push(x)
     }
   }
   x.forEach((x) => {
@@ -30,7 +31,8 @@ function editDoc(x) {
         obj[key].push(x)
     }
   })
-  console.log(obj)
+  // console.log(obj)
+  return obj
 }
 
 export default editDoc
