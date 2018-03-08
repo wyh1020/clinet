@@ -2,7 +2,7 @@
   <div>
     <div v-if="this.$store.state.System.toolbar === 'getServers'">
       <table>
-        <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="connect(data, index)" v-bind:class="{'table-danger':flag == index}">
+        <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="connect(data, index)" v-bind:class="{'table-danger':flag == index}" class="server-rightpanel-tr">
           <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
         </tr>
       </table>
