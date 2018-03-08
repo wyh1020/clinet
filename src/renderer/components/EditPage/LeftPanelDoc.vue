@@ -8,7 +8,7 @@
         <!-- 检查/检验结果 -->
         <!-- 签名-日期 -->
         <ol class="breadcrumb" v-if="true">
-          <li class="breadcrumb-item" v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == index}">
+          <li class="breadcrumb-item" v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}">
             <b>{{ item[0] }}</b>
             ：{{ item[1] }} {{ item[2] }} {{ item[3] }} {{ item[4] }}
               {{ item[5] }} {{ item[6] }} {{ item[7] }} {{ item[8] }}
@@ -26,7 +26,12 @@
     computed: {
       flag: {
         get() {
-          return this.$store.state.Edit.docIndex
+          const doc = this.$store.state.Edit.doc
+          const key = doc[this.$store.state.Edit.docIndex]
+          if (key) {
+            return key[0]
+          }
+          return null
         }
       },
       doc: {
