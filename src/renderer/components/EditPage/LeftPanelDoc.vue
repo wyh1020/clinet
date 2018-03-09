@@ -36,12 +36,12 @@
       },
       doc: {
         get() {
-          // const doc = this.$store.state.Edit.doc
-          const doc = ['a b c', 'b c d', '个人信息', '姓名 瞪大', '性别 男', '年龄 19', '主诉', '头 痛 3天', '体格检查', '体态 正常', '步态 正常', '心率 120']
-          const x = doc.map(m => m.split(' ').filter(i => i !== ''))
-          console.log(x)
-          const doc1 = editDoc(x)
-          console.log(doc1)
+          const doc = this.$store.state.Edit.doc
+          // const doc = ['a b c', 'b c d', '个人信息', '姓名 瞪大', '性别 男', '年龄 19', '主诉', '头 痛 3天', '体格检查', '体态 正常', '步态 正常', '心率 120']
+          // const x = doc.map(m => m.split(' ').filter(i => i !== ''))
+          // console.log(x)
+          const doc1 = editDoc(doc)
+          // console.log(doc1)
           return doc1
         }
       }

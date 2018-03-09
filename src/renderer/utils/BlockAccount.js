@@ -74,10 +74,10 @@ export function open(obj, data) {
       obj.$store.commit('SET_NOTICE', '区块链服务登录成功!')
       obj.$store.commit('BLOCK_SET_ACCOUNT', res.data.account)
     } else {
-      obj.$store.commit('SET_NOTICE', '区块链服务登录失败!')
+      obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
     }
   }).catch((err) => {
-    obj.$store.commit('SET_NOTICE', '区块链服务登录失败!')
+    obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
     console.log(err)
   })
 }

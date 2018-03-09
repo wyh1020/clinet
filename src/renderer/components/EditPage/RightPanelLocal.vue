@@ -35,21 +35,18 @@
       xs: {
         get() {
           let x = this.$store.state.Edit.files
-          let file = ''
           switch (this.$store.state.Edit.lastNav) {
             case '/stat':
               x = this.$store.state.Stat.files
-              file = 'stat'
               break;
             case '/library':
               x = this.$store.state.Library.files
-              file = 'library'
+              break;
+            case '/system':
+              x = this.$store.state.System.files
               break;
             default:
               break
-          }
-          if (this.$store.state.Edit.filesIndex !== 0) {
-            loadFile(this, x[this.$store.state.Edit.filesIndex], file, 'edit')
           }
           return x
         },

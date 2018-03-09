@@ -6,7 +6,7 @@
 
     <div class="collapse navbar-collapse" id="edit-leftbar-nav">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" id="edit-leftbar-back" v-on:click="lastNav" v-if="this.$store.state.Edit.lastNav">
+        <li class="nav-item active" id="edit-leftbar-back" v-on:click="lastNav" v-if="this.$store.state.Edit.lastNav !== '/edit'">
           <a class="nav-link text-light" href="#"> 返回 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
@@ -66,7 +66,9 @@
     },
     methods: {
       lastNav: function () {
+        console.log(this.$store.state.Edit.lastNav)
         this.$router.push(this.$store.state.Edit.lastNav);
+        this.$store.commit('EDIT_SET_LAST_NAV', '/edit');
       },
       newDoc: function () {
         this.$store.commit('EDIT_SET_DOC')

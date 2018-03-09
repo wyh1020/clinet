@@ -60,8 +60,8 @@ const mutations = {
     }
     console.log(state.connectInfo)
   },
-  SYSTEM_GET_FILES(state, files) {
-    state.files = files;
+  SYSTEM_GET_FILES(state) {
+    state.files = fs.readdirSync(global.hitbdata.path.home).filter(x => x.endsWith('.csv'))
   },
   SYSTEM_LOAD_FILE(state, file) {
     state.file = file;

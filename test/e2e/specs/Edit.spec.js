@@ -20,15 +20,15 @@ describe('Edit', function () {
       })
     // +++++++++++++直接点击工具栏按钮++++++++++++++++++
     // 2.1、点击左侧工具栏 返回按钮edit-leftbar-back, 页面返回首页
-      .click('#edit-leftbar-back')
-      .waitUntilTextExists('#notice-bar', '数据采集-数据采集')
-      // 点击顶部导航栏的edit-page，进入edit页
-      .click('#navbar-edit')
-      .waitUntilTextExists('#edit-editbar-input', '')
-      .getText('#edit-editbar-input')
-      .then(function (editText) {
-        expect(editText).to.equal('');
-      })
+      // .click('#edit-leftbar-back')
+      // .waitUntilTextExists('#notice-bar', '数据采集-数据采集')
+      // // 点击顶部导航栏的edit-page，进入edit页
+      // .click('#navbar-edit')
+      // .waitUntilTextExists('#edit-editbar-input', '')
+      // .getText('#edit-editbar-input')
+      // .then(function (editText) {
+      //   expect(editText).to.equal('');
+      // })
     // 2.2、点击左侧工具栏 选择下拉按钮 edit-leftbar-choice
     // 该 选择按钮id 更改完 会报错 Error: An element could not be located on the page using the given search parameters
       .click('#edit-leftbar-choice')

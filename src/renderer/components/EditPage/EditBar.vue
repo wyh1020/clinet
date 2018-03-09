@@ -63,7 +63,8 @@
         if (v.length > 0) {
           this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
           this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
-          this.item = '';
+          const x = this.$store.state.Edit.doc[n + 1]
+          if (x) { this.item = x.toString().replace(/,/g, '   ') }
         }
       },
       up() {

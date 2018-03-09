@@ -20,8 +20,7 @@ const state = {
 
 const mutations = {
   LIBRARY_LOAD_FILES() {
-    const files = fs.readdirSync(global.hitbdata.path.library).filter(x => x.endsWith('.csv'))
-    state.files = files;
+    state.files = fs.readdirSync(global.hitbdata.path.library).filter(x => x.endsWith('.csv'))
   },
   LIBRARY_LOAD_FILE(state, message) {
     state.file = message;

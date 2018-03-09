@@ -39,7 +39,6 @@
 </template>
 
 <script>
-  const fs = require('fs');
   export default {
     data() {
       return {
@@ -49,9 +48,8 @@
     methods: {
       loadPath: function () {},
       getFiles: function () {
-        const files = fs.readdirSync(global.hitbdata.path.home)
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'files');
-        this.$store.commit('SYSTEM_GET_FILES', files);
+        this.$store.commit('SYSTEM_GET_FILES');
       },
       getTables: function () {
         const tables = Object.keys(global.hitbdata.table)
@@ -65,7 +63,10 @@
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'checkTable');
       },
       editTable: function () {
-        this.$store.commit('SYSTEM_SET_TOOLBAR', 'editTable');
+        this.$store.commit('EDIT_SET_LAST_NAV', '/system');
+        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
+        this.$store.commit('EDIT_SET_FILES_INDEX', this.$store.state.System.fileIndex);
+        this.$router.push('/edit');
       },
       loadTable: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'loadTable');

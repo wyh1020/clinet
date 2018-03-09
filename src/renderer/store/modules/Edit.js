@@ -9,7 +9,7 @@ const state = {
   fileIndex: null,
   leftPanel: 'doc',
   rightPanel: 'help',
-  lastNav: 'user',
+  lastNav: '/edit',
   filePage: 0,
   filesPage: 0,
   fileType: 'csv',

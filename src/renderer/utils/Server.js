@@ -78,14 +78,13 @@ export function sLogin(obj, data) {
   }).then((res) => {
     if (res.data.login) {
       obj.$store.commit('SYSTEM_SET_USER', ['用户登录成功', res.data])
-      obj.$store.commit('SET_NOTICE', '用户登录成功')
+      obj.$store.commit('SET_NOTICE', '远程服务用户登录成功')
     } else {
-      obj.$store.commit('SYSTEM_SET_USER', ['用户名或密码错误', res.data])
-      obj.$store.commit('SET_NOTICE', '用户登录成功')
+      obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
     }
   }).catch((err) => {
     console.log(err)
-    obj.$store.commit('SYSTEM_SET_USER', ['用户登录失败', { username: '', login: false }])
+    obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
   })
 }
 // 获取用户列表

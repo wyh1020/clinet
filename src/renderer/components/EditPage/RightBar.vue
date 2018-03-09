@@ -56,10 +56,22 @@
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
       },
       localData: function () {
-        this.$store.commit('EDIT_SET_LAST_NAV', 'user');
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
-        this.$store.commit('EDIT_LOAD_FILES');
+        switch (this.$store.state.Edit.lastNav) {
+          case '/stat':
+            this.$store.commit('STAT_LOAD_FILES');
+            break;
+          case '/library':
+            this.$store.commit('LIBRARY_LOAD_FILES');
+            break;
+          case '/system':
+            this.$store.commit('SYSTEM_GET_FILES');
+            break;
+          default:
+            this.$store.commit('EDIT_SET_LAST_NAV', '/edit');
+            this.$store.commit('EDIT_LOAD_FILES');
+        }
         this.$store.commit('SET_NOTICE', '读取本地文件');
         this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
       },
