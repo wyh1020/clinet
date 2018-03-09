@@ -2,7 +2,7 @@
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="alert alert-warning" id="edit-bar-prompt" role="alert" style="width: 100%; position: fixed; bottom: 40px">
-        <span v-bind:key='index' v-for="(data, index) in hint">{{data}}</span>
+        <span v-bind:key='index' v-for="(data, index) in hint" v-bind:style="isShowStyle">{{data}}</span>
       </div>
     </nav>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom">
@@ -14,7 +14,7 @@
       v-on:keyup.ctrl.110="hintUp" v-on:keyup.ctrl.97="hintSet(1)" v-on:keyup.ctrl.98="hintSet(2)"
       v-on:keyup.ctrl.99="hintSet(3)" v-on:keyup.ctrl.100="hintSet(4)" v-on:keyup.ctrl.101="hintSet(5)"
       v-on:keyup.ctrl.102="hintSet(6)" v-on:keyup.ctrl.103="hintSet(7)" v-on:keyup.ctrl.104="hintSet(8)"
-      v-on:keyup.ctrl.105="hintSet(9)" v-on:input="change" v-on:focus="focus">
+      v-on:keyup.ctrl.105="hintSet(9)" v-on:input="change">
     </nav>
   </div>
 </template>
@@ -48,6 +48,13 @@
           return content1
         }
       },
+      isShowStyle() {
+        let style = 'margin-right: 0px'
+        if (this.$store.state.Edit.hintType === 'hint') {
+          style = 'margin-right: 20px'
+        }
+        return style
+      }
     },
     methods: {
       enter(e) {
@@ -111,6 +118,7 @@
         console.log('right')
       },
       space() {
+        this.$store.commit('EDIT_SET_HINT_TYPE', 'hint');
         const value = this.$store.state.Edit.editBarValue
         if (value.indexOf(' ') === -1) {
           this.$store.commit('EDIT_SET_HINT', global.hitbdata.cdh[value]);
@@ -141,9 +149,6 @@
         const value = document.getElementById('edit-editbar-input').value
         this.$store.commit('EDIT_SET_BAR_VALUE', value);
       },
-      focus() {
-        this.$store.commit('EDIT_SET_HINT_TYPE', 'hint');
-      }
     },
   };
 </script>
@@ -156,8 +161,5 @@
   }
   input {
     width: 100%
-  }
-  span {
-    margin-right: 20px;
   }
 </style>

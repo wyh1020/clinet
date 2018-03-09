@@ -15,7 +15,7 @@ const state = {
   fileType: 'csv',
   hintPage: 0,
   editBarValue: '',
-  hintType: '',
+  hintType: 'notice',
   hint: [],
 };
 
