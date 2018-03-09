@@ -125,7 +125,7 @@
         }
       },
       hintUp() {
-        const pageNum = Math.ceil(this.content.length / 9)
+        const pageNum = Math.ceil(this.$store.state.Edit.hint.length / 9)
         if (this.$store.state.Edit.hintPage < pageNum - 1) {
           this.$store.commit('EDIT_SET_HINT_PAGE', 'up');
         } else {
