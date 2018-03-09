@@ -52,11 +52,12 @@ describe('Edit', function () {
       .waitUntilTextExists('#edit-rightpanellocal-title', '用户本地文件')
     // 2.7、点击左侧工具栏 写文件按钮 edit-leftbar-file
       .click('#edit-leftbar-file')
-      // .chooseFile('#edit-leftbar-file', '')
-      // .then(function (editText) {
-      //   console.log(editText)
-      //   // expect(editText).to.not.equal('');
-      // })
+      // .waitUntilTextExists('#edit-bar-prompt', '今日的CDA文件已经存在')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        // console.log(editText);
+        expect(editText).to.be.an('string');
+      })
     // 2.8、点击右侧工具栏 选择下拉按钮 edit-leftbar-choice
     // 2.9、点击右侧工具栏 帮助按钮 edit-help
     // 2.10、点击右侧工具栏 本地按钮 edit-rightbar-local 右侧出现当前本地文件
@@ -66,6 +67,11 @@ describe('Edit', function () {
       .getText('#edit-rightpanellocal-table')
       .then(function (editText) {
         expect(editText).to.not.equal('');
+      })
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        console.log(editText);
+        expect(editText).to.be.an('string');
       })
     // ++++++++++++++++++点击用户本地文件单行+++++++++++++++++++++++++++++
     // 2.10.1 选择本地文件 点击单行,左侧出现该文件中的病历
@@ -99,6 +105,13 @@ describe('Edit', function () {
     // 2.10.1.6.1.1.1.1.1.1 点击下拉菜单 门诊病案按钮 eidt-leftbar-outpatientMedical
     // 2.10.1.6.1.1.1.1.1.1.1 点击下拉菜单 健康体检按钮 eidt-leftbar-healthExamination
     // 2.10.1.7 点击左侧工具栏 写文件按钮
+      .click('#edit-leftbar-file')
+      // .waitUntilTextExists('#edit-bar-prompt', '今日的CDA文件已经存在')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        // console.log(editText);
+        expect(editText).to.be.an('string');
+      })
     // 2.10.1.8 点击左侧工具栏 输入框
     // ++++++++++++++++++点击用户本地文件单行---点击选择编辑条目单行+++++++++++++++++++++++++++++
     // 2.10.2.1.1 选择编辑条目, 点击单行获取详细病历, 编辑条目出现在右侧,左侧出现该病历详细内容
@@ -131,6 +144,13 @@ describe('Edit', function () {
     // 2.10.2.1.6.1.1.1.1.1.1 点击下拉菜单 门诊病案按钮 eidt-leftbar-outpatientMedical
     // 2.10.2.1.6.1.1.1.1.1.1.1 点击下拉菜单 健康体检按钮 eidt-leftbar-healthExamination
     // 2.10.2.1.7 点击左侧工具栏 写文件按钮
+      .click('#edit-leftbar-file')
+      // .waitUntilTextExists('#edit-bar-prompt', '今日的CDA文件已经存在')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        // console.log(editText);
+        expect(editText).to.be.an('string');
+      })
     // 2.10.2.1.8 点击左侧工具栏 输入框
     // ++++++++++++++++++不点击用户本地文件单行+++++++++++++++++++++++++++++
     // 2.10.2 选择本地文件 不点击单行
@@ -156,7 +176,13 @@ describe('Edit', function () {
     // 2.10.2.2.6.1.1.1.1.1.1 点击下拉菜单 门诊病案按钮 eidt-leftbar-outpatientMedical
     // 2.10.2.2.6.1.1.1.1.1.1.1 点击下拉菜单 健康体检按钮 eidt-leftbar-healthExamination
     // 2.10.2.2.7 点击左侧工具栏 写文件按钮
-    // 2.10.2.2.7 点击左侧工具栏 写文件按钮
+      .click('#edit-leftbar-file')
+      // .waitUntilTextExists('#edit-bar-prompt', '今日的CDA文件已经存在')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        // console.log(editText);
+        expect(editText).to.be.an('string');
+      })
     // 2.10.2.2.8 点击左侧工具栏 输入框
 
     // 2.11、点击右侧工具栏 远程按钮 edit-server-data
@@ -176,6 +202,12 @@ describe('Edit', function () {
       .getHTML('#edit-editbar-input')
       // .setvalue('#edit-editbar-input', 'ctrl.110')
       // .then(function (editText) {
+      //   console.log(editText);
+      // })
+      .keys('\uE051', '\uE01B')
+      .getText('#edit-editbar-input')
+      // .then(function (editText) {
+      //   console.log('11111111111111111');
       //   console.log(editText);
       // })
   })
