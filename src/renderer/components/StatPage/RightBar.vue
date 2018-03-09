@@ -78,6 +78,7 @@
   import addContrast from '../../utils/StatContrast';
   import chartData from '../../utils/ChartData';
   import saveFile from '../../utils/SaveFile';
+  import getStatFiles from '../../utils/StatServerFile';
 
   export default {
     data() {
@@ -91,7 +92,13 @@
         this.$store.commit('STAT_LOAD_FILES');
       },
       serverData: function () {
-        this.$store.commit('STAT_SERVER_FILES');
+        if (this.$store.state.System.server === '') {
+          const key = Object.keys(global.hitbdata.server)
+          const server = global.hitbdata.server[key][0];
+          getStatFiles(this, [server[0], server[1]])
+        } else {
+          getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port])
+        }
       },
       page: function (n) {
         this.$store.commit('STAT_TABLE_PAGE', n);
@@ -106,9 +113,15 @@
         this.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', x]);
       },
       showChart: function (id, type) {
-        const table = this.$store.state.Stat.file
-        const option = chartData(table, this.$store.state.Stat.selectedRow, this.$store.state.Stat.selectedCol)
-        console.log(option);
+        let table = []
+        if (this.$store.state.Stat.tableType === 'local') {
+          table = this.$store.state.Stat.file
+        } else if (this.$store.state.Stat.tableType === 'server') {
+          table = this.$store.state.Stat.serverTable
+        } else {
+          table = this.$store.state.Stat.compareTable
+        }
+        const option = chartData(table, this.$store.state.Stat.selectedRow, this.$store.state.Stat.selectedCol, this.$store.state.Stat.tableType)
         if (id === 'chartRight') {
           this.$store.commit('STAT_SET_CHART_RIGHT', type);
           switch (type) {

@@ -13,6 +13,7 @@
 
 <script>
   import loadFile from '../../utils/LoadFile';
+  import { getStat } from '../../utils/StatServerFile'
   export default {
     data() {
       return {
@@ -30,8 +31,18 @@
       loadFile: function (data, index) {
         this.flag = index
         this.$store.commit('STAT_SET_FILE_INDEX', index);
-        loadFile(this, data, 'stat')
-        this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
+        if (this.$store.state.Stat.tableType === 'server') {
+          if (this.$store.state.System.server === '') {
+            const key = Object.keys(global.hitbdata.server)
+            const server = global.hitbdata.server[key][0];
+            getStat(this, [server[0], server[1], data])
+          } else {
+            getStat(this, [this.$store.state.System.server, this.$store.state.System.port])
+          }
+        } else {
+          loadFile(this, data, 'stat')
+          this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
+        }
       },
     },
   };

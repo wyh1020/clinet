@@ -28,6 +28,7 @@ const state = {
   selectedRow: [],
   selectedCol: [],
   compareTable: [],
+  serverTable: [],
   chartLeft: '柱状图',
   chartRight: '柱状图',
   tableType: 'local',
@@ -58,9 +59,8 @@ const mutations = {
   STAT_TABLE_PAGE(state, n) {
     state.tablePage += n;
   },
-  STAT_SERVER_FILES() {
-    const files = []
-    state.files = files;
+  STAT_SERVER_FILES(state, opt) {
+    state.files = opt.data;
   },
   STAT_SET_LEFT_PANEL(state, opt) {
     state.leftPanel = opt[0];
@@ -170,6 +170,9 @@ const mutations = {
   },
   STAT_SET_COMPARE_TABLE(state, data) {
     state.compareTable = data
+  },
+  STAT_SET_SERVER_TABLE(state, data) {
+    state.serverTable = data
   },
   STAT_SET_TABLE_TYPE(state, data) {
     state.tableType = data

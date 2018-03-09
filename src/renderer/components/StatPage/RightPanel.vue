@@ -72,6 +72,8 @@
             const a = this.$store.state.Stat.tableHeader[0]
             f.splice(0, 0, a)
             table = f
+          } else if (this.$store.state.Stat.tableType === 'server') {
+            table = this.$store.state.Stat.serverTable
           } else {
             table = this.$store.state.Stat.compareTable
           }
@@ -103,9 +105,15 @@
         this.$store.commit('STAT_GET_FIELD_INDEX', index);
         const id = 'chartLeft'
         const type = this.$store.state.Stat.chartLeft
-
-        const table = this.$store.state.Stat.file
-        const option = chartData(table, this.flag, this.flagTd)
+        let table = []
+        if (this.$store.state.Stat.tableType === 'local') {
+          table = this.$store.state.Stat.file
+        } else if (this.$store.state.Stat.tableType === 'server') {
+          table = this.$store.state.Stat.serverTable
+        } else {
+          table = this.$store.state.Stat.compareTable
+        }
+        const option = chartData(table, this.flag, this.flagTd, this.$store.state.Stat.tableType)
         switch (type) {
           case '柱状图':
             chartBar(id, option)
@@ -124,7 +132,7 @@
         }
         const idRight = 'chartRight'
         const typeRight = this.$store.state.Stat.chartRight
-        const optionRight = chartData(table, this.flag, this.flagTd)
+        const optionRight = chartData(table, this.flag, this.flagTd, this.$store.state.Stat.tableType)
         switch (typeRight) {
           case '柱状图':
             chartBar(idRight, optionRight)

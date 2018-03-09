@@ -121,8 +121,8 @@ export default function appInit() {
       f.push(line)
     })
   } else {
-    const data = '服务器名称,IP地址,PORT端口,连接设置\n本地测试服务器,127.0.0.1,4096,'
-    global.hitbdata.blockchain = { 本地测试服务器: ['127.0.0.1', '4096', ''] }
+    const data = '服务器名称,IP地址,PORT端口,连接设置\n远程测试服务器,www.jiankanglaifu.com,4096,'
+    global.hitbdata.blockchain = { 远程测试服务器: ['www.jiankanglaifu.com', '4096', ''] }
     fs.writeFile(blockFile, data, (err) => {
       console.log(err)
     })
