@@ -15,6 +15,7 @@ const state = {
   field: '',
   fieldIndex: null,
   tableHeader: [],
+  fileIndex: null,
 };
 
 const mutations = {
@@ -104,6 +105,9 @@ const mutations = {
   LIBRARY_GET_FIELD_INDEX(state, index) {
     state.fieldIndex = index;
   },
+  LIBRARY_SET_FILE_INDEX(state, index) {
+    state.fileIndex = index;
+  },
 };
 
 const actions = {
@@ -116,6 +120,7 @@ const actions = {
     commit('LIBRARY_SET_DIMENSION');
     commit('LIBRARY_GET_FIELD');
     commit('LIBRARY_GET_FIELD_INDEX');
+    commit('LIBRARY_SET_FILE_INDEX');
   },
 };
 

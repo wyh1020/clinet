@@ -30,6 +30,7 @@
       loadFile: function (data, index) {
         this.flag = index;
         this.$store.commit('LIBRARY_TABLE_PAGE', [0, true]);
+        this.$store.commit('LIBRARY_SET_FILE_INDEX', index);
         loadFile(this, data, 'library')
       },
     },
