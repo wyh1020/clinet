@@ -20,14 +20,33 @@ export default function getStatFiles(obj, data) {
 }
 
 export function getStat(obj, data) {
-  const file = data[2].split('_')
-  let pageType = data[2]
+  // console.log(data[2]);
+  let file = data[2]
+  // 去除文件名中的.csv
+  file = data[2].split('.csv')[0]
+  // 切分查看是否有总数.平均.占比等工具查询
+  let pageType = file
+  file = file.split('_')
+  let toolType = ''
   if (['总数', '平均', '占比'].includes(file[file.length - 1])) {
     pageType = ''
+    switch (file[file.length - 1]) {
+      case '总数':
+        toolType = 'total'
+        break;
+      case '平均':
+        toolType = 'avg'
+        break;
+      case '占比':
+        toolType = 'rate'
+        break;
+      default:
+        toolType = ''
+    }
   }
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/stat/stat_client?page_type=${pageType}&rows=20`,
+    url: `http://${data[0]}:${data[1]}/stat/stat_client?page_type=${pageType}&tool_type=${toolType}&rows=20`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {

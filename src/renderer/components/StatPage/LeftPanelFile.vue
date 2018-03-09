@@ -35,7 +35,8 @@
           if (this.$store.state.System.server === '') {
             const key = Object.keys(global.hitbdata.server)
             const server = global.hitbdata.server[key][0];
-            getStat(this, [server[0], server[1], data])
+            console.log(server);
+            getStat(this, ['www.jiankanglaifu.com', '80', data])
           } else {
             getStat(this, [this.$store.state.System.server, this.$store.state.System.port])
           }

@@ -94,8 +94,9 @@
       serverData: function () {
         if (this.$store.state.System.server === '') {
           const key = Object.keys(global.hitbdata.server)
-          const server = global.hitbdata.server[key][0];
-          getStatFiles(this, [server[0], server[1]])
+          const server = global.hitbdata.server[key];
+          console.log(server);
+          getStatFiles(this, ['www.jiankanglaifu.com', '80'])
         } else {
           getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port])
         }
