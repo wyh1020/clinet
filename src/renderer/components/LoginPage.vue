@@ -108,11 +108,14 @@
               } else {
                 console.log('登录失败');
               }
-            } else if (name.length === 16) {
-              console.log('区块链登录');
-              const server = global.hitbdata.server['远程测试服务器'][0];
-              console.log(server);
+            } else if (Array.from(name.split(' ')).length === 12) {
+              const key = Object.keys(global.hitbdata.blockchain)[0]
+              const server = global.hitbdata.blockchain[key][0];
+              this.$store.commit('BLOCK_SET_SERVER', server)
               open(this, [server[0], server[1], name]);
+              this.$store.commit('SET_NAVBAR', 'home');
+              this.$store.commit('HAS_DATA');
+              this.$router.push('/home');
             } else {
               console.log('登录失败');
             }

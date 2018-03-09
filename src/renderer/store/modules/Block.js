@@ -16,11 +16,12 @@ const state = {
   port: '',
   peers: [],
   funs: [],
-  account: null,
+  account: { address: '' },
   myTrans: [],
   myTransUn: [],
   trans: [],
-  transUn: []
+  transUn: [],
+  blockInfo: {}
 };
 
 const mutations = {
@@ -29,6 +30,9 @@ const mutations = {
   },
   BLOCK_SET_PEERS(state, peers) {
     state.peers = peers;
+  },
+  BLOCK_GET_BLOCK_INFO(state, peers) {
+    state.blockInfo = peers;
   },
   BLOCK_SET_FUNS(state, funs) {
     state.funs = funs;

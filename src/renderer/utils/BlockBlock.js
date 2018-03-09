@@ -6,11 +6,12 @@ const axios = require('axios');
 
 // 获取区块数据
 export function blocks(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/api/blocks?limit=2&offset=0&orderBy=height:desc`)
+  axios.get(`http://${data[0]}:${data[1]}/api/blocks?limit=10&offset=0&orderBy=height:desc`)
     .then((res) => {
       console.log(res)
       if (res.status === 200) {
-      // obj.$store.commit('BLOCK_SET_PEERS', res.data.peers)
+        console.log(res.data);
+        obj.$store.commit('BLOCK_SET_PEERS', res.data.blocks)
       }
     })
     .catch((err) => {
@@ -20,10 +21,11 @@ export function blocks(obj, data) {
 
 // 获取指定区块的详情
 export function getBlock(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/api/blocks/get?id=6076474715648888747`)
+  axios.get(`http://${data[0]}:${data[1]}/api/blocks/get?id=12936058387774240556`)
     .then((res) => {
       console.log(res)
       if (res.status === 200) {
+        console.log(res.data);
         // obj.$store.commit('BLOCK_SET_PEERS', res.data.peers)
       }
     })

@@ -1,4 +1,4 @@
-// const AschJS = require('asch-js');
+const AschJS = require('asch-js');
 const axios = require('axios');
 
 // const targetAddress = '16358246403719868041';
@@ -19,22 +19,45 @@ const axios = require('axios');
 // key为magic，testnet value:594fe0f3, mainnet value:5f5b3cf5
 // key为version，value为''
 
-// export function transactions1(obj, data) {
-//   Request
-//     .post(`${data[0]}:${data[1]}/peer/transactions`)
-//     .send({ transaction: trans })
-//     .set('Content-Type', 'application/json')
-//     .set('magic', '594fe0f3')
-//     .set('version', '')
-//     .end((err, res) => {
-//       console.log('转账交易')
-//       if (err) {
-//         console.log(err)
-//       } else {
-//         console.log(res.body)
-//       }
-//     })
-// }
+export function transactions1(obj, data) {
+  console.log(data);
+  const targetAddress = data[2].targetAddress;
+  const amount = data[2].amount; // 100 XAS
+  const message = data[2].message;
+  const secret = global.hitbdata.blockchain_user;
+  const secondSecret = data[2].secondPassword;
+  const transaction = AschJS.transaction.createTransaction(targetAddress, amount, message, secret, secondSecret || undefined);
+  console.log(transaction);
+  axios({
+    method: 'post',
+    url: `http://${data[0]}:${data[1]}/peer/transactions`,
+    data: { transaction: transaction },
+    headers: { magic: '594fe0f3', version: '' },
+    responseType: 'json'
+  }).then((res) => {
+    console.log(res)
+    if (res.status === 200) {
+      // obj.$store.commit('BLOCK_SET_TRANS', res.data)
+    }
+  })
+    .catch((err) => {
+      console.log(err);
+    });
+  // Request
+  //   .post(`${data[0]}:${data[1]}/peer/transactions`)
+  //   .send({ transaction: trans })
+  //   .set('Content-Type', 'application/json')
+  //   .set('magic', '594fe0f3')
+  //   .set('version', '')
+  //   .end((err, res) => {
+  //     console.log('转账交易')
+  //     if (err) {
+  //       console.log(err)
+  //     } else {
+  //       console.log(res.body)
+  //     }
+  //   })
+}
 
 // export function transactions2(obj, data) {
 //   Request
@@ -54,7 +77,8 @@ const axios = require('axios');
 // }
 // 获取交易信息
 export function getTransactions(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/api/transactions?limit=2`)
+  console.log(data);
+  axios.get(`http://${data[0]}:${data[1]}/api/transactions?limit=10`)
     .then((res) => {
       console.log(res)
       if (res.status === 200) {

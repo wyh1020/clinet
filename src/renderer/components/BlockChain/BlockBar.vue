@@ -24,6 +24,7 @@
 </template>
 
 <script>
+  import { blocks } from '../../utils/BlockBlock'
   export default {
     data() {
       return {
@@ -32,6 +33,9 @@
     },
     methods: {
       blockList: function () {
+        const ip = this.$store.state.Block.server
+        const port = this.$store.state.Block.port
+        blocks(this, [ip, port]);
         this.$store.commit('BLOCK_SET_TOOLBAR', 'blockList');
         this.$store.commit('SET_NOTICE', '区块列表');
       },

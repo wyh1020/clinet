@@ -60,10 +60,11 @@ const axios = require('axios');
 
 // 本地不加密直接登陆
 export function open(obj, data) {
-  console.log(`http://${data[0]}:${data[1]}/asch/api/accounts/open/`)
+  console.log(data);
+  // console.log(`http://${data[0]}:${data[1]}/asch/api/accounts/open/`)
   axios({
     method: 'post',
-    url: `http://${data[0]}:${data[1]}/asch/api/accounts/open/`,
+    url: `http://${data[0]}:${data[1]}/api/accounts/open/`,
     data: { secret: data[2] },
     headers: { 'Content-Type': 'application/json' },
     responseType: 'json'
