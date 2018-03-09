@@ -57,9 +57,14 @@
     margin: 0;
     padding: 0;
   }
-  .breadcrumb > li + li:before {
+  .breadcrumb > li + li:after {
     color: #CCCCCC;
     content: "，";
+    padding: 0 5px;
+  }
+  .breadcrumb > li + li:before {
+    color: #CCCCCC;
+    content: "  ";
     padding: 0 5px;
   }
 </style>
