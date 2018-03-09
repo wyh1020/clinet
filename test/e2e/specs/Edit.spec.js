@@ -63,7 +63,7 @@ describe('Edit', function () {
     // 2.10、点击右侧工具栏 本地按钮 edit-rightbar-local 右侧出现当前本地文件
       .click('#edit-rightbar-local')
       .waitUntilTextExists('#edit-rightpanellocal-title', '用户本地文件')
-      .getText('.edit-rightpanellocal-tr')
+      // .getText('.edit-rightpanellocal-tr')
       .getText('#edit-rightpanellocal-table')
       .then(function (editText) {
         expect(editText).to.not.equal('');
@@ -75,13 +75,14 @@ describe('Edit', function () {
       })
     // ++++++++++++++++++点击用户本地文件单行+++++++++++++++++++++++++++++
     // 2.10.1 选择本地文件 点击单行,左侧出现该文件中的病历
-      // .click('#edit-rightpanellocal-table')
+      .click('#edit-rightpanellocal-table')
       // .getText('.edit-leftpaneltable-tr')
-      // .getText('#edit-leftpaneltable-table')
-      // // .waitUntilWindowLoaded(1000)
-      // .then(function (editText) {
-      //   expect(editText).to.not.equal('');
-      // })
+      .getText('#edit-leftpaneltable-table')
+      // .waitUntilWindowLoaded(1000)
+      .then(function (editText) {
+        console.log(editText);
+        expect(editText).to.not.equal('');
+      })
     // ++++++++++++++++++点击用户本地文件单行---不点击选择编辑条目单行+++++++++++++++++++++++++++++
     // 2.10.1.1 点击左侧工具栏 保存按钮 对该病历进行保存
     // 2.10.1.2 点击左侧工具栏 另存按钮 对该病历进行另存
