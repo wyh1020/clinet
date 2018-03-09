@@ -23,7 +23,7 @@
     <div v-if="toolbar == 'account'">
       {{account.balance}}
     </div>
-    <div v-if="toolbar == 'transRecord'">
+    <div v-if="toolbar == 'transRecord'" id="block-user-transRecord">
       trans
       {{trans}}
     </div>
