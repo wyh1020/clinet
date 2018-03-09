@@ -29,7 +29,7 @@
         <td v-for="(data, index) in line" v-bind:key='index'>{{line[index]}}</td>
       </tr>
     </table>
-    <div v-if="toolbar == 'blockChainInfo'">
+    <div v-if="toolbar == 'blockChainInfo'" id="block-server-introduce">
       <p>
         区块链在数据保护上具有4大特点：
         <ul>
