@@ -105,7 +105,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(value, index) in this.$store.state.System.wt4Comp"  v-bind:key="index">
+          <tr v-for="(value, index) in this.$store.state.System.wt4Comp"  v-bind:key="index" v-on:click="drgRule(value[0].drg)">
             <td>{{value[0].B_WT4_V1_ID}}</td>
             <td>{{value[0].drg}}</td>
             <td>{{value[0].log}}</td>
@@ -114,12 +114,17 @@
         </tbody>
       </table>
     </div>
+    <div v-if="this.$store.state.System.toolbar === 'drgRule'">
+      <drg-rule></drg-rule>
+    </div>
   </div>
 </template>
 
 <script>
-  import { sGetWt4 } from '../../utils/Server'
+  import DrgRule from './RightPanelDrg/DrgRule';
+  import { sGetWt4, sGetCompRule } from '../../utils/Server'
   export default {
+    components: { DrgRule },
     data() {
       return {
         flag: [],
@@ -173,6 +178,10 @@
           this.localHightLight = [...this.localHightLight, value]
         }
         this.$store.commit('SYSTEM_GET_WT4_LOCAL_ROW', value);
+      },
+      drgRule: function (value) {
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgRule');
+        sGetCompRule(this, [this.$store.state.System.server, this.$store.state.System.port, 'drg', { code: value }])
       }
     },
   };

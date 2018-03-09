@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import { sGetWt4, sCompDrg } from '../../utils/Server'
+  import { sGetWt4, sCompDrg, sGetCompRule } from '../../utils/Server'
   export default {
     data() {
       return {
@@ -73,6 +73,7 @@
       },
       drgRule: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgRule');
+        sGetCompRule(this, [this.$store.state.System.server, this.$store.state.System.port, 'mdc', {}])
       },
     },
   };
