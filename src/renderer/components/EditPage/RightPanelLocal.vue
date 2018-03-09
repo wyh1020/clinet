@@ -48,7 +48,9 @@
             default:
               break
           }
-          loadFile(this, x[this.$store.state.Edit.filesIndex], file, 'edit')
+          if (this.$store.state.Edit.filesIndex !== 0) {
+            loadFile(this, x[this.$store.state.Edit.filesIndex], file, 'edit')
+          }
           return x
         },
       },

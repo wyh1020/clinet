@@ -88,12 +88,21 @@
         const doc = this.$store.state.Edit.doc
         switch (n) {
           case 0:
-            this.$store.commit('EDIT_DELETE_DOC', fileIndex);
-            this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
-            this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
+            console.log(this.$store.state.Edit.fileIndex)
+            if (this.$store.state.Edit.fileIndex === null) {
+              this.$store.commit('SET_NOTICE', '请选择删除内容');
+            } else {
+              this.$store.commit('EDIT_DELETE_DOC', fileIndex);
+              this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
+              this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
+            }
             break;
           case 1:
-            this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
+            if (doc.toString() === '') {
+              this.$store.commit('SET_NOTICE', '保存内容不能为空');
+            } else {
+              this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
+            }
             break;
           case 2:
             this.$store.commit('EDIT_ADD_DOC', doc.toString());
