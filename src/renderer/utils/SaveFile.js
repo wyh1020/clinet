@@ -42,26 +42,27 @@ export default function saveFile(obj, x, p) {
       }
     })
   } else {
+    obj.$store.commit('SET_NOTICE', '请先打开一个本地或者远程的CDA文件！');
     // console.log(x)
-    const fileName = path.format({
-      dir: dir,
-      base: `${x}.cda`
-    });
-    // console.log(fileName)
-    if (fs.existsSync(fileName)) {
-      console.log('今日的CDA文件已经存在！')
-      obj.$store.commit('SET_NOTICE', '今日的CDA文件已经存在！');
-      obj.$store.commit('EDIT_SET_FILES_INDEX', 0);
-    } else {
-      fs.writeFile(fileName, '', (err) => {
-        if (err) {
-          console.log(err)
-        } else {
-          obj.$store.commit('SET_NOTICE', '今日的CDA文件新建成功！');
-          obj.$store.commit('EDIT_LOAD_FILES');
-          obj.$store.commit('EDIT_SET_FILES_INDEX', 0);
-        }
-      })
-    }
+    // const fileName = path.format({
+    //   dir: dir,
+    //   base: `${x}.cda`
+    // });
+    // // console.log(fileName)
+    // if (fs.existsSync(fileName)) {
+    //   console.log('今日的CDA文件已经存在！')
+    //   obj.$store.commit('SET_NOTICE', '今日的CDA文件已经存在！');
+    //   obj.$store.commit('EDIT_SET_FILES_INDEX', 0);
+    // } else {
+    //   fs.writeFile(fileName, '', (err) => {
+    //     if (err) {
+    //       console.log(err)
+    //     } else {
+    //       obj.$store.commit('SET_NOTICE', '今日的CDA文件新建成功！');
+    //       obj.$store.commit('EDIT_LOAD_FILES');
+    //       obj.$store.commit('EDIT_SET_FILES_INDEX', 0);
+    //     }
+    //   })
+    // }
   }
 }

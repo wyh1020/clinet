@@ -184,6 +184,32 @@ export default function appInit() {
       });
   }
 
+  // 读取提示的cdh文件
+  const editFile = path.format({
+    dir: hitbdataSystem,
+    base: 'hitb_edit.cdh'
+  });
+  if (fs.existsSync(editFile)) {
+    fs.lstat(editFile, (err) => {
+      if (!err) {
+        const fRead = fs.createReadStream(editFile);
+        const fReadline = readline.createInterface({ input: fRead });
+        const f = [];
+        fReadline.on('close', () => {
+          const obj = {}
+          f.forEach((x) => {
+            const s = x.split(' ').filter(i => i !== '');
+            const k = s.shift()
+            obj[k] = s
+          })
+          global.hitbdata.cdh = obj
+        });
+        fReadline.on('line', (line) => {
+          f.push(line)
+        })
+      }
+    })
+  }
   // 术语字典文件
   const mdcFile = path.format({
     dir: hitbdataLibrary,
@@ -260,6 +286,36 @@ export default function appInit() {
         console.log(error);
       });
   }
+  const orgFile2 = path.format({
+    dir: hitbdataLibrary,
+    base: 'test_org.csv'
+  });
+  if (!fs.existsSync(orgFile2)) {
+    axios.get('/static/test_org.csv')
+      .then((res) => {
+        fs.writeFile(orgFile2, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  const deptFile2 = path.format({
+    dir: hitbdataLibrary,
+    base: 'test_department.csv'
+  });
+  if (!fs.existsSync(deptFile2)) {
+    axios.get('/static/test_department.csv')
+      .then((res) => {
+        fs.writeFile(deptFile2, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   // stat分析文件
   const statFile1 = path.format({
     dir: hitbdataStat,
@@ -291,6 +347,37 @@ export default function appInit() {
         console.log(error);
       });
   }
+  const wt4File3 = path.format({
+    dir: hitbdataStat,
+    base: 'test_wt4_2015年1月.csv'
+  });
+  if (!fs.existsSync(wt4File3)) {
+    axios.get('/static/test_wt4_2015年1月.csv')
+      .then((res) => {
+        fs.writeFile(wt4File3, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  const wt4File4 = path.format({
+    dir: hitbdataStat,
+    base: 'test_wt4_2015年2月.csv'
+  });
+  if (!fs.existsSync(wt4File4)) {
+    axios.get('/static/test_wt4_2015年2月.csv')
+      .then((res) => {
+        fs.writeFile(wt4File4, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   // 用户导入文件
   const orgFile1 = path.format({
     dir: hitbdata,
@@ -353,90 +440,9 @@ export default function appInit() {
       });
   }
   // 用户本地文件
-  const orgFile2 = path.format({
+  const cdaFile = path.format({
     dir: hitbdataUser,
-    base: 'test_org.csv'
+    base: '2018年度病案.cda'
   });
-  if (!fs.existsSync(orgFile2)) {
-    axios.get('/static/test_org.csv')
-      .then((res) => {
-        fs.writeFile(orgFile2, res.data, (err) => {
-          console.log(err)
-        })
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-  const deptFile2 = path.format({
-    dir: hitbdataUser,
-    base: 'test_department.csv'
-  });
-  if (!fs.existsSync(deptFile2)) {
-    axios.get('/static/test_department.csv')
-      .then((res) => {
-        fs.writeFile(deptFile2, res.data, (err) => {
-          console.log(err)
-        })
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-  const wt4File3 = path.format({
-    dir: hitbdataUser,
-    base: 'test_wt4_2015年1月.csv'
-  });
-  if (!fs.existsSync(wt4File3)) {
-    axios.get('/static/test_wt4_2015年1月.csv')
-      .then((res) => {
-        fs.writeFile(wt4File3, res.data, (err) => {
-          console.log(err)
-        })
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-  const wt4File4 = path.format({
-    dir: hitbdataUser,
-    base: 'test_wt4_2015年2月.csv'
-  });
-  if (!fs.existsSync(wt4File4)) {
-    axios.get('/static/test_wt4_2015年2月.csv')
-      .then((res) => {
-        fs.writeFile(wt4File4, res.data, (err) => {
-          console.log(err)
-        })
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-  // 读取提示的cdh文件
-  const editFile = path.format({
-    dir: hitbdataSystem,
-    base: 'hitb_edit.cdh'
-  });
-  if (fs.existsSync(editFile)) {
-    fs.lstat(editFile, (err) => {
-      if (!err) {
-        const fRead = fs.createReadStream(editFile);
-        const fReadline = readline.createInterface({ input: fRead });
-        const f = [];
-        fReadline.on('close', () => {
-          const obj = {}
-          f.forEach((x) => {
-            const s = x.split(' ').filter(i => i !== '');
-            const k = s.shift()
-            obj[k] = s
-          })
-          global.hitbdata.cdh = obj
-        });
-        fReadline.on('line', (line) => {
-          f.push(line)
-        })
-      }
-    })
-  }
+  if (!fs.existsSync(cdaFile)) { fs.writeFileSync(cdaFile, '') }
 }

@@ -114,9 +114,9 @@
           } else {
             this.$store.commit('SET_NOTICE', '未注册用户登陆！');
           }
-          this.$store.commit('SET_NAVBAR', 'home');
+          this.$store.commit('SET_NAVBAR', 'edit');
           this.$store.commit('HAS_DATA');
-          this.$router.push('/home');
+          this.$router.push('/edit');
         } else {
           this.hasData = true;
           this.$store.commit('SET_NOTICE', '初次启动，读取系统初始化文件，请先关闭系统，再打开！')

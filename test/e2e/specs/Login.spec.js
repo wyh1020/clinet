@@ -9,7 +9,7 @@ describe('Login', function () {
     // 点击login页面的login-button
     return this.app.client.click('#login')
     // 等待底部通知框出现'未注册用户登陆！'提示，登陆成功
-      .waitUntilTextExists('#notice-bar', '未注册用户登陆！')
+      .waitUntilTextExists('#edit-bar-prompt', '未注册用户登陆！')
   })
   // 服务器注册用户登陆
 

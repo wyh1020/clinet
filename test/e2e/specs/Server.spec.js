@@ -9,7 +9,7 @@ describe('Server', function () {
     // 1、点击login页面的login-button
     return this.app.client.click('#login')
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
-      .waitUntilTextExists('#notice-bar', '未注册用户登陆！')
+      .waitUntilTextExists('#edit-bar-prompt', '未注册用户登陆！')
     // 2.1、本地文件导入
       .click('#navbar-system')
       .click('#navbar-system-local')
