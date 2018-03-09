@@ -17,6 +17,7 @@ function editDoc(x) {
     }
   }
   x.forEach((x) => {
+    // console.log(x[0])
     switch (x[0]) {
       case '个人信息':
         funx(obj, x)
@@ -24,7 +25,40 @@ function editDoc(x) {
       case '主诉':
         funx(obj, x)
         break
+      case '病史':
+        funx(obj, x)
+        break
+      case '现病史':
+        funx(obj, x)
+        break
+      case '既往史':
+        funx(obj, x)
+        break
+      case '家族史':
+        funx(obj, x)
+        break
+      case '个人史':
+        funx(obj, x)
+        break
+      case '月经史':
+        funx(obj, x)
+        break
+      case '婚育史':
+        funx(obj, x)
+        break
+      case '家庭史':
+        funx(obj, x)
+        break
+      case '遗传史':
+        funx(obj, x)
+        break
       case '体格检查':
+        funx(obj, x)
+        break
+      case '医嘱':
+        funx(obj, x)
+        break
+      case '签名':
         funx(obj, x)
         break
       default:

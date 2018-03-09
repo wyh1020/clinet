@@ -2,6 +2,7 @@
   <div id="edit-rightpanel">
     <right-bar></right-bar>
     <right-panel-local v-if="rightPanel == 'local'"></right-panel-local>
+    <right-panel-local v-if="rightPanel == 'server'"></right-panel-local>
     <right-panel-help v-if="rightPanel == 'help'"></right-panel-help>
     <left-panel-table v-if="rightPanel == 'left'"></left-panel-table>
   </div>

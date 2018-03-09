@@ -19,12 +19,16 @@
       title: {
         get() {
           let x = '用户本地文件'
+          if (this.$store.state.Edit.rightPanel === 'server') { x = '用户远程文件' }
           switch (this.$store.state.Edit.lastNav) {
             case '/stat':
               x = '数据分析文件'
               break;
             case '/library':
               x = '术语字典文件'
+              break;
+            case '/system':
+              x = '本地导入文件'
               break;
             default:
               break

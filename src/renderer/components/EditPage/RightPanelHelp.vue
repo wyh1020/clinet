@@ -1,6 +1,6 @@
 <template>
   <div id="edit-rightpanelhelp">
-    <table>
+    <table v-if="type === '编辑器使用帮助'">
       <tr>
         <th class="table-danger"> 编辑器使用帮助</th>
       </tr>
@@ -103,6 +103,21 @@
         </td>
       </tr>
     </table>
+    <table v-if="type === '输入框提示'">
+      <tr>
+        <th class="table-danger"> 输入框提示</th>
+      </tr>
+    </table>
+    <table v-if="type === '病案历史'">
+      <tr>
+        <th class="table-danger"> 病案历史</th>
+      </tr>
+    </table>
+    <table v-if="type === '病案参考'">
+      <tr>
+        <th class="table-danger"> 病案参考</th>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -110,6 +125,11 @@
   export default {
     components: { },
     computed: {
+      type: {
+        get() {
+          return this.$store.state.Edit.helpType
+        }
+      }
     },
     methods: {
     },

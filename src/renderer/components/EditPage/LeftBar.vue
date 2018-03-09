@@ -14,20 +14,20 @@
             选择
           </a>
           <div class="dropdown-menu" aria-labelledby="edit-leftbar-choice">
-            <a class="dropdown-item" href="#" v-on:click="newDoc" id="edit-leftbar-wt4">病案首页（卫统四CSV）</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc('病案首页（卫统四CSV）')" id="edit-leftbar-wt4">病案首页（卫统四CSV）</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="newDoc" id="eidt-leftbar-admissionApplication">入院申请</a>
-            <a class="dropdown-item" href="#" v-on:click="newDoc" id="eidt-leftbar-firstDisease">首次病程</a>
-            <a class="dropdown-item" href="#" v-on:click="newDoc" id="eidt-leftbar-diseaseRecord">病程记录</a>
-            <a class="dropdown-item" href="#" v-on:click="newDoc" id="eidt-leftbar-medicalHome">病案首页</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc('入院申请')" id="eidt-leftbar-admissionApplication">入院申请</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc('首次病程')" id="eidt-leftbar-firstDisease">首次病程</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc('病程记录')" id="eidt-leftbar-diseaseRecord">病程记录</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc('病案首页')" id="eidt-leftbar-medicalHome">病案首页</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="newDoc" id="eidt-leftbar-outpatientMedical">门诊病案</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc('门诊病案')" id="eidt-leftbar-outpatientMedical">门诊病案</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="newDoc" id="eidt-leftbar-healthExamination">健康体检</a>
+            <a class="dropdown-item" href="#" v-on:click="newDoc('健康体检')" id="eidt-leftbar-healthExamination">健康体检</a>
             <div class="dropdown-divider"></div>
           </div>
         </li>
-        <li class="nav-item" id="edit-leftbar-newdoc" v-on:click="newDoc">
+        <li class="nav-item" id="edit-leftbar-newdoc" v-on:click="newDoc(null)">
           <a class="nav-link text-light" href="#">新建</a>
         </li>
         <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save(1)">
@@ -70,11 +70,12 @@
         this.$router.push(this.$store.state.Edit.lastNav);
         this.$store.commit('EDIT_SET_LAST_NAV', '/edit');
       },
-      newDoc: function () {
+      newDoc: function (n) {
         this.$store.commit('EDIT_SET_DOC')
         this.$store.commit('EDIT_SET_DOC_INDEX', [0, true])
         this.$store.commit('EDIT_SET_FILE_INDEX', this.$store.state.Edit.file.length)
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
+        if (n) { this.$store.commit('SET_NOTICE', n); }
         document.getElementById('edit-editbar-input').focus()
       },
       page: function (n) {
@@ -87,7 +88,9 @@
       },
       save: function (n) {
         const fileIndex = this.$store.state.Edit.fileIndex
-        const doc = this.$store.state.Edit.doc
+        let doc = this.$store.state.Edit.doc
+        // console.log(doc)
+        doc = doc.map(x => x.join(' '))
         switch (n) {
           case 0:
             console.log(this.$store.state.Edit.fileIndex)

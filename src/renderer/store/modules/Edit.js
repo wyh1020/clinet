@@ -17,6 +17,7 @@ const state = {
   editBarValue: '',
   hintType: 'notice',
   hint: [],
+  helpType: '编辑器使用帮助'
 };
 
 const mutations = {
@@ -46,6 +47,7 @@ const mutations = {
     state.files.push(message);
   },
   EDIT_SAVE_DOC(state, m) {
+    // console.log(m[1])
     state.file.splice(m[0], 1, m[1]);
   },
   EDIT_SAVE_FILE(state, m) {
@@ -133,6 +135,9 @@ const mutations = {
   },
   EDIT_SET_HINT(state, value) {
     state.hint = value
+  },
+  EDIT_SET_HELP_TYPE(state, value) {
+    state.helpType = value
   }
 };
 
@@ -166,6 +171,7 @@ const actions = {
     commit('EDIT_CONCAT_BAR_VALUE');
     commit('EDIT_SET_HINT_TYPE');
     commit('EDIT_SET_HINT');
+    commit('EDIT_SET_HELP_TYPE');
   },
 };
 

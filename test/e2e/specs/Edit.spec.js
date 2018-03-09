@@ -5,7 +5,7 @@ describe('Edit', function () {
   afterEach(utils.afterEach);
 
   it('Edit-测试1', function () {
-    this.timeout(6000)
+    this.timeout(60000)
     // 1、点击login页面的login-button
     return this.app.client.click('#login')
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
