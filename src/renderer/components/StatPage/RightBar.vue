@@ -89,9 +89,11 @@
     methods: {
       loadData: function () {
         this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
+        this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
         this.$store.commit('STAT_LOAD_FILES');
       },
       serverData: function () {
+        this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
         if (this.$store.state.System.server === '') {
           const key = Object.keys(global.hitbdata.server)
           const server = global.hitbdata.server[key];
@@ -122,7 +124,7 @@
         } else {
           table = this.$store.state.Stat.compareTable
         }
-        const option = chartData(table, this.$store.state.Stat.selectedRow, this.$store.state.Stat.selectedCol, this.$store.state.Stat.tableType)
+        const option = chartData(table, this.$store.state.Stat.selectedRow, this.$store.state.Stat.selectedCol)
         if (id === 'chartRight') {
           this.$store.commit('STAT_SET_CHART_RIGHT', type);
           switch (type) {

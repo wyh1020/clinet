@@ -113,7 +113,7 @@
         } else {
           table = this.$store.state.Stat.compareTable
         }
-        const option = chartData(table, this.flag, this.flagTd, this.$store.state.Stat.tableType)
+        const option = chartData(table, this.flag, this.flagTd)
         switch (type) {
           case '柱状图':
             chartBar(id, option)
@@ -132,7 +132,7 @@
         }
         const idRight = 'chartRight'
         const typeRight = this.$store.state.Stat.chartRight
-        const optionRight = chartData(table, this.flag, this.flagTd, this.$store.state.Stat.tableType)
+        const optionRight = chartData(table, this.flag, this.flagTd)
         switch (typeRight) {
           case '柱状图':
             chartBar(idRight, optionRight)

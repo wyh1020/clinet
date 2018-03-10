@@ -1,10 +1,13 @@
 const echarts = require('echarts');
 export default function chartLine(id, opt = null) {
+  // console.log(opt[0]);
+  // asda
+  // sad
   if (opt) {
     // 取得表头并删除前两位
-    const th = opt[0]
+    const th = Object.keys(opt[0])
     let drg2 = false
-    if (th.indexOf('drg2') > 0) {
+    if (th.includes('drg2')) {
       th.splice(0, 3)
       drg2 = true
     } else {
@@ -15,33 +18,28 @@ export default function chartLine(id, opt = null) {
     const xAxis = { data: th, type: 'category' }
     // 取得要显示的列
     const stat = opt
-    stat.shift()
+    // stat.shift()
     const series = []
     const chartKeys = []
     stat.forEach((v) => {
       let name = ''
       if (drg2) {
-        name = `${v[0]} ${v[1]} ${v[2]}`
-        v.splice(0, 3)
+        name = `${v.org} ${v.time} ${v.drg2}`
       } else {
-        name = `${v[0]} ${v[1]}`
-        v.splice(0, 2)
+        name = `${v.org} ${v.time}`
       }
+      const data = []
+      th.forEach((y) => {
+        data.push(v[y])
+      })
       chartKeys.push(name)
-      series.push({ data: v, name: name, type: 'line' })
+      series.push({ data: data, name: name, type: 'line' })
     })
     // 显示图
     const myChart = echarts.init(document.getElementById(id));
     const option = {
       tooltip: { trigger: 'axis' },
       legend: { data: chartKeys },
-      // toolbox: {
-      //   show: true,
-      //   feature: {
-      //     magicType: { type: ['bar', 'line', 'stack', 'tiled'] },
-      //     saveAsImage: {}
-      //   }
-      // },
       calculable: true,
       xAxis: xAxis,
       yAxis: { type: 'value' },

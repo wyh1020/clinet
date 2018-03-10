@@ -1,10 +1,10 @@
 const echarts = require('echarts');
 export default function chartRadar(id, opt = []) {
   // 取得表头并删除前两位
-  const th = opt[0]
+  const th = Object.keys(opt[0])
   // 判断是否存在drg2字段
   let drg2 = false
-  if (th.indexOf('drg2') > 0) {
+  if (th.includes('drg2')) {
     th.splice(0, 3)
     drg2 = true
   } else {
@@ -16,32 +16,35 @@ export default function chartRadar(id, opt = []) {
   const indicator = []
   // 删除表头
   const stat = opt
-  stat.shift()
-  const max = stat[0]
+  // stat.shift()
   // 取得每个维度的最大值
-  th.forEach((v, i) => {
-    stat.forEach((v2) => {
-      if (v2[i] > max[i]) {
-        max[i] = v2[i]
+  const max = th.map(v => stat[0][v])
+  // 取得每个维度的最大值
+  stat.forEach((s) => {
+    th.forEach((v, i) => {
+      if (s[v] > max[i]) {
+        max[i] = s[v]
       }
     })
   })
   // 取得图设置的indicator字段
   max.forEach((v, i) => {
-    indicator.push({ max: v * 1.2, name: th[i] })
+    indicator.push({ max: v, name: th[i] })
   })
   // 生成图的其他字段
   stat.forEach((v) => {
     let name = ''
     if (drg2) {
-      name = `${v[0]} ${v[1]} ${v[2]}`
-      v.splice(0, 3)
+      name = `${v.org} ${v.time} ${v.drg2}`
     } else {
-      name = `${v[0]} ${v[1]}`
-      v.splice(0, 2)
+      name = `${v.org} ${v.time}`
     }
+    const value = []
+    th.forEach((y) => {
+      value.push(v[y])
+    })
     legendData.push(name)
-    data.push({ value: v, name: name })
+    data.push({ value: value, name: name })
   })
   // 基于准备好的dom，初始化echarts实例
   const myChart = echarts.init(document.getElementById(id));
