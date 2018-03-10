@@ -40,7 +40,7 @@
           <a class="nav-link text-light" href="#">删除</a>
         </li>
         <li class="nav-item" id="edit-leftbar-file" v-on:click="saveFile">
-          <a class="nav-link text-light" href="#">写文件</a>
+          <a class="nav-link text-light" href="#">写入文件</a>
         </li>
         <li class="nav-item active" id="edit-leftbar-uppage" v-on:click='page(-1)' v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
