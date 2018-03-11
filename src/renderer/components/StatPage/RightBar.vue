@@ -39,6 +39,7 @@
             <a id="stat-left-chart-discount" class="nav-link" href="#" v-on:click='showChart("chartLeft", "折线图")'> 折线图 <span class="sr-only">(current)</span></a>
             <a id="stat-left-chart-radar-map" class="nav-link" href="#" v-on:click='showChart("chartLeft", "雷达图")'> 雷达图 <span class="sr-only">(current)</span></a>
             <a id="stat-left-chart-scatter-plot" class="nav-link" href="#" v-on:click='showChart("chartLeft", "散点图")'> 散点图 <span class="sr-only">(current)</span></a>
+            <a id="stat-left-chart-pie-map" class="nav-link" href="#" v-on:click='showChart("chartLeft", "饼图")'> 饼图 <span class="sr-only">(current)</span></a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -50,6 +51,7 @@
             <a id="stat-right-chart-discount" class="nav-link" href="#" v-on:click='showChart("chartRight", "折线图")'> 折线图 <span class="sr-only">(current)</span></a>
             <a id="stat-right-chart-radar-map" class="nav-link" href="#" v-on:click='showChart("chartRight", "雷达图")'> 雷达图 <span class="sr-only">(current)</span></a>
             <a id="stat-right-chart-scatter-plot" class="nav-link" href="#" v-on:click='showChart("chartRight", "散点图")'> 散点图 <span class="sr-only">(current)</span></a>
+            <a id="stat-right-chart-pie-map" class="nav-link" href="#" v-on:click='showChart("chartRight", "饼图")'> 饼图 <span class="sr-only">(current)</span></a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -75,6 +77,7 @@
   import chartScatter from '../../utils/ChartScatter';
   import chartRadar from '../../utils/ChartRadar';
   import chartBar from '../../utils/ChartBar';
+  import chartPie from '../../utils/ChartPie';
   import addContrast from '../../utils/StatContrast';
   import chartData from '../../utils/ChartData';
   import saveFile from '../../utils/SaveFile';
@@ -135,10 +138,13 @@
               chartLine(id, option)
               break;
             case '雷达图':
-              chartRadar(id)
+              chartRadar(id, option)
               break;
             case '散点图':
-              chartScatter(id)
+              chartScatter(id, option)
+              break;
+            case '饼图':
+              chartPie(id, option)
               break;
             default: break;
           }
@@ -152,10 +158,13 @@
               chartLine(id, option)
               break;
             case '雷达图':
-              chartRadar(id)
+              chartRadar(id, option)
               break;
             case '散点图':
-              chartScatter(id)
+              chartScatter(id, option)
+              break;
+            case '饼图':
+              chartPie(id, option)
               break;
             default: break;
           }

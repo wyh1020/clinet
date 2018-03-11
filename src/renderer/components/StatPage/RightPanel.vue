@@ -34,6 +34,7 @@
   import chartScatter from '../../utils/ChartScatter';
   import chartRadar from '../../utils/ChartRadar';
   import chartBar from '../../utils/ChartBar';
+  import chartPie from '../../utils/ChartPie';
   import RightBar from './RightBar';
   import LeftPanel from './LeftPanel';
   export default {
@@ -128,6 +129,9 @@
           case '散点图':
             chartScatter(id, option)
             break;
+          case '饼图':
+            chartPie(id, option)
+            break;
           default: break;
         }
         const idRight = 'chartRight'
@@ -145,6 +149,9 @@
             break;
           case '散点图':
             chartScatter(idRight, optionRight)
+            break;
+          case '饼图':
+            chartPie(idRight, optionRight)
             break;
           default: break;
         }
