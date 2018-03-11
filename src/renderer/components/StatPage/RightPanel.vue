@@ -126,7 +126,7 @@
             chartRadar(id, option)
             break;
           case '散点图':
-            chartScatter(id)
+            chartScatter(id, option)
             break;
           default: break;
         }
@@ -144,7 +144,7 @@
             chartRadar(idRight, optionRight)
             break;
           case '散点图':
-            chartScatter(idRight)
+            chartScatter(idRight, optionRight)
             break;
           default: break;
         }

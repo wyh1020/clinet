@@ -1,8 +1,5 @@
 const echarts = require('echarts');
 export default function chartLine(id, opt = null) {
-  // console.log(opt[0]);
-  // asda
-  // sad
   if (opt) {
     // 取得表头并删除前两位
     const th = Object.keys(opt[0])
