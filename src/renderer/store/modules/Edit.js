@@ -113,6 +113,8 @@ const mutations = {
   EDIT_SET_HINT_PAGE(state, page) {
     if (page === 'up') {
       state.hintPage += 1
+    } else if (page === '0') {
+      state.hintPage = state.hintPage
     } else {
       state.hintPage -= 1
     }
@@ -120,9 +122,11 @@ const mutations = {
   EDIT_CONCAT_BAR_VALUE(state, value) {
     const v = state.editBarValue.split(' ')
     if (state.editBarValue[state.editBarValue.length - 1] === ' ') {
-      v.push(value)
-      state.editBarValue = v.join(' ')
-    } else {
+      if (value !== undefined) {
+        v.push(value)
+        state.editBarValue = v.join(' ')
+      }
+    } else if (value !== undefined) {
       v.splice(v.length - 1, 1, value)
       state.editBarValue = v.join(' ')
     }

@@ -10,8 +10,8 @@
       placeholder="请输入……" aria-label="Username" aria-describedby="basic-addon1" v-model="item"
       v-on:keyup.enter="enter" v-on:keyup.up="up" v-on:keyup.down="down" v-on:keyup.left="left"
       v-on:keyup.right="right" v-on:keyup.space="space" v-on:keyup.ctrl.left="itemUp"
-      v-on:keyup.ctrl.right="itemDown" v-on:keyup.ctrl.delete="del" v-on:keyup.ctrl.0="hintDown"
-      v-on:keyup.ctrl.110="hintUp" v-on:keyup.ctrl.97="hintSet(1)" v-on:keyup.ctrl.98="hintSet(2)"
+      v-on:keyup.ctrl.right="itemDown" v-on:keyup.ctrl.delete="del" v-on:keyup.ctrl.0="hintUp"
+      v-on:keyup.ctrl.110="hintDown" v-on:keyup.ctrl.97="hintSet(1)" v-on:keyup.ctrl.98="hintSet(2)"
       v-on:keyup.ctrl.99="hintSet(3)" v-on:keyup.ctrl.100="hintSet(4)" v-on:keyup.ctrl.101="hintSet(5)"
       v-on:keyup.ctrl.102="hintSet(6)" v-on:keyup.ctrl.103="hintSet(7)" v-on:keyup.ctrl.104="hintSet(8)"
       v-on:keyup.ctrl.105="hintSet(9)" v-on:input="change">
@@ -36,7 +36,7 @@
       hint: {
         get() {
           let content1 = []
-          if (this.$store.state.Edit.hintType === 'hint' && this.$store.state.Edit.hint && this.$store.state.Edit.hint.length > 1) {
+          if (this.$store.state.Edit.hintType === 'hint' && this.$store.state.Edit.hint && this.$store.state.Edit.hint.length >= 1) {
             const hintSkip = this.$store.state.Edit.hintPage
             const num = hintSkip * 9
             const hint = this.$store.state.Edit.hint.slice(num, num + 9)
@@ -126,29 +126,39 @@
         this.$store.commit('EDIT_SET_HINT_TYPE', 'hint');
         const value = this.$store.state.Edit.editBarValue
         if (value && value.indexOf(' ') > -1) {
-          const value1 = value.substring(0, value.length - 1)
+          const value1 = value.replace(/\s/ig, '')
           this.$store.commit('EDIT_SET_HINT', global.hitbdata.cdh[value1]);
         }
       },
       hintUp() {
-        const pageNum = Math.ceil(this.$store.state.Edit.hint.length / 9)
-        if (this.$store.state.Edit.hintPage < pageNum - 1) {
-          this.$store.commit('EDIT_SET_HINT_PAGE', 'up');
-        } else {
-          this.$store.commit('SET_NOTICE', '当前提示已为最后一页');
-          this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
-        }
-      },
-      hintDown() {
-        if (this.$store.state.Edit.hintPage > 0) {
+        this.$store.commit('EDIT_SET_HINT_TYPE', 'hint');
+        if (this.$store.state.Edit.hintPage > 0 && this.$store.state.Home.notice !== '当前提示已为最后一页') {
           this.$store.commit('EDIT_SET_HINT_PAGE', 'down');
+        } else if (this.$store.state.Home.notice === '当前提示已为最后一页') {
+          this.$store.commit('SET_NOTICE', '');
+          this.$store.commit('EDIT_SET_HINT_PAGE', '0');
         } else {
           this.$store.commit('SET_NOTICE', '当前提示已为第一页');
           this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
         }
       },
+      hintDown() {
+        this.$store.commit('EDIT_SET_HINT_TYPE', 'hint');
+        const pageNum = Math.ceil(this.$store.state.Edit.hint.length / 9)
+        if (this.$store.state.Edit.hintPage < pageNum - 1 && this.$store.state.Home.notice !== '当前提示已为第一页') {
+          this.$store.commit('EDIT_SET_HINT_PAGE', 'up');
+        } else if (this.$store.state.Home.notice === '当前提示已为第一页') {
+          this.$store.commit('SET_NOTICE', '');
+          this.$store.commit('EDIT_SET_HINT_PAGE', '0');
+        } else {
+          this.$store.commit('SET_NOTICE', '当前提示已为最后一页');
+          this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
+        }
+      },
       hintSet(num) {
-        this.$store.commit('EDIT_CONCAT_BAR_VALUE', this.$store.state.Edit.hint[num - 1]);
+        const index = (this.$store.state.Edit.hintPage + 1) * 9
+        const value = this.$store.state.Edit.hint.slice(index - 9, index)
+        this.$store.commit('EDIT_CONCAT_BAR_VALUE', value[num - 1]);
         this.item = this.$store.state.Edit.editBarValue;
       },
       change() {
