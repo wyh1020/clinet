@@ -5,7 +5,7 @@ export default function chartPie(id, opt = null) {
     // 取得表头并删除前两位
     const ths = Object.keys(opt[0])
     let drg2 = false
-    if (ths.includes('drg2')) {
+    if (ths.includes('drg2') || ths.includes('病种')) {
       ths.splice(0, 3)
       drg2 = true
     } else {
@@ -18,10 +18,14 @@ export default function chartPie(id, opt = null) {
     const data = []
     opt.forEach((v) => {
       let name = ''
-      if (drg2) {
+      if (th.includes('org') && th.includes('time') && drg2) {
         name = `${v.org} ${v.time} ${v.drg2}`
-      } else {
+      } else if (th.includes('机构') && th.includes('时间') && drg2) {
+        name = `${v.机构} ${v.时间} ${v.病种}`
+      } else if (th.includes('org') && th.includes('time')) {
         name = `${v.org} ${v.time}`
+      } else {
+        name = `${v.机构} ${v.时间}`
       }
       legend.push(name)
       data.push({ name: name, value: v[th] })

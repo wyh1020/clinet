@@ -1,7 +1,7 @@
 // (数据, 行集合)
 export default function chartData(table, xid = [], yid = []) {
   const xArr = []
-  let yArr = ['org', 'time']
+  let yArr = []
   const stat = []
   // 按照逗号切分并取得表头
   table = table.map((x) => {
@@ -15,6 +15,11 @@ export default function chartData(table, xid = [], yid = []) {
   })
   // 取得表头
   const th = table[0].filter(x => x !== 'stat_type')
+  if (th.includes('org') && th.includes('time')) {
+    yArr = ['org', 'time']
+  } else {
+    yArr = ['机构', '时间']
+  }
   const statObj = []
   // 转换为[obj, obj, ...]
   table.forEach((xs) => {

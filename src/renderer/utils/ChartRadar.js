@@ -4,7 +4,7 @@ export default function chartRadar(id, opt = []) {
   const th = Object.keys(opt[0])
   // 判断是否存在drg2字段
   let drg2 = false
-  if (th.includes('drg2')) {
+  if (th.includes('drg2') || th.includes('病种')) {
     th.splice(0, 3)
     drg2 = true
   } else {
@@ -34,10 +34,14 @@ export default function chartRadar(id, opt = []) {
   // 生成图的其他字段
   stat.forEach((v) => {
     let name = ''
-    if (drg2) {
+    if (th.includes('org') && th.includes('time') && drg2) {
       name = `${v.org} ${v.time} ${v.drg2}`
-    } else {
+    } else if (th.includes('机构') && th.includes('时间') && drg2) {
+      name = `${v.机构} ${v.时间} ${v.病种}`
+    } else if (th.includes('org') && th.includes('time')) {
       name = `${v.org} ${v.time}`
+    } else {
+      name = `${v.机构} ${v.时间}`
     }
     const value = []
     th.forEach((y) => {
