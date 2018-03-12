@@ -14,10 +14,7 @@ export default function chartData(table, xid = [], yid = []) {
     return y
   })
   // 取得表头
-  const th = table[0]
-  if (th.includes('stat_type')) {
-    th.splice(th.indexOf('stat_type'), 1)
-  }
+  const th = table[0].filter(x => x !== 'stat_type')
   const statObj = []
   // 转换为[obj, obj, ...]
   table.forEach((xs) => {
