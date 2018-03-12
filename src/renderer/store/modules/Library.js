@@ -15,7 +15,10 @@ const state = {
   field: '',
   fieldIndex: null,
   tableHeader: [],
+  serverTable: [],
   fileIndex: null,
+  tableType: 'local',
+  tableName: ''
 };
 
 const mutations = {
@@ -38,9 +41,8 @@ const mutations = {
       `版本维度总数：${state.dimensionVersion.length - 1}`,
     ]
   },
-  LIBRARY_SERVER_FILES() {
-    const files = []
-    state.files = files;
+  LIBRARY_SERVER_FILES(state, opt) {
+    state.files = opt.data;
   },
   LIBRARY_TABLE_PAGE(state, m) {
     if (m[1]) {
@@ -107,6 +109,15 @@ const mutations = {
   LIBRARY_SET_FILE_INDEX(state, index) {
     state.fileIndex = index;
   },
+  LIBRARY_SET_TABLE_TYPE(state, index) {
+    state.tableType = index;
+  },
+  LIBRARY_TABLE_NAME(state, index) {
+    state.tableName = index
+  },
+  LIBRARY_SET_SERVER_TABLE(state, data) {
+    state.serverTable = data
+  },
 };
 
 const actions = {
@@ -120,6 +131,8 @@ const actions = {
     commit('LIBRARY_GET_FIELD');
     commit('LIBRARY_GET_FIELD_INDEX');
     commit('LIBRARY_SET_FILE_INDEX');
+    commit('LIBRARY_SET_TABLE_TYPE');
+    commit('LIBRARY_TABLE_NAME');
   },
 };
 

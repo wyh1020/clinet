@@ -13,6 +13,7 @@
 
 <script>
   import loadFile from '../../utils/LoadFile';
+  import { getLibrary } from '../../utils/LibraryServerFile'
   export default {
     data() {
       return {
@@ -29,9 +30,21 @@
     methods: {
       loadFile: function (data, index) {
         this.flag = index;
-        this.$store.commit('LIBRARY_TABLE_PAGE', [0, true]);
+        // this.$store.commit('LIBRARY_TABLE_PAGE', [0, true]);
         this.$store.commit('LIBRARY_SET_FILE_INDEX', index);
-        loadFile(this, data, 'library')
+        if (this.$store.state.Library.tableType === 'server') {
+          if (this.$store.state.System.server === '') {
+            const key = Object.keys(global.hitbdata.server)
+            const server = global.hitbdata.server[key][0];
+            getLibrary(this, [server[0], server[1], data, 0])
+          } else {
+            getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, data, 0])
+          }
+          this.$store.commit('LIBRARY_TABLE_NAME', data);
+        } else {
+          loadFile(this, data, 'library')
+          this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'local');
+        }
       },
     },
   };

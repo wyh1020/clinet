@@ -51,13 +51,13 @@ export function getStat(obj, data) {
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
-      obj.$store.commit('SET_NOTICE', '读取远程文件成功')
+      obj.$store.commit('SET_NOTICE', `当前${pageNum}页`)
       obj.$store.commit('STAT_SET_SERVER_TABLE', res.data.stat)
     } else {
-      obj.$store.commit('STAT_SERVER_FILES', [])
+      obj.$store.commit('STAT_SET_SERVER_TABLE', [])
     }
   }).catch((err) => {
     console.log(err);
-    obj.$store.commit('STAT_SERVER_FILES', [])
+    obj.$store.commit('STAT_SET_SERVER_TABLE', [])
   })
 }

@@ -21,27 +21,41 @@
     computed: {
       xs: {
         get() {
-          const f = []
-          let start = 0
-          let fileLen = this.$store.state.Library.tableSel.length;
-          // console.log(fileLen)
-          if (fileLen > 99) {
-            if (this.$store.state.Library.tablePage > 0) {
-              start = 100 * this.$store.state.Library.tablePage
-              fileLen = start + 99
-            } else {
-              fileLen = 99
+          let table = []
+          switch (this.$store.state.Library.tableType) {
+            case 'local': {
+              const f = []
+              let start = 0
+              let fileLen = this.$store.state.Library.tableSel.length;
+              // console.log(fileLen)
+              if (fileLen > 99) {
+                if (this.$store.state.Library.tablePage > 0) {
+                  start = 100 * this.$store.state.Library.tablePage
+                  fileLen = start + 99
+                } else {
+                  fileLen = 99
+                }
+              }
+              if (fileLen > this.$store.state.Library.tableSel.length) {
+                fileLen = this.$store.state.Library.tableSel.length
+              }
+              for (let i = start; i < fileLen; i += 1) {
+                f.push(this.$store.state.Library.tableSel[i])
+              }
+              const a = this.$store.state.Library.tableHeader[0]
+              f.splice(0, 0, a)
+              table = f
+              break;
+            }
+            case 'server': {
+              table = this.$store.state.Library.serverTable
+              break;
+            }
+            default: {
+              break;
             }
           }
-          if (fileLen > this.$store.state.Library.tableSel.length) {
-            fileLen = this.$store.state.Library.tableSel.length
-          }
-          for (let i = start; i < fileLen; i += 1) {
-            f.push(this.$store.state.Library.tableSel[i])
-          }
-          const a = this.$store.state.Library.tableHeader[0]
-          f.splice(0, 0, a)
-          return f
+          return table
         }
       }
     },

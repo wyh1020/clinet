@@ -42,6 +42,7 @@
 </template>
 
 <script>
+  import { getLibraryFiles, getLibrary } from '../../utils/LibraryServerFile';
   export default {
     data() {
       return {
@@ -52,11 +53,20 @@
       loadData: function () {
         this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
         this.$store.commit('LIBRARY_LOAD_FILES');
+        this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'local');
         this.$store.commit('SET_NOTICE', '本地文件');
       },
       serverData: function () {
-        this.$store.commit('LIBRARY_SERVER_FILES');
+        // this.$store.commit('LIBRARY_SERVER_FILES');
         this.$store.commit('SET_NOTICE', '远程文件');
+        this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'server');
+        if (this.$store.state.System.server === '') {
+          const key = Object.keys(global.hitbdata.server)
+          const server = global.hitbdata.server[key][0];
+          getLibraryFiles(this, [server[0], server[1]])
+        } else {
+          getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port])
+        }
       },
       page: function (n) {
         this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
