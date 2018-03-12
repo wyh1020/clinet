@@ -66,12 +66,24 @@
           const server = global.hitbdata.server[key][0];
           getLibraryFiles(this, [server[0], server[1]])
         } else {
-          getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port])
+          getLibraryFiles(this, [this.$store.state.System.server, this.$store.state.System.port])
         }
       },
       page: function (n) {
-        this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
-        this.$store.commit('SET_NOTICE', '翻页');
+        if (this.$store.state.Library.tableType === 'server') {
+          if (this.$store.state.System.server === '') {
+            this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
+            const key = Object.keys(global.hitbdata.server)
+            const server = global.hitbdata.server[key][0];
+            getLibrary(this, [server[0], server[1], this.$store.state.Library.tableName, this.$store.state.Library.tablePage])
+          } else {
+            this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
+            getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.tableName, this.$store.state.Library.tablePage])
+          }
+        } else {
+          this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
+          this.$store.commit('SET_NOTICE', '翻页');
+        }
       },
       edit: function () {
         if (this.$store.state.Library.fileIndex !== null) {

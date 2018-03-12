@@ -51,10 +51,11 @@ const mutations = {
       state.tablePage += m[0];
     }
     if (state.tablePage < 0) { state.tablePage = 0 }
-    const maxPage = Math.floor(state.file.length / 100)
-    if (state.tablePage > maxPage) {
-      state.tablePage = maxPage
-    }
+    // const maxPage = Math.floor(state.file.length / 100)
+    // if (state.tablePage > maxPage) {
+    //   state.tablePage = maxPage
+    // }
+    // console.log(state.tablePage);
   },
   LIBRARY_SET_LEFT_PANEL(state, opt) {
     state.leftPanel = opt[0];
