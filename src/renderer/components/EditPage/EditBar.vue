@@ -36,7 +36,7 @@
       hint: {
         get() {
           let content1 = []
-          if (this.$store.state.Edit.hintType === 'hint' && this.$store.state.Edit.hint.length > 1) {
+          if (this.$store.state.Edit.hintType === 'hint' && this.$store.state.Edit.hint && this.$store.state.Edit.hint.length > 1) {
             const hintSkip = this.$store.state.Edit.hintPage
             const num = hintSkip * 9
             const hint = this.$store.state.Edit.hint.slice(num, num + 9)
@@ -125,8 +125,9 @@
       space() {
         this.$store.commit('EDIT_SET_HINT_TYPE', 'hint');
         const value = this.$store.state.Edit.editBarValue
-        if (value && value.indexOf(' ') === -1) {
-          this.$store.commit('EDIT_SET_HINT', global.hitbdata.cdh[value]);
+        if (value && value.indexOf(' ') > -1) {
+          const value1 = value.substring(0, value.length - 1)
+          this.$store.commit('EDIT_SET_HINT', global.hitbdata.cdh[value1]);
         }
       },
       hintUp() {
