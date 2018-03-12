@@ -35,11 +35,11 @@
           if (this.$store.state.System.server === '') {
             const key = Object.keys(global.hitbdata.server)
             const server = global.hitbdata.server[key][0];
-            console.log(server);
-            getStat(this, ['www.jiankanglaifu.com', '80', data])
+            getStat(this, [server[0], server[1], data, 0])
           } else {
-            getStat(this, [this.$store.state.System.server, this.$store.state.System.port])
+            getStat(this, [this.$store.state.System.server, this.$store.state.System.port, data, 0])
           }
+          this.$store.commit('STAT_TABLE_NAME', data);
         } else {
           loadFile(this, data, 'stat')
           this.$store.commit('STAT_SET_TABLE_TYPE', 'local');

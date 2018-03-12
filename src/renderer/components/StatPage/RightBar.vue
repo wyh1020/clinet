@@ -81,7 +81,7 @@
   import addContrast from '../../utils/StatContrast';
   import chartData from '../../utils/ChartData';
   import saveFile from '../../utils/SaveFile';
-  import getStatFiles from '../../utils/StatServerFile';
+  import { getStatFiles, getStat } from '../../utils/StatServerFile';
 
   export default {
     data() {
@@ -99,15 +99,25 @@
         this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
         if (this.$store.state.System.server === '') {
           const key = Object.keys(global.hitbdata.server)
-          const server = global.hitbdata.server[key];
-          console.log(server);
-          getStatFiles(this, ['www.jiankanglaifu.com', '80'])
+          const server = global.hitbdata.server[key][0];
+          getStatFiles(this, [server[0], server[1]])
         } else {
           getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port])
         }
       },
       page: function (n) {
-        this.$store.commit('STAT_TABLE_PAGE', n);
+        if (this.$store.state.Stat.tableType === 'server') {
+          if (this.$store.state.System.server === '') {
+            this.$store.commit('STAT_TABLE_PAGE', n);
+            const key = Object.keys(global.hitbdata.server)
+            const server = global.hitbdata.server[key][0];
+            getStat(this, [server[0], server[1], this.$store.state.Stat.tableName, this.$store.state.Stat.tablePage])
+          } else {
+            getStat(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Stat.tableName, this.$store.state.Stat.tablePage])
+          }
+        } else {
+          this.$store.commit('STAT_TABLE_PAGE', n);
+        }
       },
       edit: function () {
         this.$store.commit('EDIT_SET_LAST_NAV', '/stat');

@@ -33,6 +33,7 @@ const state = {
   chartRight: '柱状图',
   tableType: 'local',
   fileIndex: null,
+  tableName: ''
 };
 
 const mutations = {
@@ -184,6 +185,9 @@ const mutations = {
   },
   STAT_SET_FILE_INDEX(state, index) {
     state.fileIndex = index
+  },
+  STAT_TABLE_NAME(state, index) {
+    state.tableName = index
   }
 };
 

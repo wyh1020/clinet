@@ -1,6 +1,6 @@
 const axios = require('axios');
 // const qs = require('qs');
-export default function getStatFiles(obj, data) {
+export function getStatFiles(obj, data) {
   axios({
     method: 'get',
     url: `http://${data[0]}:${data[1]}/stat/stat_file/`,
@@ -20,7 +20,6 @@ export default function getStatFiles(obj, data) {
 }
 
 export function getStat(obj, data) {
-  // console.log(data[2]);
   let file = data[2]
   // 去除文件名中的.csv
   file = data[2].split('.csv')[0]
@@ -44,9 +43,10 @@ export function getStat(obj, data) {
         toolType = ''
     }
   }
+  const pageNum = data[3] + 1
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/stat/stat_client?page_type=${pageType}&tool_type=${toolType}&rows=20`,
+    url: `http://${data[0]}:${data[1]}/stat/stat_client?page=${pageNum}&page_type=${pageType}&tool_type=${toolType}&rows=20`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
