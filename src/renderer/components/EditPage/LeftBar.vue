@@ -79,7 +79,11 @@
         document.getElementById('edit-editbar-input').focus()
       },
       page: function (n) {
-        this.$store.commit('EDIT_SET_FILE_PAGE', n);
+        if (this.$store.state.Edit.filePage === 0 && n === -1) {
+          this.$store.commit('SET_NOTICE', '当前已是第一页')
+        } else {
+          this.$store.commit('EDIT_SET_FILE_PAGE', n);
+        }
       },
       saveFile: function () {
         const x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
@@ -97,6 +101,7 @@
             if (this.$store.state.Edit.fileIndex === null) {
               this.$store.commit('SET_NOTICE', '请选择删除内容');
             } else {
+              this.$store.commit('SET_NOTICE', '删除成功');
               this.$store.commit('EDIT_DELETE_DOC', fileIndex);
               this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
               this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
@@ -106,11 +111,13 @@
             if (doc.toString() === '') {
               this.$store.commit('SET_NOTICE', '保存内容不能为空');
             } else {
+              this.$store.commit('SET_NOTICE', '保存成功');
               this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
             }
             break;
           case 2:
             this.$store.commit('EDIT_ADD_DOC', doc.toString());
+            this.$store.commit('SET_NOTICE', '另存成功');
             break;
           default:
             break;

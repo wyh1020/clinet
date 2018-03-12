@@ -84,7 +84,13 @@
       },
       page: function (n) {
         if (this.$store.state.Edit.rightPanel === 'left') {
-          this.$store.commit('EDIT_SET_FILE_PAGE', n);
+          if (this.$store.state.Edit.filePage === 0 && n === -1) {
+            this.$store.commit('SET_NOTICE', '当前已是第一页')
+          } else {
+            this.$store.commit('EDIT_SET_FILE_PAGE', n);
+          }
+        } else if (this.$store.state.Edit.filesPage === 0 && n === -1) {
+          this.$store.commit('SET_NOTICE', '当前已是第一页')
         } else {
           this.$store.commit('EDIT_SET_FILES_PAGE', n);
         }

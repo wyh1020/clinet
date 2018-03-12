@@ -43,7 +43,7 @@
             const hint1 = hint.map((x, index) => index + 1 + '.'.concat(x))
             content1 = hint1
           } else {
-            content1 = this.$store.state.Home.notice
+            content1 = '系统通知：'.concat(this.$store.state.Home.notice)
           }
           return content1
         }
