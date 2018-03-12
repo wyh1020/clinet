@@ -130,12 +130,19 @@
       },
       showChart: function (id, type) {
         let table = []
-        if (this.$store.state.Stat.tableType === 'local') {
-          table = this.$store.state.Stat.file
-        } else if (this.$store.state.Stat.tableType === 'server') {
-          table = this.$store.state.Stat.serverTable
-        } else {
-          table = this.$store.state.Stat.compareTable
+        switch (this.$store.state.Stat.tableType) {
+          case 'local': {
+            table = this.$store.state.Stat.file
+            break;
+          }
+          case 'server': {
+            table = this.$store.state.Stat.serverTable
+            break;
+          }
+          default: {
+            table = this.$store.state.Stat.compareTable
+            break;
+          }
         }
         const option = chartData(table, this.$store.state.Stat.selectedRow, this.$store.state.Stat.selectedCol)
         if (id === 'chartRight') {

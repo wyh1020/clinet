@@ -30,7 +30,7 @@ const state = {
   compareTable: [],
   serverTable: [],
   chartLeft: '柱状图',
-  chartRight: '柱状图',
+  chartRight: '折线图',
   tableType: 'local',
   fileIndex: null,
   tableName: ''

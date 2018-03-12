@@ -3,6 +3,7 @@ export default function chartLine(id, opt = null) {
   if (opt) {
     // 取得表头并删除前两位
     const th = Object.keys(opt[0])
+    const keys = Object.keys(opt[0])
     let drg2 = false
     if (th.includes('drg2') || th.includes('病种')) {
       th.splice(0, 3)
@@ -20,11 +21,11 @@ export default function chartLine(id, opt = null) {
     const chartKeys = []
     stat.forEach((v) => {
       let name = ''
-      if (th.includes('org') && th.includes('time') && drg2) {
+      if (keys.includes('org') && keys.includes('time') && drg2) {
         name = `${v.org} ${v.time} ${v.drg2}`
-      } else if (th.includes('机构') && th.includes('时间') && drg2) {
+      } else if (keys.includes('机构') && keys.includes('时间') && drg2) {
         name = `${v.机构} ${v.时间} ${v.病种}`
-      } else if (th.includes('org') && th.includes('time')) {
+      } else if (keys.includes('org') && keys.includes('time')) {
         name = `${v.org} ${v.time}`
       } else {
         name = `${v.机构} ${v.时间}`

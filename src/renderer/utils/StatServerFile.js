@@ -40,7 +40,7 @@ export function getStat(obj, data) {
         toolType = 'rate'
         break;
       default:
-        toolType = ''
+        break;
     }
   }
   const pageNum = data[3] + 1
