@@ -82,6 +82,7 @@
   import chartData from '../../utils/ChartData';
   import saveFile from '../../utils/SaveFile';
   import { getStatFiles, getStat } from '../../utils/StatServerFile';
+  import loadFile from '../../utils/LoadFile';
 
   export default {
     data() {
@@ -120,6 +121,10 @@
         }
       },
       edit: function () {
+        if (this.$store.state.Stat.fileIndex !== null) {
+          this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
+          loadFile(this, this.$store.state.Stat.files[this.$store.state.Stat.fileIndex], 'stat', 'edit')
+        }
         this.$store.commit('EDIT_SET_LAST_NAV', '/stat');
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
         this.$store.commit('EDIT_SET_FILES_INDEX', this.$store.state.Stat.fileIndex);

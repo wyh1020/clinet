@@ -43,6 +43,7 @@
 
 <script>
   import { getLibraryFiles, getLibrary } from '../../utils/LibraryServerFile';
+  import loadFile from '../../utils/LoadFile';
   export default {
     data() {
       return {
@@ -73,6 +74,10 @@
         this.$store.commit('SET_NOTICE', '翻页');
       },
       edit: function () {
+        if (this.$store.state.Library.fileIndex !== null) {
+          this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
+          loadFile(this, this.$store.state.Library.files[this.$store.state.Library.fileIndex], 'library', 'edit')
+        }
         this.$store.commit('EDIT_SET_LAST_NAV', '/library');
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
         this.$store.commit('EDIT_SET_FILES_INDEX', this.$store.state.Library.fileIndex);
