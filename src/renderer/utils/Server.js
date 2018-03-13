@@ -366,6 +366,25 @@ export function sCompDrg(obj, data, type = '') {
     obj.$store.commit('SYSTEM_GET_WT4_COMP', [{}, '病案分组失败,病案不存在', true])
   }
 }
+// 获取分析字段和范围
+export function sGetTarget(obj, data) {
+  axios({
+    method: 'get',
+    url: `http://${data[0]}:${data[1]}/stat/target/`,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    responseType: 'json'
+  }).then((res) => {
+    console.log(res.data);
+    if (res.status === 200) {
+      obj.$store.commit('SYSTEM_GET_TARGET', res.data)
+    } else {
+      obj.$store.commit('SYSTEM_GET_TARGET', {})
+    }
+  }).catch((err) => {
+    console.log(err)
+    obj.$store.commit('SYSTEM_GET_TARGET', {})
+  })
+}
 // 2.2.1 获取分析记录
 export function sGetStat(obj, data) {
   axios.get(`http://${data[0]}:${data[1]}/servers/api/stat_json/`)
