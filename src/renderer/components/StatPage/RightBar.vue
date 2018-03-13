@@ -206,7 +206,7 @@
         const d = new Date();
         const datetime = `${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}`
         this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.compareTable);
-        saveFile(this, `${datetime}stat.csv`, 'stat')
+        saveFile(this, `${datetime}_stat.csv`, '/stat')
       },
     },
   };
