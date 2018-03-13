@@ -13,7 +13,7 @@
           <a class="nav-link dropdown-toggle text-light" href="#" id="edit-leftbar-choice" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             选择
           </a>
-          <div class="dropdown-menu" aria-labelledby="edit-leftbar-choice">
+          <div class="dropdown-menu" id="edit-leftba-sel" aria-labelledby="edit-leftbar-choice">
             <a class="dropdown-item" href="#" v-on:click="newDoc('病案首页（卫统四CSV）')" id="edit-leftbar-wt4">病案首页（卫统四CSV）</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" v-on:click="newDoc('入院申请')" id="eidt-leftbar-admissionApplication">入院申请</a>
