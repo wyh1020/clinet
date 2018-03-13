@@ -40,7 +40,10 @@ const state = {
   comprule: [],
   localPage: 0,
   wt4Tables: [],
-  wt4TablePage: 0
+  wt4TablePage: 0,
+  targetIndex: [],
+  targetDimension: [],
+  serverStat: { wt4: [], index: [], dimension: [] }
 };
 
 const mutations = {
@@ -188,6 +191,17 @@ const mutations = {
     const value = keys.sort().map(value => field[0].data[value[1]])
     state.comprule = value;
   },
+  SYSTEM_GET_TARGET(state, field) {
+    state.targetIndex = field.index
+    state.targetDimension = field.dimension
+  },
+  SYSTEM_GET_SERVER_STAT(state, field) {
+    if (state.serverStat[field[0]].includes(field[1])) {
+      state.serverStat[field[0]].splice(state.serverStat[field[0]].findIndex(v => v === field[1]), 1)
+    } else {
+      state.serverStat[field[0]] = [...state.serverStat[field[0]], field[1]]
+    }
+  }
 };
 
 const actions = {
@@ -217,6 +231,8 @@ const actions = {
     commit('SYSTEM_GET_WT4_COMP');
     commit('SYSTEM_GET_WT4_LOCAL_ROW');
     commit('SYSTEM_SET_LOCAL_PAGE');
+    commit('SYSTEM_GET_TARGET');
+    commit('SYSTEM_GET_SERVER_STAT');
   },
 };
 
