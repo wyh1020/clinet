@@ -12,6 +12,12 @@
         <li class="nav-item active" v-on:click='getServerData' id="server-drg-sercase-data">
           <a class="nav-link text-light" href="#"> 服务器病案数据 <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active" v-on:click="page('up')" id="server-drg-checkdata">
+          <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click="page('down')" id="server-drg-checkdata">
+          <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
+        </li>
         <li class="nav-item active" v-on:click='compareData' id="server-drg-checkdata">
           <a class="nav-link text-light" href="#"> 校验数据 <span class="sr-only">(current)</span></a>
         </li>
@@ -56,7 +62,7 @@
         switch (this.$store.state.System.toolbar) {
           case 'getLocalData':
             this.$store.state.System.wt4LocalRow.forEach((n) => {
-              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Table[n]], 'getLocalData')
+              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables[n]], 'getLocalData')
             })
             break;
           case 'getServerData':
@@ -75,6 +81,16 @@
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgRule');
         sGetCompRule(this, [this.$store.state.System.server, this.$store.state.System.port, 'mdc', {}])
       },
+      page: function (value) {
+        if (value === 'up' && this.$store.state.System.localPage === 0) {
+          this.$store.commit('SET_NOTICE', '已经是第一页');
+        } else if (value === 'down' && this.$store.state.System.localPage === this.$store.state.System.wt4TablePage) {
+          this.$store.commit('SET_NOTICE', '已经是最后一页');
+        } else {
+          this.$store.commit('SET_NOTICE', '');
+          this.$store.commit('SYSTEM_SET_LOCAL_PAGE', value);
+        }
+      }
     },
   };
 </script>

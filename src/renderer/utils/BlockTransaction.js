@@ -77,8 +77,9 @@ export function transactions1(obj, data) {
 // }
 // 获取交易信息
 export function getTransactions(obj, data) {
-  console.log(data);
-  axios.get(`http://${data[0]}:${data[1]}/api/transactions?limit=10`)
+  console.log(obj.$store.state.Block.pege);
+  const page = obj.$store.state.Block.pege * 10
+  axios.get(`http://${data[0]}:${data[1]}/api/transactions?limit=10&offset=${page}`)
     .then((res) => {
       console.log(res)
       if (res.status === 200) {

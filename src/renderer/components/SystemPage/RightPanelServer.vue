@@ -11,19 +11,19 @@
     <div v-if="this.$store.state.System.connectInfo == true" >
       <!-- 登录状态 -->
         <!-- 未登录 -->
-        <div v-if="this.$store.state.System.user.login == false">
+        <div v-if="this.$store.state.System.user.login == false && this.$store.state.Block.account.address === ''">
           <div v-if="this.$store.state.System.toolbar === 'getUsers'">
             <form>
                 <div class="form-group">
-                  <label for="exampleInputEmail1andname">输入用户名或emails</label>
-                  <input type="text" class="form-control" placeholder="exampleInputEmail1andname" v-on:blur="logininput()" v-model="emailorname">
+                  <label class="" for="exampleInputEmail1andname">用户名（远程服务用户是电子邮箱，区块链服务用户是12个单词组成的口令）</label>
+                  <input type="text" class="form-control" placeholder="exampleInputEmail1andname" v-model="emailorname">
                 </div>
-                <div class="form-group" v-if="this.loginpass == true">
-                  <label for="exampleInputPassword1">密码</label>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">用户密码（区块链服务用户没有密码，或者使用二级密码）</label>
                   <input type="password" class="form-control" placeholder="Password" v-model="loginpassword">
                 </div>
               </form>
-                <button type="submit" class="btn btn-primary" v-on:click="login()">提交</button>
+                <button type="submit" class="btn btn-primary" v-on:click="login()">登录</button>
           </div>
           <div v-if="this.$store.state.System.toolbar === 'createUsers'">
             <div v-if="this.$store.state.System.registerInfo[2] == true">
@@ -67,7 +67,7 @@
         <div v-else>
           <div v-if="this.$store.state.System.toolbar === 'getUsers'">
             <get-users></get-users>
-            <button type="submit" class="btn btn-primary" v-on:click="orgRegister('userinfo')">确认修改</button>
+            <button type="submit" class="btn btn-primary" v-on:click="orgRegister('userinfo')"  v-if="this.$store.state.System.user.login == true">确认修改</button>
           </div>
           <div v-if="this.$store.state.System.toolbar === 'getOrgs'" class ="orgs">
             <get-orgs></get-orgs>
@@ -101,6 +101,7 @@
   import CreateDepartments from './RightPanelServer/CreateDepartments';
   import GetPersons from './RightPanelServer/GetPersons';
   import { sLogin, sRegister, sConnect, sUpdateUser } from '../../utils/Server'
+  import { open } from '../../utils/BlockAccount'
   export default {
     components: { GetUsers, GetOrgs, CreateOrgs, CreateDepartments, GetPersons },
     data() {
@@ -114,7 +115,6 @@
         personname: '',
         emailorname: '',
         loginpassword: '',
-        loginpass: true,
       }
     },
     computed: {
@@ -145,21 +145,31 @@
       },
     },
     methods: {
-      logininput: function () {
-        const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
-        if (this.emailorname.length === 16) {
-          if (reg.test(this.emailorname)) {
-            this.loginpass = true
-          } else {
-            this.loginpass = false
-          }
-        } else {
-          this.loginpass = true
-        }
-      },
+      // logininput: function () {
+      //   const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
+      //   if (Array.from(name.split(' ')).length === 12) {
+      //     if (reg.test(this.emailorname)) {
+      //       this.loginpass = true
+      //     } else {
+      //       this.loginpass = false
+      //     }
+      //   } else {
+      //     this.loginpass = true
+      //   }
+      // },
       login: function () {
+        const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
         const user = { username: this.emailorname, password: this.loginpassword }
-        sLogin(this, [this.$store.state.System.server, this.$store.state.System.port, user])
+        if (reg.test(this.emailorname)) {
+          sLogin(this, [this.$store.state.System.server, this.$store.state.System.port, user])
+        } else if (Array.from(this.emailorname.split(' ')).length === 12) {
+          const key = Object.keys(global.hitbdata.blockchain)[0]
+          const server = global.hitbdata.blockchain[key][0];
+          this.$store.commit('BLOCK_SET_SERVER', server)
+          open(this, [server[0], server[1], user.username]);
+        }
+
+
         // if (this.loginpass === false) {
         //   // alert('区块链登录')
         //   // sLogin(this, [this.emailorname, this.loginpassword])

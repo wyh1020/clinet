@@ -9,6 +9,12 @@
         <li class="nav-item active" v-on:click='blockList' id="block-list">
           <a class="nav-link text-light" href="#"> 区块列表 <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active" v-on:click="page('up')" id="block-info">
+          <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click="page('down')" id="block-info">
+          <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
+        </li>
         <li class="nav-item active" v-on:click='block' id="block-content">
           <a class="nav-link text-light" href="#"> 区块内容 <span class="sr-only">(current)</span></a>
         </li>
@@ -47,6 +53,18 @@
         this.$store.commit('BLOCK_SET_TOOLBAR', 'blockInfo');
         this.$store.commit('SET_NOTICE', '区块内容明细');
       },
+      page: function (value) {
+        const ip = this.$store.state.Block.server
+        const port = this.$store.state.Block.port
+        if (value === 'up' && this.$store.state.Block.blockPage === 0) {
+          this.$store.commit('SET_NOTICE', '已经是第一页');
+        } else if (value === 'down' && this.$store.state.Block.peers.length < 10) {
+          this.$store.commit('SET_NOTICE', '已经是最后一页');
+        } else {
+          this.$store.commit('BLOCK_SET_BLOCKPAGE', value);
+          blocks(this, [ip, port])
+        }
+      }
     },
   };
 </script>

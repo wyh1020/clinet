@@ -26,6 +26,7 @@ const state = {
   notice: [],
   tableHeader: [],
   selectedRow: [],
+
   selectedCol: [],
   compareTable: [],
   serverTable: [],
@@ -33,7 +34,9 @@ const state = {
   chartRight: '折线图',
   tableType: 'local',
   fileIndex: null,
-  tableName: ''
+  tableName: '',
+  statFlag: [],
+  statFlarTd: []
 };
 
 const mutations = {
@@ -188,6 +191,10 @@ const mutations = {
   },
   STAT_TABLE_NAME(state, index) {
     state.tableName = index
+  },
+  STAT_SET_FILE_FLAG(state) {
+    state.selectedRow = [];
+    state.selectedCol = [];
   }
 };
 
@@ -209,6 +216,7 @@ const actions = {
     commit('STAT_SET_CHART_RIGHT');
     commit('STAT_SET_TABLE_TYPE');
     commit('STAT_SET_FILE_INDEX');
+    commit('STAT_SET_FILE_FLAG');
   },
 };
 

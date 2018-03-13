@@ -9,7 +9,7 @@
       </form>
       <button v-if="account.address === ''" id="block-rightpanel-login" class="btn btn-outline-primary" v-on:click="login">登陆</button>
       <div  v-if="account.address !== ''">
-        <table>
+        <table class="table">
           <tr v-for="(line, index) in Object.entries(account)" v-bind:key='index'>
             <td v-for="(filed, index) in line" v-bind:key='index'>{{line[index]}}</td>
           </tr>
@@ -85,10 +85,8 @@
         name: 'someone manual strong movie roof episode eight spatial brown soldier soup motor',
         pay: {
           recipientId: this.$store.state.Block.account.address,
-          // recipientId: '',
           targetAddress: 'ABbhjhV4g32tWr7JPg1fZfX1TGH9TZQEFg',
           amount: 100,
-          // secondPassword: ''this.$store.state.Block.account.secondPublicKey,
           secondPass: 'dzc944262316',
           fee: '0.1',
           message: ''
@@ -126,20 +124,14 @@
         const ip = this.$store.state.Block.server
         const port = this.$store.state.Block.port
         const user = global.hitbdata.blockchain_user
-        // console.log(user);
         if (user === '') {
           open(this, [ip, port, user])
         } else {
           const user = Array.from(this.name.split(' '));
           if (user.length === 12) {
             open(this, [ip, port, this.name])
-            // this.pay.recipientId = this.$store.state.Block.account.address
-            // console.log(this.$store.state.Block.account.address);
-          } else {
-            console.log('账号输入错误');
           }
         }
-        // open(this, [ip, port, user])
       },
       payTrans: function () {
         const data = this.pay

@@ -7,7 +7,14 @@
           <th scope="col">信息</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="this.$store.state.Block.account.address !== ''">
+        <tr v-for="(values, key) in this.$store.state.Block.account" v-bind:key='key'  v-if="['unconfirmedBalance', 'lockHeight'].includes(key)">
+          <td v-if="key === 'unconfirmedBalance'">余额</td>
+          <td v-else-if="key === 'lockHeight'">最后区块高度</td>
+          <td>{{values}}</td>
+        </tr>
+      </tbody>
+      <tbody v-else>
         <tr v-for="(values, key) in this.$store.state.System.user" v-bind:key='key' v-if="['username', 'type', 'org', 'id', 'blockchain', 'password'].includes(key)">
           <td v-if="key === 'username'">用户名</td>
           <td v-else-if="key === 'type'">权限</td>

@@ -34,8 +34,8 @@
       </table>
     </div>
     <div v-if="toolbar == 'blockInfo'">
-      <table>
-        <tr v-for="(value, key) in blockInfo">
+      <table  class="table">
+        <tr v-for="(value, key) in blockInfo" v-bind:key="key">
           <td>{{key}}</td>
           <td>{{value}}</td>
         </tr>
@@ -48,7 +48,7 @@
   export default {
     data() {
       return {
-        hightLight: 0,
+        hightLight: '',
       }
     },
     computed: {

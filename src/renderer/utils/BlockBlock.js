@@ -6,9 +6,9 @@ const axios = require('axios');
 
 // 获取区块数据
 export function blocks(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/api/blocks?limit=10&offset=0&orderBy=height:desc`)
+  const page = obj.$store.state.Block.blockPage * 10
+  axios.get(`http://${data[0]}:${data[1]}/api/blocks?limit=10&offset=${page}&orderBy=height:desc`)
     .then((res) => {
-      console.log(res)
       if (res.status === 200) {
         console.log(res.data);
         obj.$store.commit('BLOCK_SET_PEERS', res.data.blocks)

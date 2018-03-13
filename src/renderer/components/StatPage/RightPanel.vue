@@ -41,8 +41,8 @@
     components: { RightBar, LeftPanel },
     data() {
       return {
-        flag: [],
-        flagTd: [],
+        // flag: [],
+        // flagTd: [],
       };
     },
     computed: {
@@ -86,27 +86,25 @@
           }
           return table
         }
+      },
+      flag: {
+        get() {
+          return this.$store.state.Stat.selectedRow
+        }
+      },
+      flagTd: {
+        get() {
+          return this.$store.state.Stat.selectedCol
+        }
       }
     },
     methods: {
       onClickTd: function (data, index) {
         if (data[0] === 'org' && data[1] === 'time') {
-          const x = this.flagTd.indexOf(index)
-          if (x === -1) {
-            this.flagTd.push(index)
-          } else {
-            this.flagTd.splice(x, 1)
-          }
           this.$store.commit('STAT_SET_COL', index);
         }
       },
       onClick: function (data, index) {
-        const x = this.flag.indexOf(index)
-        if (x === -1) {
-          this.flag.push(index)
-        } else {
-          this.flag.splice(x, 1)
-        }
         this.$store.commit('STAT_SET_ROW', index);
         this.$store.commit('STAT_GET_FIELD', data);
         this.$store.commit('STAT_GET_FIELD_INDEX', index);
