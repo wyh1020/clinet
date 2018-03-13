@@ -9,10 +9,10 @@
         <li class="nav-item active" v-on:click='blockList' id="block-list">
           <a class="nav-link text-light" href="#"> 区块列表 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click="page('up')" id="block-info">
+        <li class="nav-item active" v-on:click="page('up')" id="block-up">
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click="page('down')" id="block-info">
+        <li class="nav-item active" v-on:click="page('down')" id="block-down">
           <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='block' id="block-content">
