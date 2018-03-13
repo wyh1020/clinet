@@ -92,6 +92,7 @@ export default function loadFile(obj, x, p, e = null) {
                 obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
               } else {
                 obj.$store.commit('SYSTEM_LOAD_WT4_FILE', f);
+                obj.$store.commit('SYSTEM_SET_LOCAL_PAGE')
               }
               break
             default: break

@@ -10,21 +10,21 @@
       <table class="table">
         <thead>
           <tr>
-            <th>年龄age</th>
-            <th>性别gender</th>
-            <th>出院转归sf0108</th>
-            <th>主要诊断disease_code</th>
-            <th>其他诊断diags_code</th>
-            <th>手术操作opers_code</th>
-            <th>新生儿出生天数sf0100</th>
-            <th>新生儿入院体重sf0102</th>
-            <th>呼吸机使用小时数sf0104</th>
-            <th>总费用total_expense</th>
-            <th>住院天数acctual_days</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>出院转归</th>
+            <th>主要诊断</th>
+            <th>其他诊断</th>
+            <th>手术操作</th>
+            <th>新生儿出生天数</th>
+            <th>新生儿入院体重</th>
+            <th>呼吸机使用小时数</th>
+            <th>总费用</th>
+            <th>住院天数</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(value, index) in this.$store.state.System.wt4Table"  v-bind:key="index" v-on:click="getWt4LocalRecord(index)" v-bind:class="{'table-danger': localHightLight.includes(index)}">
+          <tr v-for="(value, index) in this.$store.state.System.wt4Tables"  v-bind:key="index" v-on:click="getWt4LocalRecord(index)" v-bind:class="{'table-danger': localHightLight.includes(index)}">
             <td>{{value.age}}</td>
             <td>{{value.gender}}</td>
             <td>{{value.sf0108}}</td>
@@ -43,7 +43,7 @@
         <div class="col-5" />
         <nav aria-label="Page navigation example">
           <ul class="pagination">
-            <li class="page-item" v-for="(value, index) in this.$store.state.System.wt4.page_list" v-bind:class="{'disabled': value.page === page}" v-on:click="wt4Page(value.page)">
+            <li class="page-item" v-for="(value, index) in this.$store.state.System.wt4.page_list" v-bind:key="index" v-bind:class="{'disabled': value.page === page}" v-on:click="wt4Page(value.page)">
               <a class="page-link" href="#">{{value.num}}</a>
             </li>
           </ul>
@@ -54,17 +54,17 @@
       <table class="table">
         <thead>
           <tr>
-            <th>年龄age</th>
-            <th>性别gender</th>
-            <th>出院转归sf0108</th>
-            <th>主要诊断disease_code</th>
-            <th>其他诊断diags_code</th>
-            <th>手术操作opers_code</th>
-            <th>新生儿出生天数sf0100</th>
-            <th>新生儿入院体重sf0102</th>
-            <th>呼吸机使用小时数sf0104</th>
-            <th>总费用total_expense</th>
-            <th>住院天数acctual_days</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>出院转归</th>
+            <th>主要诊断</th>
+            <th>其他诊断</th>
+            <th>手术操作</th>
+            <th>新生儿出生天数</th>
+            <th>新生儿入院体重</th>
+            <th>呼吸机使用小时数</th>
+            <th>总费用</th>
+            <th>住院天数</th>
           </tr>
         </thead>
         <tbody>
@@ -87,7 +87,7 @@
         <div class="col-5" />
         <nav aria-label="Page navigation example">
           <ul class="pagination">
-            <li class="page-item" v-for="(value, index) in this.$store.state.System.wt4.page_list" v-bind:class="{'disabled': value.page === page}" v-on:click="wt4Page(value.page)">
+            <li class="page-item" v-for="(value, index) in this.$store.state.System.wt4.page_list" v-bind:key="index" v-bind:class="{'disabled': value.page === page}" v-on:click="wt4Page(value.page)">
               <a class="page-link" href="#">{{value.num}}</a>
             </li>
           </ul>

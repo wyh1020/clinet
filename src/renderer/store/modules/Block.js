@@ -21,7 +21,9 @@ const state = {
   myTransUn: [],
   trans: [],
   transUn: [],
-  blockInfo: {}
+  blockInfo: {},
+  pege: 0,
+  blockPage: 0
 };
 
 const mutations = {
@@ -93,6 +95,29 @@ const mutations = {
     state.table[state.fieldIndex].push(field)
     state.table = state.table;
   },
+  BLOCK_SET_PAGE(state, value) {
+    switch (value) {
+      case 'up':
+        state.pege -= 1
+        break;
+      case 'down':
+        state.pege += 1
+        break;
+      default:
+    }
+  },
+  BLOCK_SET_BLOCKPAGE(state, value) {
+    switch (value) {
+      case 'up':
+        state.blockPage -= 1
+        break;
+      case 'down':
+        state.blockPage += 1
+        break;
+      default:
+    }
+    console.log(state.blockPage)
+  },
 };
 
 const actions = {
@@ -113,6 +138,8 @@ const actions = {
     commit('BLOCK_SET_TRANSUN');
     commit('BLOCK_SET_MYTRANS');
     commit('BLOCK_SET_MYTRANSUN');
+    commit('BLOCK_SET_PAGE');
+    commit('BLOCK_SET_BLOCKPAGE');
   },
 };
 

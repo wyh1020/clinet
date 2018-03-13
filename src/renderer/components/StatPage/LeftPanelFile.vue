@@ -29,6 +29,7 @@
     },
     methods: {
       loadFile: function (data, index) {
+        this.$store.commit('STAT_SET_FILE_FLAG');
         this.flag = index
         this.$store.commit('STAT_SET_FILE_INDEX', index);
         if (this.$store.state.Stat.tableType === 'server') {
