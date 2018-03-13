@@ -2,25 +2,7 @@
   <div id="wrapper">
     <nav-bar></nav-bar>
     <div class="row">
-      <div class="col-6">
-        <img id="logo" src="~@/assets/logo.png" alt="hitb-clinet">
-        <main>
-          <div class="left-side">
-            <form>
-              <div class="form-group">
-                <label for="exampleInputEmail1" class="text-danger">用户名（远程服务用户是电子邮箱，区块链服务用户是12个单词组成的口令）</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" v-model="loginName">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputPassword1" class="text-danger">用户密码（区块链服务用户没有密码，或者使用二级密码）</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="" v-model="loginPassword">
-              </div>
-            </form>
-            <button id="login" class="btn btn-outline-primary" v-on:click="login">登陆（用户认证失败，则自动使用未注册用户登陆）</button>
-          </div>
-        </main>
-      </div>
-      <div class="col-6">
+      <div class="col-6" id="right-side">
         系统说明：
         <hr />
         <div v-if="!hasData">
@@ -65,6 +47,31 @@
             {{notice}}
           </h2>
         </div>
+      </div>
+      <div class="col-6">
+        <!-- <img id="logo" src="~@/assets/logo.png" alt="hitb-clinet"> -->
+        <main>
+          <div class="left-side">
+            <div class="panel panel-default" id="panel">
+              <div class="panel-heading">
+                <h3 class="panel-title">登陆系统</h3>
+              </div>
+              <div class="panel-body">
+                <form>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1" class="text-danger">用户名（远程服务用户是电子邮箱，区块链服务用户是12个单词组成的口令）</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" v-model="loginName">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1" class="text-danger">用户密码（区块链服务用户没有密码，或者使用二级密码）</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="" v-model="loginPassword">
+                  </div>
+                </form>
+              </div>
+              <button id="login" class="btn btn-outline-primary" v-on:click="login">登陆（用户认证失败，则自动使用未注册用户登陆）</button>
+            </div>
+          </div>
+        </main>
       </div>
     </div>
     <notice-bar></notice-bar>
@@ -159,10 +166,25 @@
 
   form {
     padding-bottom: 0;
+    padding-top: 0;
   }
 
   label {
     border: 0;
+  }
+
+  #panel {
+    position: absolute;
+    top: 35%;
+    left: 15%;
+  }
+
+  p {
+    padding-bottom: 0;
+  }
+
+  #right-side {
+    margin-top: 2%;
   }
 
 </style>
