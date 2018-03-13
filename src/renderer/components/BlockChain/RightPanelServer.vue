@@ -1,8 +1,8 @@
 <template>
   <div>
     <table v-if="toolbar == 'getServers'">
-      <tr v-for="(line, index) in file" v-bind:key='index' v-on:click="onClick(line, index)" class="block-rightpanel-server">
-        <td v-for="(data, index) in line" v-bind:key='index'>{{line[index]}}</td>
+      <tr v-for="(line, index) in file" v-bind:key='index' v-on:click="onClick(line, index)" class="block-rightpanel-server-tr">
+        <td class="block-rightpanel-server-td" v-for="(data, index) in line" v-bind:key='index'>{{line[index]}}</td>
       </tr>
     </table>
     <table v-if="toolbar == 'setNodes'">
