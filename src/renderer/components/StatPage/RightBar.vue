@@ -197,14 +197,25 @@
         const header = this.$store.state.Stat.tableHeader
         const col = this.$store.state.Stat.selectedCol
         const row = this.$store.state.Stat.selectedRow
-        addContrast(this, table, header, col, row)
+        const compareTable = this.$store.state.Stat.compareTable
+        // console.log(header);
+        // console.log('==============');
+        addContrast(this, table, compareTable, header, col, row)
       },
       showCompare: function () {
         this.$store.commit('STAT_SET_TABLE_TYPE', 'compare');
       },
       saveCompare: function () {
         const d = new Date();
-        const datetime = `${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}`
+        let month = d.getMonth() + 1
+        if (month < 10) {
+          month = `0${month}`
+        }
+        let date = d.getDate() + 1
+        if (date < 10) {
+          date = `0${date}`
+        }
+        const datetime = `${d.getFullYear()}${month}${date}`
         this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.compareTable);
         saveFile(this, `${datetime}_stat.csv`, '/stat')
       },
