@@ -107,7 +107,9 @@
         }
       },
       page: function (n) {
-        if (this.$store.state.Stat.tableType === 'server') {
+        if (this.$store.state.Stat.tablePage === 0 && n === -1) {
+          this.$store.commit('SET_NOTICE', '当前已是第一页')
+        } else if (this.$store.state.Stat.tableType === 'server') {
           if (this.$store.state.System.server === '') {
             this.$store.commit('STAT_TABLE_PAGE', n);
             const key = Object.keys(global.hitbdata.server)
@@ -198,26 +200,36 @@
         const col = this.$store.state.Stat.selectedCol
         const row = this.$store.state.Stat.selectedRow
         const compareTable = this.$store.state.Stat.compareTable
-        // console.log(header);
-        // console.log('==============');
-        addContrast(this, table, compareTable, header, col, row)
+        if (col.length > 0 && row.length > 0) {
+          addContrast(this, table, compareTable, header, col, row)
+        } else {
+          this.$store.commit('SET_NOTICE', '请选择加入对比数据!');
+        }
       },
       showCompare: function () {
-        this.$store.commit('STAT_SET_TABLE_TYPE', 'compare');
+        if (this.$store.state.Stat.compareTable.length > 0) {
+          this.$store.commit('STAT_SET_TABLE_TYPE', 'compare');
+        } else {
+          this.$store.commit('SET_NOTICE', '对比数据为空,请选择对比数据!');
+        }
       },
       saveCompare: function () {
-        const d = new Date();
-        let month = d.getMonth() + 1
-        if (month < 10) {
-          month = `0${month}`
+        if (this.$store.state.Stat.compareTable.length > 0) {
+          const d = new Date();
+          let month = d.getMonth() + 1
+          if (month < 10) {
+            month = `0${month}`
+          }
+          let date = d.getDate() + 1
+          if (date < 10) {
+            date = `0${date}`
+          }
+          const datetime = `${d.getFullYear()}${month}${date}`
+          this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.compareTable);
+          saveFile(this, `${datetime}_stat.csv`, '/stat')
+        } else {
+          this.$store.commit('SET_NOTICE', '无法保存对比,请选择对比数据!');
         }
-        let date = d.getDate() + 1
-        if (date < 10) {
-          date = `0${date}`
-        }
-        const datetime = `${d.getFullYear()}${month}${date}`
-        this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.compareTable);
-        saveFile(this, `${datetime}_stat.csv`, '/stat')
       },
     },
   };

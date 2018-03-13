@@ -70,7 +70,9 @@
         }
       },
       page: function (n) {
-        if (this.$store.state.Library.tableType === 'server') {
+        if (this.$store.state.Library.tablePage === 0 && n === -1) {
+          this.$store.commit('SET_NOTICE', '当前已是第一页')
+        } else if (this.$store.state.Library.tableType === 'server') {
           if (this.$store.state.System.server === '') {
             this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
             const key = Object.keys(global.hitbdata.server)

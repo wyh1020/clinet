@@ -123,11 +123,16 @@
         console.log('right')
       },
       space() {
-        this.$store.commit('EDIT_SET_HINT_TYPE', 'hint');
         const value = this.$store.state.Edit.editBarValue
         if (value && value.indexOf(' ') > -1) {
           const value1 = value.replace(/\s/ig, '')
-          this.$store.commit('EDIT_SET_HINT', global.hitbdata.cdh[value1]);
+          if (global.hitbdata.cdh[value1] !== undefined) {
+            this.$store.commit('EDIT_SET_HINT', global.hitbdata.cdh[value1]);
+            this.$store.commit('EDIT_SET_HINT_TYPE', 'hint');
+          } else {
+            this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
+            this.$store.commit('SET_NOTICE', '无提示信息');
+          }
         }
       },
       hintUp() {

@@ -26,7 +26,6 @@ const state = {
   notice: [],
   tableHeader: [],
   selectedRow: [],
-
   selectedCol: [],
   compareTable: [],
   serverTable: [],

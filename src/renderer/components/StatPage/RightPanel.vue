@@ -84,6 +84,7 @@
               break;
             }
           }
+          console.log(table)
           return table
         }
       },
@@ -100,8 +101,21 @@
     },
     methods: {
       onClickTd: function (data, index) {
-        if (data[0] === 'org' && data[1] === 'time') {
-          this.$store.commit('STAT_SET_COL', index);
+        const value = this.$store.state.Stat.tableSel.map((x) => {
+          let isType = false
+          if (x[index] === '-') {
+            isType = false
+          } else {
+            isType = true
+          }
+          return isType
+        })
+        if (value.includes(true)) {
+          if (data[0] === 'org' && data[1] === 'time') {
+            this.$store.commit('STAT_SET_COL', index);
+          }
+        } else {
+          this.$store.commit('SET_NOTICE', '无数据,无法选中当前列!');
         }
       },
       onClick: function (data, index) {
