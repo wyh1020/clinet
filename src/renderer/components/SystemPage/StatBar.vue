@@ -27,6 +27,7 @@
 </template>
 
 <script>
+  import { sGetTarget, sGetWt4 } from '../../utils/Server'
   export default {
     data() {
       return {
@@ -36,9 +37,11 @@
     methods: {
       serverData: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'serverData');
+        sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, 1])
       },
       getIndex: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getIndex');
+        sGetTarget(this, [this.$store.state.System.server, this.$store.state.System.port]);
       },
       getDimension: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getDimension');

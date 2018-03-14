@@ -33,9 +33,7 @@ const state = {
   chartRight: '折线图',
   tableType: 'local',
   fileIndex: null,
-  tableName: '',
-  statFlag: [],
-  statFlarTd: []
+  tableName: ''
 };
 
 const mutations = {
