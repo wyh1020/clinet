@@ -394,21 +394,37 @@ describe('Edit', function () {
     // 2.17、点击右侧工具栏输入框 回车结束 查询
     // 2.18、底部输入框
       .click('#edit-editbar-input')
+      .setValue('#edit-editbar-input', '民族 ')
       .getText('#edit-bar-prompt')
-      // .setvalue('#edit-editbar-input', 'ctrl.110')
-      // .then(function (editText) {
-      //   console.log(editText);
-      // })
-      .getHTML('#edit-editbar-input')
-      // .setvalue('#edit-editbar-input', 'ctrl.110')
-      // .then(function (editText) {
-      //   console.log(editText);
-      // })
-      .keys('\uE051', '\uE01B')
-      .getText('#edit-editbar-input')
-      // .then(function (editText) {
-      //   console.log('11111111111111111');
-      //   console.log(editText);
-      // })
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+      // 快捷键ctrl + 2
+      .waitUntilWindowLoaded(2000)
+      .keys('\uE009')
+      .keys('\uE01C')
+      .getValue('#edit-editbar-input')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.be.an('string');
+      })
+      // 快捷键ctrl + 0
+      .waitUntilWindowLoaded(2000)
+      .keys('\uE009')
+      .keys('\uE01A')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.be.an('string');
+      })
+      // 快捷键ctrl + .
+      .waitUntilWindowLoaded(2000)
+      .keys('\uE009')
+      .keys('\uE028')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.be.an('string');
+      })
   })
 });
