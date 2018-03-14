@@ -9,7 +9,7 @@
       <input id="edit-editbar-input" style="line-height: 3" type="text" class="form-control"
       placeholder="请输入……" aria-label="Username" aria-describedby="basic-addon1" v-model="item"
       v-on:keyup.enter="enter" v-on:keyup.up="up" v-on:keyup.down="down" v-on:keyup.left="left"
-      v-on:keyup.right="right" v-on:keyup.space="space" v-on:keyup.ctrl.left="itemUp"
+      v-on:keyup.right="left" v-on:keyup.space="space" v-on:keyup.ctrl.left="itemUp"
       v-on:keyup.ctrl.right="itemDown" v-on:keyup.ctrl.delete="del" v-on:keyup.ctrl.0="hintUp"
       v-on:keyup.ctrl.110="hintDown" v-on:keyup.ctrl.97="hintSet(1)" v-on:keyup.ctrl.98="hintSet(2)"
       v-on:keyup.ctrl.99="hintSet(3)" v-on:keyup.ctrl.100="hintSet(4)" v-on:keyup.ctrl.101="hintSet(5)"
@@ -117,11 +117,32 @@
         }
       },
       left() {
-        console.log('left')
+        const aa = document.getElementById('edit-editbar-input')
+        const start = aa.selectionStart;
+        const value = this.$store.state.Edit.editBarValue.slice(0, start)
+        const value1 = value.replace(/\s/ig, '')
+        if (global.hitbdata.cdh[value1] !== undefined) {
+          this.$store.commit('EDIT_SET_HINT', global.hitbdata.cdh[value1]);
+          this.$store.commit('EDIT_SET_HINT_TYPE', 'hint');
+        } else {
+          this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
+          this.$store.commit('SET_NOTICE', '无提示信息');
+        }
       },
-      right() {
-        console.log('right')
-      },
+      // right() {
+      //   console.log('right')
+      //   const aa = document.getElementById('edit-editbar-input')
+      //   const start = aa.selectionStart;
+      //   const value = this.$store.state.Edit.editBarValue.slice(0, start)
+      //   const value1 = value.replace(/\s/ig, '')
+      //   if (global.hitbdata.cdh[value1] !== undefined) {
+      //     this.$store.commit('EDIT_SET_HINT', global.hitbdata.cdh[value1]);
+      //     this.$store.commit('EDIT_SET_HINT_TYPE', 'hint');
+      //   } else {
+      //     this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
+      //     this.$store.commit('SET_NOTICE', '无提示信息');
+      //   }
+      // },
       space() {
         const value = this.$store.state.Edit.editBarValue
         if (value && value.indexOf(' ') > -1) {
