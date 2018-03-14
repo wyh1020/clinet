@@ -13,6 +13,7 @@
 
 <script>
   import loadFile from '../../utils/LoadFile';
+  import { getEditFiles, getEdit } from '../../utils/EditServerFile'
   export default {
     components: { },
     computed: {
@@ -75,7 +76,22 @@
           default:
             break
         }
-        loadFile(this, data, x, 'edit')
+        if (this.$store.state.Edit.rightPanel === 'server') {
+          let server = []
+          if (this.$store.state.System.server === '') {
+            const key = Object.keys(global.hitbdata.server)
+            server = global.hitbdata.server[key][0];
+          } else {
+            server = [this.$store.state.System.server, this.$store.state.System.port]
+          }
+          if (this.$store.state.Edit.serverType === 'file') {
+            getEditFiles(this, [server[0], server[1], this.$store.state.Edit.serverType, data])
+          } else {
+            getEdit(this, [server[0], server[1], data])
+          }
+        } else {
+          loadFile(this, data, x, 'edit')
+        }
       },
     },
   };

@@ -17,7 +17,8 @@ const state = {
   editBarValue: '',
   hintType: 'notice',
   hint: [],
-  helpType: '编辑器使用帮助'
+  helpType: '编辑器使用帮助',
+  serverType: 'user'
 };
 
 const mutations = {
@@ -84,10 +85,10 @@ const mutations = {
   EDIT_SET_RIGHT_PANEL(state, message) {
     state.rightPanel = message;
   },
-  EDIT_SERVER_FILES() {
+  EDIT_SERVER_FILES(state, message) {
     // todo: 从服务器接口获取文档列表
-    const files = []
-    state.files = files;
+    // const files = []
+    state.files = message;
   },
   EDIT_SET_FILES_INDEX(state, message) {
     state.filesIndex = message;
@@ -142,7 +143,10 @@ const mutations = {
   },
   EDIT_SET_HELP_TYPE(state, value) {
     state.helpType = value
-  }
+  },
+  EDIT_SET_SERVER_TYPE(state, value) {
+    state.serverType = value
+  },
 };
 
 const actions = {
@@ -176,6 +180,7 @@ const actions = {
     commit('EDIT_SET_HINT_TYPE');
     commit('EDIT_SET_HINT');
     commit('EDIT_SET_HELP_TYPE');
+    commit('EDIT_SET_SERVER_TYPE');
   },
 };
 
