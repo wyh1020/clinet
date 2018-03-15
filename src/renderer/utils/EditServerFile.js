@@ -42,6 +42,7 @@ export function getEdit(obj, data) {
     if (res.status === 200) {
       obj.$store.commit('SET_NOTICE', '读取远程文件成功')
       obj.$store.commit('EDIT_LOAD_FILE', res.data)
+      obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
     } else {
       obj.$store.commit('EDIT_LOAD_FILE', [])
     }
