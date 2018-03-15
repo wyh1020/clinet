@@ -18,7 +18,8 @@ const state = {
   serverTable: [],
   fileIndex: null,
   tableType: 'local',
-  tableName: ''
+  tableName: '',
+  serverTablePage: {}
 };
 
 const mutations = {
@@ -117,7 +118,8 @@ const mutations = {
     state.tableName = index
   },
   LIBRARY_SET_SERVER_TABLE(state, data) {
-    state.serverTable = data
+    state.serverTable = data.library
+    state.serverTablePage = { page_list: data.page_list, page_num: data.page_num }
   },
 };
 
