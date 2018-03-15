@@ -13,7 +13,7 @@
 
 <script>
   import loadFile from '../../utils/LoadFile';
-  import { getStat } from '../../utils/StatServerFile'
+  import { getStatFiles, getStat } from '../../utils/StatServerFile'
   export default {
     data() {
       return {
@@ -33,14 +33,19 @@
         this.flag = index
         this.$store.commit('STAT_SET_FILE_INDEX', index);
         if (this.$store.state.Stat.tableType === 'server') {
+          let server = []
           if (this.$store.state.System.server === '') {
             const key = Object.keys(global.hitbdata.server)
-            const server = global.hitbdata.server[key][0];
-            getStat(this, [server[0], server[1], data, 0])
+            server = global.hitbdata.server[key][0];
           } else {
-            getStat(this, [this.$store.state.System.server, this.$store.state.System.port, data, 0])
+            server = [this.$store.state.System.server, this.$store.state.System.port]
           }
-          this.$store.commit('STAT_TABLE_NAME', data);
+          if (data.endsWith('.csv')) {
+            getStat(this, [server[0], server[1], data, 0])
+            this.$store.commit('STAT_TABLE_NAME', data);
+          } else {
+            getStatFiles(this, [server[0], server[1], data])
+          }
         } else {
           loadFile(this, data, 'stat')
           this.$store.commit('STAT_SET_TABLE_TYPE', 'local');

@@ -45,11 +45,3 @@ export function clearContrast(obj) {
   obj.$store.commit('STAT_SET_COMPARE_TABLE', [])
   return true
 }
-
-// // 显示对比
-// export function showContrast() {
-//   const stat = []
-//   // 按照字段去除对应结果
-//   xArr.map(xs => stat.push(yArr.map(x => xs[x])))
-//   return stat
-// }

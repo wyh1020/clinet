@@ -1,9 +1,15 @@
 const axios = require('axios');
 // const qs = require('qs');
 export function getStatFiles(obj, data) {
+  let url = ''
+  if (data[2]) {
+    url = `http://${data[0]}:${data[1]}/stat/stat_file?name=${data[2]}`
+  } else {
+    url = `http://${data[0]}:${data[1]}/stat/stat_file/`
+  }
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/stat/stat_file/`,
+    url: url,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
