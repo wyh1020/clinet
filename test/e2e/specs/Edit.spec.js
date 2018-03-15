@@ -1,135 +1,566 @@
 import utils from '../utils';
 
-describe('Library', function () {
+describe('Edit', function () {
   beforeEach(utils.beforeEach);
   afterEach(utils.afterEach);
 
-  it('Library-测试1', function () {
-    this.timeout(20000)
+  it('Edit-测试1', function () {
+    this.timeout(60000)
     // 1、点击login页面的login-button
     return this.app.client.click('#login')
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
       .waitUntilTextExists('#edit-bar-prompt', '未注册用户登陆！')
-
-    // 2、点击顶部导航栏的navbar-libary，进入libary页
-      .click('#navbar-library')
-      .waitUntilTextExists('#notice-bar', '术语字典-术语字典')
-
-    // ########### 本地文件操作 ###########
-    // 2.1、点击工具栏的本地文件(library-local-file)，左列表显示本地测试数据文件并提示获取本地文件成功！，若左列表没有显示数据，提示：无本地文件！
-      .click('#library-local-file')
-      .waitUntilTextExists('#notice-bar', '本地文件')
-      .waitUntilWindowLoaded(1000)
-      .getText('.library-leftlist')
-      .then(function (leftlist) {
-        expect(leftlist).to.be.an('array');
-      })
-    // 2.1.1、点击左侧列表(library-leftlist)，选择文件高亮显示，读取数据文件内容，右侧表中显示所选本地文件内容，提示CSV文件读取成功！若右侧表中无数据，提示：无数据！
-      .click('.library-leftlist')
-      .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')
-      .getHTML('.library-rightpanel')
-      .then(function (rightpanel) {
-        expect(rightpanel).to.be.an('array');
-      })
-    // 2.1.1.1、点击表中一行（例：第四行），当前行高亮显示
-    // 2.1.2、点击工具栏的后一页(library-down)，右侧表中显示下一页内容第四行高亮并提示：翻页成功！table底部页数加一，提示翻页成功，若加一后页数大于当前总页数，提示：当前已经是最后一页！
-      .click('#library-down')
-      .waitUntilTextExists('#notice-bar', '翻页')
-      .getHTML('.library-rightpanel')
-      .then(function (rightpanel) {
-        expect(rightpanel).to.be.an('array');
-      })
-    // 2.1.3、点击工具栏的前一页(library-up)，右侧表中显示上一页内容第四行高亮并提示：翻页成功！table底部页数减一，提示翻页成功，若减一后页数小于0，提示：当前已经是第一页！
-      .click('#library-up')
-      .waitUntilTextExists('#notice-bar', '翻页')
-      .getHTML('.library-rightpanel')
-      .then(function (rightpanel) {
-        expect(rightpanel).to.be.an('array');
-      })
-    // 2.1.4、点击工具栏的编辑数据(remote-file)，进入编辑页面，编辑页面右侧显示当前数据，左侧显示第四行高亮的内容（传入id到编辑页面用于返回）
-      .click('#library-edit')
+    // 2、点击顶部导航栏的edit-page，进入edit页
+      .click('#navbar-edit')
       .waitUntilTextExists('#edit-editbar-input', '')
+    // 底部输入框edit-editbar-input的内容为空
       .getText('#edit-editbar-input')
       .then(function (editText) {
         expect(editText).to.equal('');
       })
-      .click('#edit-leftbar-back')
-      .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')
-    // 2.1.5、点击维度选择(library-drop)，显示维度下拉选项
-    // 2.1.5.1、工具栏的维度选择-机构(library-org)，左侧列表显示当前数据内所有机构，提示：机构维度选择成功，若机构列无内容，提示：无机构维度！
-      .click('#library-dropdown')
-      .click('#library-dropdown-org')
-      .waitUntilTextExists('#notice-bar', '维度选择')
-      .getText('#library-dropdown-org')
-      .then(function (org) {
-        expect(org).to.equal('');
+    // +++++++++++++不点击选择新建,点击工具栏按钮++++++++++++++++++
+    // 2.2、点击左侧工具栏 选择下拉按钮 edit-leftbar-choice
+      .click('#edit-leftbar-choice')
+      .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
+      .getText('#edit-editbar-input')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.equal('');
       })
-      // .click('#library-leftlist')
-      // .getText('#library-rightpanel')
-      // .then(function (leftlist) {
-      //   expect(leftlist).to.be.an('array');
+      .getText('#edit-leftba-sel')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.1、点击左侧工具栏 保存按钮 edit-leftbar-preservation
+      .click('#edit-leftbar-preservation')
+      .waitUntilTextExists('#edit-bar-prompt', '保存内容不能为空')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.1.1、点击左侧工具栏 另存按钮 edit-leftbar-save
+      .click('#edit-leftbar-save')
+      .waitUntilTextExists('#edit-bar-prompt', '另存成功')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.1.2、点击左侧工具栏 删除按钮 edit-leftbar-del
+      .click('#edit-leftbar-del')
+      .waitUntilTextExists('#edit-bar-prompt', '请选择删除内容')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.1.3、点击左侧工具栏 写文件按钮 edit-leftbar-file
+      .click('#edit-leftbar-file')
+      .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.1.4、左侧模糊查询框
+    // 2.1.5、点击右侧工具栏 选择下拉按钮 edit-leftbar-choice
+    // 2.1.6、点击右侧工具栏 帮助按钮 edit-help
+    // 2.1.7、点击右侧工具栏 本地按钮 edit-rightbar-local 右侧出现当前本地文件
+      .click('#edit-rightbar-local')
+      .waitUntilTextExists('#edit-bar-prompt', '读取本地文件')
+      // .then(function (editText) {
+      //   console.log(editText);
+      //   // expect(editText).to.be.an('string');
       // })
-    // 2.1.5.1.1、点击左侧列表(library-leftlist)，右侧表中显示所选机构的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
-    // 2.1.5.2、工具栏的维度选择-时间(library-time)，左侧列表显示当前数据内所有时间，提示：时间维度选择成功，若时间列无内容，提示：无时间维度！
-      .click('#library-dropdown')
-      .click('#library-dropdown-time')
-      .waitUntilTextExists('#notice-bar', '维度选择')
-      .getText('#library-dropdown-time')
-      .then(function (time) {
-        expect(time).to.equal('');
+      // .getText('.edit-rightpanellocal-tr')
+      .getText('#edit-rightpanellocal-table')
+      .then(function (editText) {
+        expect(editText).to.not.equal('');
       })
-    // 2.1.5.2.1、点击左侧列表(library-leftlist)，右侧表中显示所选时间的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
-    // 2.1.5.3、工具栏的维度选择-版本(library-version)，左侧列表显示当前数据内所有版本，提示：版本维度选择成功，若版本列无内容，提示：无版本维度！
-      .click('#library-dropdown')
-      .click('#library-dropdown-version')
-      .waitUntilTextExists('#notice-bar', '系统通知：维度选择')
-      .getText('#library-dropdown-version')
-      .then(function (version) {
-        expect(version).to.equal('');
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
       })
-    // 2.1.5.3.1、点击左侧列表(library-leftlist)，右侧表中显示所选版本的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
-    // 2.1.5.4、点击表中任意一列
-    // 2.1.5.5、点击添加列维度，左侧列表显示选中列中的内容（去重），若选中列无内容，提示维度内容为空不可添加！
-
-    // ########### 远程文件操作 ###########
-    // 2.1.6、点击工具栏的远程文件(library-remote-file)，左列表显示远程数据文件
-    // 2.1.6.1、点击左侧列表(library-leftlist)，读取数据文件内容，右侧表中显示所选远程文件内容
-    // 2.1.7.1.1、点击表中一行（例：第四行），当前行高亮显示
-    // 2.1.7.2、点击工具栏的前一页(library-up)，右侧表中显示上一页内容第四行高亮并提示：翻页成功！table底部页数减一，提示翻页成功，若减一后页数小于0，提示：当前已经是第一页！
-      // .click('#library-up')
-      // .waitUntilTextExists('#notice-bar', '系统通知：翻页')
-    // 2.1.7.3、点击工具栏的后一页(library-down)，右侧表中显示下一页内容第四行高亮并提示：翻页成功！table底部页数加一，提示翻页成功，若加一后页数大于当前总页数，提示：当前已经是最后一页！
-      // .click('#library-down')
-      // .waitUntilTextExists('#notice-bar', '系统通知：翻页')
-    // 2.1.7.4、点击工具栏的编辑数据(remote-file)，进入编辑页面，编辑页面右侧显示当前数据，左侧显示第四行高亮的内容（传入id到编辑页面用于返回）
-      // .click('#library-edit')
-      // .waitUntilTextExists('#edit-input', '')
-      // .getText('#edit-input')
+    // 2.1.8、远程文件
+    // 2.1.9、前页
+    // 2.1.10、后页
+    // 2.1.11、右侧模糊查询框
+    // +++++++++++++点击选择新建,点击工具栏按钮++++++++++++++++++
+    // 2.1、点击左侧工具栏 返回按钮edit-leftbar-back, 页面返回首页
+      // .click('#edit-leftbar-back')
+      // .waitUntilTextExists('#notice-bar', '数据采集-数据采集')
+      // // 点击顶部导航栏的edit-page，进入edit页
+      // .click('#navbar-edit')
+      // .waitUntilTextExists('#edit-editbar-input', '')
+      // .getText('#edit-editbar-input')
       // .then(function (editText) {
       //   expect(editText).to.equal('');
       // })
-      // .click('#edit-last-nav')
-      // .waitUntilTextExists('#notice-bar', '系统通知：翻页')
-    // 2.1.8、点击维度选择(library-dropdown)，显示维度下拉选项
-    // 2.1.8.1、工具栏的维度选择-机构(library-org)，左侧列表显示当前数据内所有机构，提示：机构维度选择成功，若机构列无内容，提示：无机构维度！
-      // .click('#library-dropdown')
-      // .hasFocus('[aria-labelledby="library-dropdown"]')
-      // .click('#library-dropdown-org')
-      // .waitUntilTextExists('#notice-bar', '系统通知：维度选择')
-    // 2.1.8.1.1、点击左侧列表(library-leftlist)，右侧表中显示所选机构的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
-    // 2.1.8.2、工具栏的维度选择-时间(library-time)，左侧列表显示当前数据内所有时间，提示：时间维度选择成功，若时间列无内容，提示：无时间维度！
-      // .click('#library-dropdown')
-      // .hasFocus('[aria-labelledby="library-dropdown"]')
-      // .click('#library-dropdown-time')
-      // .waitUntilTextExists('#notice-bar', '系统通知：维度选择')
-    // 2.1.8.2.1、点击左侧列表(library-leftlist)，右侧表中显示所选时间的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
-    // 2.1.8.3、工具栏的维度选择-版本(library-version)，左侧列表显示当前数据内所有版本，提示：版本维度选择成功，若版本列无内容，提示：无版本维度！
-      // .click('#library-dropdown')
-      // .hasFocus('[aria-labelledby="library-dropdown"]')
-      // .click('#library-dropdown-version')
-      // .waitUntilTextExists('#notice-bar', '系统通知：维度选择')
-    // 2.1.8.3.1、点击左侧列表(library-leftlist)，右侧表中显示所选版本的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
-    // 2.1.8.4、点击表中任意一列
-    // 2.1.8.5、点击添加列维度，左侧列表显示选中列中的内容（去重），若选中列无内容，提示维度内容为空不可添加！
+    // 2.2、点击左侧工具栏 选择下拉按钮 edit-leftbar-choice
+      .click('#edit-leftbar-choice')
+      .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
+      .getText('#edit-editbar-input')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.equal('');
+      })
+      .getText('#edit-leftba-sel')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.2.1 点击下拉菜单 病案首页(卫统四csv)按钮 edit-leftbar-wt4
+      .click('#edit-leftbar-wt4')
+      // .waitUntilTextExists('#edit-bar-prompt', '病案首页')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.be.an('string');
+      })
+    // 2.2.1.1 点击下拉菜单入院申请按钮 eidt-leftbar-admissionApplication
+      .click('#edit-leftbar-choice')
+      .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
+      .getText('#edit-editbar-input')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.equal('');
+      })
+      .getText('#edit-leftba-sel')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+      .click('#eidt-leftbar-admissionApplication')
+      // .waitUntilTextExists('#edit-bar-prompt', '入院申请')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.2.1.1.1 点击下拉菜单 首次病程按钮 eidt-leftbar-firstDisease
+      .click('#edit-leftbar-choice')
+      .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
+      .getText('#edit-editbar-input')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.equal('');
+      })
+      .getText('#edit-leftba-sel')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+      .click('#eidt-leftbar-firstDisease')
+      // .waitUntilTextExists('#edit-bar-prompt', '首次病程')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.2.1.1.1.1 点击下拉菜单 病程记录按钮 eidt-leftbar-diseaseRecord
+      .click('#edit-leftbar-choice')
+      .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
+      .getText('#edit-editbar-input')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.equal('');
+      })
+      .getText('#edit-leftba-sel')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+      .click('#eidt-leftbar-diseaseRecord')
+      // .waitUntilTextExists('#edit-bar-prompt', '病程记录')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.2.1.1.1.1.1 点击下拉菜单 病案首页按钮 eidt-leftbar-medicalHome
+      .click('#edit-leftbar-choice')
+      .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
+      .getText('#edit-editbar-input')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.equal('');
+      })
+      .getText('#edit-leftba-sel')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+      .click('#eidt-leftbar-medicalHome')
+      // .waitUntilTextExists('#edit-bar-prompt', '病案首页')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.2.1.1.1.1.1.1 点击下拉菜单 门诊病案按钮 eidt-leftbar-outpatientMedical
+      .click('#edit-leftbar-choice')
+      .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
+      .getText('#edit-editbar-input')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.equal('');
+      })
+      .getText('#edit-leftba-sel')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+      .click('#eidt-leftbar-outpatientMedical')
+      // .waitUntilTextExists('#edit-bar-prompt', '门诊病案')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.2.1.1.1.1.1.1.1 点击下拉菜单 健康体检按钮 eidt-leftbar-healthExamination
+      .click('#edit-leftbar-choice')
+      .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
+      .getText('#edit-editbar-input')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.equal('');
+      })
+      .getText('#edit-leftba-sel')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+      .click('#eidt-leftbar-admissionApplication')
+      // .waitUntilTextExists('#edit-bar-prompt', '健康体检')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.3、点击左侧工具栏 新建按钮 edit-leftbar-newdoc
+    // 2.4、点击左侧工具栏 保存按钮 edit-leftbar-preservation
+      .click('#edit-leftbar-preservation')
+      .waitUntilTextExists('#edit-bar-prompt', '保存内容不能为空')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.5、点击左侧工具栏 另存按钮 edit-leftbar-save
+      .click('#edit-leftbar-save')
+      .waitUntilTextExists('#edit-bar-prompt', '另存成功')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.6、点击左侧工具栏 删除按钮 edit-leftbar-del
+      .click('#edit-leftbar-del')
+      .waitUntilTextExists('#edit-bar-prompt', '删除成功')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.7、点击左侧工具栏 写文件按钮 edit-leftbar-file
+      .click('#edit-leftbar-file')
+      .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.8、点击右侧工具栏 选择下拉按钮 edit-leftbar-choice
+    // 2.9、点击右侧工具栏 帮助按钮 edit-help
+    // 2.10、点击右侧工具栏 本地按钮 edit-rightbar-local 右侧出现当前本地文件
+      .click('#edit-rightbar-local')
+      .waitUntilTextExists('#edit-bar-prompt', '读取本地文件')
+      // .then(function (editText) {
+      //   console.log(editText);
+      //   // expect(editText).to.be.an('string');
+      // })
+      // .getText('.edit-rightpanellocal-tr')
+      .getText('#edit-rightpanellocal-table')
+      .then(function (editText) {
+        expect(editText).to.not.equal('');
+      })
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // ++++++++++++++++++点击用户本地文件单行+++++++++++++++++++++++++++++
+    // 2.10.1 选择本地文件 点击单行,左侧出现该文件中的病历
+      .click('#edit-rightpanellocal-table')
+      // .getText('.edit-leftpaneltable-tr')
+      .getText('#edit-leftpaneltable-table')
+      // .waitUntilWindowLoaded(1000)
+      .then(function (editText) {
+        // console.log(editText);
+        expect(editText).to.not.equal('');
+      })
+    // ++++++++++++++++++点击用户本地文件单行---不点击选择编辑条目单行+++++++++++++++++++++++++++++
+    // 2.10.1.1 点击左侧工具栏 保存按钮 对该病历进行保存
+    // 2.10.1.2 点击左侧工具栏 另存按钮 对该病历进行另存
+    // 2.10.1.3 点击左侧工具栏 删除按钮 对该病历进行删除
+      .click('#edit-leftbar-del')
+      .waitUntilTextExists('#edit-bar-prompt', '删除成功')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.10.1.4 点击左侧工具栏 前页按钮 对该病历进行跳页
+    // 2.10.1.5 点击左侧工具栏 后页按钮 对该病历进行跳页
+    // 2.10.1.6 点击左侧工具栏 选择按钮
+      .click('#edit-leftbar-choice')
+      .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
+      .getText('#edit-editbar-input')
+      .then(function (editText) {
+        expect(editText).to.equal('');
+      })
+    // 2.10.1.6.1 点击下拉菜单 病案首页(卫统四csv)按钮 edit-leftbar-wt4
+      // .click('#edit-leftbar-wt4')
+      // // .waitUntilTextExists('#edit-bar-prompt', '病案首页')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   console.log(editText)
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.1.6.1.1 点击下拉菜单入院申请按钮 eidt-leftbar-admissionApplication
+      // .click('#eidt-leftbar-admissionApplication')
+      // .waitUntilTextExists('#edit-bar-prompt', '入院申请')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.1.6.1.1.1 点击下拉菜单 首次病程按钮 eidt-leftbar-firstDisease
+      // .click('#eidt-leftbar-firstDisease')
+      // .waitUntilTextExists('#edit-bar-prompt', '首次病程')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.1.6.1.1.1.1 点击下拉菜单 病程记录按钮 eidt-leftbar-diseaseRecord
+      // .click('#eidt-leftbar-diseaseRecord')
+      // .waitUntilTextExists('#edit-bar-prompt', '病程记录')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.1.6.1.1.1.1.1 点击下拉菜单 病案首页按钮 eidt-leftbar-medicalHome
+      // .click('eidt-leftbar-medicalHome')
+      // .waitUntilTextExists('#edit-bar-prompt', '入院申请')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.1.6.1.1.1.1.1.1 点击下拉菜单 门诊病案按钮 eidt-leftbar-outpatientMedical
+      // .click('#eidt-leftbar-outpatientMedical')
+      // .waitUntilTextExists('#edit-bar-prompt', '门诊病案')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.1.6.1.1.1.1.1.1.1 点击下拉菜单 健康体检按钮 eidt-leftbar-healthExamination
+      // .click('#eidt-leftbar-admissionApplication')
+      // .waitUntilTextExists('#edit-bar-prompt', '健康体检')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.1.7 点击左侧工具栏 写文件按钮
+      .click('#edit-leftbar-file')
+      // .waitUntilTextExists('#edit-bar-prompt', '今日的CDA文件已经存在')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.10.1.8 点击左侧工具栏 输入框
+    // ++++++++++++++++++点击用户本地文件单行---点击选择编辑条目单行+++++++++++++++++++++++++++++
+    // 2.10.2.1.1 选择编辑条目, 点击单行获取详细病历, 编辑条目出现在右侧,左侧出现该病历详细内容
+      // .click('#edit-leftpaneltable-table')
+      // .getText('.edit-leftpaneltable-tr')
+      // .then(function (editText) {
+      //   expect(editText).to.not.equal('');
+      //   // expect(editText).to.not.an('array');
+      // })
+    // 2.10.2.1.2 底部输入框输入,修改病历
+    // 2.10.2.1.3 点击左侧工具栏 保存按钮 对该病历进行保存
+    // 2.10.2.1.4 点击左侧工具栏 另存按钮 对该病历进行另存
+    // 2.10.2.1.5 点击左侧工具栏 删除按钮 对该病历进行删除
+      .click('#edit-leftbar-del')
+      .waitUntilTextExists('#edit-bar-prompt', '删除成功')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.10.2.1.6 点击左侧工具栏 前页按钮 对该病历进行跳页
+    // 2.10.2.1.7 点击左侧工具栏 后页按钮 对该病历进行跳页
+    // 2.10.2.1.6 点击左侧工具栏 选择按钮
+      .click('#edit-leftbar-choice')
+      .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
+      .getText('#edit-editbar-input')
+      .then(function (editText) {
+        expect(editText).to.equal('');
+      })
+    // 2.10.2.1.6.1 点击下拉菜单 病案首页(卫统四csv)按钮 edit-leftbar-wt4
+      // .click('#edit-leftbar-wt4')
+      // // .waitUntilTextExists('#edit-bar-prompt', '病案首页')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   console.log(editText)
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.2.1.6.1.1 点击下拉菜单入院申请按钮 eidt-leftbar-admissionApplication
+      // .click('#eidt-leftbar-admissionApplication')
+      // .waitUntilTextExists('#edit-bar-prompt', '入院申请')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.2.1.6.1.1.1 点击下拉菜单 首次病程按钮 eidt-leftbar-firstDisease
+      // .click('#eidt-leftbar-firstDisease')
+      // .waitUntilTextExists('#edit-bar-prompt', '首次病程')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.2.1.6.1.1.1.1 点击下拉菜单 病程记录按钮 eidt-leftbar-diseaseRecord
+      // .click('#eidt-leftbar-diseaseRecord')
+      // .waitUntilTextExists('#edit-bar-prompt', '病程记录')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.2.1.6.1.1.1.1.1 点击下拉菜单 病案首页按钮 eidt-leftbar-medicalHome
+      // .click('eidt-leftbar-medicalHome')
+      // .waitUntilTextExists('#edit-bar-prompt', '入院申请')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.2.1.6.1.1.1.1.1.1 点击下拉菜单 门诊病案按钮 eidt-leftbar-outpatientMedical
+      // .click('#eidt-leftbar-outpatientMedical')
+      // .waitUntilTextExists('#edit-bar-prompt', '门诊病案')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.2.1.6.1.1.1.1.1.1.1 点击下拉菜单 健康体检按钮 eidt-leftbar-healthExamination
+      // .click('#eidt-leftbar-admissionApplication')
+      // .waitUntilTextExists('#edit-bar-prompt', '健康体检')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.2.1.7 点击左侧工具栏 写文件按钮
+      .click('#edit-leftbar-file')
+      // .waitUntilTextExists('#edit-bar-prompt', '今日的CDA文件已经存在')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.10.2.1.8 点击左侧工具栏 输入框
+    // ++++++++++++++++++不点击用户本地文件单行+++++++++++++++++++++++++++++
+    // 2.10.2 选择本地文件 不点击单行
+    // 2.10.2.2.1 点击左侧工具栏 保存按钮
+    // 2.10.2.2.2 点击左侧工具栏 另存按钮
+    // 2.10.2.2.3 点击左侧工具栏 删除按钮
+      .click('#edit-leftbar-del')
+      .waitUntilTextExists('#edit-bar-prompt', '删除成功')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.10.2.2.4 点击左侧工具栏 前页按钮
+    // 2.10.2.2.5 点击左侧工具栏 后页按钮
+    // 2.10.2.2.6 点击左侧工具栏 选择按钮
+      .click('#edit-leftbar-choice')
+      .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
+      .getText('#edit-editbar-input')
+      .then(function (editText) {
+        expect(editText).to.equal('');
+      })
+    // 2.10.2.2.6.1 点击下拉菜单 病案首页(卫统四csv)按钮 edit-leftbar-wt4
+      // .click('#edit-leftbar-wt4')
+      // // .waitUntilTextExists('#edit-bar-prompt', '病案首页')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   console.log(editText)
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.2.2.6.1.1 点击下拉菜单入院申请按钮 eidt-leftbar-admissionApplication
+      // .click('#eidt-leftbar-admissionApplication')
+      // .waitUntilTextExists('#edit-bar-prompt', '入院申请')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.2.2.6.1.1.1 点击下拉菜单 首次病程按钮 eidt-leftbar-firstDisease
+      // .click('#eidt-leftbar-firstDisease')
+      // .waitUntilTextExists('#edit-bar-prompt', '首次病程')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.2.2.6.1.1.1.1 点击下拉菜单 病程记录按钮 eidt-leftbar-diseaseRecord
+      // .click('#eidt-leftbar-diseaseRecord')
+      // .waitUntilTextExists('#edit-bar-prompt', '病程记录')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.2.2.6.1.1.1.1.1 点击下拉菜单 病案首页按钮 eidt-leftbar-medicalHome
+      // .click('eidt-leftbar-medicalHome')
+      // .waitUntilTextExists('#edit-bar-prompt', '入院申请')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.2.2.6.1.1.1.1.1.1 点击下拉菜单 门诊病案按钮 eidt-leftbar-outpatientMedical
+      // .click('#eidt-leftbar-outpatientMedical')
+      // .waitUntilTextExists('#edit-bar-prompt', '门诊病案')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.2.2.6.1.1.1.1.1.1.1 点击下拉菜单 健康体检按钮 eidt-leftbar-healthExamination
+      // .click('#eidt-leftbar-admissionApplication')
+      // .waitUntilTextExists('#edit-bar-prompt', '健康体检')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+    // 2.10.2.2.7 点击左侧工具栏 写文件按钮
+      .click('#edit-leftbar-file')
+      // .waitUntilTextExists('#edit-bar-prompt', '今日的CDA文件已经存在')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+    // 2.10.2.2.8 点击左侧工具栏 输入框
+
+    // 2.11、点击右侧工具栏 远程按钮 edit-server-data
+      // .click('#edit-rightbar-server')
+      // .waitUntilTextExists('#edit-bar-prompt', '读取远程文件')
+    // 2.12、点击右侧工具栏 CDA按钮 edit-user
+    // 2.13、点击右侧工具栏 新文件按钮 edit-new-files
+    // 2.14、点击右侧工具栏 前页按钮 edit-page-3
+    // 2.15、点击右侧工具栏 后页按钮 edit-page-4
+    // 2.16、点击左侧工具栏输入框 回车结束 查询
+    // 2.17、点击右侧工具栏输入框 回车结束 查询
+    // 2.18、底部输入框
+      .click('#edit-editbar-input')
+      .setValue('#edit-editbar-input', '民族 ')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
+      // 快捷键ctrl + 2
+      .waitUntilWindowLoaded(2000)
+      .keys('\uE009')
+      .keys('\uE01C')
+      .getValue('#edit-editbar-input')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.be.an('string');
+      })
+      // 快捷键ctrl + 0
+      .waitUntilWindowLoaded(2000)
+      .keys('\uE009')
+      .keys('\uE01A')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.be.an('string');
+      })
+      // 快捷键ctrl + .
+      .waitUntilWindowLoaded(2000)
+      .keys('\uE009')
+      .keys('\uE028')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.be.an('string');
+      })
   })
 });
