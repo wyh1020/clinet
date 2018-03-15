@@ -338,6 +338,21 @@ export function sCompDrg(obj, data, type = '') {
   const dataWt4 = data[2]
   let diagsCode = dataWt4.diags_code
   let opersCode = dataWt4.opers_code
+  const version = data[3]
+  let url = ''
+  switch (version) {
+    case 'BJ':
+      url = `http://${data[0]}:${data[1]}/drgserver/comp_drg_bj/`
+      break;
+    case 'GB':
+      url = `http://${data[0]}:${data[1]}/drgserver/comp_drg_gb/`
+      break;
+    case 'CN':
+      url = `http://${data[0]}:${data[1]}/drgserver/comp_drg_cn/`
+      break;
+    default:
+      url = `http://${data[0]}:${data[1]}/drgserver/comp_drg_cn/`
+  }
   if (dataWt4) {
     if (type !== '') {
       diagsCode = diagsCode.split('-')
@@ -348,7 +363,7 @@ export function sCompDrg(obj, data, type = '') {
     const wt4 = { ACCTUAL_DAYS: dataWt4.acctual_days, B_WT4_V1_ID: dataWt4.b_wt4_v1_id, DISEASE_CODE: dataWt4.disease_code, AGE: dataWt4.age, GENDER: dataWt4.gender, SF0100: dataWt4.sf0100, SF0102: dataWt4.sf0102, SF0104: dataWt4.sf0104, SF0108: dataWt4.sf0108, TOTAL_EXPENSE: dataWt4.total_expense, diags_code: `["${diagsCode}"]`, opers_code: `["${opersCode}"]` }
     axios({
       method: 'post',
-      url: `http://${data[0]}:${data[1]}/drgserver/comp_drg/`,
+      url: url,
       data: qs.stringify(wt4),
       headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
       responseType: 'json'
