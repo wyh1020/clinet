@@ -31,12 +31,12 @@ export function getLibrary(obj, data) {
   }).then((res) => {
     if (res.status === 200) {
       obj.$store.commit('SET_NOTICE', '读取远程文件成功')
-      obj.$store.commit('LIBRARY_SET_SERVER_TABLE', res.data.library)
+      obj.$store.commit('LIBRARY_SET_SERVER_TABLE', res.data)
     } else {
-      obj.$store.commit('LIBRARY_SET_SERVER_TABLE', [])
+      obj.$store.commit('LIBRARY_SET_SERVER_TABLE', {})
     }
   }).catch((err) => {
     console.log(err);
-    obj.$store.commit('LIBRARY_SET_SERVER_TABLE', [])
+    obj.$store.commit('LIBRARY_SET_SERVER_TABLE', {})
   })
 }
