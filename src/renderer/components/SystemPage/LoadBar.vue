@@ -39,11 +39,19 @@
 </template>
 
 <script>
+  import { sUploadDoc } from '../../utils/Server';
   export default {
     data() {
       return {
         paths: []
       };
+    },
+    computed: {
+      serverTable: {
+        get() {
+          return this.$store.state.System.serverTable
+        }
+      }
     },
     methods: {
       loadPath: function () {},
@@ -76,7 +84,25 @@
       },
       upLoadTableData: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'upLoadTableData');
-      },
+        let server = []
+        if (this.$store.state.System.server === '') {
+          const key = Object.keys(global.hitbdata.server)
+          server = global.hitbdata.server[key][0];
+        } else {
+          server = [this.$store.state.System.server, this.$store.state.System.port]
+        }
+        let f = []
+        let fileName = ''
+        // const filename =
+        if (this.serverTable.endsWith('.csv')) {
+          f = this.$store.state.System.file
+          fileName = this.serverTable
+        } else {
+          f = this.$store.state.System.table
+          fileName = `${this.serverTable}.csv`
+        }
+        sUploadDoc(this, [server[0], server[1], fileName, f])
+      }
     },
   };
 </script>

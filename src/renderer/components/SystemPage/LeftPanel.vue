@@ -126,6 +126,7 @@
     methods: {
       onClick: function (data, index) {
         this.flag = index
+        this.$store.commit('SYSTEM_SET_SERVER_TABLE', data);
         switch (this.$store.state.System.toolbar) {
           case 'files':
             loadFile(this, data, 'system-home')
