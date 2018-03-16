@@ -97,13 +97,11 @@
         this.$store.commit('STAT_LOAD_FILES');
       },
       serverData: function () {
-        this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
-        if (this.$store.state.System.server === '') {
-          const key = Object.keys(global.hitbdata.server)
-          const server = global.hitbdata.server[key][0];
-          getStatFiles(this, [server[0], server[1]])
-        } else {
+        if (this.$store.state.System.connectInfo) {
+          this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
           getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port])
+        } else {
+          this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
         }
       },
       page: function (n) {
@@ -139,7 +137,7 @@
         let table = []
         switch (this.$store.state.Stat.tableType) {
           case 'local': {
-            table = this.$store.state.Stat.file
+            table = this.$store.state.Stat.localTable
             break;
           }
           case 'server': {

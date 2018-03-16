@@ -29,6 +29,8 @@ const state = {
   selectedCol: [],
   compareTable: [],
   serverTable: [],
+  localTables: {},
+  localTable: [],
   chartLeft: '柱状图',
   chartRight: '折线图',
   tableType: 'local',
@@ -55,9 +57,21 @@ const mutations = {
       `时间维度总数：${state.dimensionTime.length - 1}`,
       `病种维度总数：${state.dimensionDrg.length - 1}`,
     ]
+    const page = Math.ceil(state.tableSel.length / 20)
+    // const page = 1
+    for (let i = 0; i < page; i += 1) {
+      const f = []
+      f.push(state.tableHeader[0])
+      for (let j = 0; j < 19; j += 1) {
+        f.push(state.tableSel[(i + 1) * j])
+      }
+      state.localTables[i] = f
+    }
+    state.localTable = state.localTables[state.tablePage]
   },
   STAT_TABLE_PAGE(state, n) {
     state.tablePage += n;
+    state.localTable = state.localTables[state.tablePage]
   },
   STAT_SERVER_FILES(state, opt) {
     state.files = opt.data;

@@ -56,23 +56,7 @@
           let table = []
           switch (this.$store.state.Stat.tableType) {
             case 'local': {
-              const f = []
-              let start = 0
-              let fileLen = this.$store.state.Stat.tableSel.length;
-              if (fileLen > 19) {
-                if (this.$store.state.Stat.tablePage > 0) {
-                  start = 20 * this.$store.state.Stat.tablePage
-                  fileLen = start + 19
-                } else {
-                  fileLen = 19
-                }
-              }
-              for (let i = start; i < fileLen; i += 1) {
-                f.push(this.$store.state.Stat.tableSel[i])
-              }
-              const a = this.$store.state.Stat.tableHeader[0]
-              f.splice(0, 0, a)
-              table = f
+              table = this.$store.state.Stat.localTable;
               break;
             }
             case 'server': {
@@ -125,7 +109,7 @@
         const type = this.$store.state.Stat.chartLeft
         let table = []
         if (this.$store.state.Stat.tableType === 'local') {
-          table = this.$store.state.Stat.file
+          table = this.$store.state.Stat.localTable
         } else if (this.$store.state.Stat.tableType === 'server') {
           table = this.$store.state.Stat.serverTable
         } else {
@@ -153,22 +137,21 @@
         }
         const idRight = 'chartRight'
         const typeRight = this.$store.state.Stat.chartRight
-        const optionRight = chartData(table, this.flag, this.flagTd)
         switch (typeRight) {
           case '柱状图':
-            chartBar(idRight, optionRight)
+            chartBar(idRight, option)
             break;
           case '折线图':
-            chartLine(idRight, optionRight)
+            chartLine(idRight, option)
             break;
           case '雷达图':
-            chartRadar(idRight, optionRight)
+            chartRadar(idRight, option)
             break;
           case '散点图':
-            chartScatter(idRight, optionRight)
+            chartScatter(idRight, option)
             break;
           case '饼图':
-            chartPie(idRight, optionRight)
+            chartPie(idRight, option)
             break;
           default: break;
         }
