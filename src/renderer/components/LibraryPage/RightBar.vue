@@ -58,15 +58,12 @@
         this.$store.commit('SET_NOTICE', '本地文件');
       },
       serverData: function () {
-        // this.$store.commit('LIBRARY_SERVER_FILES');
-        this.$store.commit('SET_NOTICE', '远程文件');
-        this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'server');
-        if (this.$store.state.System.server === '') {
-          const key = Object.keys(global.hitbdata.server)
-          const server = global.hitbdata.server[key][0];
-          getLibraryFiles(this, [server[0], server[1]])
-        } else {
+        if (this.$store.state.System.connectInfo) {
+          this.$store.commit('SET_NOTICE', '远程文件');
+          this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'server');
           getLibraryFiles(this, [this.$store.state.System.server, this.$store.state.System.port])
+        } else {
+          this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
         }
       },
       page: function (n) {

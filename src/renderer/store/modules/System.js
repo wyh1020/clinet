@@ -43,7 +43,8 @@ const state = {
   wt4TablePage: 0,
   targetIndex: [],
   targetDimension: [],
-  serverStat: { wt4: [], index: [], dimension: [] }
+  serverStat: { wt4: [], index: [], dimension: [] },
+  serverTable: ''
 };
 
 const mutations = {
@@ -64,7 +65,9 @@ const mutations = {
     } else {
       state.connectInfo = false
     }
-    console.log(state.connectInfo)
+  },
+  SYSTEM_SET_CONNECT_INFO(state, r) {
+    state.connectInfo = r
   },
   SYSTEM_GET_FILES(state) {
     state.files = fs.readdirSync(global.hitbdata.path.home).filter(x => x.endsWith('.csv'))
@@ -201,6 +204,12 @@ const mutations = {
     } else {
       state.serverStat[field[0]] = [...state.serverStat[field[0]], field[1]]
     }
+  },
+  SYSTEM_SET_SERVER_TABLE(state, field) {
+    state.serverTable = field
+  },
+  SYSTEM_UPLOAD_FILE(state, field) {
+    console.log(field);
   }
 };
 
@@ -233,6 +242,7 @@ const actions = {
     commit('SYSTEM_SET_LOCAL_PAGE');
     commit('SYSTEM_GET_TARGET');
     commit('SYSTEM_GET_SERVER_STAT');
+    commit('SYSTEM_SET_SERVER_TABLE');
   },
 };
 

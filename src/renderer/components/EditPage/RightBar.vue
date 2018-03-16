@@ -79,18 +79,14 @@
       },
       serverData: function () {
         this.$store.commit('EDIT_SET_SERVER_TYPE', 'user');
-        console.log(this.$store.state.System.user);
-        if (this.$store.state.System.server === '') {
-          const key = Object.keys(global.hitbdata.server)
-          const server = global.hitbdata.server[key][0];
-          getEditFiles(this, [server[0], server[1], this.$store.state.Edit.serverType])
+        if (this.$store.state.System.connectInfo) {
+          getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType])
+          this.$store.commit('SET_NOTICE', '读取远程文件');
+          this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
         } else {
-          getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port])
+          this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
+          this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
         }
-        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
-        // this.$store.commit('EDIT_SERVER_FILES');
-        // this.$store.commit('SET_NOTICE', '读取远程文件');
-        // this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
       },
       page: function (n) {
         if (this.$store.state.Edit.rightPanel === 'left') {

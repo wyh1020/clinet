@@ -78,7 +78,8 @@ export function sLogin(obj, data) {
   }).then((res) => {
     if (res.data.login) {
       obj.$store.commit('SYSTEM_SET_USER', ['用户登录成功', res.data])
-      obj.$store.commit('SYSTEM_SET_SERVER', [data[0], data[1]])
+      obj.$store.commit('SYSTEM_SET_SERVER', ['', data[0], data[1]])
+      obj.$store.commit('SYSTEM_SET_CONNECT_INFO', true)
       obj.$store.commit('SET_NOTICE', '远程服务用户登录成功')
     } else {
       obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
@@ -403,18 +404,24 @@ export function sGetTarget(obj, data) {
 }
 
 export function sUploadDoc(obj, data) {
-  const formData = { myfile: data[2]}
-  axios({
-    method: 'post',
-    url: `http://${data[0]}:${data[1]}/servers/wt4_upload/`,
-    data: qs.stringify(formData),
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-    responseType: 'json'
-  }).then((res) => {
-    console.log(res)
-  }).catch((err) => {
-    console.log(err)
-  })
+  if (data[3] && data[2]) {
+    const content = data[3].join('\n')
+    const objFile = new File([content], data[2]);
+    const xhr = new XMLHttpRequest();
+    const fd = new FormData();
+    fd.append('file', objFile);
+    xhr.open('POST', `http://${data[0]}:${data[1]}/servers/wt4_upload/`, true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        obj.$store.commit('SET_NOTICE', '文件上传成功!')
+        const res = JSON.parse(xhr.responseText)
+        obj.$store.commit('SYSTEM_UPLOAD_FILE', res)
+      } else {
+        obj.$store.commit('SYSTEM_UPLOAD_FILE', {})
+      }
+    }
+    xhr.send(fd);
+  }
 }
 // ======================================
 // 2.2.1 获取分析记录
