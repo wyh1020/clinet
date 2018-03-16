@@ -77,7 +77,7 @@ export function sLogin(obj, data) {
     responseType: 'json'
   }).then((res) => {
     if (res.data.login) {
-      obj.$store.commit('SYSTEM_SET_USER', ['用户登录成功', res.data])
+      obj.$store.commit('SYSTEM_SET_USER', ['用户登录成功', res.data, [data[0], data[1]]])
       obj.$store.commit('SET_NOTICE', '远程服务用户登录成功')
     } else {
       obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
