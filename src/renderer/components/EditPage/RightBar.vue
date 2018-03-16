@@ -79,6 +79,7 @@
       },
       serverData: function () {
         this.$store.commit('EDIT_SET_SERVER_TYPE', 'user');
+        console.log(this.$store.state.System.user);
         if (this.$store.state.System.server === '') {
           const key = Object.keys(global.hitbdata.server)
           const server = global.hitbdata.server[key][0];

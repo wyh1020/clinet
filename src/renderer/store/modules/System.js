@@ -20,7 +20,7 @@ const state = {
   // 连接状态
   connectInfo: false,
   // 用户状态
-  user: { username: '', org: '', type: 2, login: false, server: [] },
+  user: { username: '', org: '', type: 2, login: false },
   // 机构信息
   orgs: [],
   org: [],
@@ -98,7 +98,6 @@ const mutations = {
   // 用户登录
   SYSTEM_SET_USER(state, field) {
     state.user = field[1];
-    state.user.server = field[2];
   },
   // 用户信息
   SYSTEM_INFO_USER(state, field) {
