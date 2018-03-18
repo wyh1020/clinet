@@ -108,14 +108,8 @@
         if (this.$store.state.Stat.tablePage === 0 && n === -1) {
           this.$store.commit('SET_NOTICE', '当前已是第一页')
         } else if (this.$store.state.Stat.tableType === 'server') {
-          if (this.$store.state.System.server === '') {
-            this.$store.commit('STAT_TABLE_PAGE', n);
-            const key = Object.keys(global.hitbdata.server)
-            const server = global.hitbdata.server[key][0];
-            getStat(this, [server[0], server[1], this.$store.state.Stat.tableName, this.$store.state.Stat.tablePage])
-          } else {
-            getStat(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Stat.tableName, this.$store.state.Stat.tablePage])
-          }
+          this.$store.commit('STAT_TABLE_PAGE', n);
+          getStat(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Stat.tableName, this.$store.state.Stat.tablePage])
         } else {
           this.$store.commit('STAT_TABLE_PAGE', n);
         }
