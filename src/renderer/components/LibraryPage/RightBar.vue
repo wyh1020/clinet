@@ -70,15 +70,8 @@
         if (this.$store.state.Library.tablePage === 0 && n === -1) {
           this.$store.commit('SET_NOTICE', '当前已是第一页')
         } else if (this.$store.state.Library.tableType === 'server') {
-          if (this.$store.state.System.server === '') {
-            this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
-            const key = Object.keys(global.hitbdata.server)
-            const server = global.hitbdata.server[key][0];
-            getLibrary(this, [server[0], server[1], this.$store.state.Library.tableName, this.$store.state.Library.tablePage])
-          } else {
-            this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
-            getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.tableName, this.$store.state.Library.tablePage])
-          }
+          this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
+          getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.tableName, this.$store.state.Library.tablePage])
         } else {
           this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
           this.$store.commit('SET_NOTICE', '翻页');

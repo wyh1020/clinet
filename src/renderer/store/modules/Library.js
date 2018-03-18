@@ -5,6 +5,8 @@ const state = {
   file: [],
   table: [],
   tableSel: [],
+  localTables: [],
+  localTable: [],
   tablePage: 0,
   leftPanel: 'file',
   dimension: [],
@@ -41,6 +43,16 @@ const mutations = {
       `时间维度总数：${state.dimensionTime.length - 1}`,
       `版本维度总数：${state.dimensionVersion.length - 1}`,
     ]
+    const page = Math.ceil(state.tableSel.length / 20)
+    for (let i = 0; i < page; i += 1) {
+      const f = []
+      f.push(state.tableHeader[0])
+      for (let j = 0; j < 19; j += 1) {
+        f.push(state.tableSel[(i + 1) * j])
+      }
+      state.localTables[i] = f
+    }
+    state.localTable = state.localTables[state.tablePage]
   },
   LIBRARY_SERVER_FILES(state, opt) {
     state.files = opt.data;
@@ -57,6 +69,7 @@ const mutations = {
     //   state.tablePage = maxPage
     // }
     // console.log(state.tablePage);
+    state.localTable = state.localTables[state.tablePage]
   },
   LIBRARY_SET_LEFT_PANEL(state, opt) {
     state.leftPanel = opt[0];

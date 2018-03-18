@@ -50,10 +50,16 @@
       getLocalData: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getLocalData');
         this.$store.commit('SYSTEM_LOAD_WT4_FILES');
+        this.$store.commit('SYSTEM_TABLE_TYPE', 'local');
       },
       getServerData: function () {
-        this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServerData');
-        sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, 1])
+        if (this.$store.state.System.connectInfo) {
+          this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServerData');
+          this.$store.commit('SYSTEM_TABLE_TYPE', 'server');
+          sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, 1])
+        } else {
+          this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
+        }
       },
       compareData: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'compareData');
@@ -67,7 +73,11 @@
             break;
           case 'getServerData':
             this.$store.state.System.wt4Row.forEach((n) => {
-              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4.data[n]])
+              if (this.$store.state.System.connectInfo) {
+                sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4.data[n]])
+              } else {
+                this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
+              }
             })
             break;
           default:
@@ -82,7 +92,10 @@
         sGetCompRule(this, [this.$store.state.System.server, this.$store.state.System.port, 'mdc', {}])
       },
       page: function (value) {
-        if (value === 'up' && this.$store.state.System.localPage === 0) {
+        if (this.$store.state.System.tableType === 'server') {
+          this.$store.commit('SYSTEM_SET_LOCAL_PAGE', value);
+          sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.localPage])
+        } else if (value === 'up' && this.$store.state.System.localPage === 0) {
           this.$store.commit('SET_NOTICE', '已经是第一页');
         } else if (value === 'down' && this.$store.state.System.localPage === this.$store.state.System.wt4TablePage) {
           this.$store.commit('SET_NOTICE', '已经是最后一页');

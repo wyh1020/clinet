@@ -44,7 +44,8 @@ const state = {
   targetIndex: [],
   targetDimension: [],
   serverStat: { wt4: [], index: [], dimension: [] },
-  serverTable: ''
+  serverTable: '',
+  tableType: 'local'
 };
 
 const mutations = {
@@ -146,7 +147,7 @@ const mutations = {
   },
   // 读取本地wt4文件目录
   SYSTEM_LOAD_WT4_FILES() {
-    const files = fs.readdirSync(global.hitbdata.path.stat).filter(x => x.endsWith('.csv')).filter(x => x.startsWith('wt4') === true)
+    const files = fs.readdirSync(global.hitbdata.path.stat).filter(x => x.endsWith('.csv'))
     state.wt4Files = files;
   },
   // 读取本地wt4文件
@@ -210,7 +211,10 @@ const mutations = {
   },
   SYSTEM_UPLOAD_FILE(state, field) {
     console.log(field);
-  }
+  },
+  SYSTEM_TABLE_TYPE(state, field) {
+    state.tableType = field;
+  },
 };
 
 const actions = {
@@ -243,6 +247,7 @@ const actions = {
     commit('SYSTEM_GET_TARGET');
     commit('SYSTEM_GET_SERVER_STAT');
     commit('SYSTEM_SET_SERVER_TABLE');
+    commit('SYSTEM_TABLE_TYPE');
   },
 };
 
