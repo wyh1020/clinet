@@ -1,5 +1,6 @@
 // 加入对比方法(obj,当前分析,表头,列选中(index),行选中(index))
 export default function addContrast(obj, table = [], compare = [], th = [], yid = [], xid = []) {
+  if (yid.length === 0) { yid = [] }
   const xArr = []; // 行分析数据
   let yArr = []; // 列index
   const stat = []

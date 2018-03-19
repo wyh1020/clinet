@@ -189,15 +189,29 @@
         }
       },
       compare: function () {
-        const table = this.$store.state.Stat.tableSel
-        const header = this.$store.state.Stat.tableHeader
+        let table = []
+        let header = []
+        switch (this.$store.state.Stat.tableType) {
+          case 'server':
+            table = this.$store.state.Stat.serverTable
+            header = [this.$store.state.Stat.serverTable[0]]
+            break;
+          case 'local':
+            table = this.$store.state.Stat.tableSel
+            header = this.$store.state.Stat.tableHeader
+            break;
+          default:
+            break;
+        }
         const col = this.$store.state.Stat.selectedCol
         const row = this.$store.state.Stat.selectedRow
         const compareTable = this.$store.state.Stat.compareTable
-        if (col.length > 0 || row.length > 0) {
-          addContrast(this, table, compareTable, header, col, row)
-        } else {
-          this.$store.commit('SET_NOTICE', '请选择加入对比数据!');
+        if (this.$store.state.Stat.tableType !== 'compare') {
+          if (col.length > 0 || row.length > 0) {
+            addContrast(this, table, compareTable, header, col, row)
+          } else {
+            this.$store.commit('SET_NOTICE', '请选择加入对比数据!');
+          }
         }
       },
       showCompare: function () {
