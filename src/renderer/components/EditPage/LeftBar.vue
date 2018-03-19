@@ -91,9 +91,14 @@
         }
       },
       saveFile: function () {
-        const x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
-        const p = this.$store.state.Edit.lastNav
-        saveFile(this, x, p)
+        if (this.$store.state.Edit.serverType === 'show') {
+          console.log(this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]);
+          // saveEdit(this, )
+        } else {
+          const x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
+          const p = this.$store.state.Edit.lastNav
+          saveFile(this, x, p)
+        }
       },
       save: function (n) {
         const fileIndex = this.$store.state.Edit.fileIndex
