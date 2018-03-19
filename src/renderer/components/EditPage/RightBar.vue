@@ -11,11 +11,11 @@
             选择
           </a>
           <div class="dropdown-menu" aria-labelledby="edit-rightbar-choice">
-            <a class="dropdown-item" href="#" v-on:click='help("编辑器使用帮助")'>编辑器使用帮助</a>
-            <a class="dropdown-item" href="#" v-on:click='help("输入框提示")'>输入框提示</a>
+            <a class="dropdown-item" href="#" v-on:click='help("编辑器使用帮助")' id="edit-rightbar-editorHelp">编辑器使用帮助</a>
+            <a class="dropdown-item" href="#" v-on:click='help("输入框提示")' id="edit-rightbar-inputPrompt">输入框提示</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click='help("病案历史")'>病案历史</a>
-            <a class="dropdown-item" href="#" v-on:click='help("病案参考")'>病案参考</a>
+            <a class="dropdown-item" href="#" v-on:click='help("病案历史")' id="edit-rightbar-medicalHistory">病案历史</a>
+            <a class="dropdown-item" href="#" v-on:click='help("病案参考")' id="edit-rightbar-medicalRefer">病案参考</a>
           </div>
         </li>
         <li class="nav-item active" v-on:click='help(null)' id="edit-rightbar-help">
