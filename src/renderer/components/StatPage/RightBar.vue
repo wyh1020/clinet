@@ -81,7 +81,7 @@
   import addContrast from '../../utils/StatContrast';
   import chartData from '../../utils/ChartData';
   import saveFile from '../../utils/SaveFile';
-  import { getStatFiles, getStat } from '../../utils/StatServerFile';
+  import { getStatFiles, getStat, saveStat } from '../../utils/StatServerFile';
   import loadFile from '../../utils/LoadFile';
 
   export default {
@@ -103,7 +103,7 @@
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
         } else {
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
-          getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port])
+          getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port, '', this.$store.state.System.user.username])
         }
       },
       page: function (n) {
@@ -222,7 +222,9 @@
         }
       },
       saveCompare: function () {
-        if (this.$store.state.Stat.compareTable.length > 0) {
+        if (this.$store.state.Stat.tableType === 'server') {
+          saveStat(this, this.$store.state.Stat.compareTable, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user])
+        } else if (this.$store.state.Stat.compareTable.length > 0) {
           const d = new Date();
           let month = d.getMonth() + 1
           if (month < 10) {

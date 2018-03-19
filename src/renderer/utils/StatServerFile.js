@@ -1,11 +1,11 @@
 const axios = require('axios');
-// const qs = require('qs');
+const qs = require('qs');
 export function getStatFiles(obj, data) {
   let url = ''
   if (data[2]) {
-    url = `http://${data[0]}:${data[1]}/stat/stat_file?name=${data[2]}`
+    url = `http://${data[0]}:${data[1]}/stat/stat_file?name=${data[2]}&username=${data[3]}`
   } else {
-    url = `http://${data[0]}:${data[1]}/stat/stat_file/`
+    url = `http://${data[0]}:${data[1]}/stat/stat_file?username=${data[3]}`
   }
   axios({
     method: 'get',
@@ -52,7 +52,7 @@ export function getStat(obj, data) {
   const pageNum = data[3] + 1
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/stat/stat_client?page=${pageNum}&page_type=${pageType}&tool_type=${toolType}&rows=20`,
+    url: `http://${data[0]}:${data[1]}/stat/stat_client?page=${pageNum}&page_type=${pageType}&tool_type=${toolType}&rows=20&username=${data[4]}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -65,5 +65,29 @@ export function getStat(obj, data) {
   }).catch((err) => {
     console.log(err);
     obj.$store.commit('STAT_SET_SERVER_TABLE', [])
+  })
+}
+
+// 清空对比
+export function saveStat(obj, compare, data) {
+  axios({
+    method: 'post',
+    url: `http://${data[0]}:${data[1]}/stat/stat_create/`,
+    data: qs.stringify({ data: JSON.stringify(compare), username: data[2].username }),
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    responseType: 'json'
+  }).then((res) => {
+    if (res.status === 200) {
+      if (res.data.success) {
+        obj.$store.commit('SET_NOTICE', `保存对比     ${res.data.filename}     成功!`);
+      } else {
+        obj.$store.commit('SET_NOTICE', `保存对比     ${res.data.filename}     失败,文件已经存在!`);
+      }
+    } else {
+      obj.$store.commit('SET_NOTICE', '保存对比失败!');
+    }
+  }).catch((err) => {
+    console.log(err)
+    obj.$store.commit('SET_NOTICE', '保存对比失败!');
   })
 }

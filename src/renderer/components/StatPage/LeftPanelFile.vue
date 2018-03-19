@@ -41,10 +41,10 @@
             server = [this.$store.state.System.server, this.$store.state.System.port]
           }
           if (data.endsWith('.csv')) {
-            getStat(this, [server[0], server[1], data, 0])
+            getStat(this, [server[0], server[1], data, 0, this.$store.state.System.user.username])
             this.$store.commit('STAT_TABLE_NAME', data);
           } else {
-            getStatFiles(this, [server[0], server[1], data])
+            getStatFiles(this, [server[0], server[1], data, this.$store.state.System.user.username])
           }
         } else {
           loadFile(this, data, 'stat')
