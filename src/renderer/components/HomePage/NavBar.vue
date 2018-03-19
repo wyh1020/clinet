@@ -112,33 +112,46 @@
             break;
           case '术语字典-术语字典':
             this.$router.push('/library');
+            this.$store.commit('LIBRARY_LOAD_FILES');
             break;
           case '系统服务-本地文件导入':
             this.$router.push('/system');
+            this.$store.commit('SYSTEM_GET_FILES');
+            this.$store.commit('SYSTEM_SET_TOOLBAR', 'files');
             break;
           case '系统服务-远程服务器设置':
             this.$router.push('/system');
+            this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServers');
+            this.$store.commit('SYSTEM_SET_TOOLBAR', 'files');
             break;
           case '系统服务-DRG分组服务':
             this.$router.push('/system');
+            this.$store.commit('SYSTEM_SET_TOOLBAR', 'getLocalData');
+            this.$store.commit('SYSTEM_LOAD_WT4_FILES');
             break;
           case '系统服务-DRG分析计算':
             this.$router.push('/system');
+            this.$store.commit('SYSTEM_SET_TOOLBAR', 'serverData');
             break;
           case '区块链服务-服务器节点设置':
             this.$router.push('/blockChain');
+            this.$store.commit('BLOCK_SET_TOOLBAR', 'getServers');
             break;
           case '区块链服务-账户设置':
             this.$router.push('/blockChain');
+            this.$store.commit('BLOCK_SET_TOOLBAR', 'setUser');
             break;
           case '区块链服务-区块查询':
             this.$router.push('/blockChain');
+            this.$store.commit('BLOCK_SET_TOOLBAR', 'blockList');
             break;
           case '区块链服务-DRG分组服务':
             this.$router.push('/blockChain');
+            this.$store.commit('BLOCK_SET_TOOLBAR', 'localData');
             break;
           case '区块链服务-DRG分析计算':
             this.$router.push('/blockChain');
+            this.$store.commit('BLOCK_SET_TOOLBAR', 'serverStatData');
             break;
           default:
             this.$store.commit('SET_NAVBAR', '登陆页');
