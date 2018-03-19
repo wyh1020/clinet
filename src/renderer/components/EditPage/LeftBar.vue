@@ -66,7 +66,6 @@
     },
     methods: {
       lastNav: function () {
-        console.log(this.$store.state.Edit.lastNav)
         this.$router.push(this.$store.state.Edit.lastNav);
         this.$store.commit('EDIT_SET_LAST_NAV', '/edit');
       },
@@ -75,7 +74,13 @@
         this.$store.commit('EDIT_SET_DOC_INDEX', [0, true])
         this.$store.commit('EDIT_SET_FILE_INDEX', this.$store.state.Edit.file.length)
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
-        if (n) { this.$store.commit('SET_NOTICE', n); }
+        console.log(global.hitbmodel[n])
+        if (global.hitbmodel[n] !== undefined) {
+          this.$store.commit('EDIT_LOAD_DOC', global.hitbmodel[n])
+          this.$store.commit('SET_NOTICE', n);
+        } else {
+          this.$store.commit('SET_NOTICE', n);
+        }
         document.getElementById('edit-editbar-input').focus()
       },
       page: function (n) {

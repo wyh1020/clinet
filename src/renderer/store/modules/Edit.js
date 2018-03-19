@@ -71,9 +71,7 @@ const mutations = {
     state.filesPage += n;
   },
   EDIT_LOAD_DOC(state, message) {
-    // console.log(message)
     const x = message.map(m => m.split(' ').filter(i => i !== ''))
-    // console.log(x)
     state.doc = x;
   },
   EDIT_SET_DOC(state) {

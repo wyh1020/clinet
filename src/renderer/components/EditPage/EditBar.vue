@@ -75,13 +75,13 @@
         const n = this.$store.state.Edit.docIndex - 1
         const x = this.$store.state.Edit.doc[n]
         this.$store.commit('EDIT_SET_DOC_INDEX', [-1]);
-        if (x) { this.item = x.toString().replace(/,/g, '   ') }
+        if (x) { this.item = x.toString().replace(/,/g, '  ') }
       },
       down() {
         const n = this.$store.state.Edit.docIndex + 1
         const x = this.$store.state.Edit.doc[n]
         this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
-        if (x) { this.item = x.toString().replace(/,/g, '   ') }
+        if (x) { this.item = x.toString().replace(/,/g, '  ') }
       },
       itemUp() {
         if (this.$store.state.Edit.docIndex > 0 && this.$store.state.Edit.fileType === 'cda') {
@@ -189,6 +189,7 @@
       },
       change() {
         const value = document.getElementById('edit-editbar-input').value
+        console.log(value)
         this.$store.commit('EDIT_SET_BAR_VALUE', value);
       },
     },
