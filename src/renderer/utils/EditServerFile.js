@@ -51,3 +51,28 @@ export function getEdit(obj, data) {
     obj.$store.commit('EDIT_LOAD_FILE', [])
   })
 }
+
+export function saveEdit(obj, data) {
+  console.log(obj);
+  console.log(data);
+  // // 去除文件名中的.csv
+  // const file = data[2].split('-')
+  // axios({
+  //   method: 'get',
+  //   url: `http://${data[0]}:${data[1]}/edit/cda?filename=${file[1]}&username=${file[0]}`,
+  //   headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+  //   responseType: 'json'
+  // }).then((res) => {
+  //   //
+  //   if (res.status === 200) {
+  //     obj.$store.commit('SET_NOTICE', '读取远程文件成功')
+  //     obj.$store.commit('EDIT_LOAD_FILE', res.data)
+  //     obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
+  //   } else {
+  //     obj.$store.commit('EDIT_LOAD_FILE', [])
+  //   }
+  // }).catch((err) => {
+  //   console.log(err);
+  //   obj.$store.commit('EDIT_LOAD_FILE', [])
+  // })
+}
