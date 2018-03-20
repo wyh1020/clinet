@@ -84,7 +84,6 @@
               break;
             }
           }
-          console.log(table)
           return table
         }
       },

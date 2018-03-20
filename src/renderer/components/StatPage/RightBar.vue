@@ -81,7 +81,7 @@
   import addContrast from '../../utils/StatContrast';
   import chartData from '../../utils/ChartData';
   import saveFile from '../../utils/SaveFile';
-  import { getStatFiles, getStat, saveStat } from '../../utils/StatServerFile';
+  import { getStatFiles, getStat, saveStat, getList } from '../../utils/StatServerFile';
   import loadFile from '../../utils/LoadFile';
 
   export default {
@@ -125,7 +125,19 @@
         this.$router.push('/edit');
       },
       selX: function (x) {
-        this.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', x]);
+        switch (this.$store.state.Stat.tableType) {
+          case 'local': {
+            this.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', x]);
+            break;
+          }
+          case 'server': {
+            getList(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Stat.tableName, x, this.$store.state.System.user.username])
+            break;
+          }
+          default: {
+            break;
+          }
+        }
       },
       showChart: function (id, type) {
         let table = []

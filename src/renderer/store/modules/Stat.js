@@ -77,21 +77,28 @@ const mutations = {
     state.files = opt.data;
   },
   STAT_SET_LEFT_PANEL(state, opt) {
-    state.leftPanel = opt[0];
-    state.dimensionType = opt[1];
-    switch (opt[1]) {
-      case '机构':
-        state.dimension = state.dimensionOrg
-        break;
-      case '时间':
-        state.dimension = state.dimensionTime
-        break;
-      case '病种':
-        state.dimension = state.dimensionDrg
-        break;
-      default:
-        break;
+    if (state.tableType === 'local') {
+      state.leftPanel = opt[0];
+      state.dimensionType = opt[1];
+      switch (opt[1]) {
+        case '机构':
+          state.dimension = state.dimensionOrg
+          break;
+        case '时间':
+          state.dimension = state.dimensionTime
+          break;
+        case '病种':
+          state.dimension = state.dimensionDrg
+          break;
+        default:
+          break;
+      }
+    } else {
+      state.leftPanel = 'dimension'
+      state.dimension = opt[0]
+      state.dimensionType = opt[1]
     }
+    console.log(opt);
   },
   STAT_SET_DIMENSION(state, opt) {
     switch (opt[0]) {

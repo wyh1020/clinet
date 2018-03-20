@@ -25,6 +25,41 @@ export function getStatFiles(obj, data) {
   })
 }
 
+export function getList(obj, data) {
+  let type = ''
+  switch (data[3]) {
+    case '机构':
+      type = 'org'
+      break;
+    case '时间':
+      type = 'time'
+      break;
+    case '病种':
+      type = 'drg2'
+      break;
+    default:
+      break;
+  }
+  let file = data[2]
+  // 去除文件名中的.csv
+  file = data[2].split('.csv')[0]
+  axios({
+    method: 'get',
+    url: `http://${data[0]}:${data[1]}/stat/stat_client?type=${type}&username=${data[4]}&page_type=${file}`,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    responseType: 'json'
+  }).then((res) => {
+    if (res.status === 200) {
+      obj.$store.commit('STAT_SET_LEFT_PANEL', [res.data.list[0][0], data[3]])
+    } else {
+      obj.$store.commit('STAT_SET_LEFT_PANEL', [[], data[3]])
+    }
+  }).catch((err) => {
+    console.log(err);
+    obj.$store.commit('STAT_SET_LEFT_PANEL', [[], data[3]])
+  })
+}
+
 export function getStat(obj, data) {
   let file = data[2]
   // 去除文件名中的.csv
