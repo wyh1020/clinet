@@ -45,7 +45,9 @@ const state = {
   targetDimension: [],
   serverStat: { wt4: [], index: [], dimension: [] },
   serverTable: '',
-  tableType: 'local'
+  tableType: 'local',
+  computeVersion: ['CN', 'GB', 'BJ'],
+  computeData: ''
 };
 
 const mutations = {
@@ -215,6 +217,10 @@ const mutations = {
   SYSTEM_TABLE_TYPE(state, field) {
     state.tableType = field;
   },
+  SYSTEM_SET_COMPUTE_DATA(state, value) {
+    console.log(value)
+    state.computeData = value;
+  },
 };
 
 const actions = {
@@ -248,6 +254,7 @@ const actions = {
     commit('SYSTEM_GET_SERVER_STAT');
     commit('SYSTEM_SET_SERVER_TABLE');
     commit('SYSTEM_TABLE_TYPE');
+    commit('SYSTEM_SET_COMPUTE_DATA');
   },
 };
 

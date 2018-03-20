@@ -98,6 +98,7 @@
       <table class="table">
         <thead>
           <tr>
+            <th>版本</th>
             <th>病案号</th>
             <th>DRG</th>
             <th>分组日志</th>
@@ -106,6 +107,7 @@
         </thead>
         <tbody>
           <tr v-for="(value, index) in this.$store.state.System.wt4Comp"  v-bind:key="index" v-on:click="drgRule(value[0].drg)">
+            <td>{{value[0].version}}</td>
             <td>{{value[0].B_WT4_V1_ID}}</td>
             <td>{{value[0].drg}}</td>
             <td>{{value[0].log}}</td>

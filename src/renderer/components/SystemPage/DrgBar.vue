@@ -68,13 +68,13 @@
         switch (this.$store.state.System.toolbar) {
           case 'getLocalData':
             this.$store.state.System.wt4LocalRow.forEach((n) => {
-              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables[n]], 'getLocalData')
+              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables[n], 'BJ'], 'getLocalData')
             })
             break;
           case 'getServerData':
             this.$store.state.System.wt4Row.forEach((n) => {
               if (this.$store.state.System.connectInfo) {
-                sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4.data[n]])
+                sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4.data[n], 'BJ'])
               } else {
                 this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
               }

@@ -18,12 +18,12 @@
         <li class="nav-item active" v-on:click='transRecord' id="block-user-trans-record">
           <a class="nav-link text-light" href="#"> 账户交易记录 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click="page('up')" id="block-user-trans-record">
+        <!-- <li class="nav-item active" v-on:click="page('up')" id="block-user-trans-record">
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click="page('down')" id="block-user-trans-record">
           <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
-        </li>
+        </li> -->
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="block-user-search">
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import { getTransactions, transactionsUnconfirmedAll } from '../../utils/BlockTransaction'
+  import { transactionsUnconfirmedAll } from '../../utils/BlockTransaction'
   export default {
     data() {
       return {
@@ -58,23 +58,24 @@
         const port = this.$store.state.Block.port
         const user = global.hitbdata.blockchain_user
         // console.log(ip)
-        getTransactions(this, [ip, port, user])
+        // getTransactions(this, [ip, port, user])
         transactionsUnconfirmedAll(this, [ip, port, user])
         this.$store.commit('BLOCK_SET_TOOLBAR', 'transRecord');
         this.$store.commit('SET_NOTICE', '账户交易记录');
       },
       page: function (value) {
-        const ip = this.$store.state.Block.server
-        const port = this.$store.state.Block.port
-        const user = global.hitbdata.blockchain_user
-        if (value === 'up' && this.$store.state.Block.pege === 0) {
-          this.$store.commit('SET_NOTICE', '已经是第一页');
-        } else if (value === 'down' && this.$store.state.Block.trans.transactions.length < 10) {
-          this.$store.commit('SET_NOTICE', '已经是最后一页');
-        } else {
-          this.$store.commit('BLOCK_SET_PAGE', value);
-          getTransactions(this, [ip, port, user])
-        }
+        console.log(value);
+        // const ip = this.$store.state.Block.server
+        // const port = this.$store.state.Block.port
+        // const user = global.hitbdata.blockchain_user
+        // if (value === 'up' && this.$store.state.Block.pege === 0) {
+        //   this.$store.commit('SET_NOTICE', '已经是第一页');
+        // } else if (value === 'down' && this.$store.state.Block.trans.transactions.length < 10) {
+        //   this.$store.commit('SET_NOTICE', '已经是最后一页');
+        // } else {
+        //   this.$store.commit('BLOCK_SET_PAGE', value);
+        //   // getTransactions(this, [ip, port, user])
+        // }
       }
     },
   };

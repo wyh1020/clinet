@@ -13,6 +13,7 @@
 
 <script>
   import loadFile from '../../utils/LoadFile';
+  import { sCompDrg } from '../../utils/Server';
   export default {
     data() {
       return {
@@ -116,6 +117,9 @@
             case 'getLocalData':
               xs = this.$store.state.System.wt4Files
               break;
+            case 'drgCompute':
+              xs = this.$store.state.System.computeVersion
+              break;
             default:
               xs = [];
           }
@@ -141,10 +145,28 @@
           case 'getLocalData':
             loadFile(this, data, 'wt4')
             break;
+          case 'drgCompute':
+            this.drgCompute(data)
+            break;
           default:
             break;
         }
       },
+      drgCompute: function (value) {
+        switch (this.$store.state.System.computeData) {
+          case 'getLocalData':
+            this.$store.state.System.wt4LocalRow.forEach((n) => {
+              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables[n], value], 'getLocalData')
+            })
+            break;
+          case 'getServerData':
+            this.$store.state.System.wt4Row.forEach((n) => {
+              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4.data[n], value])
+            })
+            break;
+          default:
+        }
+      }
     },
   };
 </script>
