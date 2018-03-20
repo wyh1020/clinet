@@ -1,6 +1,6 @@
 const AschJS = require('asch-js');
 const axios = require('axios');
-
+const qs = require('qs');
 // const targetAddress = '16358246403719868041';
 // const amount = 100 * 100000000; // 100 XAS
 // const message = '备注';
@@ -18,11 +18,40 @@ const axios = require('axios');
 // /peer相关的api，在请求时都需要设置一个header
 // key为magic，testnet value:594fe0f3, mainnet value:5f5b3cf5
 // key为version，value为''
-
+export function blockPost(obj, data) {
+  const targetAddress = data[2].targetAddress;
+  const amount = parseInt(data[2].amount, 10); // 100 XAS
+  const message = data[2].message;
+  const secret = global.hitbdata.blockchain_user;
+  const secondSecret = data[2].secondPassword;
+  console.log(amount);
+  const trs = AschJS.transaction.createTransaction(targetAddress, amount, message, secret, secondSecret || undefined);
+  const serverIp = '127.0.0.1'
+  const serverPort = '80'
+  const objs2 = {};
+  objs2.type = '转账';
+  objs2.trs = JSON.stringify(trs);
+  axios({
+    method: 'post',
+    url: `http://${serverIp}:${serverPort}/block/blockchain_post`,
+    data: qs.stringify(objs2),
+    async: false,
+    // headers: { magic: '594fe0f3', version: '' },
+    responseType: 'json'
+  }).then((res) => {
+    console.log(res)
+    if (res.status === 200) {
+      // obj.$store.commit('BLOCK_SET_TRANS', res.data)
+    }
+  })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 export function transactions1(obj, data) {
   console.log(data);
   const targetAddress = data[2].targetAddress;
-  const amount = data[2].amount; // 100 XAS
+  const amount = parseInt(data[2].amount, 10); // 100 XAS
   const message = data[2].message;
   const secret = global.hitbdata.blockchain_user;
   const secondSecret = data[2].secondPassword;
@@ -76,20 +105,20 @@ export function transactions1(obj, data) {
 //     })
 // }
 // 获取交易信息
-export function getTransactions(obj, data) {
-  console.log(obj.$store.state.Block.pege);
-  const page = obj.$store.state.Block.pege * 10
-  axios.get(`http://${data[0]}:${data[1]}/api/transactions?limit=10&offset=${page}`)
-    .then((res) => {
-      console.log(res)
-      if (res.status === 200) {
-        obj.$store.commit('BLOCK_SET_TRANS', res.data)
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
+// export function getTransactions(obj, data) {
+//   console.log(obj.$store.state.Block.pege);
+//   const page = obj.$store.state.Block.pege * 10
+//   axios.get(`http://${data[0]}:${data[1]}/api/transactions?limit=10&offset=${page}`)
+//     .then((res) => {
+//       console.log(res.data)
+//       if (res.status === 200) {
+//         obj.$store.commit('BLOCK_SET_TRANS', res.data)
+//       }
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// }
 
 // 根据交易id查看交易详情
 export function getTransactionsById(obj, data) {

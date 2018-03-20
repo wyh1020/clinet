@@ -3,6 +3,23 @@ const axios = require('axios');
 
 // // const secret = 'someone manual strong movie roof episode eight spatial brown soldier soup motor';
 // // const secondSecret = '123456'
+// 获取区块数据
+export function bcBlockchain(obj, data) {
+  const serverIp = '127.0.0.1'
+  const serverPort = '80'
+  console.log(data);
+  axios.get(`http://${serverIp}:${serverPort}/block/bc_blockchain?page=${data[2]}`)
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        obj.$store.commit('BLOCK_SET_BLOCKBLOCK', res.data)
+        obj.$store.commit('BLOCK_SET_PEERS', res.data.data.blocks)
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
 // 获取区块数据
 export function blocks(obj, data) {
@@ -10,7 +27,7 @@ export function blocks(obj, data) {
   axios.get(`http://${data[0]}:${data[1]}/api/blocks?limit=10&offset=${page}&orderBy=height:desc`)
     .then((res) => {
       if (res.status === 200) {
-        console.log(res.data);
+        // console.log(res.data);
         obj.$store.commit('BLOCK_SET_PEERS', res.data.blocks)
       }
     })

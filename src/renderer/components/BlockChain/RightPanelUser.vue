@@ -71,13 +71,20 @@
           </tr>
         </tbody>
       </table>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" v-for= "(value, index) in blockChain.page_list" v-bind:key="index" v-bind:class="{'disabled':value.page == blockChain.page_num}" v-on:click="blockChainPage(value.page)"><a class="page-link" href="#">
+            {{value.num}}
+          </a></li>
+        </ul>
+      </nav>
     </div>
   </div>
 </template>
 
 <script>
   import { open } from '../../utils/BlockAccount'
-  import { transactions1 } from '../../utils/BlockTransaction'
+  import { blockPost } from '../../utils/BlockTransaction'
   export default {
     data() {
       return {
@@ -108,6 +115,11 @@
         get() {
           return this.$store.state.Block.trans
         }
+      },
+      blockChain: {
+        get() {
+          return this.$store.state.Block.blockChain
+        }
       }
     },
     methods: {
@@ -125,11 +137,11 @@
         const port = this.$store.state.Block.port
         const user = global.hitbdata.blockchain_user
         if (user === '') {
-          open(this, [ip, port, user])
+          open(this, [ip, port, user, 1])
         } else {
           const user = Array.from(this.name.split(' '));
           if (user.length === 12) {
-            open(this, [ip, port, this.name])
+            open(this, [ip, port, this.name, 1])
           }
         }
       },
@@ -138,7 +150,14 @@
         console.log(data);
         const ip = this.$store.state.Block.server
         const port = this.$store.state.Block.port
-        transactions1(this, [ip, port, data])
+        blockPost(this, [ip, port, data])
+        // transactions1(this, [ip, port, data])
+      },
+      blockChainPage: function (value) {
+        const ip = this.$store.state.Block.server
+        const port = this.$store.state.Block.port
+        const user = global.hitbdata.blockchain_user
+        open(this, [ip, port, user, value])
       }
     },
   };

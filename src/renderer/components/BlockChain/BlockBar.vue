@@ -9,12 +9,12 @@
         <li class="nav-item active" v-on:click='blockList' id="block-list">
           <a class="nav-link text-light" href="#"> 区块列表 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click="page('up')" id="block-up">
+        <!-- <li class="nav-item active" v-on:click="page('up')" id="block-up">
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click="page('down')" id="block-down">
           <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
-        </li>
+        </li> -->
         <li class="nav-item active" v-on:click='block' id="block-content">
           <a class="nav-link text-light" href="#"> 区块内容 <span class="sr-only">(current)</span></a>
         </li>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import { blocks } from '../../utils/BlockBlock'
+  import { blocks, bcBlockchain } from '../../utils/BlockBlock'
   export default {
     data() {
       return {
@@ -41,9 +41,10 @@
       blockList: function () {
         const ip = this.$store.state.Block.server
         const port = this.$store.state.Block.port
-        blocks(this, [ip, port]);
-        this.$store.commit('BLOCK_SET_TOOLBAR', 'blockList');
+        // blocks(this, [ip, port]);
+        bcBlockchain(this, [ip, port, 1]);
         this.$store.commit('SET_NOTICE', '区块列表');
+        this.$store.commit('BLOCK_SET_TOOLBAR', 'blockList');
       },
       block: function () {
         this.$store.commit('BLOCK_SET_TOOLBAR', 'block');

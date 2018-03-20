@@ -20,7 +20,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(value, index) in this.$store.state.Block.peers"  v-bind:key='index' v-bind:class="{'table-danger': hightLight === index}" v-on:click="block(index)">
+          <tr v-for="(value, index) in blockBlock.data.blocks"  v-bind:key='index' v-bind:class="{'table-danger': hightLight === index}" v-on:click="block(index)">
             <td>{{value.height}}</td>
             <td></td>
             <td>{{value.id}}</td>
@@ -32,6 +32,13 @@
           </tr>
         </tbody>
       </table>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" v-for= "(value, index) in blockBlock.page_list" v-bind:key="index" v-bind:class="{'disabled':value.page == blockBlock.page_num}" v-on:click="blockChainPage(value.page)"><a class="page-link" href="#">
+            {{value.num}}
+          </a></li>
+        </ul>
+      </nav>
     </div>
     <div v-if="toolbar == 'blockInfo'">
       <table  class="table">
@@ -45,6 +52,7 @@
 </template>
 
 <script>
+  import { bcBlockchain } from '../../utils/BlockBlock'
   export default {
     data() {
       return {
@@ -60,6 +68,11 @@
       blockInfo: {
         get() {
           return this.$store.state.Block.blockInfo
+        }
+      },
+      blockBlock: {
+        get() {
+          return this.$store.state.Block.blockBlock
         }
       },
       file: {
@@ -86,7 +99,12 @@
       },
       block: function (value) {
         this.hightLight = value;
-        this.$store.commit('BLOCK_GET_BLOCK_INFO', this.$store.state.Block.peers[value])
+        this.$store.commit('BLOCK_GET_BLOCK_INFO', this.blockBlock.data.blocks[value])
+      },
+      blockChainPage: function (value) {
+        const ip = this.$store.state.Block.server
+        const port = this.$store.state.Block.port
+        bcBlockchain(this, [ip, port, value])
       }
     },
   };

@@ -143,7 +143,7 @@
             break;
           case '区块链服务-区块查询':
             this.$router.push('/blockChain');
-            this.$store.commit('BLOCK_SET_TOOLBAR', 'blockList');
+            // this.$store.commit('BLOCK_SET_TOOLBAR', 'blockList');
             break;
           case '区块链服务-DRG分组服务':
             this.$router.push('/blockChain');

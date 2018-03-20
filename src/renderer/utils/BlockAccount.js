@@ -57,11 +57,34 @@ const axios = require('axios');
 //       }
 //     })
 // }
-
-// 本地不加密直接登陆
 export function open(obj, data) {
+  const serverIp = '127.0.0.1'
+  const serverPort = '80'
+  axios({
+    method: 'get',
+    url: `http://${serverIp}:${serverPort}/block/blockchain?page=${data[3]}`,
+    responseType: 'json'
+  }).then((res) => {
+    console.log(res.data)
+    if (res.status === 200) {
+      obj.$store.commit('SET_NOTICE', '区块链服务登录成功!');
+      obj.$store.commit('BLOCK_SET_ACCOUNT', res.data.data.account);
+      obj.$store.commit('BLOCK_SET_TRANS', res.data.transactions)
+      obj.$store.commit('BLOCK_SET_BLOCKCHAIN', res.data)
+    } else {
+      obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
+    }
+  }).catch((err) => {
+    obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
+    console.log(err)
+  })
+}
+// 本地不加密直接登陆
+export function open3(obj, data) {
   console.log(data);
-  // console.log(`http://${data[0]}:${data[1]}/asch/api/accounts/open/`)
+  const serverIp = '127.0.0.1'
+  const serverPort = '80'
+  console.log(`http://${serverIp}:${serverPort}/block/blockchain/`)
   axios({
     method: 'post',
     url: `http://${data[0]}:${data[1]}/api/accounts/open/`,

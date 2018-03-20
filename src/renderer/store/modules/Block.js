@@ -23,7 +23,9 @@ const state = {
   transUn: [],
   blockInfo: {},
   pege: 0,
-  blockPage: 0
+  blockPage: 0,
+  blockChain: {},
+  blockBlock: { data: { blocks: [] } }
 };
 
 const mutations = {
@@ -116,7 +118,12 @@ const mutations = {
         break;
       default:
     }
-    console.log(state.blockPage)
+  },
+  BLOCK_SET_BLOCKCHAIN(state, value) {
+    state.blockChain = value
+  },
+  BLOCK_SET_BLOCKBLOCK(state, value) {
+    state.blockBlock = value
   },
 };
 
@@ -140,6 +147,8 @@ const actions = {
     commit('BLOCK_SET_MYTRANSUN');
     commit('BLOCK_SET_PAGE');
     commit('BLOCK_SET_BLOCKPAGE');
+    commit('BLOCK_SET_BLOCKCHAIN');
+    commit('BLOCK_SET_BLOCKBLOCK');
   },
 };
 
