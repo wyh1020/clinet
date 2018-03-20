@@ -65,9 +65,9 @@
           </div>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input id="stat-right-search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      </form>
+      <div class="form-inline my-2 my-lg-0">
+        <input id="stat-right-search" class="mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-on:keyup.13="statSearch" v-model="stat">
+      </div>
     </div>
   </nav>
 </template>
@@ -87,7 +87,8 @@
   export default {
     data() {
       return {
-        paths: []
+        paths: [],
+        stat: ''
       };
     },
     methods: {
@@ -241,6 +242,19 @@
           this.$store.commit('SET_NOTICE', '无法保存对比,请选择对比数据!');
         }
       },
+      statSearch: function () {
+        switch (this.$store.state.Stat.tableType) {
+          case 'local':
+            this.$store.commit('STAT_GET_FILE_SEARCH', this.stat)
+            break;
+          case 'server':
+            console.log(this.$store.state.Stat.tableName);
+            getStat(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Stat.tableName, 0, this.$store.state.System.user, this.stat])
+            console.log('服务器搜索');
+            break;
+          default:
+        }
+      }
     },
   };
 </script>

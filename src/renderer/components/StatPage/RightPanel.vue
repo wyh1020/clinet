@@ -56,23 +56,7 @@
           let table = []
           switch (this.$store.state.Stat.tableType) {
             case 'local': {
-              const f = []
-              let start = 0
-              let fileLen = this.$store.state.Stat.tableSel.length;
-              if (fileLen > 19) {
-                if (this.$store.state.Stat.tablePage > 0) {
-                  start = 20 * this.$store.state.Stat.tablePage
-                  fileLen = start + 19
-                } else {
-                  fileLen = 19
-                }
-              }
-              for (let i = start; i < fileLen; i += 1) {
-                f.push(this.$store.state.Stat.tableSel[i])
-              }
-              const a = this.$store.state.Stat.tableHeader[0]
-              f.splice(0, 0, a)
-              table = f
+              table = this.$store.state.Stat.localTable
               break;
             }
             case 'server': {

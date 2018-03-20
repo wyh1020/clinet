@@ -134,6 +134,20 @@ const mutations = {
     state.serverTable = data.library
     state.serverTablePage = { page_list: data.page_list, page_num: data.page_num }
   },
+  LIBRARY_GET_SEARCH_TABLE(state, data) {
+    state.localTables = {}
+    const a = state.tableSel.filter(n => n.includes(data));
+    const page = Math.ceil(a.length / 20)
+    for (let i = 0; i < page; i += 1) {
+      const f = []
+      f.push(state.tableHeader[0])
+      for (let j = 0; j < 19; j += 1) {
+        f.push(a[(i + 1) * j])
+      }
+      state.localTables[i] = f
+    }
+    state.localTable = state.localTables[state.tablePage]
+  },
 };
 
 const actions = {
@@ -149,6 +163,7 @@ const actions = {
     commit('LIBRARY_SET_FILE_INDEX');
     commit('LIBRARY_SET_TABLE_TYPE');
     commit('LIBRARY_TABLE_NAME');
+    commit('LIBRARY_GET_SEARCH_TABLE');
   },
 };
 

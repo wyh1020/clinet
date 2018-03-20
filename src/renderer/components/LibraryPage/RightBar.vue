@@ -34,9 +34,9 @@
           </div>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      </form>
+      <div class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-on:keyup.13="librarySearch" v-model="library">
+      </div>
     </div>
   </nav>
 </template>
@@ -47,7 +47,8 @@
   export default {
     data() {
       return {
-        paths: []
+        paths: [],
+        library: ''
       };
     },
     methods: {
@@ -95,6 +96,17 @@
         this.$store.commit('SET_NOTICE', '区块列表');
         this.$store.commit('SET_NOTICE', '维度选择');
       },
+      librarySearch: function () {
+        switch (this.$store.state.Library.tableType) {
+          case 'local':
+            this.$store.commit('LIBRARY_GET_SEARCH_TABLE', this.library)
+            break;
+          case 'server':
+            getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Stat.tableName, 0, this.library])
+            break;
+          default:
+        }
+      }
     },
   };
 </script>
