@@ -48,12 +48,14 @@
     },
     methods: {
       getLocalData: function () {
+        this.$store.commit('SYSTEM_SET_COMPUTE_DATA', 'getLocalData');
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getLocalData');
         this.$store.commit('SYSTEM_LOAD_WT4_FILES');
         this.$store.commit('SYSTEM_TABLE_TYPE', 'local');
       },
       getServerData: function () {
         if (this.$store.state.System.connectInfo) {
+          this.$store.commit('SYSTEM_SET_COMPUTE_DATA', 'getServerData');
           this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServerData');
           this.$store.commit('SYSTEM_TABLE_TYPE', 'server');
           sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, 1])
