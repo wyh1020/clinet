@@ -97,9 +97,7 @@
         this.$store.commit('STAT_LOAD_FILES');
       },
       serverData: function () {
-        if (!this.$store.state.System.connectInfo) {
-          this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
-        } else if (!this.$store.state.System.user.login) {
+        if (!this.$store.state.System.user.login) {
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
         } else {
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
@@ -222,7 +220,7 @@
         }
       },
       saveCompare: function () {
-        if (this.$store.state.Stat.tableType === 'server') {
+        if (this.$store.state.Stat.tableType === 'server' || this.$store.state.Stat.serverTable !== []) {
           saveStat(this, this.$store.state.Stat.compareTable, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user])
         } else if (this.$store.state.Stat.compareTable.length > 0) {
           const d = new Date();

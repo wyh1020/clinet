@@ -110,15 +110,12 @@ const mutations = {
     state.user = field[1]
   },
   SYSTEM_GET_ORGS(state, field) {
-    console.log(field);
     state.orgs = field
   },
   SYSTEM_NEW_ORG(state, field) {
-    console.log(field)
     state.org = field
   },
   SYSTEM_GET_DEPARTMENTS(state, field) {
-    console.log(field)
     state.departments = field
   },
   SYSTEM_NEW_DEPARTMENT(state, field) {

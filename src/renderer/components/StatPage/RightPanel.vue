@@ -126,7 +126,7 @@
         const type = this.$store.state.Stat.chartLeft
         let table = []
         if (this.$store.state.Stat.tableType === 'local') {
-          table = this.$store.state.Stat.file
+          table = this.$store.state.Stat.localTable
         } else if (this.$store.state.Stat.tableType === 'server') {
           table = this.$store.state.Stat.serverTable
         } else {

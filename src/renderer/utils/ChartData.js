@@ -35,7 +35,11 @@ export default function chartData(table, xid = [], yid = []) {
   } else {
     yid.map(x => yArr.push(th[x]))
   }
-  // 去除可能因为选择了列而产生的行0位选择
+  xid = xid.filter(t => t !== 0)
+  // 去除可能因为选择了列而产生的行0位选择\
+  if (xid.length === 0) {
+    xid = [...Array(table.length)].map((v, k) => k)
+  }
   xid = xid.filter(t => t !== 0)
   // 取出选中的行
   xid.map(x => xArr.push(statObj[x]))

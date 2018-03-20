@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import { sGetOrg } from '../../utils/Server'
+  import { sGetOrg } from '../../utils/Server';
   import loadFile from '../../utils/LoadFile';
   export default {
     data() {
@@ -44,6 +44,9 @@
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServers');
       },
       getUsers: function () {
+        if (!this.$store.state.System.connectInfo) {
+          loadFile(this, 'hitb_server.csv', 'system')
+        }
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getUsers');
       },
       getOrgs: function () {

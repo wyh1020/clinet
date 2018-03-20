@@ -58,9 +58,7 @@
         this.$store.commit('SET_NOTICE', '本地文件');
       },
       serverData: function () {
-        if (!this.$store.state.System.connectInfo) {
-          this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
-        } else if (!this.$store.state.System.user.login) {
+        if (!this.$store.state.System.user.login) {
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
         } else {
           this.$store.commit('SET_NOTICE', '远程文件');

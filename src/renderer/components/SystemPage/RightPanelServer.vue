@@ -8,7 +8,7 @@
       </table>
     </div>
     <!-- 连接服务器状态 -->
-    <div v-if="this.$store.state.System.connectInfo == true" >
+    <!-- <div v-if="this.$store.state.System.connectInfo == true" > -->
       <!-- 登录状态 -->
         <!-- 未登录 -->
         <div v-if="this.$store.state.System.user.login == false && this.$store.state.Block.account.address === ''">
@@ -16,11 +16,11 @@
             <form>
                 <div class="form-group">
                   <label class="" for="exampleInputEmail1andname">用户名（远程服务用户是电子邮箱，区块链服务用户是12个单词组成的口令）</label>
-                  <input type="text" class="form-control" placeholder="exampleInputEmail1andname" v-model="emailorname">
+                  <input type="text" class="form-control" placeholder="用户名(邮箱)" v-model="emailorname">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">用户密码（区块链服务用户没有密码，或者使用二级密码）</label>
-                  <input type="password" class="form-control" placeholder="Password" v-model="loginpassword">
+                  <input type="password" class="form-control" placeholder="密码" v-model="loginpassword">
                 </div>
               </form>
                 <button type="submit" class="btn btn-primary" v-on:click="login()">登录</button>
@@ -85,9 +85,9 @@
         <!-- 已登录 -->
       <!-- 登录状态 -->
     </div>
-    <div v-else>
+    <!-- <div v-else>
       请连接服务器
-    </div>
+    </div> -->
     <!-- 连接服务器状态 -->
   </div>
 </template>
@@ -113,8 +113,8 @@
         age: '',
         tel: '',
         personname: '',
-        emailorname: '',
-        loginpassword: '',
+        emailorname: 'test@hitb.com.cn',
+        loginpassword: '123456',
       }
     },
     computed: {
@@ -161,6 +161,7 @@
         const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
         const user = { username: this.emailorname, password: this.loginpassword }
         if (reg.test(this.emailorname)) {
+          this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
           sLogin(this, [this.$store.state.System.server, this.$store.state.System.port, user])
         } else if (Array.from(this.emailorname.split(' ')).length === 12) {
           const key = Object.keys(global.hitbdata.blockchain)[0]

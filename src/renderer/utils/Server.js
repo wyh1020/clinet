@@ -18,13 +18,16 @@ export function sConnect(obj, data) {
         obj.$store.commit('SET_NOTICE', '连接成功')
       } else {
         obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
+        obj.$store.commit('SET_NOTICE', '连接失败')
       }
     } else {
       obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
+      obj.$store.commit('SET_NOTICE', '连接失败')
     }
   }).catch((err) => {
     console.log(err)
     obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
+    obj.$store.commit('SET_NOTICE', '连接失败')
   })
 }
 // ------------用户管理
@@ -45,6 +48,7 @@ export function sRegister(obj, data) {
       if (res.status === 201) {
         if (res.data.success) {
           obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '用户创建成功', true])
+          obj.$store.commit('SET_NOTICE', '用户创建成功')
         } else {
           obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '用户创建失败,用户名重复', false])
         }
@@ -82,11 +86,11 @@ export function sLogin(obj, data) {
       obj.$store.commit('SYSTEM_SET_CONNECT_INFO', true)
       obj.$store.commit('SET_NOTICE', '远程服务用户登录成功')
     } else {
-      obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
+      obj.$store.commit('SET_NOTICE', '用户名或密码错误,使用未注册用户登陆！');
     }
   }).catch((err) => {
     console.log(err)
-    obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
+    obj.$store.commit('SET_NOTICE', '连接错误,使用未注册用户登陆！');
   })
 }
 // 获取用户列表
