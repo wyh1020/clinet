@@ -141,11 +141,12 @@ const mutations = {
     }
   },
   SYSTEM_GET_WT4_COMP(state, field) {
-    if (state.wt4Comp.includes(field)) {
-      state.wt4Comp.splice(state.wt4Comp.findIndex(v => v === field), 1)
-    } else {
-      state.wt4Comp = [...state.wt4Comp, field]
-    }
+    state.wt4Comp.forEach((n, index) => {
+      if (n[0].B_WT4_V1_ID === field[0].B_WT4_V1_ID && n[0].version === field[0].version) {
+        state.wt4Comp.splice(index, 1)
+      }
+    })
+    state.wt4Comp = [...state.wt4Comp, field]
   },
   // 读取本地wt4文件目录
   SYSTEM_LOAD_WT4_FILES() {
