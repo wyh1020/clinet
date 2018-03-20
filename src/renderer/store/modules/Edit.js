@@ -18,7 +18,8 @@ const state = {
   hintType: 'notice',
   hint: [],
   helpType: '编辑器使用帮助',
-  serverType: 'user'
+  serverType: 'user',
+  docType: '',
 };
 
 const mutations = {
@@ -71,8 +72,10 @@ const mutations = {
     state.filesPage += n;
   },
   EDIT_LOAD_DOC(state, message) {
+    // console.log(message)
     const x = message.map(m => m.split(' ').filter(i => i !== ''))
     state.doc = x;
+    // console.log(state.doc)
   },
   EDIT_SET_DOC(state) {
     state.doc = [];
@@ -145,6 +148,9 @@ const mutations = {
   EDIT_SET_SERVER_TYPE(state, value) {
     state.serverType = value
   },
+  EDIT_SET_DOC_TYPE(state, value) {
+    state.docType = value
+  },
 };
 
 const actions = {
@@ -179,6 +185,7 @@ const actions = {
     commit('EDIT_SET_HINT');
     commit('EDIT_SET_HELP_TYPE');
     commit('EDIT_SET_SERVER_TYPE');
+    commit('EDIT_SET_DOC_TYPE');
   },
 };
 

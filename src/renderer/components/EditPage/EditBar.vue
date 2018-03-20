@@ -129,20 +129,6 @@
           this.$store.commit('SET_NOTICE', '无提示信息');
         }
       },
-      // right() {
-      //   console.log('right')
-      //   const aa = document.getElementById('edit-editbar-input')
-      //   const start = aa.selectionStart;
-      //   const value = this.$store.state.Edit.editBarValue.slice(0, start)
-      //   const value1 = value.replace(/\s/ig, '')
-      //   if (global.hitbdata.cdh[value1] !== undefined) {
-      //     this.$store.commit('EDIT_SET_HINT', global.hitbdata.cdh[value1]);
-      //     this.$store.commit('EDIT_SET_HINT_TYPE', 'hint');
-      //   } else {
-      //     this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
-      //     this.$store.commit('SET_NOTICE', '无提示信息');
-      //   }
-      // },
       space() {
         const value = this.$store.state.Edit.editBarValue
         if (value && value.indexOf(' ') > -1) {
@@ -189,7 +175,6 @@
       },
       change() {
         const value = document.getElementById('edit-editbar-input').value
-        console.log(value)
         this.$store.commit('EDIT_SET_BAR_VALUE', value);
       },
     },

@@ -67,6 +67,7 @@
         </li>
       </ul>
     </div>
+    <a class="navbar-brand" href="#" v-on:click="onClick(userName)">&nbsp;&nbsp;&nbsp;&nbsp;{{userName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
   </nav>
 </template>
 
@@ -82,6 +83,18 @@
       hasData: {
         get() {
           return this.$store.state.Home.hasData
+        }
+      },
+      userName: {
+        get() {
+          let user = ''
+          const username = this.$store.state.System.user.username
+          if (username === '') {
+            user = '未登录...'
+          } else {
+            user = '你好, '.concat(username)
+          }
+          return user
         }
       }
     },
@@ -100,6 +113,9 @@
       onClick: function (n) {
         this.$store.commit('SET_NAVBAR', n);
         this.$store.commit('SET_NOTICE', n);
+        if (n.includes('你好')) {
+          n = '已登录'
+        }
         switch (n) {
           case '首页':
             this.$router.push('/home');
@@ -152,6 +168,12 @@
           case '区块链服务-DRG分析计算':
             this.$router.push('/blockChain');
             this.$store.commit('BLOCK_SET_TOOLBAR', 'serverStatData');
+            break;
+          case '未登录...':
+            this.$router.push('/login');
+            break;
+          case '已登录':
+            this.$store.commit('SET_NOTICE', '已登录');
             break;
           default:
             this.$store.commit('SET_NAVBAR', '登陆页');
