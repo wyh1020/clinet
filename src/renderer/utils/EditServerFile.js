@@ -1,5 +1,5 @@
 const axios = require('axios');
-// const qs = require('qs');
+const qs = require('qs');
 export function getEditFiles(obj, data) {
   let url = ''
   if (data[2] === 'user') {
@@ -53,26 +53,28 @@ export function getEdit(obj, data) {
 }
 
 export function saveEdit(obj, data) {
-  console.log(obj);
-  console.log(data);
-  // // 去除文件名中的.csv
-  // const file = data[2].split('-')
-  // axios({
-  //   method: 'get',
-  //   url: `http://${data[0]}:${data[1]}/edit/cda?filename=${file[1]}&username=${file[0]}`,
-  //   headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-  //   responseType: 'json'
-  // }).then((res) => {
-  //   //
-  //   if (res.status === 200) {
-  //     obj.$store.commit('SET_NOTICE', '读取远程文件成功')
-  //     obj.$store.commit('EDIT_LOAD_FILE', res.data)
-  //     obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
-  //   } else {
-  //     obj.$store.commit('EDIT_LOAD_FILE', [])
-  //   }
-  // }).catch((err) => {
-  //   console.log(err);
-  //   obj.$store.commit('EDIT_LOAD_FILE', [])
-  // })
+  const fileName = data[2]
+  const content = data[3]
+  const username = data[4]
+  console.log(username);
+  axios({
+    method: 'post',
+    url: `http://${data[0]}:${data[1]}/edit/cda`,
+    data: qs.stringify({ file_name: fileName, content: content[0], username: username }),
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    responseType: 'json'
+  }).then((res) => {
+    if (res.status === 200) {
+      if (res.data.success) {
+        obj.$store.commit('SET_NOTICE', res.data.info)
+      } else {
+        obj.$store.commit('SET_NOTICE', res.data.info)
+      }
+    } else {
+      obj.$store.commit('SET_NOTICE', '保存失败')
+    }
+  }).catch((err) => {
+    console.log(err);
+    obj.$store.commit('SET_NOTICE', '保存失败')
+  })
 }

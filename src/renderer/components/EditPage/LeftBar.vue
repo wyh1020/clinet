@@ -58,6 +58,7 @@
 
 <script>
   import saveFile from '../../utils/SaveFile'
+  import { saveEdit } from '../../utils/EditServerFile'
   export default {
     data() {
       return {
@@ -95,8 +96,7 @@
       },
       saveFile: function () {
         if (this.$store.state.Edit.serverType === 'show') {
-          console.log(this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]);
-          // saveEdit(this, )
+          saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], this.$store.state.Edit.file, this.$store.state.System.user.username])
         } else {
           const x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
           const p = this.$store.state.Edit.lastNav
