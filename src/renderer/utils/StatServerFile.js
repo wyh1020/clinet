@@ -1,11 +1,11 @@
 const axios = require('axios');
 const qs = require('qs');
-export function getStatFiles(obj, data) {
+export function getStatFiles(obj, data, filename, username) {
   let url = ''
-  if (data[2]) {
-    url = `http://${data[0]}:${data[1]}/stat/stat_file?name=${data[2]}&username=${data[3]}`
+  if (filename !== '') {
+    url = `http://${data[0]}:${data[1]}/stat/stat_file?name=${filename}&username=${username}`
   } else {
-    url = `http://${data[0]}:${data[1]}/stat/stat_file?username=${data[3]}`
+    url = `http://${data[0]}:${data[1]}/stat/stat_file?username=${username}`
   }
   axios({
     method: 'get',
@@ -25,9 +25,8 @@ export function getStatFiles(obj, data) {
   })
 }
 
-export function getList(obj, data) {
-  let type = ''
-  switch (data[3]) {
+export function getList(obj, url, tableName, type, username) {
+  switch (type) {
     case '机构':
       type = 'org'
       break;
@@ -40,31 +39,31 @@ export function getList(obj, data) {
     default:
       break;
   }
-  let file = data[2]
+  let file = tableName
   // 去除文件名中的.csv
-  file = data[2].split('.csv')[0]
+  file = tableName.split('.csv')[0]
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/stat/stat_client?type=${type}&username=${data[4]}&page_type=${file}`,
+    url: `http://${url[0]}:${url[1]}/stat/stat_client?type=${type}&username=${username}&page_type=${file}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
-      obj.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', data[3], res.data.list])
+      obj.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', type, res.data.list])
     } else {
-      obj.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', data[3], []])
+      obj.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', type, []])
     }
   }).catch((err) => {
     console.log(err);
-    obj.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', data[3], []])
+    obj.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', type, []])
   })
 }
 
-export function getStat(obj, data) {
-  let file = data[2]
+export function getStat(obj, data, opt) {
+  let file = opt.tableName
   obj.$store.commit('STAT_TABLE_NAME', file)
   // 去除文件名中的.csv
-  file = data[2].split('.csv')[0]
+  file = file.split('.csv')[0]
   // 切分查看是否有总数.平均.占比等工具查询
   let pageType = file
   file = file.split('_')
@@ -85,11 +84,11 @@ export function getStat(obj, data) {
         break;
     }
   }
-  const pageNum = data[3] + 1
+  const pageNum = opt.page + 1
   let url = ''
-  switch (data[5]) {
+  switch (opt.type) {
     case '机构':
-      url = `&org=${data[6]}`
+      url = `&org=${opt.value}`
       break;
     case '时间':
       url = `&time=${data[6]}`
@@ -102,7 +101,7 @@ export function getStat(obj, data) {
   }
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/stat/stat_client?page=${pageNum}&page_type=${pageType}&tool_type=${toolType}&rows=20&username=${data[4]}${url}`,
+    url: `http://${data[0]}:${data[1]}/stat/stat_client?page=${pageNum}&page_type=${pageType}&tool_type=${toolType}&rows=20&username=${opt.username}${url}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {

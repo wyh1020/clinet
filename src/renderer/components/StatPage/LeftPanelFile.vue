@@ -42,10 +42,10 @@
           }
           if (data.endsWith('.csv')) {
             this.$store.commit('STAT_TABLE_PAGE', 0)
-            getStat(this, [server[0], server[1], data, 0, this.$store.state.System.user.username, this.$store.state.Stat.dimensionType, this.$store.state.Stat.dimensionServer])
+            getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: data, page: 0, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
             this.$store.commit('STAT_TABLE_NAME', data);
           } else {
-            getStatFiles(this, [server[0], server[1], data, this.$store.state.System.user.username])
+            getStatFiles(this, [server[0], server[1]], data, this.$store.state.System.user.username)
           }
         } else {
           loadFile(this, data, 'stat')

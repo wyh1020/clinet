@@ -105,7 +105,7 @@
           this.$store.commit('STAT_TABLE_PAGE', 0)
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
           this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
-          getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port, '', this.$store.state.System.user.username])
+          getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], '', this.$store.state.System.user.username)
         }
       },
       page: function (n) {
@@ -113,7 +113,7 @@
           this.$store.commit('SET_NOTICE', '当前已是第一页')
         } else if (this.$store.state.Stat.tableType === 'server') {
           this.$store.commit('STAT_TABLE_PAGE', n);
-          getStat(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Stat.tableName, this.$store.state.Stat.tablePage, this.$store.state.System.user.username, this.$store.state.Stat.dimensionType, this.$store.state.Stat.dimensionServer])
+          getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.tableName, page: 0, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
         } else {
           this.$store.commit('STAT_TABLE_PAGE', n);
         }
@@ -135,7 +135,7 @@
             break;
           }
           case 'server': {
-            getList(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Stat.tableName, x, this.$store.state.System.user.username])
+            getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Stat.tableName, x, this.$store.state.System.user.username)
             break;
           }
           default: {
@@ -261,8 +261,7 @@
             this.$store.commit('STAT_GET_FILE_SEARCH', this.stat)
             break;
           case 'server':
-            console.log(this.$store.state.Stat.tableName);
-            getStat(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Stat.tableName, 0, this.$store.state.System.user, this.stat])
+            getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.tableName, page: 0, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.stat })
             console.log('服务器搜索');
             break;
           default:
