@@ -159,6 +159,84 @@ describe('Edit', function () {
         expect(editText).to.be.an('string');
       })
     // 2.1.8、远程文件
+      .click('#edit-rightbar-server')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.be.an('string');
+      })
+      // .click('#navbar-system')
+      // .click('#navbar-system-server')
+      // .click('#server-remote-list')
+      // .getText('#notice-bar')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+      // .click('#system-td-tr1')
+      // .waitUntilWindowLoaded(2000)
+      // .getText('#system-td-tr1')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+      // .getText('#notice-bar')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+      // .click('#navbar-edit')
+      // .waitUntilTextExists('#edit-editbar-input', '')
+      // .click('#edit-rightbar-server')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
+      .click('#navbar-system')
+      .click('#navbar-system-server')
+      .getText('#notice-bar')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.be.an('string');
+      })
+      .click('#server-user-setup')
+      .getText('#notice-bar')
+      .then(function (editText) {
+        // console.log(editText)
+        expect(editText).to.be.an('string');
+      })
+      // .setValue('#server-username', 'test@hitb.com.cn')
+      // .setValue('#server-password', '123456')
+      .click('#server-login')
+      .getText('#server-login')
+      .then(function (editText) {
+        console.log(editText)
+        // expect(editText).to.be.an('string');
+      })
+      .waitUntilWindowLoaded(10000)
+      .getText('#notice-bar')
+      .then(function (editText) {
+        console.log(editText)
+        expect(editText).to.be.an('string');
+      })
+      .click('#navbar-edit')
+      .waitUntilTextExists('#edit-editbar-input', '')
+      .click('#edit-rightbar-server')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        console.log(editText);
+        // console.log('111111111111')
+        expect(editText).to.be.an('string');
+      })
+      // .click('.edit-rightpanellocal-tr')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   console.log(editText);
+      //   expect(editText).to.be.an('string');
+      // })
+      // .click('.edit-rightpanellocal-tr')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   console.log(editText);
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.1.9、前页
     // 2.1.10、后页
     // 2.1.11、右侧模糊查询框
