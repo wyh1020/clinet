@@ -26,14 +26,13 @@ export function blockPost(obj, data) {
   const secondSecret = data[2].secondPassword;
   console.log(amount);
   const trs = AschJS.transaction.createTransaction(targetAddress, amount, message, secret, secondSecret || undefined);
-  const serverIp = '127.0.0.1'
-  const serverPort = '80'
+  // const serverIp = '1 '80'
   const objs2 = {};
   objs2.type = '转账';
   objs2.trs = JSON.stringify(trs);
   axios({
     method: 'post',
-    url: `http://${serverIp}:${serverPort}/block/blockchain_post`,
+    url: `http://${data[0]}:${data[1]}/block/blockchain_post`,
     data: qs.stringify(objs2),
     async: false,
     // headers: { magic: '594fe0f3', version: '' },

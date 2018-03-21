@@ -36,8 +36,8 @@ const state = {
   tableType: 'local',
   fileIndex: null,
   tableName: '',
+  countPage: 0,
   dimensionServer: '',
-
 };
 
 const mutations = {
@@ -61,6 +61,7 @@ const mutations = {
     ]
     const page = Math.ceil(state.tableSel.length / 20)
     // const page = 1
+    state.countPage = page
     for (let i = 0; i < page; i += 1) {
       const f = []
       f.push(state.tableHeader[0])
@@ -72,8 +73,10 @@ const mutations = {
     state.localTable = state.localTables[state.tablePage]
   },
   STAT_TABLE_PAGE(state, n) {
-    state.tablePage += n;
-    state.localTable = state.localTables[state.tablePage]
+    if (state.countPage !== n) {
+      state.tablePage += n;
+      state.localTable = state.localTables[state.tablePage]
+    }
   },
   STAT_SERVER_FILES(state, opt) {
     state.files = opt.data;

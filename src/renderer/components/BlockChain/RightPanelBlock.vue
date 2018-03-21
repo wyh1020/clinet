@@ -1,10 +1,10 @@
 <template>
   <div>
-    <table>
+    <!-- <table>
       <tr v-for="(line, index) in file" v-bind:key='index'>
         <td v-for="(filed, index) in line" v-bind:key='index'>{{line[index]}}</td>
       </tr>
-    </table>
+    </table> -->
     <div v-if="toolbar == 'blockList'">
       <table class="table">
         <thead>
@@ -102,8 +102,8 @@
         this.$store.commit('BLOCK_GET_BLOCK_INFO', this.blockBlock.data.blocks[value])
       },
       blockChainPage: function (value) {
-        const ip = this.$store.state.Block.server
-        const port = this.$store.state.Block.port
+        const ip = this.$store.state.System.server
+        const port = this.$store.state.System.port
         bcBlockchain(this, [ip, port, value])
       }
     },

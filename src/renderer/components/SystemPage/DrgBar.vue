@@ -18,15 +18,15 @@
         <li class="nav-item active" v-on:click="page('down')" id="server-drg-checkdata">
           <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='compareData' id="server-drg-checkdata">
+        <!-- <li class="nav-item active" v-on:click='compareData' id="server-drg-checkdata">
           <a class="nav-link text-light" href="#"> 校验数据 <span class="sr-only">(current)</span></a>
-        </li>
+        </li> -->
         <li class="nav-item active" v-on:click='drgCompute' id="server-drg-comp">
           <a class="nav-link text-light" href="#"> 调用Drg分组服务 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='drgResult' id="server-drg-stop">
+        <!-- <li class="nav-item active" v-on:click='drgResult' id="server-drg-stop">
           <a class="nav-link text-light" href="#"> 停止Drg分组服务 <span class="sr-only">(current)</span></a>
-        </li>
+        </li> -->
         <li class="nav-item active" v-on:click='drgRule' id="server-drg-rule">
           <a class="nav-link text-light" href="#"> 查看Drg分组规则 <span class="sr-only">(current)</span></a>
         </li>
@@ -67,6 +67,7 @@
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'compareData');
       },
       drgCompute: function () {
+        this.$store.commit('SET_NOTICE', '调用DRG分组服务器');
         switch (this.$store.state.System.toolbar) {
           case 'getLocalData':
             this.$store.state.System.wt4LocalRow.forEach((n) => {
@@ -90,6 +91,7 @@
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgResult');
       },
       drgRule: function () {
+        this.$store.commit('SET_NOTICE', '查看DRG分组规则');
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgRule');
         sGetCompRule(this, [this.$store.state.System.server, this.$store.state.System.port, 'mdc', {}])
       },

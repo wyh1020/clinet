@@ -58,14 +58,12 @@ const axios = require('axios');
 //     })
 // }
 export function open(obj, data) {
-  const serverIp = '127.0.0.1'
-  const serverPort = '80'
+  console.log(data);
   axios({
     method: 'get',
-    url: `http://${serverIp}:${serverPort}/block/blockchain?page=${data[3]}`,
+    url: `http://${data[0]}:${data[1]}/block/blockchain?page=${data[3]}&username=${data[4]}`,
     responseType: 'json'
   }).then((res) => {
-    console.log(res.data)
     if (res.status === 200) {
       obj.$store.commit('SET_NOTICE', '区块链服务登录成功!');
       obj.$store.commit('BLOCK_SET_ACCOUNT', res.data.data.account);

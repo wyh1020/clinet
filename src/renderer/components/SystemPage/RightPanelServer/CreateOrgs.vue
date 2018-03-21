@@ -44,13 +44,14 @@
     </form>
     <div class="row">
       <div class="col-9" />
-      <button type="submit" class="btn btn-primary" v-on:click="orgRegister('orgs')">添加机构</button>
+      <button type="submit" class="btn btn-primary" v-on:click="orgRegister('orgs')" v-if="this.$store.state.System.orgInfo.code === ''">添加机构</button>
+      <button type="submit" class="btn btn-primary" v-on:click="orgRegister('upOrgs')" v-else>机构修改</button>
       <button type="submit" class="btn btn-primary" v-on:click="createOrgs('returnorgs')">返回</button>
     </div>
   </div>
 </template>
 <script>
-  import { sCreateOrg } from '../../../utils/Server'
+  import { sCreateOrg, sUpdateOrg, sGetOrg } from '../../../utils/Server'
   export default {
     data() {
       return {
@@ -69,11 +70,22 @@
       }
     },
     methods: {
-      orgRegister: function () {
+      orgRegister: function (value) {
         const data = this.OrgInfo
-        sCreateOrg(this, [this.$store.state.System.server, this.$store.state.System.port, data])
+        switch (value) {
+          case 'orgs':
+            sCreateOrg(this, [this.$store.state.System.server, this.$store.state.System.port, data])
+            sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user]);
+            break;
+          case 'upOrgs':
+            sUpdateOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.orgInfo.id, data])
+            sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user]);
+            break
+          default:
+        }
       },
       createOrgs: function () {
+        sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user]);
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');
       }
     }

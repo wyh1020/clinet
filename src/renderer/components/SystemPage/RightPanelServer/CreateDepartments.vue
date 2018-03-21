@@ -44,13 +44,14 @@
     </form>
     <div class="row">
       <div class="col-9" />
-      <button type="submit" class="btn btn-primary" v-on:click="orgRegister('departments')">添加科室</button>
+      <button v-if="this.$store.state.System.departmentInfo.id === ''" type="submit" class="btn btn-primary" v-on:click="orgRegister('departments')">添加科室</button>
+      <button v-else type="submit" class="btn btn-primary" v-on:click="orgRegister('updepartments')">科室修改</button>
       <!-- <button type="submit" class="btn btn-primary" v-on:click="createOrgs()">返回</button> -->
     </div>
   </div>
 </template>
 <script>
-  import { sCreateDepart } from '../../../utils/Server'
+  import { sCreateDepart, sUpdateDepart, sGetDepart } from '../../../utils/Server'
   export default {
     data() {
       return {
@@ -68,9 +69,19 @@
       }
     },
     methods: {
-      orgRegister: function () {
+      orgRegister: function (value) {
         const data = this.DepartmentInfo
-        sCreateDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, data])
+        switch (value) {
+          case 'departments':
+            sCreateDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, data]);
+            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user])
+            break;
+          case 'updepartments':
+            sUpdateDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.departmentInfo.id, data]);
+            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user])
+            break;
+          default:
+        }
       },
       createOrgs: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');

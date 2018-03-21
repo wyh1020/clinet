@@ -15,12 +15,12 @@
         <li class="nav-item active" v-on:click='getOrgs' id="server-org-setup">
           <a class="nav-link text-light" href="#"> 机构设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getPersons' id="server-people-setup">
+        <!-- <li class="nav-item active" v-on:click='getPersons' id="server-people-setup">
           <a class="nav-link text-light" href="#"> 人员设置 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='getServerFunctions' id="server-remote-function-setup">
           <a class="nav-link text-light" href="#"> 远程服务功能设置 <span class="sr-only">(current)</span></a>
-        </li>
+        </li> -->
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="server-search">
@@ -51,6 +51,7 @@
       },
       getOrgs: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');
+        this.$store.commit('SET_NOTICE', '机构设置');
         sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user]);
       },
       getPersons: function () {

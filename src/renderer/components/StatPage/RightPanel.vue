@@ -93,12 +93,22 @@
           }
           return isType
         })
-        if (value.includes(true)) {
-          if (data[0] === 'org' && data[1] === 'time') {
-            this.$store.commit('STAT_SET_COL', index);
-          }
-        } else {
-          this.$store.commit('SET_NOTICE', '无数据,无法选中当前列!');
+        switch (this.$store.state.Stat.tableType) {
+          case 'local':
+            if (value.includes(true)) {
+              if (data[0] === 'org' && data[1] === 'time') {
+                this.$store.commit('STAT_SET_COL', index);
+              }
+            } else {
+              this.$store.commit('SET_NOTICE', '无数据,无法选中当前列!');
+            }
+            break;
+          case 'server':
+            if (data[0] === '机构' && data[1] === '时间') {
+              this.$store.commit('STAT_SET_COL', index);
+            }
+            break;
+          default:
         }
       },
       onClick: function (data, index) {

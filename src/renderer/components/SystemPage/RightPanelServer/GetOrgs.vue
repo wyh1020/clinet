@@ -82,6 +82,16 @@
           </tr>
         </tbody>
       </table>
+      <div class="row">
+        <div class="col-5" />
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item" v-for="(value, index) in this.$store.state.System.departments.page_list" v-bind:key="index" v-bind:class="{'disabled': value.page === page}" v-on:click="departmentPage(value.page)">
+              <a class="page-link" href="#">{{value.num}}</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </div>
 </template>
@@ -93,13 +103,14 @@
       return {
         OrgPage: '机构信息',
         OrgInfo: { code: '', name: '', level: '', type: '', province: '', city: '', county: '', person_name: '', tel: '', email: '' },
-        DepartmentInfo: { org: '', cherf_department: '', class: '', department: '', is_imp: false, is_spe: false, professor: '', wt_code: '', wt_name: '' }
+        DepartmentInfo: { org: '', cherf_department: '', class: '', department: '', is_imp: false, is_spe: false, professor: '', wt_code: '', wt_name: '', id: '' },
+        page: this.$store.state.System.departments.page_num,
       }
     },
     methods: {
       createOrgs: function (value, index) {
-        const deparmentkey = ['org', 'cherf_department', 'class', 'department', 'is_imp', 'is_spe', 'professor', 'wt_code', 'wt_name']
-        const orgkey = ['code', 'name', 'level', 'type', 'province', 'city', 'county', 'person_name', 'tel', 'email']
+        const deparmentkey = ['org', 'cherf_department', 'class', 'department', 'is_imp', 'is_spe', 'professor', 'wt_code', 'wt_name', 'id']
+        const orgkey = ['code', 'name', 'level', 'type', 'province', 'city', 'county', 'person_name', 'tel', 'email', 'id']
         switch (value) {
           case 'orgsInfo':
             this.OrgPage = '机构信息'
@@ -125,16 +136,22 @@
             this.OrgPage = '机构信息'
             break;
           case 'orgs':
+            this.$store.commit('SYSTEM_GET_ORG_INFO', this.OrgInfo)
             this.$store.commit('SYSTEM_SET_TOOLBAR', 'createOrgs');
             this.OrgPage = '机构信息'
             break;
           case 'departments':
+            this.$store.commit('SYSTEM_GET_DEPARTMENT_INFO', this.DepartmentInfo)
             this.$store.commit('SYSTEM_SET_TOOLBAR', 'createDepartments');
             this.OrgPage = '科室信息'
             break;
           default:
             break;
         }
+      },
+      departmentPage: function (value) {
+        sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, value])
+        // console.log(value);
       }
     }
   };
