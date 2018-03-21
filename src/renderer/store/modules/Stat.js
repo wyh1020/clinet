@@ -77,6 +77,7 @@ const mutations = {
     state.files = opt.data;
   },
   STAT_SET_LEFT_PANEL(state, opt) {
+    console.log(opt);
     if (state.tableType === 'local') {
       state.leftPanel = opt[0];
       state.dimensionType = opt[1];
@@ -94,11 +95,10 @@ const mutations = {
           break;
       }
     } else {
-      state.leftPanel = 'dimension'
-      state.dimension = opt[0]
+      state.leftPanel = opt[0]
+      state.dimension = opt[2]
       state.dimensionType = opt[1]
     }
-    console.log(opt);
   },
   STAT_SET_DIMENSION(state, opt) {
     switch (opt[0]) {

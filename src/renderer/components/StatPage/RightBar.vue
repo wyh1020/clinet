@@ -101,6 +101,7 @@
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
         } else {
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
+          this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
           getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port, '', this.$store.state.System.user.username])
         }
       },

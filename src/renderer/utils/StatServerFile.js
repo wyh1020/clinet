@@ -50,13 +50,13 @@ export function getList(obj, data) {
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
-      obj.$store.commit('STAT_SET_LEFT_PANEL', [res.data.list[0][0], data[3]])
+      obj.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', data[3], res.data.list[0][0]])
     } else {
-      obj.$store.commit('STAT_SET_LEFT_PANEL', [[], data[3]])
+      obj.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', data[3], []])
     }
   }).catch((err) => {
     console.log(err);
-    obj.$store.commit('STAT_SET_LEFT_PANEL', [[], data[3]])
+    obj.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', data[3], []])
   })
 }
 
