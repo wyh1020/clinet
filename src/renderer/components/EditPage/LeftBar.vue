@@ -78,13 +78,14 @@
         if (n) {
           this.$store.commit('EDIT_SET_DOC_TYPE', n)
           this.$store.commit('SET_NOTICE', n);
-        } else {
-          const docType = this.$store.state.Edit.docType
-          if (global.hitbmodel[docType] !== undefined) {
-            this.$store.commit('EDIT_LOAD_DOC', global.hitbmodel[docType])
-            this.$store.commit('SET_NOTICE', docType);
-          }
         }
+        //  else {
+        // const docType = this.$store.state.Edit.docType
+        // if (global.hitbmodel[docType] !== undefined) {
+        //   this.$store.commit('EDIT_LOAD_DOC', global.hitbmodel[docType])
+        //   this.$store.commit('SET_NOTICE', docType);
+        // }
+        // }
         document.getElementById('edit-editbar-input').focus()
       },
       page: function (n) {
