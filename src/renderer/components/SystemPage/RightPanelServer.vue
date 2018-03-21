@@ -2,7 +2,7 @@
   <div>
     <div v-if="this.$store.state.System.toolbar === 'getServers'">
       <table>
-        <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="connect(data, index)" v-bind:class="{'table-danger':flag == index}" class="server-rightpanel-tr">
+        <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="connect(data, index)" v-bind:class="{'table-danger':flag == index && index !== 0}" class="server-rightpanel-tr">
           <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
         </tr>
       </table>
@@ -191,7 +191,7 @@
       connect: function (data, index) {
         this.flag = index
         this.$store.commit('SYSTEM_SET_SERVER', data)
-        if (this.$store.state.System.toolbar === 'getServers') {
+        if (this.$store.state.System.toolbar === 'getServers' && index !== 0) {
           sConnect(this, [data[1], data[2], index])
         }
       },

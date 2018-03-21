@@ -213,6 +213,23 @@ const mutations = {
   STAT_SET_FILE_FLAG(state) {
     state.selectedRow = [];
     state.selectedCol = [];
+  },
+  STAT_GET_FILE_SEARCH(state, values) {
+    state.localTables = {}
+    const a = state.tableSel.filter(n => n[1] === values || n[0] === values || n[2] === values)
+    //   return n[1] === values || n[0] === values || n[2] === values);
+    const page = Math.ceil(a.length / 20)
+    // const page = 1
+    for (let i = 0; i < page; i += 1) {
+      const f = []
+      f.push(state.tableHeader[0])
+      for (let j = 0; j < 19; j += 1) {
+        f.push(a[(i + 1) * j])
+      }
+      state.localTables[i] = f
+    }
+    console.log(state.localTables);
+    state.localTable = state.localTables[state.tablePage]
   }
 };
 
@@ -235,6 +252,7 @@ const actions = {
     commit('STAT_SET_TABLE_TYPE');
     commit('STAT_SET_FILE_INDEX');
     commit('STAT_SET_FILE_FLAG');
+    commit('STAT_GET_FILE_SEARCH')
   },
 };
 
