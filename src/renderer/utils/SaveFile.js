@@ -34,7 +34,8 @@ export default function saveFile(obj, x, p) {
       dir: global.hitbdata.path.user,
       base: x
     });
-    const data = obj.$store.state.Edit.file.map(x => `${x},\n`).toString()
+    // const data = obj.$store.state.Edit.file.map(x => `${x},\n`).toString()
+    const data = obj.$store.state.Edit.file.join('\n')
     fs.writeFile(fileName, data, (err) => {
       if (!err) {
         obj.$store.commit('SET_NOTICE', '文件保存成功！')

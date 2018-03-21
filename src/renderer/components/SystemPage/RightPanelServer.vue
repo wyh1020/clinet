@@ -2,7 +2,7 @@
   <div>
     <div v-if="this.$store.state.System.toolbar === 'getServers'">
       <table>
-        <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="connect(data, index)" v-bind:class="{'table-danger':flag == index && index !== 0}" class="server-rightpanel-tr">
+        <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="connect(data, index)" v-bind:class="{'table-danger':flag == index && index !== 0}" class="server-rightpanel-tr" v-bind:id="'system-td-tr'+index">
           <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
         </tr>
       </table>
@@ -16,14 +16,14 @@
             <form>
                 <div class="form-group">
                   <label class="" for="exampleInputEmail1andname">用户名（远程服务用户是电子邮箱，区块链服务用户是12个单词组成的口令）</label>
-                  <input type="text" class="form-control" placeholder="用户名(邮箱)" v-model="emailorname">
+                  <input type="text" class="form-control" placeholder="用户名(邮箱)" v-model="emailorname" id="server-username">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">用户密码（区块链服务用户没有密码，或者使用二级密码）</label>
-                  <input type="password" class="form-control" placeholder="密码" v-model="loginpassword">
+                  <input type="password" class="form-control" placeholder="密码" v-model="loginpassword" id="server-password">
                 </div>
               </form>
-                <button type="submit" class="btn btn-primary" v-on:click="login()">登录</button>
+                <button type="submit" class="btn btn-primary" v-on:click="login()" id="server-login">登录</button>
           </div>
           <div v-if="this.$store.state.System.toolbar === 'createUsers'">
             <div v-if="this.$store.state.System.registerInfo[2] == true">
@@ -101,7 +101,7 @@
         </div>
         <!-- 已登录 -->
       <!-- 登录状态 -->
-    </div>
+    <!-- </div> -->
     <!-- <div v-else>
       请连接服务器
     </div> -->

@@ -93,6 +93,7 @@
     },
     methods: {
       loadData: function () {
+        this.$store.commit('STAT_TABLE_PAGE', 0)
         this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
         this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
         this.$store.commit('STAT_LOAD_FILES');
@@ -101,6 +102,7 @@
         if (!this.$store.state.System.user.login) {
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
         } else {
+          this.$store.commit('STAT_TABLE_PAGE', 0)
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
           this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
           getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port, '', this.$store.state.System.user.username])
@@ -111,7 +113,7 @@
           this.$store.commit('SET_NOTICE', '当前已是第一页')
         } else if (this.$store.state.Stat.tableType === 'server') {
           this.$store.commit('STAT_TABLE_PAGE', n);
-          getStat(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Stat.tableName, this.$store.state.Stat.tablePage])
+          getStat(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Stat.tableName, this.$store.state.Stat.tablePage, this.$store.state.System.user.username, this.$store.state.Stat.dimensionType, this.$store.state.Stat.dimensionServer])
         } else {
           this.$store.commit('STAT_TABLE_PAGE', n);
         }

@@ -50,7 +50,7 @@ export function getList(obj, data) {
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
-      obj.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', data[3], res.data.list[0][0]])
+      obj.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', data[3], res.data.list])
     } else {
       obj.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', data[3], []])
     }
@@ -62,6 +62,7 @@ export function getList(obj, data) {
 
 export function getStat(obj, data) {
   let file = data[2]
+  obj.$store.commit('STAT_TABLE_NAME', file)
   // 去除文件名中的.csv
   file = data[2].split('.csv')[0]
   // 切分查看是否有总数.平均.占比等工具查询
@@ -85,9 +86,23 @@ export function getStat(obj, data) {
     }
   }
   const pageNum = data[3] + 1
+  let url = ''
+  switch (data[5]) {
+    case '机构':
+      url = `&org=${data[6]}`
+      break;
+    case '时间':
+      url = `&time=${data[6]}`
+      break;
+    case '病种':
+      url = `&drg2=${data[6]}`
+      break;
+    default:
+      break;
+  }
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/stat/stat_client?page=${pageNum}&page_type=${pageType}&tool_type=${toolType}&rows=20&username=${data[4]}`,
+    url: `http://${data[0]}:${data[1]}/stat/stat_client?page=${pageNum}&page_type=${pageType}&tool_type=${toolType}&rows=20&username=${data[4]}${url}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {

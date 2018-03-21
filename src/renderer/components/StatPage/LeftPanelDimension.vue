@@ -12,6 +12,7 @@
 </template>
 
 <script>
+  import { getStat } from '../../utils/StatServerFile'
   export default {
     data() {
       return {
@@ -27,8 +28,17 @@
     },
     methods: {
       setDimension: function (data, index) {
-        this.flag = index
-        this.$store.commit('STAT_SET_DIMENSION', [this.$store.state.Stat.dimensionType, data]);
+        if (this.$store.state.Stat.tableType === 'server') {
+          this.flag = index
+          this.$store.commit('STAT_SET_DIMENSION', [this.$store.state.Stat.dimensionType, data]);
+          this.$store.commit('STAT_SET_SERVER_DIMENSION', data)
+          this.$store.commit('STAT_TABLE_PAGE', 0)
+          getStat(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Stat.tableName, 0, this.$store.state.System.user.username, this.$store.state.Stat.dimensionType, this.$store.state.Stat.dimensionServer])
+        } else {
+          this.$store.commit('STAT_TABLE_PAGE', 0)
+          this.flag = index
+          this.$store.commit('STAT_SET_DIMENSION', [this.$store.state.Stat.dimensionType, data]);
+        }
       },
     },
   };

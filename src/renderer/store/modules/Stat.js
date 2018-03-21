@@ -36,7 +36,8 @@ const state = {
   tableType: 'local',
   fileIndex: null,
   tableName: '',
-  countPage: 0
+  countPage: 0,
+  dimensionServer: '',
 };
 
 const mutations = {
@@ -81,7 +82,6 @@ const mutations = {
     state.files = opt.data;
   },
   STAT_SET_LEFT_PANEL(state, opt) {
-    console.log(opt);
     if (state.tableType === 'local') {
       state.leftPanel = opt[0];
       state.dimensionType = opt[1];
@@ -104,21 +104,18 @@ const mutations = {
       state.dimensionType = opt[1]
     }
   },
+  STAT_SET_SERVER_DIMENSION(state, index) {
+    state.dimensionServer = index
+  },
   STAT_SET_DIMENSION(state, opt) {
     switch (opt[0]) {
       case '机构':
-        // state.dimensionOrg.push(opt[1])
-        // console.log(opt)
         state.tableSel = state.table.filter(x => x[0] === opt[1])
         break;
       case '时间':
-        // console.log(opt)
-        // state.dimensionTime.push(opt[1])
         state.tableSel = state.table.filter(x => x[1] === opt[1])
         break;
       case '病种':
-        // console.log(opt)
-        // state.dimensionDrg.push(opt[1])
         state.tableSel = state.table.filter(x => x[2] === opt[1])
         break;
       default:
@@ -256,7 +253,8 @@ const actions = {
     commit('STAT_SET_TABLE_TYPE');
     commit('STAT_SET_FILE_INDEX');
     commit('STAT_SET_FILE_FLAG');
-    commit('STAT_GET_FILE_SEARCH')
+    commit('STAT_GET_FILE_SEARCH');
+    commit('STAT_SET_SERVER_DIMENSION')
   },
 };
 
