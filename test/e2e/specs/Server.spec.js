@@ -16,7 +16,6 @@ describe('Server', function () {
       .waitUntilTextExists('#notice-bar', '系统服务-本地文件导入')
       // 2.1.1、点击选择csv文件(server-load-loaclfile)，左侧列表显示clinet-data下所有csv文件
       .click('#server-load-loaclfile')
-      // .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')
       .getHTML('.server-leftpanel')
       .then(function (leftpanel) {
         expect(leftpanel).to.be.an('array');
@@ -30,7 +29,6 @@ describe('Server', function () {
       })
       // 2.1.2、点击选择数据表(server-choose-database)，左侧列表显示对照所需要的所有对照表
       .click('#server-load-choosedb')
-      // .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')
       .getHTML('.server-leftpanel')
       .then(function (leftpanel) {
         expect(leftpanel).to.be.an('array');
@@ -44,7 +42,6 @@ describe('Server', function () {
       })
       // 2.1.3、点击对照数据(server-load-contrast)，点击右侧列表之后点击左列表字段进行对照
       .click('#server-load-contrast')
-      // .waitUntilTextExists('#notice-bar', '数据表读取成功！')
       .click('.server-load-rightpanel-tr')
       .click('.server-leftpanel')
       .getHTML('.server-load-rightpanel-tr')
@@ -71,14 +68,18 @@ describe('Server', function () {
       .click('#navbar-system-server')
       .waitUntilTextExists('#notice-bar', '系统服务-远程服务器设置')
       .click('#server-remote-list')
+      // 2.2.1.1、选择右侧列表中一个远程服务器(server-rightpanel-tr)，连接远程服务器，底部提示框显示远程服务器连接成功！
+      .click('#system-td-tr1')
+      .waitUntilTextExists('#notice-bar', '连接成功')
       .getHTML('.server-rightpanel-tr')
       .then(function (rightpanel) {
         expect(rightpanel).to.be.an('array');
       })
-      // 2.2.1.1、选择右侧列表中一个远程服务器(server-rightpanel-tr)，连接远程服务器，底部提示框显示远程服务器连接成功！
-      // .click('#server-rightpanel-tr')
       // 2.2.2、点击用户设置(server-user-setup)，右侧显示用户基本信息
       .click('#server-user-setup')
+      .setValue('#server-username', 'test@hitb.com.cn')
+      .setValue('#server-password', '123456')
+      .click('#server-login')
       // 2.2.3、点击机构设置(server-org-setup)，右侧弹出两个输入框，输入信息，点击添加机构按钮，按钮颜色状态发生改变
       .click('#server-org-setup')
       // 2.2.4、点击人员设置(server-people-setup)，右侧弹出两个输入框，输入信息，点击添加人员按钮，按钮颜色状态发生改变
