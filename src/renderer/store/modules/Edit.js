@@ -12,7 +12,7 @@ const state = {
   lastNav: '/edit',
   filePage: 0,
   filesPage: 0,
-  fileType: 'csv',
+  fileType: 'cda',
   hintPage: 0,
   editBarValue: '',
   hintType: 'notice',
