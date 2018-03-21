@@ -63,7 +63,13 @@ const mutations = {
     } else {
       state.tablePage += m[0];
     }
-    if (state.tablePage < 0) { state.tablePage = 0 }
+    const page = Math.ceil(state.tableSel.length / 20)
+    if (state.tablePage > page) {
+      state.tablePage = page
+    } else if (state.tablePage < 0) {
+      state.tablePage = 0
+    }
+    // if (state.tablePage < 0) {  }
     // const maxPage = Math.floor(state.file.length / 100)
     // if (state.tablePage > maxPage) {
     //   state.tablePage = maxPage
