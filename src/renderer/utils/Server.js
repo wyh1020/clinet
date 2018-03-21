@@ -118,12 +118,12 @@ export function sGetUsers(obj, data) {
 export function sUpdateUser(obj, data) {
   axios({
     method: 'post',
-    url: `http://${data[0]}:${data[1]}/servers/user/${data[2]}`,
-    data: qs.stringify({ user: data[3] }),
+    url: `http://${data[0]}:${data[1]}/servers/user_update/`,
+    data: qs.stringify({ id: data[2], user: data[3] }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
-    obj.$store.commit('SYSTEM_SET_USER', ['更新用户信息成功', res.data])
+    obj.$store.commit('SYSTEM_SET_USER', ['更新用户信息成功', res.data.data])
   }).catch((err) => {
     console.log(err)
     obj.$store.commit('SYSTEM_SET_USER', ['更新用户信息失败', { username: '', login: false }])
@@ -196,9 +196,9 @@ export function sCreateOrg(obj, data) {
 // 更新机构信息
 export function sUpdateOrg(obj, data) {
   axios({
-    method: 'put',
-    url: `http://${data[0]}:${data[1]}/servers/org/${data[2]}`,
-    data: qs.stringify({ org: data[3] }),
+    method: 'post',
+    url: `http://${data[0]}:${data[1]}/servers/org_update`,
+    data: qs.stringify({ id: data[2], org: data[3] }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -271,9 +271,9 @@ export function sCreateDepart(obj, data) {
 // 更新科室信息
 export function sUpdateDepart(obj, data) {
   axios({
-    method: 'put',
-    url: `http://${data[0]}:${data[1]}/servers/customize_department/${data[2]}`,
-    data: qs.stringify({ customize_department: data[3] }),
+    method: 'post',
+    url: `http://${data[0]}:${data[1]}/servers/customize_department_update/`,
+    data: qs.stringify({ id: data[2], customize_department: data[3] }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
