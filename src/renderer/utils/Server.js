@@ -1,5 +1,6 @@
 const axios = require('axios');
 const qs = require('qs');
+const AschJS = require('asch-js');
 // 正则表达式
 const regEmail = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
 const regTel = /^1[34578]\d{9}$/
@@ -73,10 +74,16 @@ export function sRegister(obj, data) {
 }
 // 登录
 export function sLogin(obj, data) {
+  const secret = 'someone manual strong movie roof episode eight spatial brown soldier soup motor';
+  const keys = AschJS.crypto.getKeys(secret)
+  const publicKey = keys.publicKey
+  const privateKey = keys.privateKey
+  const address = AschJS.crypto.getAddress(publicKey)
+  const user = { username: data[2].username, password: data[2].password, address: address, privateKey: privateKey, publicKey: publicKey, secret: secret }
   axios({
     method: 'post',
     url: `http://${data[0]}:${data[1]}/servers/login/`,
-    data: qs.stringify({ user: data[2] }),
+    data: qs.stringify({ user: user }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
