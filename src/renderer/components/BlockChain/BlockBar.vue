@@ -15,9 +15,9 @@
         <li class="nav-item active" v-on:click="page('down')" id="block-down">
           <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
         </li> -->
-        <li class="nav-item active" v-on:click='block' id="block-content">
+        <!-- <li class="nav-item active" v-on:click='block' id="block-content">
           <a class="nav-link text-light" href="#"> 区块内容 <span class="sr-only">(current)</span></a>
-        </li>
+        </li> -->
         <li class="nav-item active" v-on:click='blockInfo' id="block-info">
           <a class="nav-link text-light" href="#"> 区块内容明细 <span class="sr-only">(current)</span></a>
         </li>
@@ -39,8 +39,8 @@
     },
     methods: {
       blockList: function () {
-        const ip = this.$store.state.Block.server
-        const port = this.$store.state.Block.port
+        const ip = this.$store.state.System.server
+        const port = this.$store.state.System.port
         // blocks(this, [ip, port]);
         bcBlockchain(this, [ip, port, 1]);
         this.$store.commit('SET_NOTICE', '区块列表');
@@ -55,8 +55,8 @@
         this.$store.commit('SET_NOTICE', '区块内容明细');
       },
       page: function (value) {
-        const ip = this.$store.state.Block.server
-        const port = this.$store.state.Block.port
+        const ip = this.$store.state.System.server
+        const port = this.$store.state.System.port
         if (value === 'up' && this.$store.state.Block.blockPage === 0) {
           this.$store.commit('SET_NOTICE', '已经是第一页');
         } else if (value === 'down' && this.$store.state.Block.peers.length < 10) {

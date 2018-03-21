@@ -1,14 +1,15 @@
 <template>
   <div>
     <div v-if="toolbar == 'setUser'">
-      <form v-if="account.address === ''">
+      <!-- <form v-if="account.address === ''">
         <div class="form-group">
           <label class="text-danger">用户名</label>
           <input type="password" placeholder="用户名" v-model="name">
         </div>
       </form>
       <button v-if="account.address === ''" id="block-rightpanel-login" class="btn btn-outline-primary" v-on:click="login">登陆</button>
-      <div  v-if="account.address !== ''">
+      {{account}} -->
+      <div v-if="account.address !== ''">
         <table class="table">
           <tr v-for="(line, index) in Object.entries(account)" v-bind:key='index'>
             <td v-for="(filed, index) in line" v-bind:key='index'>{{line[index]}}</td>
@@ -133,31 +134,33 @@
         }
       },
       login: function () {
-        const ip = this.$store.state.Block.server
-        const port = this.$store.state.Block.port
+        const ip = this.$store.state.System.server
+        const port = this.$store.state.System.port
         const user = global.hitbdata.blockchain_user
+        const username = this.$store.state.System.user.username
         if (user === '') {
-          open(this, [ip, port, user, 1])
+          open(this, [ip, port, user, 1, username])
         } else {
           const user = Array.from(this.name.split(' '));
           if (user.length === 12) {
-            open(this, [ip, port, this.name, 1])
+            open(this, [ip, port, this.name, 1, username])
           }
         }
       },
       payTrans: function () {
         const data = this.pay
         console.log(data);
-        const ip = this.$store.state.Block.server
-        const port = this.$store.state.Block.port
+        const ip = this.$store.state.System.server
+        const port = this.$store.state.System.port
         blockPost(this, [ip, port, data])
         // transactions1(this, [ip, port, data])
       },
       blockChainPage: function (value) {
-        const ip = this.$store.state.Block.server
-        const port = this.$store.state.Block.port
+        const ip = this.$store.state.System.server
+        const port = this.$store.state.System.port
         const user = global.hitbdata.blockchain_user
-        open(this, [ip, port, user, value])
+        const username = this.$store.state.System.user.username
+        open(this, [ip, port, user, value, username])
       }
     },
   };

@@ -39,16 +39,6 @@
           </tr>
         </tbody>
       </table>
-      <div class="row">
-        <div class="col-5" />
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item" v-for="(value, index) in this.$store.state.System.wt4.page_list" v-bind:key="index" v-bind:class="{'disabled': value.page === page}" v-on:click="wt4Page(value.page)">
-              <a class="page-link" href="#">{{value.num}}</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
     </div>
     <div v-if="this.$store.state.System.toolbar === 'getServerData'">
       <table class="table">

@@ -34,16 +34,19 @@
 
 <script>
   import { transactionsUnconfirmedAll } from '../../utils/BlockTransaction'
+  import { open } from '../../utils/BlockAccount'
   export default {
     data() {
       return {
-        paths: []
+        paths: [],
+        name: 'someone manual strong movie roof episode eight spatial brown soldier soup motor'
       };
     },
     methods: {
       setUser: function () {
         this.$store.commit('BLOCK_SET_TOOLBAR', 'setUser');
         this.$store.commit('SET_NOTICE', '账户设置');
+        this.login();
       },
       account: function () {
         this.$store.commit('BLOCK_SET_TOOLBAR', 'account');
@@ -62,6 +65,22 @@
         transactionsUnconfirmedAll(this, [ip, port, user])
         this.$store.commit('BLOCK_SET_TOOLBAR', 'transRecord');
         this.$store.commit('SET_NOTICE', '账户交易记录');
+      },
+      login: function () {
+        console.log('sssssssssss');
+        const ip = this.$store.state.System.server
+        const port = this.$store.state.System.port
+        // const user = global.hitbdata.blockchain_user
+        const username = this.$store.state.System.user.username
+        open(this, [ip, port, this.name, 1, username])
+        // if (user === '') {
+        //   open(this, [ip, port, user, 1, username])
+        // } else {
+        //   const user = Array.from(this.name.split(' '));
+        //   if (user.length === 12) {
+        //     open(this, [ip, port, this.name, 1, username])
+        //   }
+        // }
       },
       page: function (value) {
         console.log(value);

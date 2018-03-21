@@ -23,16 +23,16 @@
           <td v-else-if="key === 'blockchain'">区块信息</td>
           <td v-else-if="key === 'password'">密码</td>
           <td v-if="key === 'username'"  v-on:click="createUserinfo('name')">
-            <div v-if="userinfo.name">
+            <!-- <div v-if="userinfo.name">
               <input type="text" v-model="userinfoName" />
-            </div>
-            <div v-else>{{values}}</div>
+            </div> -->
+            <div>{{values}}</div>
           </td>
           <td v-else-if="key === 'password'" v-on:click="createUserinfo('pass')">
-            <div v-if="userinfo.pass">
+            <!-- <div v-if="userinfo.pass">
               <input type="text" v-model="userinfoPass" />
-            </div>
-            <div v-else>{{values}}</div>
+            </div> -->
+            <div>{{values}}</div>
           </td>
           <td v-else>{{values}}</td>
         </tr>

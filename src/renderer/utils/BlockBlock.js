@@ -5,10 +5,10 @@ const axios = require('axios');
 // // const secondSecret = '123456'
 // 获取区块数据
 export function bcBlockchain(obj, data) {
-  const serverIp = '127.0.0.1'
-  const serverPort = '80'
+  // const serverIp = '127.0.0.1'
+  // const serverPort = '80'
   console.log(data);
-  axios.get(`http://${serverIp}:${serverPort}/block/bc_blockchain?page=${data[2]}`)
+  axios.get(`http://${data[0]}:${data[1]}/block/bc_blockchain?page=${data[2]}`)
     .then((res) => {
       if (res.status === 200) {
         console.log(res.data);

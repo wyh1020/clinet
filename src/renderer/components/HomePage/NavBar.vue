@@ -54,12 +54,12 @@
             区块链服务
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-服务器节点设置')" id="navbar-block-server">服务器节点设置</a>
+            <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-服务器节点设置')" id="navbar-block-server">区块链服务介绍</a>
             <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-账户设置')" id="navbar-block-account">账户设置</a>
             <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-区块查询')" id="navbar-block-block">区块查询</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-DRG分组服务')" id="navbar-block-compdrg">DRG分组服务</a>
-            <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-DRG分析计算')" id="navbar-block-statdrg">DRG分析计算</a>
+            <!-- <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-DRG分组服务')" id="navbar-block-compdrg">DRG分组服务</a>
+            <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-DRG分析计算')" id="navbar-block-statdrg">DRG分析计算</a> -->
           </div>
         </li>
         <li class="nav-item">
