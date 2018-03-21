@@ -143,6 +143,7 @@
           case '系统服务-DRG分组服务':
             this.$router.push('/system');
             this.$store.commit('SYSTEM_SET_TOOLBAR', 'getLocalData');
+            this.$store.commit('SYSTEM_SET_COMPUTE_DATA', 'getLocalData');
             this.$store.commit('SYSTEM_LOAD_WT4_FILES');
             break;
           case '系统服务-DRG分析计算':
