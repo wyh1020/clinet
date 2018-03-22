@@ -206,6 +206,8 @@ const mutations = {
   STAT_SET_TABLE_TYPE(state, data) {
     if (data === 'server') {
       state.isServer = true
+    } else {
+      state.isServer = false
     }
     state.tableType = data
   },
