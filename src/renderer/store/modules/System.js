@@ -47,7 +47,9 @@ const state = {
   serverTable: '',
   tableType: 'local',
   computeVersion: ['CN', 'GB', 'BJ'],
-  computeData: ''
+  computeData: '',
+  province: {},
+  orgPage: 'getOrg'
 };
 
 const mutations = {
@@ -219,6 +221,12 @@ const mutations = {
     console.log(value)
     state.computeData = value;
   },
+  SYSTEM_PROVINCE(state, value) {
+    state.province = value
+  },
+  SYSTEM_GET_ORGPAGE(state, value) {
+    state.orgPage = value
+  }
 };
 
 const actions = {
@@ -253,6 +261,8 @@ const actions = {
     commit('SYSTEM_SET_SERVER_TABLE');
     commit('SYSTEM_TABLE_TYPE');
     commit('SYSTEM_SET_COMPUTE_DATA');
+    commit('SYSTEM_PROVINCE');
+    commit('SYSTEM_GET_ORGPAGE');
   },
 };
 

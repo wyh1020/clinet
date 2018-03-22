@@ -46,7 +46,7 @@
       <div class="col-9" />
       <button v-if="this.$store.state.System.departmentInfo.id === ''" type="submit" class="btn btn-primary" v-on:click="orgRegister('departments')">添加科室</button>
       <button v-else type="submit" class="btn btn-primary" v-on:click="orgRegister('updepartments')">科室修改</button>
-      <!-- <button type="submit" class="btn btn-primary" v-on:click="createOrgs()">返回</button> -->
+      <button type="submit" class="btn btn-primary" v-on:click="createOrgs()">返回</button>
     </div>
   </div>
 </template>
@@ -85,6 +85,7 @@
       },
       createOrgs: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');
+        this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
       }
     }
   }

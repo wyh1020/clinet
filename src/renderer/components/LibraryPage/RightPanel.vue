@@ -2,7 +2,7 @@
   <div>
     <right-bar></right-bar>
     <table>
-      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger':flag == index}" class="library-rightpanel">
+      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger':rowHeight == index && index !== 0}" class="library-rightpanel">
         <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
       </tr>
     </table>
@@ -23,7 +23,7 @@
     components: { RightBar },
     data() {
       return {
-        flag: null
+        // flag: null
       };
     },
     computed: {
@@ -50,11 +50,17 @@
           }
           return table
         }
+      },
+      rowHeight: {
+        get() {
+          return this.$store.state.Library.rowHeight
+        }
       }
     },
     methods: {
       onClick: function (data, index) {
-        this.flag = index
+        this.$store.commit('LIBRARY_GET_ROW', index);
+        // this.flag = index
         this.$store.commit('LIBRARY_GET_FIELD', data);
         this.$store.commit('LIBRARY_GET_FIELD_INDEX', index);
       },

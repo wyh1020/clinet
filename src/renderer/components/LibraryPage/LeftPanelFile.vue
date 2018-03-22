@@ -30,7 +30,7 @@
     methods: {
       loadFile: function (data, index) {
         this.flag = index;
-        // this.$store.commit('LIBRARY_TABLE_PAGE', [0, true]);
+        this.$store.commit('LIBRARY_GET_ROW', 0);
         this.$store.commit('LIBRARY_SET_FILE_INDEX', index);
         if (this.$store.state.Library.tableType === 'server') {
           if (this.$store.state.System.server === '') {
