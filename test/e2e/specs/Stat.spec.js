@@ -5,7 +5,7 @@ describe('Stat', function () {
   afterEach(utils.afterEach);
 
   it('Stat-测试1', function () {
-    this.timeout(50000)
+    this.timeout(60000)
     // 1、点击login页面的login-button
     return this.app.client.click('#login')
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
@@ -24,15 +24,15 @@ describe('Stat', function () {
         expect(rightTable).to.be.an('array');
       })
     // 2.1.1.1 点击rightPanel数据表的单条或多条数据高亮显示 rightPanel的chart及提示显示当前数据的图表及提示内容
-      .click('.stat-right-table-tr')
-      .waitUntilWindowLoaded(8000)
-      .click('.stat-right-table-td')
-      .waitUntilWindowLoaded(1000)
-      .getText('.stat-right-table-tr')
-      .then(function (rightTableTr) {
-        // console.log(rightTableTr)
-        expect(rightTableTr).to.be.an('array');
-      })
+      // .click('.stat-right-table-tr')
+      // .waitUntilWindowLoaded(8000)
+      // .click('.stat-right-table-td')
+      // .waitUntilWindowLoaded(1000)
+      // .getText('.stat-right-table-tr')
+      // .then(function (rightTableTr) {
+      //   // console.log(rightTableTr)
+      //   expect(rightTableTr).to.be.an('array');
+      // })
     // 2.1.1.1.1 点击工具栏的加入对比 将rightPanel数据表中选中的数据加入到对比数据中
       // .click('#stat-join-contrast')
       // .waitUntilTextExists('#notice-bar', '加入成功')
@@ -193,39 +193,39 @@ describe('Stat', function () {
         expect(time).to.be.an('array');
       })
     // 2.1.1.1.9.3 点击病种 leftPanel显示可选病种维度
-      .click('#stat-right-dimension')
-      .click('#stat-right-dimension-disease')
-      .waitUntilWindowLoaded(1000)
-      .getText('.stat-left-dimension-tr')
-      .then(function (disease) {
-        // console.log(disease);
-        expect(disease).to.be.an('array');
-      })
-      .click('.stat-left-dimension-tr')
-      .waitUntilWindowLoaded(1000)
-      .getText('.stat-right-table-tr')
-      .then(function (disease) {
-        expect(disease).to.be.an('array');
-      })
+      // .click('#stat-right-dimension')
+      // .click('#stat-right-dimension-disease')
+      // .waitUntilWindowLoaded(1000)
+      // .getText('.stat-left-dimension-tr')
+      // .then(function (disease) {
+      //   // console.log(disease);
+      //   expect(disease).to.be.an('array');
+      // })
+      // .click('.stat-left-dimension-tr')
+      // .waitUntilWindowLoaded(1000)
+      // .getText('.stat-right-table-tr')
+      // .then(function (disease) {
+      //   expect(disease).to.be.an('array');
+      // })
     // 2.1.2 点击leftPanel列表 rightPanel数据表无数据提示"当前分析文件中无数据" chart显示当前图表无数据 提示显示无提示内容
     // 本地文件 如果leftPanel无数据分析文件 提示"暂无本地分析文件"
 
     // 2.2、远程文件 leftPanel显示远程文件列表
-      .click('#stat-remote-file')
-      .waitUntilTextExists('#notice-bar', '未登录用户,请在系统服务-用户设置内登录')
-      .click('#navbar-system')
-      .click('#navbar-system-server')
-      .waitUntilTextExists('#notice-bar', '系统服务-远程服务器设置')
-      .click('#server-user-setup')
-      .click('#server-login')
-      .click('#navbar-stat')
-      .click('#stat-local-doc')
-      .click('#stat-remote-file')
-      .waitUntilTextExists('.stat-left-file-tr', '医疗质量')
-      .getText('.stat-left-file-tr')
-      .then(function (file) {
-        expect(file).to.be.an('array');
-      })
+      // .click('#stat-remote-file')
+      // .waitUntilTextExists('#notice-bar', '未登录用户,请在系统服务-用户设置内登录')
+      // .click('#navbar-system')
+      // .click('#navbar-system-server')
+      // .waitUntilTextExists('#notice-bar', '系统服务-远程服务器设置')
+      // .click('#server-user-setup')
+      // .click('#server-login')
+      // .click('#navbar-stat')
+      // .click('#stat-local-doc')
+      // .click('#stat-remote-file')
+      // .waitUntilTextExists('.stat-left-file-tr', '医疗质量')
+      // .getText('.stat-left-file-tr')
+      // .then(function (file) {
+      //   expect(file).to.be.an('array');
+      // })
     // 2.2.1 点击leftPanel列表 rightPanel数据表显示当前文件的前十条数据 chart显示当前数据图表 提示显示当前数据提示内容
       // .click('.stat-left-file-tr')
       // .click('.stat-left-file-tr')

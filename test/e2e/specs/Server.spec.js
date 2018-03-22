@@ -81,11 +81,11 @@ describe('Server', function () {
       .setValue('#server-password', '123456')
       .click('#server-login')
       // 2.2.3、点击机构设置(server-org-setup)，右侧弹出两个输入框，输入信息，点击添加机构按钮，按钮颜色状态发生改变
-      .click('#server-org-setup')
+      // .click('#server-org-setup')
       // 2.2.4、点击人员设置(server-people-setup)，右侧弹出两个输入框，输入信息，点击添加人员按钮，按钮颜色状态发生改变
-      .click('#server-people-setup')
+      // .click('#server-people-setup')
       // 2.2.5、点击远程服务功能设置(server-remote-function-setup)
-      .click('#server-remote-function-setup')
+      // .click('#server-remote-function-setup')
     // 2.3、点击DRG分组服务
       .click('#navbar-system')
       .click('#navbar-system-compdrg')
@@ -101,7 +101,7 @@ describe('Server', function () {
       // 2.3.4、点击调用drg分组服务(server-drg-comp)，校验后的数据进行drg分组计算，分组完成后，底部提示框中显示分组计算完成！
       .click('#server-drg-comp')
       // 2.3.5、点击停止drg分组服务(server-drg-stop)，停止调用分组服务
-      .click('#server-drg-stop')
+      // .click('#server-drg-stop')
       // 2.3.6、点击查看drg分组规则(server-drg-rule)，分组计算完成后查看分组结果
       .click('#server-drg-rule')
     // 2.4、DRG分析计算
