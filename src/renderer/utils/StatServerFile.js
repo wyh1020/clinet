@@ -97,6 +97,7 @@ export function getStat(obj, data, opt) {
       url = `&drg2=${data[6]}`
       break;
     default:
+      url = `&${opt.type}=${opt.value}`
       break;
   }
   axios({
@@ -106,8 +107,8 @@ export function getStat(obj, data, opt) {
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
-      obj.$store.commit('SET_NOTICE', `当前${pageNum}页`)
-      obj.$store.commit('STAT_SET_SERVER_TABLE', res.data.stat)
+      obj.$store.commit('SET_NOTICE', `当前${pageNum}页,共${res.data.count}页`)
+      obj.$store.commit('STAT_SET_SERVER_TABLE', [res.data.stat, res.data.count])
     } else {
       obj.$store.commit('STAT_SET_SERVER_TABLE', [])
     }

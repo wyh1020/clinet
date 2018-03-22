@@ -39,6 +39,7 @@ const state = {
   countPage: 0,
   dimensionServer: '',
   isServer: false,
+  serverCountPage: 0,
 };
 
 const mutations = {
@@ -75,7 +76,9 @@ const mutations = {
     state.localTable = state.localTables[state.tablePage]
   },
   STAT_TABLE_PAGE(state, n) {
-    if (state.countPage !== n) {
+    if (state.tableType === 'server' && n === 0) {
+      state.tablePage = n;
+    } else if (state.countPage !== n) {
       state.tablePage += n;
       state.localTable = state.localTables[state.tablePage]
     }
@@ -197,9 +200,13 @@ const mutations = {
   },
   STAT_SET_SERVER_TABLE(state, data) {
     state.isServer = true
-    state.serverTable = data
+    state.serverTable = data[0]
+    state.serverCountPage = data[1]
   },
   STAT_SET_TABLE_TYPE(state, data) {
+    if (data === 'server') {
+      state.isServer = true
+    }
     state.tableType = data
   },
   STAT_SET_CHART_LEFT(state, data) {

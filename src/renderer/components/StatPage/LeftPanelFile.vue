@@ -74,6 +74,7 @@
             break;
           default: break;
         }
+        this.$store.commit('STAT_TABLE_PAGE', 0);
         if (this.$store.state.Stat.isServer) {
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server')
           if (data.endsWith('.csv')) {
