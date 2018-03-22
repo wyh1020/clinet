@@ -73,12 +73,24 @@
       },
       flag: {
         get() {
-          return this.$store.state.Stat.selectedRow
+          let f = []
+          if (this.$store.state.Stat.tableType === 'compare') {
+            f = []
+          } else {
+            f = this.$store.state.Stat.selectedRow
+          }
+          return f
         }
       },
       flagTd: {
         get() {
-          return this.$store.state.Stat.selectedCol
+          let f = []
+          if (this.$store.state.Stat.tableType === 'compare') {
+            f = []
+          } else {
+            f = this.$store.state.Stat.selectedCol
+          }
+          return f
         }
       }
     },

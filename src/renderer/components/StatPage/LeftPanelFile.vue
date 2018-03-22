@@ -74,7 +74,8 @@
             break;
           default: break;
         }
-        if (this.$store.state.Stat.tableType === 'server') {
+        if (this.$store.state.Stat.isServer) {
+          this.$store.commit('STAT_SET_TABLE_TYPE', 'server')
           if (data.endsWith('.csv')) {
             this.$store.commit('STAT_TABLE_PAGE', 0)
             getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: data, page: 0, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
