@@ -51,5 +51,13 @@ export default function chartData(table, xid = [], yid = []) {
     })
     stat.push(obj)
   })
+  stat.forEach((xs, i) => {
+    Object.keys(xs).forEach((x) => {
+      if (xs[x] === '-' || xs[x] === '' || x === 'stat_type' || `${x}` === 'undefined') {
+        delete xs[x]
+      }
+    })
+    stat[i] = xs
+  })
   return stat
 }

@@ -84,7 +84,6 @@
             getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], data, this.$store.state.System.user.username)
           }
         } else {
-          this.$store.commit('STAT_SET_CHART_DATA', []);
           loadFile(this, data, 'stat')
           this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
         }

@@ -67,7 +67,7 @@ const mutations = {
     for (let i = 0; i < page; i += 1) {
       const f = []
       f.push(state.tableHeader[0])
-      for (let j = 0; j < 19; j += 1) {
+      for (let j = 1; j < 20; j += 1) {
         f.push(state.tableSel[(i + 1) * j])
       }
       state.localTables[i] = f
