@@ -13,6 +13,11 @@
 
 <script>
   import loadFile from '../../utils/LoadFile';
+  import chartLine from '../../utils/ChartLine';
+  import chartScatter from '../../utils/ChartScatter';
+  import chartRadar from '../../utils/ChartRadar';
+  import chartBar from '../../utils/ChartBar';
+  import chartPie from '../../utils/ChartPie';
   import { getStatFiles, getStat } from '../../utils/StatServerFile'
   export default {
     data() {
@@ -32,22 +37,53 @@
         this.$store.commit('STAT_SET_FILE_FLAG');
         this.flag = index
         this.$store.commit('STAT_SET_FILE_INDEX', index);
+        // 图表
+        switch (this.$store.state.Stat.chartLeft) {
+          case '柱状图':
+            chartBar('chartLeft', null)
+            break;
+          case '折线图':
+            chartLine('chartLeft', null)
+            break;
+          case '雷达图':
+            chartRadar('chartLeft', null)
+            break;
+          case '散点图':
+            chartScatter('chartLeft', null)
+            break;
+          case '饼图':
+            chartPie('chartLeft', null)
+            break;
+          default: break;
+        }
+        switch (this.$store.state.Stat.chartRight) {
+          case '柱状图':
+            chartBar('chartRight', null)
+            break;
+          case '折线图':
+            chartLine('chartRight', null)
+            break;
+          case '雷达图':
+            chartRadar('chartRight', null)
+            break;
+          case '散点图':
+            chartScatter('chartRight', null)
+            break;
+          case '饼图':
+            chartPie('chartRight', null)
+            break;
+          default: break;
+        }
         if (this.$store.state.Stat.tableType === 'server') {
-          let server = []
-          if (this.$store.state.System.server === '') {
-            const key = Object.keys(global.hitbdata.server)
-            server = global.hitbdata.server[key][0];
-          } else {
-            server = [this.$store.state.System.server, this.$store.state.System.port]
-          }
           if (data.endsWith('.csv')) {
             this.$store.commit('STAT_TABLE_PAGE', 0)
             getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: data, page: 0, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
             this.$store.commit('STAT_TABLE_NAME', data);
           } else {
-            getStatFiles(this, [server[0], server[1]], data, this.$store.state.System.user.username)
+            getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], data, this.$store.state.System.user.username)
           }
         } else {
+          this.$store.commit('STAT_SET_CHART_DATA', []);
           loadFile(this, data, 'stat')
           this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
         }

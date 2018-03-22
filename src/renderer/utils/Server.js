@@ -413,7 +413,7 @@ export function sGetTarget(obj, data) {
     obj.$store.commit('SYSTEM_GET_TARGET', {})
   })
 }
-
+// 上传病案
 export function sUploadDoc(obj, data) {
   if (data[3] && data[2]) {
     const content = data[3].join('\n')
@@ -434,66 +434,23 @@ export function sUploadDoc(obj, data) {
     xhr.send(fd);
   }
 }
-// ======================================
-// 2.2.1 获取分析记录
-export function sGetStat(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/servers/api/stat_json/`)
-    .then((res) => {
-      if (res.status === 200) {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
-      } else {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
-      }
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-// 2.2.2 分析记录的同比环比数据
-export function sGetStatInfo(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/stat/stat_info?id=19057`)
-    .then((res) => {
-      if (res.status === 200) {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
-      } else {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
-      }
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-// 2.2.3 分析记录的同比环比图
-export function sGetStatInfoChart(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/stat/stat_chart?id=19057&chart_type=radar`)
-    .then((res) => {
-      if (res.status === 200) {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
-      } else {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
-      }
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-// 2.2.4 下载分析记录
-export function sdownLoadStatInfo(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/stat/download_stat`)
-    .then((res) => {
-      if (res.status === 200) {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
-      } else {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
-      }
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+// 获取省份
+export function sGetProvince(obj, data) {
+  axios({
+    method: 'get',
+    url: `http://${data[0]}:${data[1]}/servers/province/`,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    responseType: 'json'
+  }).then((res) => {
+    if (res.status === 200) {
+      obj.$store.commit('SYSTEM_PROVINCE', res.data)
+    } else {
+      obj.$store.commit('SYSTEM_PROVINCE', [])
+    }
+  }).catch((err) => {
+    console.log(err)
+    obj.$store.commit('SYSTEM_PROVINCE', [])
+  })
 }
 // 2.2.5 保存用户自定义分析
 export function sSaveDefined(obj, data) {
@@ -501,95 +458,6 @@ export function sSaveDefined(obj, data) {
     method: 'post',
     url: `http://${data[0]}:${data[1]}/stat/save_defined/`,
     data: qs.stringify({ username: 'hitb', key: ['fee_avg'] }),
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-    responseType: 'json'
-  }).then((res) => {
-    console.log(res)
-  }).catch((err) => {
-    console.log(err)
-  })
-}
-// 2.3.1 规则字典库查询
-export function sGetRule(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/library/rule`)
-    .then((res) => {
-      if (res.status === 200) {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
-      } else {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
-      }
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-// 2.3.2 规则搜索
-export function sSearchRule(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/library/search_rule?table=mdc&code=F`)
-    .then((res) => {
-      if (res.status === 200) {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
-      } else {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
-      }
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-// 2.4.7 获取标准科室列表
-export function sGetSystemDepart(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/servers/department`)
-    .then((res) => {
-      if (res.status === 200) {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
-      } else {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
-      }
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-// 2.5.1 病案上传
-// 2.5.2 病案校验
-export function sCheckDoc(obj, data) {
-  axios({
-    method: 'post',
-    url: `http://${data[0]}:${data[1]}/hospitals/json_check/`,
-    data: qs.stringify({ doc: { wt_code: 'test03', wt_name: '医院2' } }),
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-    responseType: 'json'
-  }).then((res) => {
-    console.log(res)
-  }).catch((err) => {
-    console.log(err)
-  })
-}
-// 2.5.3 病案导入
-export function sInsertDoc(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/hospitals/wt4_insert`)
-    .then((res) => {
-      if (res.status === 200) {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
-      } else {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
-      }
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-// 2.6.1 统计分析
-export function sStatDoc(obj, data) {
-  axios({
-    method: 'post',
-    url: `http://${data[0]}:${data[1]}/hospitals/api/stat/`,
-    data: qs.stringify({ username: 'hitb', password: 'test123456' }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {

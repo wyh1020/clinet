@@ -1,6 +1,7 @@
 const echarts = require('echarts');
 export default function chartPie(id, opt = null) {
-  // console.log(id);
+  let option = {}
+  const myChart = echarts.init(document.getElementById(id));
   if (opt) {
     // 取得表头并删除前两位
     const ths = Object.keys(opt[0])
@@ -32,9 +33,8 @@ export default function chartPie(id, opt = null) {
       data.push({ name: name, value: v[th] })
     })
     // 基于准备好的dom，初始化echarts实例
-    const myChart = echarts.init(document.getElementById(id));
     // 指定图表的配置项和数据
-    const option = {
+    option = {
       tooltip: { trigger: 'item', formatter: '{a} <br/>{b} : {c} ({d}%)' },
       legend: {
         orient: 'vertical',
@@ -48,7 +48,7 @@ export default function chartPie(id, opt = null) {
         data: data
       }]
     };
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option, true);
   }
+  // 使用刚指定的配置项和数据显示图表。
+  myChart.setOption(option, true);
 }

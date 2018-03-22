@@ -129,7 +129,6 @@
         switch (type) {
           case '柱状图':
             chartBar(id, option)
-            this.$store.commit('STAT_SET_CHART_OPTION', [id, type, option])
             break;
           case '折线图':
             chartLine(id, option)

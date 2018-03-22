@@ -1,5 +1,7 @@
 const echarts = require('echarts');
 export default function chartBar(id, opt = null) {
+  let option = {}
+  const myChart = echarts.init(document.getElementById(id));
   if (opt) {
     // 取得表头并删除前两位
     const keys = Object.keys(opt[0])
@@ -38,8 +40,7 @@ export default function chartBar(id, opt = null) {
       series.push({ data: data, name: name, type: 'bar' })
     })
     // 显示图
-    const myChart = echarts.init(document.getElementById(id));
-    const option = {
+    option = {
       tooltip: { trigger: 'axis' },
       legend: { data: chartKeys },
       calculable: true,
@@ -47,6 +48,6 @@ export default function chartBar(id, opt = null) {
       yAxis: { type: 'value' },
       series: series
     };
-    myChart.setOption(option, true);
   }
+  myChart.setOption(option, true);
 }
