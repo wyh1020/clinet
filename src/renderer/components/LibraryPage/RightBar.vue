@@ -27,8 +27,8 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="library-dropdown">
             <!-- <a class="nav-link" href="#" v-on:click='selX("机构")' id="library-dropdown-org"> 机构 <span class="sr-only">(current)</span></a> -->
-            <a class="nav-link" href="#" v-on:click='selX("时间")' id="library-dropdown-time"> 时间 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='selX("版本")' id="library-dropdown-version"> 版本 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" v-on:click='selX("year")' id="library-dropdown-time"> 年份 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" v-on:click='selX("version")' id="library-dropdown-version"> 版本 <span class="sr-only">(current)</span></a>
             <div class="dropdown-divider"></div>
             <!-- <a class="nav-link" href="#" v-on:click='selX(null)'> 添加列维度 <span class="sr-only">(current)</span></a> -->
           </div>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-  import { getLibraryFiles, getLibrary } from '../../utils/LibraryServerFile';
+  import { getLibraryFiles, getLibrary, getList } from '../../utils/LibraryServerFile';
   import loadFile from '../../utils/LoadFile';
   export default {
     data() {
@@ -75,7 +75,7 @@
         } else if (this.$store.state.Library.tableType === 'server') {
           this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
           this.$store.commit('SET_NOTICE', `当前${this.$store.state.Library.tablePage}页,共${this.$store.state.Library.serverTablePage.count}页`)
-          getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.tableName, this.$store.state.Library.tablePage])
+          getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.tableName, this.$store.state.Library.tablePage, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
         } else {
           this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
           this.$store.commit('SET_NOTICE', `当前${this.$store.state.Library.tablePage}页,共${this.$store.state.Library.tableCountPage}页`)
@@ -93,9 +93,21 @@
         // this.$store.commit('GET_PATH', 'paths');
       },
       selX: function (x) {
-        this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['dimension', x]);
-        this.$store.commit('SET_NOTICE', '区块列表');
-        this.$store.commit('SET_NOTICE', '维度选择');
+        switch (this.$store.state.Library.tableType) {
+          case 'local': {
+            this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['dimension', x]);
+            this.$store.commit('SET_NOTICE', '区块列表');
+            this.$store.commit('SET_NOTICE', '维度选择');
+            break;
+          }
+          case 'server': {
+            getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.tableName, x, this.$store.state.System.user.username)
+            break;
+          }
+          default: {
+            break;
+          }
+        }
       },
       librarySearch: function () {
         switch (this.$store.state.Library.tableType) {
@@ -103,7 +115,7 @@
             this.$store.commit('LIBRARY_GET_SEARCH_TABLE', this.library)
             break;
           case 'server':
-            getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Stat.tableName, 0, this.library])
+            getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.tableName, 1, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
             break;
           default:
         }

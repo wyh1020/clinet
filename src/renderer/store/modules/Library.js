@@ -24,7 +24,8 @@ const state = {
   tableName: '',
   serverTablePage: {},
   dimensionSearch: { time: 0, version: 0, org: 0 },
-  rowHeight: null
+  rowHeight: null,
+  dimensionServer: '',
 };
 
 const mutations = {
@@ -82,21 +83,30 @@ const mutations = {
   LIBRARY_SET_TABLE_PAGE(state, page) {
     state.tablePage = page;
   },
+  LIBRARY_SET_SERVER_DIMENSION(state, index) {
+    state.dimensionServer = index
+  },
   LIBRARY_SET_LEFT_PANEL(state, opt) {
-    state.leftPanel = opt[0];
-    state.dimensionType = opt[1];
-    switch (opt[1]) {
-      case '机构':
-        state.dimension = state.dimensionOrg
-        break;
-      case '时间':
-        state.dimension = state.dimensionTime
-        break;
-      case '版本':
-        state.dimension = state.dimensionVersion
-        break;
-      default:
-        break;
+    if (state.tableType === 'local') {
+      state.leftPanel = opt[0];
+      state.dimensionType = opt[1];
+      switch (opt[1]) {
+        case 'org':
+          state.dimension = state.dimensionOrg
+          break;
+        case 'year':
+          state.dimension = state.dimensionTime
+          break;
+        case 'version':
+          state.dimension = state.dimensionVersion
+          break;
+        default:
+          break;
+      }
+    } else {
+      state.leftPanel = opt[0];
+      state.dimensionType = opt[1];
+      state.dimension = opt[2];
     }
   },
   LIBRARY_SET_DIMENSION(state, opt) {
@@ -190,6 +200,7 @@ const actions = {
     commit('LIBRARY_GET_SEARCH_TABLE');
     commit('LIBRARY_GET_ROW');
     commit('LIBRARY_SET_TABLE_PAGE');
+    commit('LIBRARY_SET_SERVER_DIMENSION');
   },
 };
 

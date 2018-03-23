@@ -12,6 +12,7 @@
 </template>
 
 <script>
+  import { getLibrary } from '../../utils/LibraryServerFile';
   export default {
     data() {
       return {
@@ -27,8 +28,17 @@
     },
     methods: {
       setDimension: function (data, index) {
-        this.flag = index
-        this.$store.commit('LIBRARY_SET_DIMENSION', [this.$store.state.Library.dimensionType, data]);
+        if (this.$store.state.Library.tableType === 'server') {
+          this.flag = index
+          this.$store.commit('LIBRARY_SET_DIMENSION', [this.$store.state.Stat.dimensionType, data]);
+          this.$store.commit('LIBRARY_SET_SERVER_DIMENSION', data)
+          this.$store.commit('LIBRARY_TABLE_PAGE', 0)
+          getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.tableName, 1, this.$store.state.Library.dimensionType, data])
+          // getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.tableName, page: 0, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
+        } else {
+          this.flag = index
+          this.$store.commit('LIBRARY_SET_DIMENSION', [this.$store.state.Library.dimensionType, data]);
+        }
       },
     },
   };
