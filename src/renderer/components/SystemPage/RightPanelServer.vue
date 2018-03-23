@@ -84,6 +84,7 @@
                 </div>
               </form>
               <button class="btn btn-primary" v-on:click="orgRegister('newUserInfo')" >确认修改</button>
+              <button class="btn btn-primary" v-on:click="orgRegister('returnUserInfo')" >返回</button>
             </div>
           </div>
           <div v-if="this.$store.state.System.toolbar === 'getOrgs'" class ="orgs">
@@ -131,7 +132,7 @@
         emailorname: 'test@hitb.com.cn',
         loginpassword: '123456',
         userInfo: 'info',
-        upUserInfo: { password: '', org: '' }
+        upUserInfo: { org: this.$store.state.System.user.org, password: '' }
       }
     },
     computed: {
@@ -159,7 +160,7 @@
           }
           return f
         }
-      },
+      }
     },
     methods: {
       login: function () {
@@ -190,24 +191,17 @@
         this.$store.commit('SYSTEM_REGISTER_USER', [{}, '重新创建用户'])
       },
       orgRegister: function (value) {
-        if (value === 'userinfo') {
-          this.userInfo = 'upUserInfo'
-          console.log(this.upUserInfo);
-          // const userinfo = {}
-          // const arr = [this.userinfoName, this.userinfoPass]
-          // const arr1 = ['username', 'password']
-          // arr.forEach((n, index) => {
-          //   if (n !== '') {
-          //     userinfo[arr1[index]] = n
-          //   }
-          // })
-          // sUpdateUser(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user.id])
-          // )
-          // this.userinfo.name = false
-          // this.userinfo.pass = false
-        } else if (value === 'newUserInfo') {
-          console.log(this.upUserInfo);
-          sUpdateUser(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user.id, this.upUserInfo])
+        switch (value) {
+          case 'userinfo':
+            this.userInfo = 'upUserInfo'
+            break;
+          case 'newUserInfo':
+            sUpdateUser(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user.id, this.upUserInfo])
+            break;
+          case 'returnUserInfo':
+            this.userInfo = 'info'
+            break;
+          default:
         }
       }
     },

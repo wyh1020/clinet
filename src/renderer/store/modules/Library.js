@@ -21,7 +21,9 @@ const state = {
   fileIndex: null,
   tableType: 'local',
   tableName: '',
-  serverTablePage: {}
+  serverTablePage: {},
+  dimensionSearch: { time: 0, version: 0, org: 0 },
+  rowHeight: null
 };
 
 const mutations = {
@@ -34,9 +36,12 @@ const mutations = {
     state.tableHeader = state.table.slice(0, 1)
     state.tableSel = state.table
     state.tableSel.splice(0, 1)
-    state.dimensionOrg = [...new Set(state.table.map(a => a[0]))]
-    state.dimensionTime = [...new Set(state.table.map(a => a[1]))]
-    state.dimensionVersion = [...new Set(state.table.map(a => a[2]))]
+    const time = state.dimensionSearch.time = state.tableHeader[0].indexOf('year')
+    const version = state.dimensionSearch.version = state.tableHeader[0].indexOf('version')
+    const org = state.dimensionSearch.org = state.tableHeader[0].indexOf('org')
+    state.dimensionOrg = [...new Set(state.table.map(a => a[org]))]
+    state.dimensionTime = [...new Set(state.table.map(a => a[time]))]
+    state.dimensionVersion = [...new Set(state.table.map(a => a[version]))]
     state.notice = [
       `术语总数：${state.tableSel.length - 1}`,
       `机构总数：${state.dimensionOrg.length - 1}`,
@@ -102,14 +107,12 @@ const mutations = {
         state.tableSel = state.table.filter(x => x[0] === opt[1])
         break;
       case '时间':
-        // console.log(opt)
-        // state.dimensionTime.push(opt[1])
-        state.tableSel = state.table.filter(x => x[1] === opt[1])
+        state.tableSel = state.table.filter(x => x[state.dimensionSearch.time] === opt[1])
         break;
       case '版本':
         // console.log(opt)
         // state.dimensionDrg.push(opt[1])
-        state.tableSel = state.table.filter(x => x[2] === opt[1])
+        state.tableSel = state.table.filter(x => x[state.dimensionSearch.version] === opt[1])
         break;
       default:
         state.dimensionOrg = []
@@ -120,6 +123,16 @@ const mutations = {
     state.notice = [
       `术语总数：${state.tableSel.length - 1}`
     ]
+    const page = Math.ceil(state.tableSel.length / 20)
+    for (let i = 0; i <= page; i += 1) {
+      const f = []
+      f.push(state.tableHeader[0])
+      for (let j = 1; j < 20; j += 1) {
+        f.push(state.tableSel[(i + 1) * j])
+      }
+      state.localTables[i] = f
+    }
+    state.localTable = state.localTables[state.tablePage]
   },
   LIBRARY_GET_FIELD(state, field) {
     state.field = field;
@@ -154,6 +167,9 @@ const mutations = {
     }
     state.localTable = state.localTables[state.tablePage]
   },
+  LIBRARY_GET_ROW(state, data) {
+    state.rowHeight = data
+  }
 };
 
 const actions = {
@@ -170,6 +186,7 @@ const actions = {
     commit('LIBRARY_SET_TABLE_TYPE');
     commit('LIBRARY_TABLE_NAME');
     commit('LIBRARY_GET_SEARCH_TABLE');
+    commit('LIBRARY_GET_ROW');
   },
 };
 

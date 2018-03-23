@@ -18,16 +18,28 @@
         <input type="text" class="form-control" placeholder="OrgType" v-model="OrgInfo.type">
       </div>
       <div class="form-group">
+        <!-- <label for="InputOrgProvince">省份</label> -->
         <label for="InputOrgProvince">省份</label>
-        <input type="text" class="form-control" placeholder="Province" v-model="OrgInfo.province">
+          <select class="form-control" id="InputOrgProvince" v-model="OrgInfo.province">
+            <option v-for="(value, index) in provinceAll.province">{{value}}</option>
+          </select>
+        <!-- <input type="text" class="form-control" placeholder="Province" v-model="OrgInfo.province"> -->
       </div>
       <div class="form-group">
         <label for="InputOrgCity">市</label>
-        <input type="text" class="form-control" placeholder="City" v-model="OrgInfo.city">
+          <select class="form-control" id="InputOrgCity" v-model="OrgInfo.city">
+            <option v-for="(value, index) in provinceAll.city[OrgInfo.province]">{{value}}</option>
+          </select>
+        <!-- <label for="InputOrgCity">市</label>
+        <input type="text" class="form-control" placeholder="City" v-model="OrgInfo.city"> -->
       </div>
       <div class="form-group">
-        <label for="InputOrgCounty">机构县</label>
-        <input type="text" class="form-control" placeholder="County" v-model="OrgInfo.county">
+        <label for="InputOrgCity">机构县</label>
+        <select class="form-control" id="InputOrgCity" v-model="OrgInfo.county">
+          <option v-for="(value, index) in provinceAll.county[OrgInfo.city]">{{value}}</option>
+        </select>
+        <!-- <label for="InputOrgCounty">机构县</label>
+        <input type="text" class="form-control" placeholder="County" v-model="OrgInfo.county"> -->
       </div>
       <div class="form-group">
         <label for="InputOrgPerson_name">联系人</label>
@@ -66,6 +78,13 @@
           person_name: this.$store.state.System.orgInfo.person_name,
           tel: this.$store.state.System.orgInfo.tel,
           email: this.$store.state.System.orgInfo.email
+        }
+      }
+    },
+    computed: {
+      provinceAll: {
+        get() {
+          return this.$store.state.System.province
         }
       }
     },

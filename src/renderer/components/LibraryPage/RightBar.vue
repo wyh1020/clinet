@@ -26,11 +26,11 @@
             维度选择
           </a>
           <div class="dropdown-menu" aria-labelledby="library-dropdown">
-            <a class="nav-link" href="#" v-on:click='selX("机构")' id="library-dropdown-org"> 机构 <span class="sr-only">(current)</span></a>
+            <!-- <a class="nav-link" href="#" v-on:click='selX("机构")' id="library-dropdown-org"> 机构 <span class="sr-only">(current)</span></a> -->
             <a class="nav-link" href="#" v-on:click='selX("时间")' id="library-dropdown-time"> 时间 <span class="sr-only">(current)</span></a>
             <a class="nav-link" href="#" v-on:click='selX("版本")' id="library-dropdown-version"> 版本 <span class="sr-only">(current)</span></a>
             <div class="dropdown-divider"></div>
-            <a class="nav-link" href="#" v-on:click='selX(null)'> 添加列维度 <span class="sr-only">(current)</span></a>
+            <!-- <a class="nav-link" href="#" v-on:click='selX(null)'> 添加列维度 <span class="sr-only">(current)</span></a> -->
           </div>
         </li>
       </ul>
