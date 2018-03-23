@@ -50,6 +50,7 @@ export function sRegister(obj, data) {
         if (res.data.success) {
           obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '用户创建成功', true])
           obj.$store.commit('SET_NOTICE', '用户创建成功')
+          obj.$store.commit('SYSTEM_SET_TOOLBAR', 'getUsers')
         } else {
           obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '用户创建失败,用户名重复', false])
         }
@@ -105,9 +106,10 @@ export function sGetUsers(obj, data) {
   axios.get(`http://${data[0]}:${data[1]}/servers/user/`)
     .then((res) => {
       if (res.status === 200) {
-        obj.$store.commit('SYSTEM_SET_USERS', [data[2], '连接成功'])
+        console.log(res.data);
+        obj.$store.commit('SYSTEM_GET_USERS', res.data)
       } else {
-        obj.$store.commit('SYSTEM_SET_USERS', [data[2], '连接失败'])
+        // obj.$store.commit('SYSTEM_SET_USERS', [data[2], '连接失败'])
       }
     })
     .catch((err) => {
@@ -116,6 +118,7 @@ export function sGetUsers(obj, data) {
 }
 // 更新用户信息
 export function sUpdateUser(obj, data) {
+  console.log(data);
   axios({
     method: 'post',
     url: `http://${data[0]}:${data[1]}/servers/user_update/`,
@@ -123,7 +126,9 @@ export function sUpdateUser(obj, data) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
-    obj.$store.commit('SYSTEM_SET_USER', ['更新用户信息成功', res.data.data])
+    if (obj.$store.state.System.toolbar !== 'getPersons') {
+      obj.$store.commit('SYSTEM_SET_USER', ['更新用户信息成功', res.data.data])
+    }
   }).catch((err) => {
     console.log(err)
     obj.$store.commit('SYSTEM_SET_USER', ['更新用户信息失败', { username: '', login: false }])

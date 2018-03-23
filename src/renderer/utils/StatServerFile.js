@@ -84,7 +84,6 @@ export function getStat(obj, data, opt) {
         break;
     }
   }
-  const pageNum = opt.page + 1
   let url = ''
   switch (opt.type) {
     case '机构':
@@ -100,6 +99,12 @@ export function getStat(obj, data, opt) {
       url = `&${opt.type}=${opt.value}`
       break;
   }
+  let pageNum = 0;
+  if (opt.page === 0) {
+    pageNum = opt.page + 1
+  } else {
+    pageNum = opt.page
+  }
   axios({
     method: 'get',
     url: `http://${data[0]}:${data[1]}/stat/stat_client?page=${pageNum}&page_type=${pageType}&tool_type=${toolType}&rows=20&username=${opt.username}${url}`,
@@ -108,7 +113,8 @@ export function getStat(obj, data, opt) {
   }).then((res) => {
     if (res.status === 200) {
       obj.$store.commit('SET_NOTICE', `当前${pageNum}页,共${res.data.count}页`)
-      obj.$store.commit('STAT_SET_SERVER_TABLE', [res.data.stat, res.data.count])
+      // console.log(res.data);
+      obj.$store.commit('STAT_SET_SERVER_TABLE', res.data)
     } else {
       obj.$store.commit('STAT_SET_SERVER_TABLE', [])
     }

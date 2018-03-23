@@ -40,6 +40,7 @@ const state = {
   dimensionServer: '',
   isServer: false,
   serverCountPage: 0,
+  serverPage: {}
 };
 
 const mutations = {
@@ -82,6 +83,9 @@ const mutations = {
       state.tablePage += n;
       state.localTable = state.localTables[state.tablePage]
     }
+  },
+  STAT_TABLE_SERVER_PAGE(state, page) {
+    state.tablePage = page;
   },
   STAT_SERVER_FILES(state, opt) {
     state.files = opt.data;
@@ -199,9 +203,11 @@ const mutations = {
     state.compareTable = data
   },
   STAT_SET_SERVER_TABLE(state, data) {
+    console.log(data);
     state.isServer = true
-    state.serverTable = data[0]
-    state.serverCountPage = data[1]
+    state.serverTable = data.stat
+    state.serverCountPage = data.count
+    state.serverPage = { page: data.page, pageList: data.page_list }
   },
   STAT_SET_TABLE_TYPE(state, data) {
     if (data === 'server') {
@@ -266,7 +272,8 @@ const actions = {
     commit('STAT_SET_FILE_INDEX');
     commit('STAT_SET_FILE_FLAG');
     commit('STAT_GET_FILE_SEARCH');
-    commit('STAT_SET_SERVER_DIMENSION')
+    commit('STAT_SET_SERVER_DIMENSION');
+    commit('STAT_TABLE_SERVER_PAGE');
   },
 };
 

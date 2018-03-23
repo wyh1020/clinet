@@ -15,10 +15,10 @@
         <li class="nav-item active" v-on:click='getOrgs' id="server-org-setup">
           <a class="nav-link text-light" href="#"> 机构设置 <span class="sr-only">(current)</span></a>
         </li>
-        <!-- <li class="nav-item active" v-on:click='getPersons' id="server-people-setup">
+        <li class="nav-item active" v-on:click='getPersons' id="server-people-setup" v-if="this.$store.state.System.userPower === 1">
           <a class="nav-link text-light" href="#"> 人员设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getServerFunctions' id="server-remote-function-setup">
+        <!-- <li class="nav-item active" v-on:click='getServerFunctions' id="server-remote-function-setup">
           <a class="nav-link text-light" href="#"> 远程服务功能设置 <span class="sr-only">(current)</span></a>
         </li> -->
       </ul>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import { sGetOrg, sGetProvince } from '../../utils/Server';
+  import { sGetOrg, sGetProvince, sGetUsers } from '../../utils/Server';
   import loadFile from '../../utils/LoadFile';
   export default {
     data() {
@@ -57,6 +57,8 @@
       },
       getPersons: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getPersons');
+        sGetUsers(this, [this.$store.state.System.server, this.$store.state.System.port]);
+        this.$store.commit('SET_NOTICE', '人员设置');
       },
       getServerFunctions: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServerFunctions');
