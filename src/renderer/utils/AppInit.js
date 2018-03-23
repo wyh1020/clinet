@@ -212,32 +212,32 @@ export default function appInit() {
   }
 
   // 读取模板的cda文件
-  // const modelFile = path.format({
-  //   dir: hitbdataSystem,
-  //   base: 'hitb_model.cda'
-  // });
-  // if (fs.existsSync(modelFile)) {
-  //   fs.lstat(modelFile, (err) => {
-  //     if (!err) {
-  //       const fRead = fs.createReadStream(modelFile);
-  //       const fReadline = readline.createInterface({ input: fRead });
-  //       const f = [];
-  //       fReadline.on('close', () => {
-  //         const obj = {}
-  //         f.forEach((x) => {
-  //           const s = x.split(' ').filter(i => i !== '');
-  //           const k = s.shift()
-  //           obj[k] = s
-  //         })
-  //         console.log(obj)
-  //         global.hitbmodel = obj
-  //       });
-  //       fReadline.on('line', (line) => {
-  //         f.push(line)
-  //       })
-  //     }
-  //   })
-  // }
+  const modelFile = path.format({
+    dir: hitbdataSystem,
+    base: 'hitb_model.cda'
+  });
+  if (fs.existsSync(modelFile)) {
+    fs.lstat(modelFile, (err) => {
+      if (!err) {
+        const fRead = fs.createReadStream(modelFile);
+        const fReadline = readline.createInterface({ input: fRead });
+        const f = [];
+        fReadline.on('close', () => {
+          const obj = {}
+          f.forEach((x) => {
+            const s = x.split(' ').filter(i => i !== '');
+            const k = s.shift()
+            obj[k] = s
+          })
+          console.log(obj)
+          global.hitbmodel = obj
+        });
+        fReadline.on('line', (line) => {
+          f.push(line)
+        })
+      }
+    })
+  }
 
   // 术语字典文件
   const mdcFile = path.format({
