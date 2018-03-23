@@ -66,6 +66,7 @@
       },
       serverPage: function (data) {
         const page = parseInt(data, 10)
+        this.$store.commit('SET_NOTICE', `当前${data}页,共${this.$store.state.Library.serverTablePage.count}页`)
         getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.tableName, page])
       }
     },

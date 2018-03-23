@@ -68,14 +68,17 @@
         }
       },
       page: function (n) {
-        if (this.$store.state.Library.tablePage === 0 && n === -1) {
+        if (this.$store.state.Library.tablePage === 1 && n === -1) {
           this.$store.commit('SET_NOTICE', '当前已是第一页')
+        } else if (this.$store.state.Library.tablePage === this.$store.state.Library.serverTablePage.count && n === 1) {
+          this.$store.commit('SET_NOTICE', '当前已是尾页');
         } else if (this.$store.state.Library.tableType === 'server') {
           this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
+          this.$store.commit('SET_NOTICE', `当前${this.$store.state.Library.tablePage}页,共${this.$store.state.Library.serverTablePage.count}页`)
           getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.tableName, this.$store.state.Library.tablePage])
         } else {
           this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
-          this.$store.commit('SET_NOTICE', '翻页');
+          this.$store.commit('SET_NOTICE', `当前${this.$store.state.Library.tablePage}页,共${this.$store.state.Library.tableCountPage}页`)
         }
       },
       edit: function () {
