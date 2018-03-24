@@ -49,7 +49,9 @@ const state = {
   computeVersion: ['CN', 'GB', 'BJ'],
   computeData: '',
   province: {},
-  orgPage: 'getOrg'
+  orgPage: 'getOrg',
+  userPower: null,
+  persons: {}
 };
 
 const mutations = {
@@ -106,6 +108,7 @@ const mutations = {
   // 用户登录
   SYSTEM_SET_USER(state, field) {
     state.user = field[1];
+    state.userPower = field[1].type
   },
   // 用户信息
   SYSTEM_INFO_USER(state, field) {
@@ -226,6 +229,9 @@ const mutations = {
   },
   SYSTEM_GET_ORGPAGE(state, value) {
     state.orgPage = value
+  },
+  SYSTEM_GET_USERS(state, value) {
+    state.persons = value
   }
 };
 
@@ -263,6 +269,7 @@ const actions = {
     commit('SYSTEM_SET_COMPUTE_DATA');
     commit('SYSTEM_PROVINCE');
     commit('SYSTEM_GET_ORGPAGE');
+    commit('SYSTEM_GET_USERS');
   },
 };
 

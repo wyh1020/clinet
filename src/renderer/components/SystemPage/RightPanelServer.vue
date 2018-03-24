@@ -23,15 +23,15 @@
                   <input type="password" class="form-control" placeholder="密码" v-model="loginpassword" id="server-password">
                 </div>
               </form>
-                <button type="submit" class="btn btn-primary" v-on:click="login()" id="server-login">登录</button>
+                <button type="submit" class="btn btn-primary" v-on:click="login('login')" id="server-login">登录</button>
+                <button type="submit" class="btn btn-primary" v-on:click="login('regrest')">重新创建用户</button>
           </div>
           <div v-if="this.$store.state.System.toolbar === 'createUsers'">
-            <div v-if="this.$store.state.System.registerInfo[2] == true">
-              <!-- {{this.$store.state.System.registerInfo[1]}} -->
+            <!-- <div v-if="this.$store.state.System.registerInfo[2] == true">
               <button class="btn btn-primary" v-on:click="newRegister">重新创建用户</button>
-            </div>
-            <div v-else>
-              <h3  v-if="this.$store.state.System.registerInfo[2] == false">{{this.$store.state.System.registerInfo[1]}}, &nbsp; &nbsp; &nbsp;请重新注册</h3>
+            </div> -->
+            <div>
+              <!-- <h3  v-if="this.$store.state.System.registerInfo[2] == false">{{this.$store.state.System.registerInfo[1]}}, &nbsp; &nbsp; &nbsp;请重新注册</h3> -->
               <form>
                 <div class="form-group">
                   <label for="InputEmail">用户注册的Email地址</label>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="form-group">
                   <label for="InputPersonname">姓名</label>
-                  <input type="password" class="form-control" id="InputPersonname" placeholder="Personname" v-model="personname">
+                  <input type="text" class="form-control" id="InputPersonname" placeholder="Personname" v-model="personname">
                 </div>
               </form>
               <button type="submit" class="btn btn-primary" v-on:click="register">注册用户</button>
@@ -163,7 +163,19 @@
       }
     },
     methods: {
-      login: function () {
+      login: function (value) {
+        switch (value) {
+          case 'login':
+            this.login_s();
+            break;
+          case 'regrest':
+            this.$store.commit('SYSTEM_SET_TOOLBAR', 'createUsers')
+            console.log('sssssssssss');
+            break;
+          default:
+        }
+      },
+      login_s: function () {
         const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
         const user = { username: this.emailorname, password: this.loginpassword }
         if (reg.test(this.emailorname)) {

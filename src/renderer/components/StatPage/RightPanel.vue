@@ -25,6 +25,13 @@
         <td v-for="(field, index) in data" v-bind:key='index' v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}" v-on:click="onClickTd(data, index)" class="stat-right-table-td"  v-if="index < 10">{{data[index]}}</td>
       </tr>
     </table>
+    <nav aria-label="Page navigation example" v-if="this.$store.state.Stat.tableType === 'server'">
+      <ul class="pagination">
+        <li class="page-item" v-for= "(value, index) in page.pageList" v-bind:key="index" v-bind:class="{'disabled':value.page == page.page}" v-on:click="serverPage(value.page)"><a class="page-link" href="#">
+          {{value.num}}
+        </a></li>
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -37,6 +44,7 @@
   import chartPie from '../../utils/ChartPie';
   import RightBar from './RightBar';
   import LeftPanel from './LeftPanel';
+  import { getStat } from '../../utils/StatServerFile'
   export default {
     components: { RightBar, LeftPanel },
     data() {
@@ -91,6 +99,12 @@
             f = this.$store.state.Stat.selectedCol
           }
           return f
+        }
+      },
+      page: {
+        get() {
+          console.log(this.$store.state.Stat.serverPage);
+          return this.$store.state.Stat.serverPage
         }
       }
     },
@@ -178,6 +192,10 @@
           default: break;
         }
       },
+      serverPage: function (data) {
+        this.$store.commit('STAT_TABLE_SERVER_PAGE', parseInt(data, 10));
+        getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.tableName, page: parseInt(data, 10), username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
+      }
     },
   };
 </script>
