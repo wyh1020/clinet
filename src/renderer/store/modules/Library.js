@@ -18,11 +18,9 @@ const state = {
   field: '',
   fieldIndex: null,
   tableHeader: [],
-  serverTable: [],
   fileIndex: null,
   tableType: 'local',
-  tableName: '',
-  serverTablePage: {},
+  serverTable: { page: 1, countPage: 0, data: [], pageList: [], tableName: '' },
   dimensionSearch: { time: 0, version: 0, org: 0 },
   rowHeight: null,
   dimensionServer: '',
@@ -157,12 +155,8 @@ const mutations = {
   LIBRARY_SET_TABLE_TYPE(state, index) {
     state.tableType = index;
   },
-  LIBRARY_TABLE_NAME(state, index) {
-    state.tableName = index
-  },
-  LIBRARY_SET_SERVER_TABLE(state, data) {
-    state.serverTable = data.library
-    state.serverTablePage = { page_list: data.page_list, page_num: data.page_num, count: data.count }
+  LIBRARY_SET_SERVER_TABLE(state, opt) {
+    state.serverTable = opt
   },
   LIBRARY_GET_SEARCH_TABLE(state, data) {
     state.localTables = {}
@@ -196,7 +190,6 @@ const actions = {
     commit('LIBRARY_GET_FIELD_INDEX');
     commit('LIBRARY_SET_FILE_INDEX');
     commit('LIBRARY_SET_TABLE_TYPE');
-    commit('LIBRARY_TABLE_NAME');
     commit('LIBRARY_GET_SEARCH_TABLE');
     commit('LIBRARY_GET_ROW');
     commit('LIBRARY_SET_TABLE_PAGE');

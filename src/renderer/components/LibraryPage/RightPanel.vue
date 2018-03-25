@@ -8,7 +8,7 @@
     </table>
     <nav aria-label="Page navigation example" v-if="this.$store.state.Library.tableType === 'server'">
       <ul class="pagination">
-        <li class="page-item" v-for= "(value, index) in page.page_list" v-bind:key="index" v-bind:class="{'disabled':value.page == page.page_num}" v-on:click="serverPage(value.page)"><a class="page-link" href="#">
+        <li class="page-item" v-for= "(value, index) in page.pageList" v-bind:key="index" v-bind:class="{'disabled':value.page == page.page}" v-on:click="serverPage(value.page)"><a class="page-link" href="#">
           {{value.num}}
         </a></li>
       </ul>
@@ -29,7 +29,7 @@
     computed: {
       page: {
         get() {
-          return this.$store.state.Library.serverTablePage
+          return { pageList: this.$store.state.Library.serverTable.pageList, page: this.$store.state.Library.serverTable.page }
         }
       },
       xs: {
@@ -41,7 +41,7 @@
               break;
             }
             case 'server': {
-              table = this.$store.state.Library.serverTable
+              table = this.$store.state.Library.serverTable.data
               break;
             }
             default: {
@@ -66,8 +66,9 @@
       },
       serverPage: function (data) {
         const page = parseInt(data, 10)
-        this.$store.commit('SET_NOTICE', `当前${data}页,共${this.$store.state.Library.serverTablePage.count}页`)
-        getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.tableName, page, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
+        this.$store.commit('LIBRARY_SET_TABLE_PAGE', page);
+        this.$store.commit('SET_NOTICE', `当前${data}页,共${this.$store.state.Library.serverTable.countPage}页`)
+        getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, page, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
       }
     },
   };

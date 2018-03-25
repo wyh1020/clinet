@@ -34,9 +34,7 @@
         this.$store.commit('LIBRARY_SET_FILE_INDEX', index);
         if (this.$store.state.Library.tableType === 'server') {
           this.$store.commit('LIBRARY_SET_TABLE_PAGE', 1);
-          this.$store.commit('LIBRARY_TABLE_NAME', data);
           getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, data, 1])
-          this.$store.commit('SET_NOTICE', '读取文件成功');
         } else {
           loadFile(this, data, 'library')
           this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'local');

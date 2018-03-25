@@ -21,6 +21,7 @@ export function getLibraryFiles(obj, data) {
 
 export function getLibrary(obj, data) {
   // 去除文件名中的.csv
+  const tableName = data[2]
   const type = data[2].split('.csv')[0]
   const pageNum = data[3]
   let url = ''
@@ -33,10 +34,10 @@ export function getLibrary(obj, data) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
-    console.log(res.data);
     if (res.status === 200) {
-      obj.$store.commit('LIBRARY_SET_TABLE_PAGE', pageNum)
-      obj.$store.commit('LIBRARY_SET_SERVER_TABLE', res.data)
+      const opt = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: res.data.library, pageList: res.data.page_list, tableName: tableName }
+      obj.$store.commit('LIBRARY_SET_SERVER_TABLE', opt)
+      obj.$store.commit('SET_NOTICE', `当前${obj.$store.state.Library.serverTable.page}页,共${obj.$store.state.Library.serverTable.countPage}页`)
     } else {
       obj.$store.commit('LIBRARY_SET_SERVER_TABLE', {})
     }
