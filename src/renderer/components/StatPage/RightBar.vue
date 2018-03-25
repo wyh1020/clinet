@@ -79,7 +79,6 @@
   import chartBar from '../../utils/ChartBar';
   import chartPie from '../../utils/ChartPie';
   import addContrast from '../../utils/StatContrast';
-  import chartData from '../../utils/ChartData';
   import saveFile from '../../utils/SaveFile';
   import { getStatFiles, getStat, saveStat, getList } from '../../utils/StatServerFile';
   import loadFile from '../../utils/LoadFile';
@@ -148,22 +147,7 @@
         }
       },
       showChart: function (id, type) {
-        let table = []
-        switch (this.$store.state.Stat.tableType) {
-          case 'local': {
-            table = this.$store.state.Stat.localTable
-            break;
-          }
-          case 'server': {
-            table = this.$store.state.Stat.serverTable.data
-            break;
-          }
-          default: {
-            table = this.$store.state.Stat.compareTable
-            break;
-          }
-        }
-        const option = chartData(table, this.$store.state.Stat.selectedRow, this.$store.state.Stat.selectedCol)
+        const option = this.$store.state.Stat.chartData
         if (id === 'chartRight') {
           this.$store.commit('STAT_SET_CHART_RIGHT', type);
           switch (type) {

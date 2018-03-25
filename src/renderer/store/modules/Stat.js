@@ -31,6 +31,7 @@ const state = {
   serverTable: { page: 0, countPage: 0, data: [], pageList: [], tableName: '' },
   localTables: {},
   localTable: [],
+  chartData: [],
   chartLeft: '柱状图',
   chartRight: '折线图',
   tableType: 'local',
@@ -175,6 +176,9 @@ const mutations = {
   STAT_SET_CHART_RIGHT(state, data) {
     state.chartRight = data
   },
+  STAT_SET_CHART_DATA(state, data) {
+    state.chartData = data
+  },
   STAT_SET_FILE_INDEX(state, index) {
     state.fileIndex = index
   },
@@ -219,6 +223,7 @@ const actions = {
     commit('STAT_SET_COMPARE_TABLE');
     commit('STAT_SET_CHART_LEFT');
     commit('STAT_SET_CHART_RIGHT');
+    commit('STAT_SET_CHART_DATA');
     commit('STAT_SET_TABLE_TYPE');
     commit('STAT_SET_FILE_INDEX');
     commit('STAT_SET_FILE_FLAG');

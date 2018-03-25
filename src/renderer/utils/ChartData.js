@@ -1,5 +1,5 @@
 // (数据, 行集合)
-export default function chartData(table, xid = [], yid = []) {
+export default function chartData(obj, table, xid = [], yid = []) {
   const xArr = []
   let yArr = []
   const stat = []
@@ -59,5 +59,5 @@ export default function chartData(table, xid = [], yid = []) {
     })
     stat[i] = xs
   })
-  return stat
+  obj.$store.commit('STAT_SET_CHART_DATA', stat)
 }

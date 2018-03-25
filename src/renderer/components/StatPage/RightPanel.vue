@@ -150,43 +150,42 @@
         } else {
           table = this.$store.state.Stat.compareTable
         }
-        const option = chartData(table, this.flag, this.flagTd)
+        chartData(this, table, this.flag, this.flagTd)
         switch (type) {
           case '柱状图':
-            chartBar(id, option)
+            chartBar(id, this.$store.state.Stat.chartData)
             break;
           case '折线图':
-            chartLine(id, option)
+            chartLine(id, this.$store.state.Stat.chartData)
             break;
           case '雷达图':
-            chartRadar(id, option)
+            chartRadar(id, this.$store.state.Stat.chartData)
             break;
           case '散点图':
-            chartScatter(id, option)
+            chartScatter(id, this.$store.state.Stat.chartData)
             break;
           case '饼图':
-            chartPie(id, option)
+            chartPie(id, this.$store.state.Stat.chartData)
             break;
           default: break;
         }
         const idRight = 'chartRight'
         const typeRight = this.$store.state.Stat.chartRight
-        const optionRight = chartData(table, this.flag, this.flagTd)
         switch (typeRight) {
           case '柱状图':
-            chartBar(idRight, optionRight)
+            chartBar(idRight, this.$store.state.Stat.chartData)
             break;
           case '折线图':
-            chartLine(idRight, optionRight)
+            chartLine(idRight, this.$store.state.Stat.chartData)
             break;
           case '雷达图':
-            chartRadar(idRight, optionRight)
+            chartRadar(idRight, this.$store.state.Stat.chartData)
             break;
           case '散点图':
-            chartScatter(idRight, optionRight)
+            chartScatter(idRight, this.$store.state.Stat.chartData)
             break;
           case '饼图':
-            chartPie(idRight, optionRight)
+            chartPie(idRight, this.$store.state.Stat.chartData)
             break;
           default: break;
         }
