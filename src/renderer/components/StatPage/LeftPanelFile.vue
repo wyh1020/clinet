@@ -79,8 +79,10 @@
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server')
           if (data.endsWith('.csv')) {
             this.$store.commit('STAT_TABLE_PAGE', 0)
+            const serverTable = this.$store.state.Stat.serverTable
+            serverTable.tableName = data
+            this.$store.commit('STAT_SET_SERVER_TABLE', serverTable);
             getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: data, page: 0, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
-            this.$store.commit('STAT_TABLE_NAME', data);
           } else {
             getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], data, this.$store.state.System.user.username)
           }

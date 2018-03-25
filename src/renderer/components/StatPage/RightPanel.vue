@@ -68,7 +68,7 @@
               break;
             }
             case 'server': {
-              table = this.$store.state.Stat.serverTable
+              table = this.$store.state.Stat.serverTable.data
               break;
             }
             default: {
@@ -103,8 +103,7 @@
       },
       page: {
         get() {
-          console.log(this.$store.state.Stat.serverPage);
-          return this.$store.state.Stat.serverPage
+          return { pageList: this.$store.state.Stat.serverTable.pageList, page: this.$store.state.Stat.serverTable.page }
         }
       }
     },
@@ -147,7 +146,7 @@
         if (this.$store.state.Stat.tableType === 'local') {
           table = this.$store.state.Stat.localTable
         } else if (this.$store.state.Stat.tableType === 'server') {
-          table = this.$store.state.Stat.serverTable
+          table = this.$store.state.Stat.serverTable.data
         } else {
           table = this.$store.state.Stat.compareTable
         }
@@ -193,8 +192,7 @@
         }
       },
       serverPage: function (data) {
-        this.$store.commit('STAT_TABLE_SERVER_PAGE', parseInt(data, 10));
-        getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.tableName, page: parseInt(data, 10), username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
+        getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: parseInt(data, 10), username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
       }
     },
   };

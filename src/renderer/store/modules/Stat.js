@@ -28,19 +28,15 @@ const state = {
   selectedRow: [],
   selectedCol: [],
   compareTable: [],
-  serverTable: [],
+  serverTable: { page: 0, countPage: 0, data: [], pageList: [], tableName: '' },
   localTables: {},
   localTable: [],
   chartLeft: '柱状图',
   chartRight: '折线图',
   tableType: 'local',
   fileIndex: null,
-  tableName: '',
-  countPage: 0,
   dimensionServer: '',
   isServer: false,
-  serverCountPage: 0,
-  serverPage: {}
 };
 
 const mutations = {
@@ -78,14 +74,11 @@ const mutations = {
   },
   STAT_TABLE_PAGE(state, n) {
     if (state.tableType === 'server' && n === 0) {
-      state.tablePage = n;
+      state.serverTable.page = n;
     } else if (state.countPage !== n) {
       state.tablePage += n;
       state.localTable = state.localTables[state.tablePage]
     }
-  },
-  STAT_TABLE_SERVER_PAGE(state, page) {
-    state.tablePage = page;
   },
   STAT_SERVER_FILES(state, opt) {
     state.files = opt.data;
@@ -137,46 +130,8 @@ const mutations = {
       `病案总数：${state.tableSel.length - 1}`
     ]
   },
-  STAT_SET_CHART_OPTION(state, opt) {
-    const id = opt[0]
-    const type = opt[1]
-    const option = opt[2]
-    if (id === 'chartLeft') {
-      switch (type) {
-        case '柱状图':
-          state.leftBar = option;
-          break;
-        case '折线图':
-          state.leftLine = option;
-          break;
-        case '雷达图':
-          state.leftRadar = option;
-          break;
-        case '散点图':
-          state.leftScatter = option;
-          break;
-        default:
-          break
-      }
-    } else {
-      switch (type) {
-        case '柱状图':
-          state.rightBar = option;
-          break;
-        case '折线图':
-          state.rightLine = option;
-          break;
-        case '雷达图':
-          state.rightRadar = option;
-          break;
-        case '散点图':
-          state.rightScatter = option;
-          break;
-        default:
-          break
-      }
-    }
-  },
+  // STAT_SET_CHART_OPTION(state, opt) {
+  // },
   STAT_GET_FIELD(state, field) {
     state.field = field;
   },
@@ -202,12 +157,9 @@ const mutations = {
   STAT_SET_COMPARE_TABLE(state, data) {
     state.compareTable = data
   },
-  STAT_SET_SERVER_TABLE(state, data) {
-    console.log(data);
+  STAT_SET_SERVER_TABLE(state, opt) {
     state.isServer = true
-    state.serverTable = data.stat
-    state.serverCountPage = data.count
-    state.serverPage = { page: data.page, pageList: data.page_list }
+    state.serverTable = opt
   },
   STAT_SET_TABLE_TYPE(state, data) {
     if (data === 'server') {
@@ -247,7 +199,6 @@ const mutations = {
       }
       state.localTables[i] = f
     }
-    console.log(state.localTables);
     state.localTable = state.localTables[state.tablePage]
   }
 };
@@ -273,7 +224,7 @@ const actions = {
     commit('STAT_SET_FILE_FLAG');
     commit('STAT_GET_FILE_SEARCH');
     commit('STAT_SET_SERVER_DIMENSION');
-    commit('STAT_TABLE_SERVER_PAGE');
+    commit('STAT_SET_SERVER_TABLE');
   },
 };
 

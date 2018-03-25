@@ -61,7 +61,7 @@ export function getList(obj, url, tableName, type, username) {
 
 export function getStat(obj, data, opt) {
   let file = opt.tableName
-  obj.$store.commit('STAT_TABLE_NAME', file)
+  const tableName = file
   // 去除文件名中的.csv
   file = file.split('.csv')[0]
   // 切分查看是否有总数.平均.占比等工具查询
@@ -113,8 +113,8 @@ export function getStat(obj, data, opt) {
   }).then((res) => {
     if (res.status === 200) {
       obj.$store.commit('SET_NOTICE', `当前${pageNum}页,共${res.data.count}页`)
-      // console.log(res.data);
-      obj.$store.commit('STAT_SET_SERVER_TABLE', res.data)
+      const opt = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: res.data.stat, pageList: res.data.page_list, tableName: tableName }
+      obj.$store.commit('STAT_SET_SERVER_TABLE', opt)
     } else {
       obj.$store.commit('STAT_SET_SERVER_TABLE', [])
     }

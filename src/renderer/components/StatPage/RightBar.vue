@@ -116,7 +116,7 @@
             this.$store.commit('SET_NOTICE', '当前已是尾页');
           } else {
             this.$store.commit('STAT_TABLE_PAGE', n);
-            getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
+            getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.serverTable.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
           }
         } else {
           this.$store.commit('STAT_TABLE_PAGE', n);
@@ -139,7 +139,7 @@
             break;
           }
           case 'server': {
-            getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Stat.tableName, x, this.$store.state.System.user.username)
+            getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Stat.serverTable.tableName, x, this.$store.state.System.user.username)
             break;
           }
           default: {
@@ -155,7 +155,7 @@
             break;
           }
           case 'server': {
-            table = this.$store.state.Stat.serverTable
+            table = this.$store.state.Stat.serverTable.data
             break;
           }
           default: {
@@ -265,8 +265,7 @@
             this.$store.commit('STAT_GET_FILE_SEARCH', this.stat)
             break;
           case 'server':
-            getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.tableName, page: 0, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.stat })
-            console.log('服务器搜索');
+            getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: 0, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.stat })
             break;
           default:
         }
