@@ -65,6 +65,11 @@
     methods: {
       loadFile: function (data, index) {
         this.$store.commit('EDIT_SET_FILES_INDEX', index)
+        if (data.endsWith('.cda')) {
+          this.$store.commit('EDIT_SET_FILE_TYPE', 'cda')
+        } else {
+          this.$store.commit('EDIT_SET_FILE_TYPE', 'csv')
+        }
         let x = 'user'
         switch (this.$store.state.Edit.lastNav) {
           case '/stat':
