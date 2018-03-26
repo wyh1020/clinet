@@ -66,11 +66,9 @@ describe('Server', function () {
       // 2.2.1、远程服务器列表，右侧显示远程测试服务器列表(server-remote-list)
       .click('#navbar-system')
       .click('#navbar-system-server')
-      .waitUntilTextExists('#notice-bar', '系统服务-远程服务器设置')
       .click('#server-remote-list')
       // 2.2.1.1、选择右侧列表中一个远程服务器(server-rightpanel-tr)，连接远程服务器，底部提示框显示远程服务器连接成功！
       .click('#system-td-tr1')
-      .waitUntilTextExists('#notice-bar', '连接成功')
       .getHTML('.server-rightpanel-tr')
       .then(function (rightpanel) {
         expect(rightpanel).to.be.an('array');
@@ -89,7 +87,6 @@ describe('Server', function () {
     // 2.3、点击DRG分组服务
       .click('#navbar-system')
       .click('#navbar-system-compdrg')
-      .waitUntilTextExists('#notice-bar', '系统服务-DRG分组服务')
       // 2.3.1、点击本地病案数据(server-drg-localcase-data)，左侧列表显示本地病案数据
       .click('#server-drg-localcase-data')
       // 2.3.1.1、点击左侧列表，右侧显示本地病历详细信息
@@ -107,7 +104,6 @@ describe('Server', function () {
     // 2.4、DRG分析计算
       .click('#navbar-system')
       .click('#navbar-system-statdrg')
-      .waitUntilTextExists('#notice-bar', '系统服务-DRG分析计算')
       // 2.4.1、点击服务器病案数据(server-stat-case-data)，左侧列表显示服务器病案数据
       .click('#server-stat-case-data')
       // 2.4.2、点击选择分析指标(server-stat-choose-index)，左侧列表显示各项指标
