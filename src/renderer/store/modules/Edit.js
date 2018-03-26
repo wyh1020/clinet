@@ -151,6 +151,9 @@ const mutations = {
   EDIT_SET_DOC_TYPE(state, value) {
     state.docType = value
   },
+  EDIT_SEARCH_DOC_INDEX(state, m) {
+    state.docIndex = m;
+  },
 };
 
 const actions = {
@@ -186,6 +189,7 @@ const actions = {
     commit('EDIT_SET_HELP_TYPE');
     commit('EDIT_SET_SERVER_TYPE');
     commit('EDIT_SET_DOC_TYPE');
+    commit('EDIT_SEARCH_DOC_INDEX');
   },
 };
 

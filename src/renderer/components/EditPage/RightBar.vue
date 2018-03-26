@@ -34,9 +34,9 @@
           <a class="nav-link text-light" href="#" v-on:click='page(1)' id="edit-rightbar-downpage"> 后页 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
-      <!-- <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      </form> -->
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-on:keyup.enter="rightEnter" v-model="rightItem">
+      </form>
     </div>
   </nav>
 </template>
@@ -46,7 +46,8 @@
   export default {
     data() {
       return {
-        name: this.$route.name
+        name: this.$route.name,
+        rightItem: ''
       };
     },
     methods: {
@@ -101,6 +102,16 @@
           this.$store.commit('EDIT_SET_FILES_PAGE', n);
           this.$store.commit('SET_NOTICE', '下一页')
         }
+      },
+      rightEnter(e) {
+        const files = this.$store.state.Edit.files
+        const index = files.indexOf(e.target.value)
+        if (index === -1) {
+          this.$store.commit('SET_NOTICE', '未查找到，请输入完整内容！')
+        } else {
+          this.$store.commit('EDIT_SET_FILES_INDEX', index);
+        }
+        this.rightItem = ''
       },
       // newFiles: function () {
       //   const x = new Date().toLocaleDateString()

@@ -49,9 +49,9 @@
           <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
-      <!-- <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      </form> -->
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-on:keyup.enter="leftEnter" v-model="leftItem">
+      </form>
     </div>
   </nav>
 </template>
@@ -62,7 +62,8 @@
   export default {
     data() {
       return {
-        name: this.$route.name
+        name: this.$route.name,
+        leftItem: ''
       };
     },
     methods: {
@@ -136,6 +137,20 @@
           default:
             break;
         }
+      },
+      leftEnter(e) {
+        const doc = this.$store.state.Edit.doc
+        doc.map((x, key) => {
+          const index1 = x.indexOf(e.target.value)
+          if (index1 > -1) {
+            this.$store.commit('EDIT_SEARCH_DOC_INDEX', key);
+            this.$store.commit('SET_NOTICE', '')
+          } else {
+            this.$store.commit('SET_NOTICE', '未查找到，请输入正确内容！')
+          }
+          return index1
+        })
+        this.leftItem = ''
       },
     },
   };
