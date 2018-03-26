@@ -60,14 +60,12 @@
     methods: {
       onClick: function (data, index) {
         this.$store.commit('LIBRARY_GET_ROW', index);
-        // this.flag = index
         this.$store.commit('LIBRARY_GET_FIELD', data);
         this.$store.commit('LIBRARY_GET_FIELD_INDEX', index);
       },
       serverPage: function (data) {
         const page = parseInt(data, 10)
         this.$store.commit('LIBRARY_SET_TABLE_PAGE', page);
-        this.$store.commit('SET_NOTICE', `当前${data}页,共${this.$store.state.Library.serverTable.countPage}页`)
         getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, page, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
       }
     },
