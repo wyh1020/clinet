@@ -207,12 +207,12 @@
         let header = []
         switch (this.$store.state.Stat.tableType) {
           case 'server':
-            table = this.$store.state.Stat.serverTable
-            header = [this.$store.state.Stat.serverTable[0]]
+            table = this.$store.state.Stat.serverTable.data
+            header = [this.$store.state.Stat.serverTable.data[0]]
             break;
           case 'local':
-            table = this.$store.state.Stat.tableSel
-            header = this.$store.state.Stat.tableHeader
+            table = this.$store.state.Stat.localTable
+            header = this.$store.state.Stat.tableHeader[0]
             break;
           default:
             break;

@@ -72,7 +72,25 @@
               break;
             }
             default: {
-              table = this.$store.state.Stat.compareTable
+              const compare = this.$store.state.Stat.compareTable
+              // 取得所有对比行中所有的key并去重
+              let keys = []
+              keys = keys.concat.apply([], compare.map(x => Object.keys(x)))
+              keys = Array.from(new Set(keys))
+              // 存储表头
+              table.push(keys)
+              // 取得表内容,取不到的用-代替
+              compare.forEach((xs) => {
+                const f = []
+                keys.forEach((x, i) => {
+                  if (xs[x]) {
+                    f[i] = xs[x]
+                  } else {
+                    f[i] = '-'
+                  }
+                })
+                table.push(f)
+              })
               break;
             }
           }

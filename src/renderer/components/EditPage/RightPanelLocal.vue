@@ -82,17 +82,10 @@
             break
         }
         if (this.$store.state.Edit.rightPanel === 'server') {
-          let server = []
-          if (this.$store.state.System.server === '') {
-            const key = Object.keys(global.hitbdata.server)
-            server = global.hitbdata.server[key][0];
-          } else {
-            server = [this.$store.state.System.server, this.$store.state.System.port]
-          }
           if (this.$store.state.Edit.serverType === 'file') {
-            getEditFiles(this, [server[0], server[1], this.$store.state.Edit.serverType, data])
+            getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType, data])
           } else {
-            getEdit(this, [server[0], server[1], data])
+            getEdit(this, [this.$store.state.System.server, this.$store.state.System.port, data])
           }
         } else {
           loadFile(this, data, x, 'edit')

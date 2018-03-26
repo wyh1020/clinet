@@ -34,15 +34,15 @@
           <a class="nav-link text-light" href="#" v-on:click='page(1)' id="edit-rightbar-downpage"> 后页 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-on:keyup.enter="rightEnter" v-model="rightItem">
-      </form>
+      <div class="form-inline my-2 my-lg-0">
+        <input class="mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-on:keyup.enter="rightEnter" v-model="rightItem">
+      </div>
     </div>
   </nav>
 </template>
 
 <script>
-  import { getEditFiles } from '../../utils/EditServerFile'
+  import { getEditFiles, getEdit } from '../../utils/EditServerFile'
   export default {
     data() {
       return {
@@ -104,14 +104,26 @@
         }
       },
       rightEnter(e) {
-        const files = this.$store.state.Edit.files
-        const index = files.indexOf(e.target.value)
-        if (index === -1) {
-          this.$store.commit('SET_NOTICE', '未查找到，请输入完整内容！')
-        } else {
-          this.$store.commit('EDIT_SET_FILES_INDEX', index);
+        if (this.$store.state.Edit.rightPanel === 'local') {
+          const files = this.$store.state.Edit.files
+          const index = files.indexOf(e.target.value)
+          if (index === -1) {
+            this.$store.commit('SET_NOTICE', '未查找到，请输入完整内容！')
+          } else {
+            this.$store.commit('EDIT_SET_FILES_INDEX', index);
+          }
+          this.rightItem = ''
+        } else if (this.$store.state.Edit.rightPanel === 'server' && this.$store.state.Edit.serverType === 'file') {
+          getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType, e.target.value])
+          if (this.$store.state.Edit.files === []) {
+            this.$store.commit('SET_NOTICE', '未查找到，请输入完整用户名！')
+          }
+        } else if (this.$store.state.Edit.rightPanel === 'server' && this.$store.state.Edit.serverType === 'show') {
+          getEdit(this, [this.$store.state.System.server, this.$store.state.System.port, e.target.value])
+          if (this.$store.state.Edit.files === []) {
+            this.$store.commit('SET_NOTICE', '未查找到，请输入完整内容！')
+          }
         }
-        this.rightItem = ''
       },
       // newFiles: function () {
       //   const x = new Date().toLocaleDateString()
