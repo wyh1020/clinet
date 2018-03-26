@@ -133,6 +133,16 @@ const mutations = {
     state.notice = [
       `病案总数：${state.tableSel.length - 1}`
     ]
+    const page = Math.ceil(state.tableSel.length / 20)
+    for (let i = 0; i < page; i += 1) {
+      const f = []
+      f.push(state.tableHeader[0])
+      for (let j = 0; j < 19; j += 1) {
+        f.push(state.tableSel[(i + 1) * j])
+      }
+      state.localTables[i] = f
+    }
+    state.localTable = state.localTables[state.tablePage]
   },
   // STAT_SET_CHART_OPTION(state, opt) {
   // },

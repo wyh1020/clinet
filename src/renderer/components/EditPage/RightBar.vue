@@ -42,7 +42,7 @@
 </template>
 
 <script>
-  import { getEditFiles } from '../../utils/EditServerFile'
+  import { getEditFiles, getEdit } from '../../utils/EditServerFile'
   export default {
     data() {
       return {
@@ -113,8 +113,16 @@
             this.$store.commit('EDIT_SET_FILES_INDEX', index);
           }
           this.rightItem = ''
-        } else {
-          console.log(this.$store.state.Edit.rightPanel);
+        } else if (this.$store.state.Edit.rightPanel === 'server' && this.$store.state.Edit.serverType === 'file') {
+          getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType, e.target.value])
+          if (this.$store.state.Edit.files === []) {
+            this.$store.commit('SET_NOTICE', '未查找到，请输入完整用户名！')
+          }
+        } else if (this.$store.state.Edit.rightPanel === 'server' && this.$store.state.Edit.serverType === 'show') {
+          getEdit(this, [this.$store.state.System.server, this.$store.state.System.port, e.target.value])
+          if (this.$store.state.Edit.files === []) {
+            this.$store.commit('SET_NOTICE', '未查找到，请输入完整内容！')
+          }
         }
       },
       // newFiles: function () {
