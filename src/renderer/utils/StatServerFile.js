@@ -109,12 +109,9 @@ export function getStat(obj, data, opt) {
       obj.$store.commit('SET_NOTICE', `当前${opt.page}页,共${res.data.count}页`)
       const resObj = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: res.data.stat, pageList: res.data.page_list, tableName: tableName }
       obj.$store.commit('STAT_SET_SERVER_TABLE', resObj)
-    } else {
-      obj.$store.commit('STAT_SET_SERVER_TABLE', [])
     }
   }).catch((err) => {
     console.log(err);
-    obj.$store.commit('STAT_SET_SERVER_TABLE', [])
   })
 }
 
