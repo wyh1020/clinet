@@ -42,7 +42,7 @@ const state = {
 
 const mutations = {
   STAT_LOAD_FILES() {
-    state.files = fs.readdirSync(global.hitbdata.path.stat).filter(x => x.endsWith('.csv'))
+    state.files = fs.readdirSync(global.hitbdata.path.stat).filter(x => x.endsWith('.csv')).filter(x => !x.startsWith('wt4'))
   },
   STAT_LOAD_FILE(state, message) {
     state.isServer = false
