@@ -139,16 +139,18 @@ export function sUpdateUser(obj, data) {
 export function sGetOrg(obj, data) {
   const userOrg = data[2].org
   const userType = data[2].type
+  const page = data[3]
   let url = ''
   // 根据用户权限判断取值
   if (userType === 1) {
-    url = `http://${data[0]}:${data[1]}/servers/org`
+    url = `http://${data[0]}:${data[1]}/servers/org?page=${page}`
   } else {
-    url = `http://${data[0]}:${data[1]}/servers/org?name=${userOrg}`
+    url = `http://${data[0]}:${data[1]}/servers/org?name=${userOrg}&page=${page}`
   }
   axios.get(url)
     .then((res) => {
       if (res.status === 200) {
+        console.log(res.data);
         obj.$store.commit('SYSTEM_GET_ORGS', res.data)
       } else {
         obj.$store.commit('SYSTEM_GET_ORGS', [])
@@ -227,12 +229,13 @@ export function sUpdateOrg(obj, data) {
 export function sGetDepart(obj, data) {
   const userOrg = data[2].org
   const userType = data[2].type
+  const page = data[3]
   let url = ''
   // 根据用户权限判断取值
   if (userType === 1) {
-    url = `http://${data[0]}:${data[1]}/servers/customize_department`
+    url = `http://${data[0]}:${data[1]}/servers/customize_department?page=${page}`
   } else {
-    url = `http://${data[0]}:${data[1]}/servers/customize_department?name=${userOrg}`
+    url = `http://${data[0]}:${data[1]}/servers/customize_department?name=${userOrg}&page=${page}`
   }
   axios.get(url)
     .then((res) => {
@@ -261,7 +264,7 @@ export function sCreateDepart(obj, data) {
     if (res.status === 201) {
       if (res.data.success) {
         obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '机构创建成功', true])
-        obj.$store.commit('SYSTEM_SET_TOOLBAR', 'getDepartments')
+        obj.$store.commit('SYSTEM_SET_TOOLBAR', 'getDepart')
       } else {
         obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '机构创建失败,机构编码重复', false])
       }

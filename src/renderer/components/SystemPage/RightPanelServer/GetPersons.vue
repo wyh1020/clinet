@@ -1,36 +1,38 @@
 <template>
-  <div>
-    <table class="table" v-if="upPerson === 'table'">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>用户名</th>
-          <th>姓名</th>
-          <th>机构</th>
-          <th>年龄</th>
-          <th>电话</th>
-          <th>邮箱</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for= "(value, index) in persons.data" v-bind:key="index" v-on:click="upUser(index)">
-          <td>{{value.id}}</td>
-          <td>{{value.username}}</td>
-          <td>{{value.name}}</td>
-          <td>{{value.org}}</td>
-          <td>{{value.age}}</td>
-          <td>{{value.tel}}</td>
-          <td>{{value.email}}</td>
-        </tr>
-      </tbody>
-    </table>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <li class="page-item" v-for= "(value, index) in persons.page_list" v-bind:key="index" v-bind:class="{'disabled':value.page == persons.page_num}" v-on:click="serverPage(value.page)"><a class="page-link" href="#">
-          {{value.num}}
-        </a></li>
-      </ul>
-    </nav>
+  <div class="persionTop">
+    <div v-if="upPerson === 'table'">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>用户名</th>
+            <th>姓名</th>
+            <th>机构</th>
+            <th>年龄</th>
+            <th>电话</th>
+            <th>邮箱</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for= "(value, index) in persons.data" v-bind:key="index" v-on:click="upUser(index)">
+            <td>{{value.id}}</td>
+            <td>{{value.username}}</td>
+            <td>{{value.name}}</td>
+            <td>{{value.org}}</td>
+            <td>{{value.age}}</td>
+            <td>{{value.tel}}</td>
+            <td>{{value.email}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <nav aria-label="Page navigation example" class="page">
+        <ul class="pagination">
+          <li class="page-item" v-for= "(value, index) in persons.page_list" v-bind:key="index" v-bind:class="{'disabled':value.page == persons.page_num}" v-on:click="serverPage(value.page)"><a class="page-link" href="#">
+            {{value.num}}
+          </a></li>
+        </ul>
+      </nav>
+    </div>
     <div v-if="upPerson === 'form'">
       <form>
         <div class="form-group">
@@ -103,3 +105,11 @@
     }
   };
 </script>
+<style>
+.persionTop {
+  margin-top: 0.8em;
+}
+.page {
+  float: right;
+}
+</style>

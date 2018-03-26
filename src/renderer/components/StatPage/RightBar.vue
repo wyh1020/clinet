@@ -134,13 +134,28 @@
         }
       },
       edit: function () {
-        if (this.$store.state.Stat.fileIndex !== null) {
-          this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
-          loadFile(this, this.$store.state.Stat.files[this.$store.state.Stat.fileIndex], 'stat', 'edit')
+        console.log(this.$store.state.Stat.serverTable.data);
+        const data = this.$store.state.Stat.serverTable.data
+        const f = data.map(x => x.join(','))
+        switch (this.$store.state.Stat.tableType) {
+          case 'local':
+            if (this.$store.state.Stat.fileIndex !== null) {
+              this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
+              loadFile(this, this.$store.state.Stat.files[this.$store.state.Stat.fileIndex], 'stat', 'edit')
+            }
+            this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
+            this.$store.commit('EDIT_SET_FILES_INDEX', this.$store.state.Stat.fileIndex);
+            break;
+          case 'server':
+            this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
+            this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
+            this.$store.commit('EDIT_SET_FILES_INDEX', 0);
+            this.$store.commit('EDIT_LOAD_FILE', f);
+            this.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
+            break;
+          default:
         }
         this.$store.commit('EDIT_SET_LAST_NAV', '/stat');
-        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
-        this.$store.commit('EDIT_SET_FILES_INDEX', this.$store.state.Stat.fileIndex);
         this.$router.push('/edit');
       },
       selX: function (x) {

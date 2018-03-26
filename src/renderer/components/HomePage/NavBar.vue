@@ -138,7 +138,6 @@
           case '系统服务-远程服务器设置':
             this.$router.push('/system');
             this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServers');
-            this.$store.commit('SYSTEM_SET_TOOLBAR', 'files');
             break;
           case '系统服务-DRG分组服务':
             this.$router.push('/system');

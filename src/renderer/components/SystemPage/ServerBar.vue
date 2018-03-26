@@ -53,7 +53,7 @@
         sGetProvince(this, [this.$store.state.System.server, this.$store.state.System.port])
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');
         this.$store.commit('SET_NOTICE', '机构设置');
-        sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user]);
+        sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.org]);
       },
       getPersons: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getPersons');
