@@ -15,7 +15,14 @@ export default function chartBar(id, opt = null) {
       drg2 = false
     }
     // 定义xaxis
-    const xAxis = { data: th, type: 'category' }
+    const xAxis = {
+      data: th,
+      type: 'category',
+      axisLabel: {
+        interval: 0,
+        rotate: 20
+      }
+    }
     // 取得要显示的列
     const stat = opt
     // stat.shift()
@@ -41,8 +48,38 @@ export default function chartBar(id, opt = null) {
     })
     // 显示图
     option = {
-      tooltip: { trigger: 'axis' },
-      legend: { data: chartKeys },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross'
+        }
+      },
+      legend: { data: chartKeys, type: 'scroll', width: '80%' },
+      toolbox: {
+        show: true,
+        orient: 'horizontal',
+        x: 'right',
+        y: 'top',
+        color: ['#1e90ff', '#22bb22', '#4b0082', '#d2691e'],
+        backgroundColor: 'rgba(0,0,0,0)',
+        borderColor: '#ccc',
+        borderWidth: 0,
+        padding: 5,
+        feature: {
+          dataView: {
+            show: true,
+            title: '数据视图',
+            readOnly: false,
+            lang: ['数据视图', '关闭', '刷新']
+          },
+          saveAsImage: {
+            show: true,
+            title: '保存为图片',
+            type: 'png',
+            lang: ['点击保存']
+          }
+        }
+      },
       calculable: true,
       xAxis: xAxis,
       yAxis: { type: 'value' },
