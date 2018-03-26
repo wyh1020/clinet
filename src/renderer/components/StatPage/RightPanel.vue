@@ -191,6 +191,7 @@
         }
       },
       serverPage: function (data) {
+        this.$store.commit('STAT_SET_TABLE_PAGE', parseInt(data, 10))
         getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: parseInt(data, 10), username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
       }
     },

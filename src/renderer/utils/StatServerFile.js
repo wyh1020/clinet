@@ -99,22 +99,16 @@ export function getStat(obj, data, opt) {
       url = `&${opt.type}=${opt.value}`
       break;
   }
-  let pageNum = 0;
-  if (opt.page === 0) {
-    pageNum = opt.page + 1
-  } else {
-    pageNum = opt.page
-  }
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/stat/stat_client?page=${pageNum}&page_type=${pageType}&tool_type=${toolType}&rows=20&username=${opt.username}${url}`,
+    url: `http://${data[0]}:${data[1]}/stat/stat_client?page=${opt.page}&page_type=${pageType}&tool_type=${toolType}&rows=20&username=${opt.username}${url}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
-      obj.$store.commit('SET_NOTICE', `当前${pageNum}页,共${res.data.count}页`)
-      const opt = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: res.data.stat, pageList: res.data.page_list, tableName: tableName }
-      obj.$store.commit('STAT_SET_SERVER_TABLE', opt)
+      obj.$store.commit('SET_NOTICE', `当前${opt.page}页,共${res.data.count}页`)
+      const resObj = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: res.data.stat, pageList: res.data.page_list, tableName: tableName }
+      obj.$store.commit('STAT_SET_SERVER_TABLE', resObj)
     } else {
       obj.$store.commit('STAT_SET_SERVER_TABLE', [])
     }

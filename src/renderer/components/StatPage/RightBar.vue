@@ -92,7 +92,7 @@
     },
     methods: {
       loadData: function () {
-        this.$store.commit('STAT_TABLE_PAGE', 0)
+        this.$store.commit('STAT_SET_TABLE_PAGE', 1)
         this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
         this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
         this.$store.commit('STAT_LOAD_FILES');
@@ -101,24 +101,36 @@
         if (!this.$store.state.System.user.login) {
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
         } else {
-          this.$store.commit('STAT_TABLE_PAGE', 0)
+          this.$store.commit('STAT_SET_TABLE_PAGE', 1)
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
           this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
           getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], '', this.$store.state.System.user.username)
         }
       },
       page: function (n) {
-        if (this.$store.state.Stat.tablePage === 0 && n === -1) {
-          this.$store.commit('SET_NOTICE', '当前已是首页')
-        } else if (this.$store.state.Stat.tableType === 'server') {
-          if (this.$store.state.Stat.tablePage + n === this.$store.state.Stat.serverCountPage) {
-            this.$store.commit('SET_NOTICE', '当前已是尾页');
-          } else {
-            this.$store.commit('STAT_TABLE_PAGE', n);
-            getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.serverTable.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
-          }
-        } else {
-          this.$store.commit('STAT_TABLE_PAGE', n);
+        switch (this.$store.state.Stat.tableType) {
+          case 'server':
+            if (this.$store.state.Stat.serverTable.page === 1 && n === -1) {
+              this.$store.commit('SET_NOTICE', '当前已是第一页')
+            } else if (this.$store.state.Stat.serverTable.page === this.$store.state.Stat.serverTable.countPage && n === 1) {
+              this.$store.commit('SET_NOTICE', '当前已是尾页');
+            } else {
+              this.$store.commit('STAT_TABLE_PAGE', n);
+              getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
+            }
+            break;
+          case 'local':
+            if (this.$store.state.Stat.tablePage === 1 && n === -1) {
+              this.$store.commit('SET_NOTICE', '当前已是第一页')
+            } else if (this.$store.state.Stat.tablePage === this.$store.state.Stat.tableCountPage && n === 1) {
+              this.$store.commit('SET_NOTICE', '当前已是尾页');
+            } else {
+              this.$store.commit('STAT_TABLE_PAGE', n);
+              this.$store.commit('SET_NOTICE', `当前${this.$store.state.Stat.tablePage}页,共${this.$store.state.Stat.tableCountPage}页`)
+            }
+            break;
+          default:
+            break;
         }
       },
       edit: function () {

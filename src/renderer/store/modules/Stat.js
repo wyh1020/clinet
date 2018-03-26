@@ -4,7 +4,7 @@ const state = {
   files: [],
   file: [],
   table: [],
-  tablePage: 0,
+  tablePage: 1,
   tableSel: [],
   leftPanel: 'file',
   leftBar: null,
@@ -28,7 +28,7 @@ const state = {
   selectedRow: [],
   selectedCol: [],
   compareTable: [],
-  serverTable: { page: 0, countPage: 0, data: [], pageList: [], tableName: '' },
+  serverTable: { page: 1, countPage: 0, data: [], pageList: [], tableName: '' },
   localTables: {},
   localTable: [],
   chartData: [],
@@ -63,11 +63,11 @@ const mutations = {
     const page = Math.ceil(state.tableSel.length / 20)
     // const page = 1
     state.countPage = page
-    for (let i = 0; i < page; i += 1) {
+    for (let i = 1; i < page; i += 1) {
       const f = []
       f.push(state.tableHeader[0])
       for (let j = 1; j < 20; j += 1) {
-        f.push(state.tableSel[(i + 1) * j])
+        f.push(state.tableSel[i * j])
       }
       state.localTables[i] = f
     }
@@ -80,6 +80,9 @@ const mutations = {
       state.tablePage += n;
       state.localTable = state.localTables[state.tablePage]
     }
+  },
+  STAT_SET_TABLE_PAGE(state, n) {
+    state.tablePage = n
   },
   STAT_SERVER_FILES(state, opt) {
     state.files = opt.data;
@@ -230,6 +233,7 @@ const actions = {
     commit('STAT_GET_FILE_SEARCH');
     commit('STAT_SET_SERVER_DIMENSION');
     commit('STAT_SET_SERVER_TABLE');
+    commit('STAT_SET_TABLE_PAGE');
   },
 };
 
