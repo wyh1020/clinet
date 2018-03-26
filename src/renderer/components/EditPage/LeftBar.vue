@@ -39,9 +39,9 @@
         <li class="nav-item" id="edit-leftbar-del" v-on:click="save(0)">
           <a class="nav-link text-light" href="#">删除</a>
         </li>
-        <li class="nav-item" id="edit-leftbar-file" v-on:click="saveFile">
+        <!-- <li class="nav-item" id="edit-leftbar-file" v-on:click="saveFile">
           <a class="nav-link text-light" href="#">写入文件</a>
-        </li>
+        </li> -->
         <li class="nav-item active" id="edit-leftbar-uppage" v-on:click='page(-1)' v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
         </li>
@@ -98,15 +98,6 @@
           this.$store.commit('SET_NOTICE', '下一页')
         }
       },
-      saveFile: function () {
-        if (this.$store.state.Edit.serverType === 'show') {
-          saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], this.$store.state.Edit.file, this.$store.state.System.user.username])
-        } else {
-          const x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
-          const p = this.$store.state.Edit.lastNav
-          saveFile(this, x, p)
-        }
-      },
       save: function (n) {
         const fileIndex = this.$store.state.Edit.fileIndex
         let doc = this.$store.state.Edit.doc
@@ -125,9 +116,13 @@
           case 1:
             if (doc.toString() === '') {
               this.$store.commit('SET_NOTICE', '保存内容不能为空');
+            } else if (this.$store.state.Edit.serverType === 'show') {
+              saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], this.$store.state.Edit.file, this.$store.state.System.user.username])
             } else {
-              this.$store.commit('SET_NOTICE', '保存成功');
               this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
+              const x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
+              const p = this.$store.state.Edit.lastNav
+              saveFile(this, x, p)
             }
             break;
           case 2:
