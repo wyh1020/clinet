@@ -43,6 +43,8 @@
 
 <script>
   import { getEditFiles, getEdit } from '../../utils/EditServerFile'
+  import { getStat } from '../../utils/StatServerFile'
+  import { getLibrary } from '../../utils/LibraryServerFile'
   export default {
     data() {
       return {
@@ -90,17 +92,33 @@
       },
       page: function (n) {
         if (this.$store.state.Edit.rightPanel === 'left') {
-          if (this.$store.state.Edit.filePage === 0 && n === -1) {
+          switch (this.$store.state.Edit.lastNav) {
+            case '/library':
+              this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
+              getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, this.$store.state.Library.tablePage, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
+              this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Library.serverTable.data.map(x => x.join(',')))
+              break;
+            case '/stat':
+              this.$store.commit('STAT_TABLE_PAGE', n);
+              getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
+              this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.serverTable.data.map(x => x.join(',')))
+              break;
+            default:
+              if (this.$store.state.Edit.filePage === 0 && n === -1) {
+                this.$store.commit('SET_NOTICE', '当前已是第一页')
+              } else {
+                this.$store.commit('EDIT_SET_FILE_PAGE', n);
+                this.$store.commit('SET_NOTICE', '下一页')
+              }
+              break;
+          }
+        } else if (this.$store.state.Edit.rightPanel === 'edit') {
+          if (this.$store.state.Edit.filesPage === 0 && n === -1) {
             this.$store.commit('SET_NOTICE', '当前已是第一页')
           } else {
-            this.$store.commit('EDIT_SET_FILE_PAGE', n);
+            this.$store.commit('EDIT_SET_FILES_PAGE', n);
             this.$store.commit('SET_NOTICE', '下一页')
           }
-        } else if (this.$store.state.Edit.filesPage === 0 && n === -1) {
-          this.$store.commit('SET_NOTICE', '当前已是第一页')
-        } else {
-          this.$store.commit('EDIT_SET_FILES_PAGE', n);
-          this.$store.commit('SET_NOTICE', '下一页')
         }
       },
       rightEnter(e) {
