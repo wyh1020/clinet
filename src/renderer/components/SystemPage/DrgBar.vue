@@ -31,9 +31,9 @@
           <a class="nav-link text-light" href="#"> 查看Drg分组规则 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="server-drg-search">
-      </form>
+      <div class="form-inline my-2 my-lg-0" v-if="this.$store.state.System.toolbar === 'getLocalData'">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="server-drg-search" v-on:keyup.13="systemSearch" v-model='system'>
+      </div>
     </div>
   </nav>
 </template>
@@ -43,21 +43,26 @@
   export default {
     data() {
       return {
-        paths: []
+        paths: [],
+        system: ''
       };
     },
     methods: {
       getLocalData: function () {
+        this.$store.commit('SYSTEM_SET_LOCAL_PAGE', 1);
         this.$store.commit('SYSTEM_SET_COMPUTE_DATA', 'getLocalData');
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getLocalData');
         this.$store.commit('SYSTEM_LOAD_WT4_FILES');
         this.$store.commit('SYSTEM_TABLE_TYPE', 'local');
+        this.$store.commit('SET_NOTICE', '本地病案数据');
       },
       getServerData: function () {
         if (this.$store.state.System.connectInfo) {
+          this.$store.commit('SYSTEM_SET_LOCAL_PAGE', 1);
           this.$store.commit('SYSTEM_SET_COMPUTE_DATA', 'getServerData');
           this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServerData');
           this.$store.commit('SYSTEM_TABLE_TYPE', 'server');
+          this.$store.commit('SET_NOTICE', '服务器病案数据');
           sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, 1])
         } else {
           this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
@@ -99,14 +104,21 @@
         if (this.$store.state.System.tableType === 'server') {
           this.$store.commit('SYSTEM_SET_LOCAL_PAGE', value);
           sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.localPage])
+          this.$store.commit('SET_NOTICE', `当前页数${this.$store.state.System.localPage}`);
         } else if (value === 'up' && this.$store.state.System.localPage === 0) {
           this.$store.commit('SET_NOTICE', '已经是第一页');
         } else if (value === 'down' && this.$store.state.System.localPage === this.$store.state.System.wt4TablePage) {
           this.$store.commit('SET_NOTICE', '已经是最后一页');
         } else {
-          this.$store.commit('SET_NOTICE', '');
+          // sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.localPage])
+          this.$store.commit('SET_NOTICE', `当前页数${this.$store.state.System.localPage}`);
           this.$store.commit('SYSTEM_SET_LOCAL_PAGE', value);
         }
+      },
+      systemSearch: function () {
+        console.log(this.system);
+        this.$store.commit('SYSTEM_SET_LOCAL_PAGE', 1);
+        this.$store.commit('SYSTEM_SET_SEARCH', this.system);
       }
     },
   };

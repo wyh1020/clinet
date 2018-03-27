@@ -31,9 +31,9 @@
           <a class="nav-link text-light" href="#"> 上传服务器数据 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
+      <!-- <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="server-load-search">
-      </form>
+      </form> -->
     </div>
   </nav>
 </template>
