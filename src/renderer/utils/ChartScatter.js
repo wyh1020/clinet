@@ -39,7 +39,34 @@ export default function chartScatter(id, opt = null) {
     // 指定图表的配置项和数据
     option = {
       legend: {
+        type: 'scroll',
+        width: '80%',
         data: legend
+      },
+      toolbox: {
+        show: true,
+        orient: 'horizontal',
+        x: 'right',
+        y: 'top',
+        color: ['#1e90ff', '#22bb22', '#4b0082', '#d2691e'],
+        backgroundColor: 'rgba(0,0,0,0)',
+        borderColor: '#ccc',
+        borderWidth: 0,
+        padding: 5,
+        feature: {
+          dataView: {
+            show: true,
+            title: '数据视图',
+            readOnly: false,
+            lang: ['数据视图', '关闭', '刷新']
+          },
+          saveAsImage: {
+            show: true,
+            title: '保存为图片',
+            type: 'png',
+            lang: ['点击保存']
+          }
+        }
       },
       tooltip: {
       },

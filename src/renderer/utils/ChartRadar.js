@@ -59,7 +59,34 @@ export default function chartRadar(id, opt = null) {
     option = {
       tooltip: {},
       legend: {
+        type: 'scroll',
+        width: '80%',
         data: legendData
+      },
+      toolbox: {
+        show: true,
+        orient: 'horizontal',
+        x: 'right',
+        y: 'top',
+        color: ['#1e90ff', '#22bb22', '#4b0082', '#d2691e'],
+        backgroundColor: 'rgba(0,0,0,0)',
+        borderColor: '#ccc',
+        borderWidth: 0,
+        padding: 5,
+        feature: {
+          dataView: {
+            show: true,
+            title: '数据视图',
+            readOnly: false,
+            lang: ['数据视图', '关闭', '刷新']
+          },
+          saveAsImage: {
+            show: true,
+            title: '保存为图片',
+            type: 'png',
+            lang: ['点击保存']
+          }
+        }
       },
       radar: {
         name: {
