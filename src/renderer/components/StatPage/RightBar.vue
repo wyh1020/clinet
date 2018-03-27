@@ -151,7 +151,6 @@
             this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
             this.$store.commit('EDIT_SET_FILES_INDEX', 0);
             this.$store.commit('EDIT_LOAD_FILE', f);
-            this.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
             break;
           default:
         }
