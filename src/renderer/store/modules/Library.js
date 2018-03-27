@@ -8,7 +8,7 @@ const state = {
   localTables: [],
   localTable: [],
   tablePage: 1,
-  tableCountPage: 0,
+  tableCountPage: 1,
   leftPanel: 'file',
   dimension: [],
   dimensionType: null,
