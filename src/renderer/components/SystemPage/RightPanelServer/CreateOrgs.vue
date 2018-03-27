@@ -94,17 +94,17 @@
         switch (value) {
           case 'orgs':
             sCreateOrg(this, [this.$store.state.System.server, this.$store.state.System.port, data])
-            sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user]);
+            sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.org]);
             break;
           case 'upOrgs':
             sUpdateOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.orgInfo.id, data])
-            sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user]);
+            sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.org]);
             break
           default:
         }
       },
       createOrgs: function () {
-        sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user]);
+        sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.org]);
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');
       }
     }

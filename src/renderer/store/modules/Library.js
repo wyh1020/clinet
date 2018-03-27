@@ -38,6 +38,7 @@ const mutations = {
     state.tableSel.splice(0, 1)
     const time = state.dimensionSearch.time = state.tableHeader[0].indexOf('year')
     const version = state.dimensionSearch.version = state.tableHeader[0].indexOf('version')
+    console.log(version);
     const org = state.dimensionSearch.org = state.tableHeader[0].indexOf('org')
     state.dimensionOrg = [...new Set(state.table.map(a => a[org]))]
     state.dimensionTime = [...new Set(state.table.map(a => a[time]))]
@@ -108,16 +109,17 @@ const mutations = {
     }
   },
   LIBRARY_SET_DIMENSION(state, opt) {
+    console.log(opt);
     switch (opt[0]) {
-      case '机构':
+      case 'org':
         // state.dimensionOrg.push(opt[1])
         // console.log(opt)
         state.tableSel = state.table.filter(x => x[0] === opt[1])
         break;
-      case '时间':
+      case 'year':
         state.tableSel = state.table.filter(x => x[state.dimensionSearch.time] === opt[1])
         break;
-      case '版本':
+      case 'version':
         // console.log(opt)
         // state.dimensionDrg.push(opt[1])
         state.tableSel = state.table.filter(x => x[state.dimensionSearch.version] === opt[1])

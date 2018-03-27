@@ -14,8 +14,8 @@
         <div class="col-10" />
         <button class="btn btn-primary system_new_org" v-on:click="createOrgs('orgs')">新建机构</button>
       </div>
-      <table class="table">
-        <thead>
+      <table class="table table-hover table-condensed">
+        <thead  class="thead-secondary">
           <tr>
             <th>ID</th>
             <th>机构编码</th>
@@ -46,13 +46,20 @@
           </tr>
         </tbody>
       </table>
+      <nav aria-label="Page navigation example" class="page">
+        <ul class="pagination">
+          <li class="page-item" v-for="(value, index) in this.$store.state.System.orgs.page_list" v-bind:key="index" v-bind:class="{'disabled': value.page === page}" v-on:click="departmentPage(value.page)">
+            <a class="page-link" href="#">{{value.num}}</a>
+          </li>
+        </ul>
+      </nav>
     </div>
     <div v-if="this.orgPageType === 'getDepartment'">
       <div class="row">
         <div class="col-10"/>
         <button class="btn btn-primary system_new_org" v-on:click="createOrgs('departments')">新建科室</button>
       </div>
-      <table class="table">
+      <table class="table table-hover table-condensed">
         <thead>
           <tr>
             <th>所在机构</th>
@@ -76,41 +83,56 @@
             <td>{{value.professor}}</td>
             <td>{{value.wt_code}}</td>
             <td>{{value.wt_name}}</td>
-            <td>{{value.is_ban}}</td>
-            <td>{{value.is_imp}}</td>
-            <td>{{value.is_spe}}</td>
+            <td v-if="value.is_ban === true">是</td>
+            <td v-if="value.is_ban === false">否</td>
+            <td v-if="value.is_imp === true">是</td>
+            <td v-if="value.is_imp === false">否</td>
+            <td v-if="value.is_spe === true">是</td>
+            <td v-if="value.is_spe === false">否</td>
           </tr>
         </tbody>
       </table>
-      <div class="row">
-        <div class="col-5" />
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item" v-for="(value, index) in this.$store.state.System.departments.page_list" v-bind:key="index" v-bind:class="{'disabled': value.page === page}" v-on:click="departmentPage(value.page)">
-              <a class="page-link" href="#">{{value.num}}</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <nav aria-label="Page navigation example" class="page">
+        <ul class="pagination">
+          <li class="page-item" v-for="(value, index) in this.$store.state.System.departments.page_list" v-bind:key="index" v-bind:class="{'disabled': value.page === page}" v-on:click="departmentPage(value.page)">
+            <a class="page-link" href="#">{{value.num}}</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </template>
 
 <script>
-  import { sGetDepart } from '../../../utils/Server'
+  import { sGetDepart, sGetOrg } from '../../../utils/Server'
   export default {
     data() {
       return {
         OrgPage: '机构信息',
         OrgInfo: { code: '', name: '', level: '', type: '', province: '北京市', city: '北京市', county: '东城区', person_name: '', tel: '', email: '' },
         DepartmentInfo: { org: '', cherf_department: '', class: '', department: '', is_imp: false, is_spe: false, professor: '', wt_code: '', wt_name: '', id: '' },
-        page: this.$store.state.System.departments.page_num,
+        // page: this.$store.state.System.departments.page_num,
       }
     },
     computed: {
       orgPageType: {
         get() {
           return this.$store.state.System.orgPage
+        }
+      },
+      page: {
+        get() {
+          let page = 1
+          switch (this.$store.state.System.orgPage) {
+            case 'getDepartment':
+              page = parseInt(this.$store.state.System.orgPage, 10);
+              break;
+            case 'getOrg':
+              page = parseInt(this.$store.state.System.orgs.page_num, 10);
+              break;
+            default:
+          }
+          return page
         }
       }
     },
@@ -121,12 +143,12 @@
         switch (value) {
           case 'orgsInfo':
             this.$store.commit('SYSTEM_GET_ORGPAGE', 'getOrg');
-            // this.OrgPage = '机构信息'
+            this.OrgPage = '机构信息'
             break;
           case 'departmentsInfo':
             this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
-            // this.OrgPage = '科室信息'
-            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user])
+            this.OrgPage = '科室信息'
+            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.department])
             break;
           case 'updateDepartments':
             deparmentkey.forEach((n) => {
@@ -134,7 +156,7 @@
             })
             this.$store.commit('SYSTEM_GET_DEPARTMENT_INFO', this.DepartmentInfo)
             this.$store.commit('SYSTEM_SET_TOOLBAR', 'createDepartments');
-            // this.OrgPage = '科室信息'
+            this.OrgPage = '科室信息'
             this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
             break;
           case 'updateOres':
@@ -143,19 +165,19 @@
             })
             this.$store.commit('SYSTEM_GET_ORG_INFO', this.OrgInfo)
             this.$store.commit('SYSTEM_SET_TOOLBAR', 'createOrgs');
-            // this.OrgPage = '机构信息'
+            this.OrgPage = '机构信息'
             this.$store.commit('SYSTEM_GET_ORGPAGE', 'getOrg');
             break;
           case 'orgs':
             this.$store.commit('SYSTEM_GET_ORG_INFO', this.OrgInfo)
             this.$store.commit('SYSTEM_SET_TOOLBAR', 'createOrgs');
-            // this.OrgPage = '机构信息'
+            this.OrgPage = '机构信息'
             this.$store.commit('SYSTEM_GET_ORGPAGE', 'getOrg');
             break;
           case 'departments':
             this.$store.commit('SYSTEM_GET_DEPARTMENT_INFO', this.DepartmentInfo)
             this.$store.commit('SYSTEM_SET_TOOLBAR', 'createDepartments');
-            // this.OrgPage = '科室信息'
+            this.OrgPage = '科室信息'
             this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
             break;
           default:
@@ -163,8 +185,16 @@
         }
       },
       departmentPage: function (value) {
-        sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, value])
-        // console.log(value);
+        this.$store.commit('SYSTEM_GET_PAGEINFO', value)
+        switch (this.orgPageType) {
+          case 'getDepartment':
+            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, value])
+            break;
+          case 'getOrg':
+            sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, value])
+            break;
+          default:
+        }
       }
     }
   };
@@ -177,5 +207,8 @@
 .system_new_org {
   margin-top: 0.8em;
   margin-bottom: 0.8em;
+}
+.page {
+  float: right;
 }
 </style>

@@ -51,7 +51,8 @@ const state = {
   province: {},
   orgPage: 'getOrg',
   userPower: null,
-  persons: {}
+  persons: {},
+  pageInfo: { org: '1', department: '1' }
 };
 
 const mutations = {
@@ -232,7 +233,18 @@ const mutations = {
   },
   SYSTEM_GET_USERS(state, value) {
     state.persons = value
-  }
+  },
+  SYSTEM_GET_PAGEINFO(state, value) {
+    switch (state.orgPage) {
+      case 'getDepartment':
+        state.pageInfo.department = value
+        break;
+      case 'getOrg':
+        state.pageInfo.org = value
+        break;
+      default:
+    }
+  },
 };
 
 const actions = {
@@ -270,6 +282,7 @@ const actions = {
     commit('SYSTEM_PROVINCE');
     commit('SYSTEM_GET_ORGPAGE');
     commit('SYSTEM_GET_USERS');
+    commit('SYSTEM_GET_PAGEINFO');
   },
 };
 

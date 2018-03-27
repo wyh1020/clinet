@@ -11,11 +11,11 @@
       </div>
       <div class="form-group">
         <label>所属科室类</label>
-        <input type="text" class="form-control" placeholder="The Department Class" v-model="DepartmentInfo.The_class" />
+        <input type="text" class="form-control" placeholder="The Department Class" v-model="DepartmentInfo.class" />
       </div>
       <div class="form-group">
         <label>所属科室</label>
-        <input type="text" class="form-control" placeholder="The Department" v-model="DepartmentInfo.The_department" />
+        <input type="text" class="form-control" placeholder="The Department" v-model="DepartmentInfo.department" />
       </div>
       <div class="form-group">
         <div class="custom-control custom-checkbox my-1 mr-sm-2">
@@ -31,7 +31,7 @@
       </div>
       <div class="form-group">
         <label>副主任</label>
-        <input type="text" class="form-control" placeholder="Professor" v-model="DepartmentInfo.progress" />
+        <input type="text" class="form-control" placeholder="Professor" v-model="DepartmentInfo.professor" />
       </div>
       <div class="form-group">
         <label>内部科室编码</label>
@@ -54,6 +54,7 @@
   import { sCreateDepart, sUpdateDepart, sGetDepart } from '../../../utils/Server'
   export default {
     data() {
+      console.log(this.$store.state.System.departmentInfo);
       return {
         DepartmentInfo: {
           org: this.$store.state.System.departmentInfo.org,
@@ -63,7 +64,7 @@
           is_imp: this.$store.state.System.departmentInfo.is_imp,
           is_spe: this.$store.state.System.departmentInfo.is_spe,
           professor: this.$store.state.System.departmentInfo.professor,
-          code: this.$store.state.System.departmentInfo.code,
+          code: this.$store.state.System.departmentInfo.wt_code,
           wt_name: this.$store.state.System.departmentInfo.wt_name,
         }
       }
@@ -71,14 +72,15 @@
     methods: {
       orgRegister: function (value) {
         const data = this.DepartmentInfo
+        console.log(data);
         switch (value) {
           case 'departments':
             sCreateDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, data]);
-            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user])
+            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.department])
             break;
           case 'updepartments':
             sUpdateDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.departmentInfo.id, data]);
-            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user])
+            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.department])
             break;
           default:
         }
