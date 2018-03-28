@@ -38,26 +38,40 @@
         paths: []
       };
     },
+    computed: {
+      server: {
+        get() {
+          return this.$store.state.System.server
+        }
+      },
+      port: {
+        get() {
+          return this.$store.state.System.port
+        }
+      }
+    },
     methods: {
       getServers: function () {
         loadFile(this, 'hitb_server.csv', 'system')
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServers');
+        this.$store.commit('SET_NOTICE', '远程服务器列表');
       },
       getUsers: function () {
         if (!this.$store.state.System.connectInfo) {
           loadFile(this, 'hitb_server.csv', 'system')
         }
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getUsers');
+        this.$store.commit('SET_NOTICE', '用户设置');
       },
       getOrgs: function () {
-        sGetProvince(this, [this.$store.state.System.server, this.$store.state.System.port])
+        sGetProvince(this, [this.server, this.port])
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');
+        sGetOrg(this, [this.server, this.port, this.$store.state.System.user, this.$store.state.System.pageInfo.org]);
         this.$store.commit('SET_NOTICE', '机构设置');
-        sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.org]);
       },
       getPersons: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getPersons');
-        sGetUsers(this, [this.$store.state.System.server, this.$store.state.System.port]);
+        sGetUsers(this, [this.server, this.port]);
         this.$store.commit('SET_NOTICE', '人员设置');
       },
       getServerFunctions: function () {

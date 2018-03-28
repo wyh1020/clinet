@@ -24,7 +24,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(value, index) in this.$store.state.System.wt4Tables"  v-bind:key="index" v-on:click="getWt4LocalRecord(index)" v-bind:class="{'table-danger': localHightLight.includes(index)}">
+          <tr v-for="(value, index) in this.$store.state.System.wt4Tables"  v-bind:key="index" v-on:click="getWt4Record(index, 'local')" v-bind:class="{'table-danger': localHightLight.includes(index)}">
             <td>{{value.age}}</td>
             <td>{{value.gender}}</td>
             <td>{{value.sf0108}}</td>
@@ -58,7 +58,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(value, index) in this.$store.state.System.wt4.data"  v-bind:key="index" v-on:click="getWt4Record(index)" v-bind:class="{'table-danger': highLight.includes(index)}">
+          <tr v-for="(value, index) in this.$store.state.System.wt4.data"  v-bind:key="index" v-on:click="getWt4Record(index, 'server')" v-bind:class="{'table-danger': highLight.includes(index)}">
             <td>{{value.age}}</td>
             <td>{{value.gender}}</td>
             <td>{{value.sf0108}}</td>
@@ -120,9 +120,6 @@
     data() {
       return {
         flag: [],
-        highLight: [],
-        // page: this.$store.state.System.wt4.page_num,
-        localHightLight: []
       }
     },
     computed: {
@@ -145,8 +142,27 @@
       },
       pages: {
         get() {
-          // console.log(this.$store.state.System.wt4.page_num);
           return this.$store.state.System.wt4.page_num
+        }
+      },
+      server: {
+        get() {
+          return this.$store.state.System.server
+        }
+      },
+      port: {
+        get() {
+          return this.$store.state.System.port
+        }
+      },
+      highLight: {
+        get() {
+          return this.$store.state.System.wt4Row
+        }
+      },
+      localHightLight: {
+        get() {
+          return this.$store.state.System.wt4LocalRow
         }
       }
     },
@@ -156,32 +172,29 @@
         this.$store.commit('SYSTEM_GET_FIELD', data);
         this.$store.commit('SYSTEM_GET_FIELD_INDEX', index);
       },
+      // 服务器分页
       wt4Page: function (value) {
         this.page = value
-        sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, this.page])
+        sGetWt4(this, [this.server, this.port, this.page])
         this.$store.commit('SYSTEM_SET_LOCAL_PAGE', this.page);
         this.$store.commit('SET_NOTICE', `当前页数${this.page}`);
       },
-      getWt4Record: function (value) {
-        if (this.highLight.includes(value)) {
-          this.highLight.splice(this.highLight.findIndex(v => v === value), 1)
-        } else {
-          this.highLight = [...this.highLight, value]
+      // wt4行选择
+      getWt4Record: function (value, data) {
+        switch (data) {
+          case 'server':
+            this.$store.commit('SYSTEM_GET_WT4ROW', value);
+            break;
+          case 'local':
+            this.$store.commit('SYSTEM_GET_WT4_LOCAL_ROW', value);
+            break;
+          default:
         }
-        this.$store.commit('SYSTEM_GET_WT4ROW', value);
-        // console.log(this.$store.state.System.wt4.data[value]);
       },
-      getWt4LocalRecord: function (value) {
-        if (this.localHightLight.includes(value)) {
-          this.localHightLight.splice(this.localHightLight.findIndex(v => v === value), 1)
-        } else {
-          this.localHightLight = [...this.localHightLight, value]
-        }
-        this.$store.commit('SYSTEM_GET_WT4_LOCAL_ROW', value);
-      },
+      // drg规则
       drgRule: function (value) {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgRule');
-        sGetCompRule(this, [this.$store.state.System.server, this.$store.state.System.port, 'drg', { code: value }])
+        sGetCompRule(this, [this.server, this.port, 'drg', { code: value }])
       }
     },
   };

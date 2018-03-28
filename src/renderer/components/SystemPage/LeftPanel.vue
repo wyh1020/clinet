@@ -125,6 +125,28 @@
           }
           return xs
         }
+      },
+      xsLocal: {
+        get() {
+          let data = [];
+          if (this.$store.state.System.wt4LocalRow.length === 0) {
+            data = this.$store.state.System.wt4Tables
+          } else {
+            data = this.$store.state.System.wt4LocalRow
+          }
+          return data
+        }
+      },
+      xsServer: {
+        get() {
+          let data = []
+          if (this.$store.state.System.wt4Row.length === 0) {
+            data = this.$store.state.System.wt4.data
+          } else {
+            data = this.$store.state.System.wt4Row
+          }
+          return data
+        }
       }
     },
     methods: {
@@ -155,13 +177,13 @@
       drgCompute: function (value) {
         switch (this.$store.state.System.computeData) {
           case 'getLocalData':
-            this.$store.state.System.wt4LocalRow.forEach((n) => {
-              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables[n], value], 'getLocalData')
+            this.xsLocal.forEach((n, index) => {
+              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables[index], value], 'getLocalData')
             })
             break;
           case 'getServerData':
-            this.$store.state.System.wt4Row.forEach((n) => {
-              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4.data[n], value])
+            this.xsServer.forEach((n, index) => {
+              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4.data[index], value])
             })
             break;
           default:

@@ -116,7 +116,6 @@
     methods: {
       onClick: function (data, index) {
         this.flag = index
-        // console.log(this.$store.state.System.table[n])
         this.$store.commit('SYSTEM_GET_FIELD', data);
         this.$store.commit('SYSTEM_GET_FIELD_INDEX', index);
       },

@@ -34,18 +34,34 @@
         paths: []
       };
     },
+    computed: {
+      server: {
+        get() {
+          return this.$store.state.System.server
+        }
+      },
+      port: {
+        get() {
+          return this.$store.state.System.port
+        }
+      },
+    },
     methods: {
+      // 获取服务器数据
       serverData: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'serverData');
-        sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, 1])
+        sGetWt4(this, [this.server, this.port, 1])
       },
+      // 获取分析指标
       getIndex: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getIndex');
-        sGetTarget(this, [this.$store.state.System.server, this.$store.state.System.port]);
+        sGetTarget(this, [this.server, this.port]);
       },
+      // 获取维度
       getDimension: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getDimension');
       },
+      // 调用分组计算
       statCompute: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'statCompute');
       },
