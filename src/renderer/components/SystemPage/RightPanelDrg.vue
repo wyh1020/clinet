@@ -77,7 +77,7 @@
         <div class="col-5" />
         <nav aria-label="Page navigation example">
           <ul class="pagination">
-            <li class="page-item" v-for="(value, index) in this.$store.state.System.wt4.page_list" v-bind:key="index" v-bind:class="{'disabled': value.page === page}" v-on:click="wt4Page(value.page)">
+            <li class="page-item" v-for="(value, index) in this.$store.state.System.wt4.page_list" v-bind:key="index" v-bind:class="{'disabled': parseInt(value.page, 10) === pages}" v-on:click="wt4Page(value.page)">
               <a class="page-link" href="#">{{value.num}}</a>
             </li>
           </ul>
@@ -121,7 +121,7 @@
       return {
         flag: [],
         highLight: [],
-        page: this.$store.state.System.wt4.page_num,
+        // page: this.$store.state.System.wt4.page_num,
         localHightLight: []
       }
     },
@@ -143,6 +143,12 @@
           return f
         }
       },
+      pages: {
+        get() {
+          // console.log(this.$store.state.System.wt4.page_num);
+          return this.$store.state.System.wt4.page_num
+        }
+      }
     },
     methods: {
       onClick: function (data, index) {
@@ -153,6 +159,8 @@
       wt4Page: function (value) {
         this.page = value
         sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, this.page])
+        this.$store.commit('SYSTEM_SET_LOCAL_PAGE', this.page);
+        this.$store.commit('SET_NOTICE', `当前页数${this.page}`);
       },
       getWt4Record: function (value) {
         if (this.highLight.includes(value)) {

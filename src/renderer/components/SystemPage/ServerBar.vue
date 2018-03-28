@@ -22,9 +22,9 @@
           <a class="nav-link text-light" href="#"> 远程服务功能设置 <span class="sr-only">(current)</span></a>
         </li> -->
       </ul>
-      <form class="form-inline my-2 my-lg-0">
+      <!-- <div class="form-inline my-2 my-lg-0" v-if="['getPersons', 'getOrgs'].includes(this.$store.state.System.toolbar)">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="server-search">
-      </form>
+      </div> -->
     </div>
   </nav>
 </template>

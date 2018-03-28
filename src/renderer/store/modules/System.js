@@ -178,6 +178,9 @@ const mutations = {
     state.wt4TablePage = Math.floor(objs.length / 10)
   },
   SYSTEM_SET_LOCAL_PAGE(state, field) {
+    if (field === undefined) {
+      field = 0
+    }
     switch (field) {
       case 'up':
         state.localPage -= 1
@@ -186,6 +189,7 @@ const mutations = {
         state.localPage += 1
         break;
       default:
+        state.localPage = parseInt(field, 10)
     }
     state.wt4Tables = state.wt4Table.slice(state.localPage * 10, (state.localPage * 10) + 10);
   },
@@ -245,6 +249,17 @@ const mutations = {
       default:
     }
   },
+  SYSTEM_SET_SEARCH(state, value) {
+    const array = state.wt4Table.map(n => Object.values(n))
+    const wt4Tables = []
+    array.forEach((n, index) => {
+      if ([n[4], n[75], n[16], n[54], n[83], n[82], n[47], n[48], n[19], n[62], n[20]].includes(value)) {
+        wt4Tables.push(state.wt4Table[index])
+      }
+    })
+    state.wt4TablePage = Math.floor(wt4Tables.length / 10)
+    state.wt4Tables = wt4Tables.slice(state.localPage * 10, (state.localPage * 10) + 10);
+  }
 };
 
 const actions = {
@@ -283,6 +298,7 @@ const actions = {
     commit('SYSTEM_GET_ORGPAGE');
     commit('SYSTEM_GET_USERS');
     commit('SYSTEM_GET_PAGEINFO');
+    commit('SYSTEM_SET_SEARCH');
   },
 };
 
