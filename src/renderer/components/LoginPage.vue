@@ -1,6 +1,6 @@
 <template>
   <div id="wrapper">
-    <nav-bar></nav-bar>
+    <!-- <nav-bar></nav-bar> -->
     <div class="row">
       <div class="col-6">
         <main>
@@ -136,6 +136,8 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-size: 16px;
+    font-family: '黑体'
   }
 
   #wrapper {

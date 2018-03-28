@@ -34,9 +34,9 @@
           <a class="nav-link text-light" href="#" v-on:click='page(1)' id="edit-rightbar-downpage"> 后页 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
-      <div class="form-inline my-2 my-lg-0"  v-on:submit.prevent>
-        <input class="mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-on:keyup.enter="rightEnter" v-model="rightItem">
-      </div>
+      <form class="form-inline my-2 my-lg-0" v-on:submit.prevent>
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-on:keyup.enter="rightEnter" v-model="rightItem">
+      </form>
     </div>
   </nav>
 </template>
