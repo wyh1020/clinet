@@ -118,11 +118,37 @@
               break;
           }
         } else if (this.$store.state.Edit.rightPanel === 'local') {
-          if (this.$store.state.Edit.filePage === 0 && n === -1) {
-            this.$store.commit('SET_NOTICE', '当前已是第一页')
-          } else {
-            this.$store.commit('EDIT_SET_FILE_PAGE', n);
-            this.$store.commit('SET_NOTICE', '下一页')
+          switch (this.$store.state.Edit.lastNav) {
+            case '/library':
+              if (this.$store.state.Library.tablePage === 1 && n === -1) {
+                this.$store.commit('SET_NOTICE', '当前已是第一页')
+              } else if (this.$store.state.Library.tablePage === this.$store.state.Library.tableCountPage && n === 1) {
+                this.$store.commit('SET_NOTICE', '当前已是尾页');
+              } else {
+                this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
+                this.$store.commit('SET_NOTICE', `当前${this.$store.state.Library.tablePage}页,共${this.$store.state.Library.tableCountPage}页`)
+              }
+              this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Library.localTable.map(x => x.join(',')))
+              break;
+            case '/stat':
+              if (this.$store.state.Stat.tablePage === 1 && n === -1) {
+                this.$store.commit('SET_NOTICE', '当前已是第一页')
+              } else if (this.$store.state.Stat.tablePage === this.$store.state.Stat.countPage && n === 1) {
+                this.$store.commit('SET_NOTICE', '当前已是尾页');
+              } else {
+                this.$store.commit('STAT_TABLE_PAGE', n);
+                this.$store.commit('SET_NOTICE', `当前${this.$store.state.Stat.tablePage}页,共${this.$store.state.Stat.countPage}页`)
+              }
+              this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.localTable.map(x => x.join(',')))
+              break;
+            default:
+              if (this.$store.state.Edit.filePage === 0 && n === -1) {
+                this.$store.commit('SET_NOTICE', '当前已是第一页')
+              } else {
+                this.$store.commit('EDIT_SET_FILE_PAGE', n);
+                this.$store.commit('SET_NOTICE', '下一页')
+              }
+              break;
           }
         }
       },
