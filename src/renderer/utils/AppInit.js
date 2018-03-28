@@ -227,6 +227,17 @@ export default function appInit() {
     dir: hitbdataSystem,
     base: 'hitb_model.cda'
   });
+  if (!fs.existsSync(modelFile)) {
+    axios.get('/static/hitb_model.cda')
+      .then((res) => {
+        fs.writeFile(modelFile, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   if (fs.existsSync(modelFile)) {
     fs.lstat(modelFile, (err) => {
       if (!err) {
