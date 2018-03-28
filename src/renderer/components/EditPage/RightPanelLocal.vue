@@ -86,7 +86,7 @@
         if (this.$store.state.Edit.rightPanel === 'server') {
           this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
           switch (this.$store.state.Edit.lastNav) {
-            case 'edit':
+            case '/edit':
               if (this.$store.state.Edit.serverType === 'file') {
                 getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType, data])
               } else {
