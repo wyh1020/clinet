@@ -189,6 +189,17 @@ export default function appInit() {
     dir: hitbdataSystem,
     base: 'hitb_edit.cdh'
   });
+  if (!fs.existsSync(editFile)) {
+    axios.get('/static/hitb_edit.cdh')
+      .then((res) => {
+        fs.writeFile(editFile, res.data, (err) => {
+          console.log(err)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   if (fs.existsSync(editFile)) {
     fs.lstat(editFile, (err) => {
       if (!err) {
