@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="this.$store.state.System.toolbar === 'getServers'">
+    <div v-if="this.toolbar === 'getServers'">
       <table>
         <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="connect(data, index)" v-bind:class="{'table-danger':flag == index && index !== 0}" class="server-rightpanel-tr" v-bind:id="'system-td-tr'+index">
           <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
@@ -12,10 +12,10 @@
       <!-- 登录状态 -->
         <!-- 未登录 -->
         <div v-if="this.$store.state.System.user.login == false && this.$store.state.Block.account.address === ''">
-          <div v-if="this.$store.state.System.toolbar === 'getUsers'">
+          <div v-if="this.toolbar === 'getUsers'">
             <form>
                 <div class="form-group">
-                  <label class="" for="exampleInputEmail1andname">用户名（远程服务用户是电子邮箱，区块链服务用户是12个单词组成的口令）</label>
+                  <label class="">用户名（远程服务用户是电子邮箱，区块链服务用户是12个单词组成的口令）</label>
                   <input type="text" class="form-control" placeholder="用户名(邮箱)" v-model="emailorname" id="server-username">
                 </div>
                 <div class="form-group">
@@ -26,7 +26,7 @@
                 <button type="submit" class="btn btn-primary" v-on:click="login('login')" id="server-login">登录</button>
                 <button type="submit" class="btn btn-primary" v-on:click="login('regrest')">重新创建用户</button>
           </div>
-          <div v-if="this.$store.state.System.toolbar === 'createUsers'">
+          <div v-if="this.toolbar === 'createUsers'">
             <!-- <div v-if="this.$store.state.System.registerInfo[2] == true">
               <button class="btn btn-primary" v-on:click="newRegister">重新创建用户</button>
             </div> -->
@@ -65,7 +65,7 @@
         <!-- 未登录 -->
         <!-- 已登录 -->
         <div v-else>
-          <div v-if="this.$store.state.System.toolbar === 'getUsers'">
+          <div v-if="this.toolbar === 'getUsers'">
             <div v-if="this.userInfo === 'info'">
               <get-users></get-users>
               <button type="submit" class="btn btn-primary" v-on:click="orgRegister('userinfo')"  v-if="this.$store.state.System.user.login == true">修改</button>
@@ -87,16 +87,16 @@
               <button class="btn btn-primary" v-on:click="orgRegister('returnUserInfo')" >返回</button>
             </div>
           </div>
-          <div v-if="this.$store.state.System.toolbar === 'getOrgs'" class ="orgs">
+          <div v-if="this.toolbar === 'getOrgs'" class ="orgs">
             <get-orgs></get-orgs>
           </div>
-          <div v-if="this.$store.state.System.toolbar === 'createOrgs'">
+          <div v-if="this.toolbar === 'createOrgs'">
             <create-orgs></create-orgs>
           </div>
-          <div v-if="this.$store.state.System.toolbar === 'createDepartments'">
+          <div v-if="this.toolbar === 'createDepartments'">
             <create-departments></create-departments>
           </div>
-          <div v-if="this.$store.state.System.toolbar === 'getPersons'">
+          <div v-if="this.toolbar === 'getPersons'">
             <get-persons></get-persons>
           </div>
         </div>
@@ -160,6 +160,21 @@
           }
           return f
         }
+      },
+      toolbar: {
+        get() {
+          return this.$store.state.System.toolbar
+        }
+      },
+      server: {
+        get() {
+          return this.$store.state.System.server
+        }
+      },
+      port: {
+        get() {
+          return this.$store.state.System.port
+        }
       }
     },
     methods: {
@@ -170,7 +185,6 @@
             break;
           case 'regrest':
             this.$store.commit('SYSTEM_SET_TOOLBAR', 'createUsers')
-            console.log('sssssssssss');
             break;
           default:
         }
@@ -180,7 +194,7 @@
         const user = { username: this.emailorname, password: this.loginpassword }
         if (reg.test(this.emailorname)) {
           this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
-          sLogin(this, [this.$store.state.System.server, this.$store.state.System.port, user])
+          sLogin(this, [this.server, this.port, user])
         } else if (Array.from(this.emailorname.split(' ')).length === 12) {
           const key = Object.keys(global.hitbdata.blockchain)[0]
           const server = global.hitbdata.blockchain[key][0];
@@ -191,13 +205,13 @@
       connect: function (data, index) {
         this.flag = index
         this.$store.commit('SYSTEM_SET_SERVER', data)
-        if (this.$store.state.System.toolbar === 'getServers' && index !== 0) {
+        if (this.toolbar === 'getServers' && index !== 0) {
           sConnect(this, [data[1], data[2], index])
         }
       },
       register: function () {
         const user = { username: this.email, password: this.password, org: this.org, age: this.age, tel: this.tel, email: this.email, name: this.personname, type: 2 }
-        sRegister(this, [this.$store.state.System.server, this.$store.state.System.port, user])
+        sRegister(this, [this.server, this.port, user])
       },
       newRegister: function () {
         this.$store.commit('SYSTEM_REGISTER_USER', [{}, '重新创建用户'])
@@ -208,7 +222,7 @@
             this.userInfo = 'upUserInfo'
             break;
           case 'newUserInfo':
-            sUpdateUser(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user.id, this.upUserInfo])
+            sUpdateUser(this, [this.server, this.port, this.$store.state.System.user.id, this.upUserInfo])
             break;
           case 'returnUserInfo':
             this.userInfo = 'info'

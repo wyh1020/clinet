@@ -31,7 +31,7 @@
           <a class="nav-link text-light" href="#"> 查看Drg分组规则 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
-      <div class="form-inline my-2 my-lg-0" v-if="this.$store.state.System.toolbar === 'getLocalData'">
+      <div class="form-inline my-2 my-lg-0" v-if="this.toolbar === 'getLocalData'">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="server-drg-search" v-on:keyup.13="systemSearch" v-model='system'>
       </div>
     </div>
@@ -47,23 +47,70 @@
         system: ''
       };
     },
+    computed: {
+      server: {
+        get() {
+          return this.$store.state.System.server
+        }
+      },
+      port: {
+        get() {
+          return this.$store.state.System.port
+        }
+      },
+      localPage: {
+        get() {
+          return this.$store.state.System.localPage
+        }
+      },
+      toolbar: {
+        get() {
+          return this.$store.state.System.toolbar
+        }
+      },
+      xsLocal: {
+        get() {
+          let data = [];
+          if (this.$store.state.System.wt4LocalRow.length === 0) {
+            data = this.$store.state.System.wt4Tables
+          } else {
+            data = this.$store.state.System.wt4LocalRow
+          }
+          return data
+        }
+      },
+      xsServer: {
+        get() {
+          let data = []
+          if (this.$store.state.System.wt4Row.length === 0) {
+            data = this.$store.state.System.wt4.data
+          } else {
+            data = this.$store.state.System.wt4Row
+          }
+          return data
+        }
+      }
+    },
     methods: {
+      // 获取本地病案数据
       getLocalData: function () {
-        this.$store.commit('SYSTEM_SET_LOCAL_PAGE', 1);
-        this.$store.commit('SYSTEM_SET_COMPUTE_DATA', 'getLocalData');
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getLocalData');
-        this.$store.commit('SYSTEM_LOAD_WT4_FILES');
-        this.$store.commit('SYSTEM_TABLE_TYPE', 'local');
         this.$store.commit('SET_NOTICE', '本地病案数据');
+        // 返回默认值页码
+        this.$store.commit('SYSTEM_SET_LOCAL_PAGE', 1);
+        // 保存分组数据类型
+        this.$store.commit('SYSTEM_SET_COMPUTE_DATA', 'getLocalData');
+        this.$store.commit('SYSTEM_LOAD_WT4_FILES');
       },
       getServerData: function () {
         if (this.$store.state.System.connectInfo) {
-          this.$store.commit('SYSTEM_SET_LOCAL_PAGE', 1);
-          this.$store.commit('SYSTEM_SET_COMPUTE_DATA', 'getServerData');
           this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServerData');
-          this.$store.commit('SYSTEM_TABLE_TYPE', 'server');
           this.$store.commit('SET_NOTICE', '服务器病案数据');
-          sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, 1])
+          // 返回默认值页码
+          this.$store.commit('SYSTEM_SET_LOCAL_PAGE', 1);
+          // 保存分组数据类型
+          this.$store.commit('SYSTEM_SET_COMPUTE_DATA', 'getServerData');
+          sGetWt4(this, [this.server, this.port, 1])
         } else {
           this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
         }
@@ -71,18 +118,21 @@
       compareData: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'compareData');
       },
+      // 调用drg分组服务器
       drgCompute: function () {
         this.$store.commit('SET_NOTICE', '调用DRG分组服务器');
-        switch (this.$store.state.System.toolbar) {
+        switch (this.toolbar) {
           case 'getLocalData':
-            this.$store.state.System.wt4LocalRow.forEach((n) => {
-              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables[n], 'BJ'], 'getLocalData')
+            console.log(this.$store.state.System.wt4LocalRow);
+            console.log(this.$store.state.System.wt4Tables);
+            this.xsLocal.forEach((n, index) => {
+              sCompDrg(this, [this.server, this.port, this.$store.state.System.wt4Tables[index], 'BJ'], 'getLocalData')
             })
             break;
           case 'getServerData':
-            this.$store.state.System.wt4Row.forEach((n) => {
+            this.xsServer.forEach((n, index) => {
               if (this.$store.state.System.connectInfo) {
-                sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4.data[n], 'BJ'])
+                sCompDrg(this, [this.server, this.port, this.$store.state.System.wt4.data[index], 'BJ'])
               } else {
                 this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
               }
@@ -95,28 +145,29 @@
       drgResult: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgResult');
       },
+      // 查看drg规则
       drgRule: function () {
         this.$store.commit('SET_NOTICE', '查看DRG分组规则');
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgRule');
-        sGetCompRule(this, [this.$store.state.System.server, this.$store.state.System.port, 'mdc', {}])
+        sGetCompRule(this, [this.server, this.port, 'mdc', {}])
       },
+      // 翻页
       page: function (value) {
-        if (this.$store.state.System.tableType === 'server') {
+        if (this.$store.state.System.computeData === 'getServerData') {
           this.$store.commit('SYSTEM_SET_LOCAL_PAGE', value);
-          sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.localPage])
-          this.$store.commit('SET_NOTICE', `当前页数${this.$store.state.System.localPage}`);
-        } else if (value === 'up' && this.$store.state.System.localPage === 0) {
+          sGetWt4(this, [this.server, this.port, this.localPage])
+          this.$store.commit('SET_NOTICE', `当前页数${this.localPage}`);
+        } else if (value === 'up' && this.localPage === 0) {
           this.$store.commit('SET_NOTICE', '已经是第一页');
-        } else if (value === 'down' && this.$store.state.System.localPage === this.$store.state.System.wt4TablePage) {
+        } else if (value === 'down' && this.localPage === this.$store.state.System.wt4TablePage) {
           this.$store.commit('SET_NOTICE', '已经是最后一页');
         } else {
-          // sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.localPage])
-          this.$store.commit('SET_NOTICE', `当前页数${this.$store.state.System.localPage}`);
+          this.$store.commit('SET_NOTICE', `当前页数${this.localPage}`);
           this.$store.commit('SYSTEM_SET_LOCAL_PAGE', value);
         }
       },
+      // 搜索框
       systemSearch: function () {
-        console.log(this.system);
         this.$store.commit('SYSTEM_SET_LOCAL_PAGE', 1);
         this.$store.commit('SYSTEM_SET_SEARCH', this.system);
       }

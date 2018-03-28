@@ -45,7 +45,7 @@ const state = {
   targetDimension: [],
   serverStat: { wt4: [], index: [], dimension: [] },
   serverTable: '',
-  tableType: 'local',
+  // tableType: 'local',
   computeVersion: ['CN', 'GB', 'BJ'],
   computeData: '',
   province: {},
@@ -115,27 +115,34 @@ const mutations = {
   SYSTEM_INFO_USER(state, field) {
     state.user = field[1]
   },
+  // 获取机构信息
   SYSTEM_GET_ORGS(state, field) {
     state.orgs = field
   },
+  // 更新单个机构信息
   SYSTEM_NEW_ORG(state, field) {
     state.org = field
   },
+  // 获取科室信息
   SYSTEM_GET_DEPARTMENTS(state, field) {
     state.departments = field
   },
+  // 更新单个科室信息
   SYSTEM_NEW_DEPARTMENT(state, field) {
     state.department = field
   },
+
   SYSTEM_GET_ORG_INFO(state, field) {
     state.orgInfo = field
   },
   SYSTEM_GET_DEPARTMENT_INFO(state, field) {
     state.departmentInfo = field
   },
+  // 获取wt4信息
   SYSTEM_SET_WT4(state, field) {
     state.wt4 = field[0]
   },
+  // 获取wt4行高亮
   SYSTEM_GET_WT4ROW(state, field) {
     if (state.wt4Row.includes(field)) {
       state.wt4Row.splice(state.wt4Row.findIndex(v => v === field), 1)
@@ -143,6 +150,7 @@ const mutations = {
       state.wt4Row = [...state.wt4Row, field]
     }
   },
+  // 获取wt4分组信息
   SYSTEM_GET_WT4_COMP(state, field) {
     state.wt4Comp.forEach((n, index) => {
       if (n[0].B_WT4_V1_ID === field[0].B_WT4_V1_ID && n[0].version === field[0].version) {
@@ -177,6 +185,7 @@ const mutations = {
     state.wt4Table = objs
     state.wt4TablePage = Math.floor(objs.length / 10)
   },
+  // 翻页
   SYSTEM_SET_LOCAL_PAGE(state, field) {
     if (field === undefined) {
       field = 0
@@ -193,6 +202,7 @@ const mutations = {
     }
     state.wt4Tables = state.wt4Table.slice(state.localPage * 10, (state.localPage * 10) + 10);
   },
+  // 获取wt4本地文件高亮
   SYSTEM_GET_WT4_LOCAL_ROW(state, field) {
     if (state.wt4LocalRow.includes(field)) {
       state.wt4LocalRow.splice(state.wt4LocalRow.findIndex(v => v === field), 1)
@@ -200,15 +210,18 @@ const mutations = {
       state.wt4LocalRow = [...state.wt4LocalRow, field]
     }
   },
+  // 获取分组规则
   SYSTEM_GET_COMPRULE(state, field) {
     const keys = field[0].data.map((value, index) => [value.code, index])
     const value = keys.sort().map(value => field[0].data[value[1]])
     state.comprule = value;
   },
+  // 获取计算维度
   SYSTEM_GET_TARGET(state, field) {
     state.targetIndex = field.index
     state.targetDimension = field.dimension
   },
+  // 或计算数据
   SYSTEM_GET_SERVER_STAT(state, field) {
     if (state.serverStat[field[0]].includes(field[1])) {
       state.serverStat[field[0]].splice(state.serverStat[field[0]].findIndex(v => v === field[1]), 1)
@@ -222,11 +235,10 @@ const mutations = {
   SYSTEM_UPLOAD_FILE(state, field) {
     console.log(field);
   },
-  SYSTEM_TABLE_TYPE(state, field) {
-    state.tableType = field;
-  },
+  // SYSTEM_TABLE_TYPE(state, field) {
+  //   state.tableType = field;
+  // },
   SYSTEM_SET_COMPUTE_DATA(state, value) {
-    console.log(value)
     state.computeData = value;
   },
   SYSTEM_PROVINCE(state, value) {
@@ -235,9 +247,11 @@ const mutations = {
   SYSTEM_GET_ORGPAGE(state, value) {
     state.orgPage = value
   },
+  // 获取人员设置信息
   SYSTEM_GET_USERS(state, value) {
     state.persons = value
   },
+  // 获取机构设置页面信息
   SYSTEM_GET_PAGEINFO(state, value) {
     switch (state.orgPage) {
       case 'getDepartment':
@@ -249,6 +263,7 @@ const mutations = {
       default:
     }
   },
+  // 本地wt4搜索
   SYSTEM_SET_SEARCH(state, value) {
     const array = state.wt4Table.map(n => Object.values(n))
     const wt4Tables = []
@@ -292,7 +307,7 @@ const actions = {
     commit('SYSTEM_GET_TARGET');
     commit('SYSTEM_GET_SERVER_STAT');
     commit('SYSTEM_SET_SERVER_TABLE');
-    commit('SYSTEM_TABLE_TYPE');
+    // commit('SYSTEM_TABLE_TYPE');
     commit('SYSTEM_SET_COMPUTE_DATA');
     commit('SYSTEM_PROVINCE');
     commit('SYSTEM_GET_ORGPAGE');
