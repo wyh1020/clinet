@@ -59,7 +59,8 @@
     methods: {
       enter(e) {
         const n = this.$store.state.Edit.docIndex
-        const v = e.target.value.split(' ').filter(i => i !== '');
+        const value = e.target.value.replace(/,/g, '，')
+        const v = value.split(' ').filter(i => i !== '');
         if (v.length > 0) {
           this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
           this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
