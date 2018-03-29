@@ -94,14 +94,50 @@
         if (this.$store.state.Edit.rightPanel === 'left') {
           switch (this.$store.state.Edit.lastNav) {
             case '/library':
-              this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
-              getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, this.$store.state.Library.tablePage, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
-              this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Library.serverTable.data.map(x => x.join(',')))
+              if (this.$store.state.Library.tableType === 'server') {
+                if (this.$store.state.Library.serverTable.page === 1 && n === -1) {
+                  this.$store.commit('SET_NOTICE', '当前已是第一页')
+                } else if (this.$store.state.Library.serverTable.page === this.$store.state.Library.serverTable.countPage && n === 1) {
+                  this.$store.commit('SET_NOTICE', '当前已是尾页');
+                } else {
+                  this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
+                  getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, this.$store.state.Library.tablePage, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
+                  this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Library.serverTable.data.map(x => x.join(',')))
+                }
+              } else if (this.$store.state.Library.tableType === 'local') {
+                if (this.$store.state.Library.tablePage === 1 && n === -1) {
+                  this.$store.commit('SET_NOTICE', '当前已是第一页')
+                } else if (this.$store.state.Library.tablePage === this.$store.state.Library.tableCountPage && n === 1) {
+                  this.$store.commit('SET_NOTICE', '当前已是尾页');
+                } else {
+                  this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
+                  this.$store.commit('SET_NOTICE', `当前${this.$store.state.Library.tablePage}页,共${this.$store.state.Library.tableCountPage}页`)
+                  this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Library.localTable.map(x => x.join(',')))
+                }
+              }
               break;
             case '/stat':
-              this.$store.commit('STAT_TABLE_PAGE', n);
-              getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
-              this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.serverTable.data.map(x => x.join(',')))
+              if (this.$store.state.Stat.isServer === true) {
+                if (this.$store.state.Stat.serverTable.page === 1 && n === -1) {
+                  this.$store.commit('SET_NOTICE', '当前已是第一页')
+                } else if (this.$store.state.Stat.serverTable.page === this.$store.state.Stat.serverTable.countPage && n === 1) {
+                  this.$store.commit('SET_NOTICE', '当前已是尾页');
+                } else {
+                  this.$store.commit('STAT_TABLE_PAGE', n);
+                  getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
+                  this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.serverTable.data.map(x => x.join(',')))
+                }
+              } else if (this.$store.state.Stat.isServer === false) {
+                if (this.$store.state.Stat.tablePage === 1 && n === -1) {
+                  this.$store.commit('SET_NOTICE', '当前已是第一页')
+                } else if (this.$store.state.Stat.tablePage === this.$store.state.Stat.countPage && n === 1) {
+                  this.$store.commit('SET_NOTICE', '当前已是尾页');
+                } else {
+                  this.$store.commit('STAT_TABLE_PAGE', n);
+                  this.$store.commit('SET_NOTICE', `当前${this.$store.state.Stat.tablePage}页,共${this.$store.state.Stat.countPage}页`)
+                  this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.localTable.map(x => x.join(',')))
+                }
+              }
               break;
             default:
               if (this.$store.state.Edit.filePage === 0 && n === -1) {
