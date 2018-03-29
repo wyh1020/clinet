@@ -6,7 +6,7 @@
       </tr>
     </table> -->
     <div v-if="toolbar == 'blockList'">
-      <table class="table">
+      <table>
         <thead>
           <tr>
             <th>高度</th>
@@ -41,7 +41,7 @@
       </nav>
     </div>
     <div v-if="toolbar == 'blockInfo'">
-      <table  class="table">
+      <table>
         <tr v-for="(value, key) in blockInfo" v-bind:key="key">
           <td>{{key}}</td>
           <td>{{value}}</td>

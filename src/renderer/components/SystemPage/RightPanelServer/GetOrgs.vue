@@ -14,7 +14,7 @@
         <div class="col-10" />
         <button class="btn btn-primary system_new_org" v-on:click="createOrgs('orgs')">新建机构</button>
       </div>
-      <table class="table table-hover table-condensed">
+      <table class="table-hover table-condensed">
         <thead  class="thead-secondary">
           <tr>
             <th>ID</th>
@@ -59,7 +59,7 @@
         <div class="col-10"/>
         <button class="btn btn-primary system_new_org" v-on:click="createOrgs('departments')">新建科室</button>
       </div>
-      <table class="table table-hover table-condensed">
+      <table class="table-hover table-condensed">
         <thead>
           <tr>
             <th>所在机构</th>

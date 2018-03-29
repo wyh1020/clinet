@@ -17,7 +17,7 @@
   export default {
     data() {
       return {
-        flag: null
+        // flag: null
       };
     },
     computed: {
@@ -25,11 +25,16 @@
         get() {
           return this.$store.state.Library.files
         }
+      },
+      flag: {
+        get() {
+          return this.$store.state.Library.fileIndex
+        }
       }
     },
     methods: {
       loadFile: function (data, index) {
-        this.flag = index;
+        // this.flag = index;
         this.$store.commit('LIBRARY_GET_ROW', 0);
         this.$store.commit('LIBRARY_SET_FILE_INDEX', index);
         if (this.$store.state.Library.tableType === 'server') {
