@@ -38,11 +38,15 @@ const state = {
   fileIndex: null,
   dimensionServer: '',
   isServer: false,
+  fileName: null
 };
 
 const mutations = {
   STAT_LOAD_FILES() {
     state.files = fs.readdirSync(global.hitbdata.path.stat).filter(x => x.endsWith('.csv')).filter(x => !x.startsWith('wt4'))
+  },
+  STAT_SET_FILE_NAME(state, value) {
+    state.fileName = value;
   },
   STAT_LOAD_FILE(state, message) {
     state.isServer = false
@@ -93,6 +97,7 @@ const mutations = {
       state.dimensionType = opt[1];
       switch (opt[1]) {
         case '机构':
+          console.log(state.dimensionOrg);
           state.dimension = state.dimensionOrg
           break;
         case '时间':
@@ -134,6 +139,7 @@ const mutations = {
       `病案总数：${state.tableSel.length - 1}`
     ]
     const page = Math.ceil(state.tableSel.length / 20)
+    state.countPage = page
     for (let i = 0; i < page; i += 1) {
       const f = []
       f.push(state.tableHeader[0])
@@ -244,6 +250,7 @@ const actions = {
     commit('STAT_SET_SERVER_DIMENSION');
     commit('STAT_SET_SERVER_TABLE');
     commit('STAT_SET_TABLE_PAGE');
+    commit('STAT_SET_FILE_NAME');
   },
 };
 

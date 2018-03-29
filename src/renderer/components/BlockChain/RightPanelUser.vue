@@ -10,7 +10,7 @@
       <button v-if="account.address === ''" id="block-rightpanel-login" class="btn btn-outline-primary" v-on:click="login">登陆</button>
       {{account}} -->
       <div v-if="account.address !== ''">
-        <table class="table">
+        <table>
           <tr v-for="(line, index) in Object.entries(account)" v-bind:key='index'>
             <td v-for="(filed, index) in line" v-bind:key='index'>{{line[index]}}</td>
           </tr>
@@ -50,7 +50,7 @@
       <button type="submit" class="btn btn-primary" v-on:click="payTrans">发送</button>
     </div>
     <div v-if="toolbar == 'transRecord'">
-      <table class="table">
+      <table>
         <thead>
           <tr>
             <th>ID</th>

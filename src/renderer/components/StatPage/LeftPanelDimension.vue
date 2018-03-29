@@ -36,6 +36,7 @@
           getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: 1, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
         } else {
           this.$store.commit('STAT_TABLE_PAGE', 0)
+          this.$store.commit('SET_NOTICE', `当前页数${this.$store.state.Stat.tablePage},共${this.$store.state.Stat.countPage}页`)
           this.flag = index
           this.$store.commit('STAT_SET_DIMENSION', [this.$store.state.Stat.dimensionType, data]);
         }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table  class="table">
+    <table>
       <thead>
         <tr>
           <th scope="col">编码</th>

@@ -7,7 +7,7 @@
     </table>
     <div v-if="this.$store.state.System.toolbar === 'getLocalData'">
       <!-- {{this.$store.state.System.wt4LocalRow}} -->
-      <table class="table">
+      <table>
         <thead>
           <tr>
             <th>年龄</th>
@@ -41,7 +41,7 @@
       </table>
     </div>
     <div v-if="this.$store.state.System.toolbar === 'getServerData'">
-      <table class="table">
+      <table>
         <thead>
           <tr>
             <th>年龄</th>
@@ -85,7 +85,7 @@
       </div>
     </div>
     <div v-if="this.$store.state.System.toolbar === 'drgCompute'">
-      <table class="table">
+      <table>
         <thead>
           <tr>
             <th>版本</th>

@@ -19,7 +19,7 @@
   export default {
     data() {
       return {
-        flag: null
+        // flag: null
       };
     },
     computed: {
@@ -27,12 +27,19 @@
         get() {
           return this.$store.state.Stat.files
         }
+      },
+      flag: {
+        get() {
+          return this.$store.state.Stat.fileIndex
+        }
       }
     },
     methods: {
       loadFile: function (data, index) {
+        console.log(data);
         this.$store.commit('STAT_SET_FILE_FLAG');
-        this.flag = index
+        // this.flag = index
+        this.$store.commit('STAT_SET_FILE_NAME', data);
         this.$store.commit('STAT_SET_FILE_INDEX', index);
         // 图表
         chartBar('chartLeft', null)

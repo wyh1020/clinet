@@ -1,7 +1,7 @@
 <template>
   <div class="persionTop">
     <div v-if="upPerson === 'table'">
-      <table class="table table-striped">
+      <table>
         <thead>
           <tr>
             <th>ID</th>
