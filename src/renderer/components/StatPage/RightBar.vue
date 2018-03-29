@@ -135,13 +135,17 @@
         }
       },
       edit: function () {
-        const data = this.$store.state.Stat.serverTable.data
-        const f = data.map(x => x.join(','))
+        let f = []
+        if (this.$store.state.Stat.isServer) {
+          f = this.$store.state.Stat.serverTable.data.map(x => x.join(','))
+        } else {
+          f = this.$store.state.Stat.localTable.map(x => x.join(','))
+        }
         switch (this.$store.state.Stat.tableType) {
           case 'local':
             if (this.$store.state.Stat.fileIndex !== null) {
               this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
-              loadFile(this, this.$store.state.Stat.files[this.$store.state.Stat.fileIndex], 'stat', 'edit')
+              this.$store.commit('EDIT_LOAD_FILE', f);
             }
             this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
             this.$store.commit('EDIT_SET_FILES_INDEX', this.$store.state.Stat.fileIndex);

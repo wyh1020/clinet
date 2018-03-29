@@ -96,9 +96,13 @@
         }
       },
       edit: function () {
+        let f = []
         if (this.$store.state.Library.tableType === 'server') {
-          const data = this.$store.state.Library.serverTable.data
-          const f = data.map(x => x.join(','))
+          f = this.$store.state.Library.serverTable.data.map(x => x.join(','))
+        } else {
+          f = this.$store.state.Library.localTable.map(x => x.join(','))
+        }
+        if (this.$store.state.Library.tableType === 'server') {
           this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
           this.$store.commit('EDIT_SET_LAST_NAV', '/library');
           this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
@@ -108,7 +112,7 @@
         } else {
           if (this.$store.state.Library.fileIndex !== null) {
             this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
-            loadFile(this, this.$store.state.Library.files[this.$store.state.Library.fileIndex], 'library', 'edit')
+            this.$store.commit('EDIT_LOAD_FILE', f);
           }
           this.$store.commit('EDIT_SET_LAST_NAV', '/library');
           this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
