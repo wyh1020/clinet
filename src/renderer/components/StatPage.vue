@@ -12,16 +12,16 @@
   import NavBar from './HomePage/NavBar';
   import RightPanel from './StatPage/RightPanel';
   import NoticeBar from './HomePage/NoticeBar';
+  import chartBar from '../utils/ChartBar';
   import chartLine from '../utils/ChartLine';
-  import chartScatter from '../utils/ChartScatter';
-  
+
   export default {
     name: 'stat-page',
     components: { NavBar, RightPanel, NoticeBar },
     mounted: function () {
       this.$nextTick(() => {
-        chartLine('chartLeft')
-        chartScatter('chartRight')
+        chartBar('chartLeft', null)
+        chartLine('chartRight', null)
       })
     },
   };
