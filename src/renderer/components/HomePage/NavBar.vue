@@ -72,7 +72,7 @@
 </template>
 
 <script>
-
+  import loadFile from '../../utils/LoadFile';
   export default {
     data() {
       return {
@@ -170,7 +170,14 @@
             this.$store.commit('BLOCK_SET_TOOLBAR', 'serverStatData');
             break;
           case '未登录...':
-            this.$router.push('/login');
+            this.$router.push('/system');
+            this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServers');
+            this.$store.commit('SET_NAVBAR', '系统服务-远程服务器设置');
+            if (!this.$store.state.System.connectInfo) {
+              loadFile(this, 'hitb_server.csv', 'system')
+            }
+            this.$store.commit('SYSTEM_SET_TOOLBAR', 'getUsers');
+            this.$store.commit('SET_NOTICE', '用户设置');
             break;
           case '已登录':
             this.$store.commit('SET_NOTICE', '已登录');

@@ -38,7 +38,8 @@ const state = {
   fileIndex: null,
   dimensionServer: '',
   isServer: false,
-  fileName: null
+  fileName: null,
+  countPage: 0
 };
 
 const mutations = {

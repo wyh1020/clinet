@@ -123,7 +123,7 @@
           case 'local':
             if (this.$store.state.Stat.tablePage === 1 && n === -1) {
               this.$store.commit('SET_NOTICE', '当前已是第一页')
-            } else if (this.$store.state.Stat.tablePage === this.$store.state.Stat.countPage && n === 1) {
+            } else if ((this.$store.state.Stat.tablePage === this.$store.state.Stat.countPage && n === 1) || this.$store.state.Stat.countPage === 0) {
               this.$store.commit('SET_NOTICE', '当前已是尾页');
             } else {
               this.$store.commit('STAT_TABLE_PAGE', n);
@@ -135,7 +135,6 @@
         }
       },
       edit: function () {
-        console.log(this.$store.state.Stat.serverTable.data);
         const data = this.$store.state.Stat.serverTable.data
         const f = data.map(x => x.join(','))
         switch (this.$store.state.Stat.tableType) {
