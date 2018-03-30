@@ -13,7 +13,7 @@ export default function chartLine(id, opt = null) {
       type: 'line'
     }]
   }
-  const myChart = echarts.init(document.getElementById(id));
+  const myChart = echarts.init(document.getElementById(id), 'light');
   if (opt) {
     // 取得表头并删除前两位
     const th = Object.keys(opt[0])

@@ -14,7 +14,7 @@ export default function chartBar(id, opt = null) {
     }]
   }
 
-  const myChart = echarts.init(document.getElementById(id));
+  const myChart = echarts.init(document.getElementById(id), 'light');
   if (opt) {
     // 取得表头并删除前两位
     const keys = Object.keys(opt[0])
