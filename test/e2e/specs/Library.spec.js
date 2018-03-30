@@ -51,7 +51,7 @@ describe('Library', function () {
         expect(editText).to.equal('');
       })
       .click('#edit-leftbar-back')
-      .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')
+      // .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')
     // 2.1.5、点击维度选择(library-drop)，显示维度下拉选项
     // 2.1.5.1、工具栏的维度选择-机构(library-org)，左侧列表显示当前数据内所有机构，提示：机构维度选择成功，若机构列无内容，提示：无机构维度！
       // .click('#library-dropdown')
@@ -79,7 +79,7 @@ describe('Library', function () {
       .click('#library-dropdown-version')
       .getText('#library-dropdown-version')
       .then(function (version) {
-        expect(version).to.equal('');
+        expect(version).to.be.an('array');
       })
     // 2.1.5.3.1、点击左侧列表(library-leftlist)，右侧表中显示所选版本的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
     // 2.1.5.4、点击表中任意一列
@@ -154,7 +154,7 @@ describe('Library', function () {
       .click('#library-dropdown-version')
       .getText('#library-dropdown-version')
       .then(function (version) {
-        expect(version).to.equal('');
+        expect(version).to.be.an('array');
       })
     // 2.1.8.3.1、点击左侧列表(library-leftlist)，右侧表中显示所选版本的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
     // 2.1.8.4、点击表中任意一列
