@@ -98,9 +98,9 @@
       edit: function () {
         let f = []
         if (this.$store.state.Library.tableType === 'server') {
-          f = this.$store.state.Library.serverTable.data.map(x => x.join(','))
+          f = this.$store.state.Library.serverTable.data.filter(x => x !== undefined).map(x => x.join(','))
         } else {
-          f = this.$store.state.Library.localTable.map(x => x.join(','))
+          f = this.$store.state.Library.localTable.filter(x => x !== undefined).map(x => x.join(','))
         }
         if (this.$store.state.Library.tableType === 'server') {
           this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');

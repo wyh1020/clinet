@@ -137,9 +137,9 @@
       edit: function () {
         let f = []
         if (this.$store.state.Stat.isServer) {
-          f = this.$store.state.Stat.serverTable.data.map(x => x.join(','))
+          f = this.$store.state.Stat.serverTable.data.filter(x => x !== undefined).map(x => x.join(','))
         } else {
-          f = this.$store.state.Stat.localTable.map(x => x.join(','))
+          f = this.$store.state.Stat.localTable.filter(x => x !== undefined).map(x => x.join(','))
         }
         switch (this.$store.state.Stat.tableType) {
           case 'local':
