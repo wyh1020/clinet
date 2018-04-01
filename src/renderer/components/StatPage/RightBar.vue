@@ -109,29 +109,23 @@
         }
       },
       page: function (n) {
-        switch (this.$store.state.Stat.tableType) {
-          case 'server':
-            if (this.$store.state.Stat.serverTable.page === 1 && n === -1) {
-              this.$store.commit('SET_NOTICE', '当前已是第一页')
-            } else if (this.$store.state.Stat.serverTable.page === this.$store.state.Stat.serverTable.countPage && n === 1) {
-              this.$store.commit('SET_NOTICE', '当前已是尾页');
-            } else {
+        if (this.$store.state.Stat.tablePage === 1 && n === -1) {
+          this.$store.commit('SET_NOTICE', '当前已是第一页')
+        } else if ((this.$store.state.Stat.tablePage === this.$store.state.Stat.countPage && n === 1) || this.$store.state.Stat.countPage === 0) {
+          this.$store.commit('SET_NOTICE', '当前已是尾页');
+        } else {
+          switch (this.$store.state.Stat.tableType) {
+            case 'server':
               this.$store.commit('STAT_TABLE_PAGE', n);
               getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
-            }
-            break;
-          case 'local':
-            if (this.$store.state.Stat.tablePage === 1 && n === -1) {
-              this.$store.commit('SET_NOTICE', '当前已是第一页')
-            } else if ((this.$store.state.Stat.tablePage === this.$store.state.Stat.countPage && n === 1) || this.$store.state.Stat.countPage === 0) {
-              this.$store.commit('SET_NOTICE', '当前已是尾页');
-            } else {
+              break;
+            case 'local':
               this.$store.commit('STAT_TABLE_PAGE', n);
               this.$store.commit('SET_NOTICE', `当前${this.$store.state.Stat.tablePage}页,共${this.$store.state.Stat.countPage}页`)
-            }
-            break;
-          default:
-            break;
+              break;
+            default:
+              break;
+          }
         }
       },
       edit: function () {

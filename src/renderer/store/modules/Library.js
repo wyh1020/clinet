@@ -8,7 +8,7 @@ const state = {
   localTables: [],
   localTable: [],
   tablePage: 1,
-  tableCountPage: 1,
+  countPage: 0,
   leftPanel: 'file',
   dimension: [],
   dimensionType: null,
@@ -38,7 +38,6 @@ const mutations = {
     state.tableSel.splice(0, 1)
     const time = state.dimensionSearch.time = state.tableHeader[0].indexOf('year')
     const version = state.dimensionSearch.version = state.tableHeader[0].indexOf('version')
-    console.log(version);
     const org = state.dimensionSearch.org = state.tableHeader[0].indexOf('org')
     state.dimensionOrg = [...new Set(state.table.map(a => a[org]))]
     state.dimensionTime = [...new Set(state.table.map(a => a[time]))]
@@ -51,7 +50,7 @@ const mutations = {
     ]
     state.tablePage = 1;
     const page = Math.ceil(state.tableSel.length / 35)
-    state.tableCountPage = page
+    state.countPage = page
     for (let i = 1; i <= page; i += 1) {
       const f = []
       f.push(state.tableHeader[0])
@@ -134,7 +133,7 @@ const mutations = {
       `术语总数：${state.tableSel.length - 1}`
     ]
     const page = Math.ceil(state.tableSel.length / 35)
-    state.tableCountPage = page
+    state.countPage = page
     for (let i = 1; i <= page; i += 1) {
       const f = []
       f.push(state.tableHeader[0])
@@ -164,7 +163,7 @@ const mutations = {
     state.localTables = {}
     const a = state.tableSel.filter(n => n.includes(data));
     const page = Math.ceil(a.length / 35)
-    state.tableCountPage = page
+    state.countPage = page
     for (let i = 1; i < page; i += 1) {
       const f = []
       f.push(state.tableHeader[0])
@@ -177,7 +176,10 @@ const mutations = {
   },
   LIBRARY_GET_ROW(state, data) {
     state.rowHeight = data
-  }
+  },
+  LIBRARY_SET_COUNT_PAGE(state, n) {
+    state.countPage = n
+  },
 };
 
 const actions = {
@@ -196,6 +198,7 @@ const actions = {
     commit('LIBRARY_GET_ROW');
     commit('LIBRARY_SET_TABLE_PAGE');
     commit('LIBRARY_SET_SERVER_DIMENSION');
+    commit('LIBRARY_SET_COUNT_PAGE');
   },
 };
 

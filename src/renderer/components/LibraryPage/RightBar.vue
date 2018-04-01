@@ -70,29 +70,23 @@
         }
       },
       page: function (n) {
-        switch (this.$store.state.Library.tableType) {
-          case 'server':
-            if (this.$store.state.Library.serverTable.page === 1 && n === -1) {
-              this.$store.commit('SET_NOTICE', '当前已是第一页')
-            } else if (this.$store.state.Library.serverTable.page === this.$store.state.Library.serverTable.countPage && n === 1) {
-              this.$store.commit('SET_NOTICE', '当前已是尾页');
-            } else {
+        if (this.$store.state.Library.tablePage === 1 && n === -1) {
+          this.$store.commit('SET_NOTICE', '当前已是第一页')
+        } else if ((this.$store.state.Library.tablePage === this.$store.state.Library.countPage && n === 1) || this.$store.state.Library.countPage === 0) {
+          this.$store.commit('SET_NOTICE', '当前已是尾页');
+        } else {
+          switch (this.$store.state.Library.tableType) {
+            case 'server':
               this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
               getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, this.$store.state.Library.tablePage, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
-            }
-            break;
-          case 'local':
-            if (this.$store.state.Library.tablePage === 1 && n === -1) {
-              this.$store.commit('SET_NOTICE', '当前已是第一页')
-            } else if (this.$store.state.Library.tablePage === this.$store.state.Library.tableCountPage && n === 1) {
-              this.$store.commit('SET_NOTICE', '当前已是尾页');
-            } else {
+              break;
+            case 'local':
               this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
-              this.$store.commit('SET_NOTICE', `当前${this.$store.state.Library.tablePage}页,共${this.$store.state.Library.tableCountPage}页`)
-            }
-            break;
-          default:
-            break;
+              this.$store.commit('SET_NOTICE', `当前${this.$store.state.Library.tablePage}页,共${this.$store.state.Library.countPage}页`)
+              break;
+            default:
+              break;
+          }
         }
       },
       edit: function () {

@@ -86,6 +86,9 @@ const mutations = {
       state.localTable = state.localTables[state.tablePage]
     }
   },
+  STAT_SET_COUNT_PAGE(state, n) {
+    state.countPage = n
+  },
   STAT_SET_TABLE_PAGE(state, n) {
     state.tablePage = n
   },
@@ -252,9 +255,9 @@ const actions = {
     commit('STAT_SET_SERVER_TABLE');
     commit('STAT_SET_TABLE_PAGE');
     commit('STAT_SET_FILE_NAME');
+    commit('STAT_SET_COUNT_PAGE');
   },
 };
-
 export default {
   state,
   mutations,

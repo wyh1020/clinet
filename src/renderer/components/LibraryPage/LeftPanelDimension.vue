@@ -39,7 +39,7 @@
           this.$store.commit('LIBRARY_TABLE_PAGE', 0)
           this.flag = index
           this.$store.commit('LIBRARY_SET_DIMENSION', [this.$store.state.Library.dimensionType, data]);
-          this.$store.commit('SET_NOTICE', `当前页数${this.$store.state.Library.tablePage},共${this.$store.state.Library.tableCountPage}页`)
+          this.$store.commit('SET_NOTICE', `当前页数${this.$store.state.Library.tablePage},共${this.$store.state.Library.countPage}页`)
         }
       },
     },
