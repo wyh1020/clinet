@@ -36,7 +36,6 @@
     },
     methods: {
       loadFile: function (data, index) {
-        console.log(data);
         this.$store.commit('STAT_SET_FILE_FLAG');
         // this.flag = index
         this.$store.commit('STAT_SET_FILE_NAME', data);
