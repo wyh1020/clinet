@@ -54,7 +54,7 @@
             <a id="stat-right-chart-pie-map" class="nav-link" href="#" v-on:click='showChart("chartRight", "饼图")'> 饼图 <span class="sr-only">(current)</span></a>
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li v-if="this.$store.state.Stat.tableType !== 'compare'" class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="stat-right-dimension" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             维度选择
           </a>
