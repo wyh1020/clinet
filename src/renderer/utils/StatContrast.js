@@ -29,8 +29,15 @@ export default function addContrast(obj, table = [], compare = [], th = [], yid 
     // 当没有选中列时,为全部列
     if (yid.length === 0) {
       yArr = th
-    } else {
-      yArr = yid.map(x => th[x])
+    } else if (yid.length !== th.length) {
+      if (th.includes('drg2') || th.includes('病种')) {
+        yArr = [0, 1, 2].map(x => th[x])
+      } else {
+        yArr = [0, 1].map(x => th[x])
+      }
+      yid.forEach((x) => {
+        yArr.push(th[x])
+      })
     }
     // 取得之前添加过的对比的关键信息
     let statVal = []
@@ -69,8 +76,6 @@ export default function addContrast(obj, table = [], compare = [], th = [], yid 
 
 // 清空对比
 export function clearContrast(obj) {
-  // xArr = [];
-  // yArr = [];
   obj.$store.commit('STAT_SET_COMPARE_TABLE', [])
   return true
 }

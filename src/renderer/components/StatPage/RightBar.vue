@@ -228,7 +228,7 @@
         switch (this.$store.state.Stat.tableType) {
           case 'server':
             table = this.$store.state.Stat.serverTable.data
-            header = [this.$store.state.Stat.serverTable.data[0]]
+            header = this.$store.state.Stat.serverTable.data[0]
             break;
           case 'local':
             table = this.$store.state.Stat.localTable
