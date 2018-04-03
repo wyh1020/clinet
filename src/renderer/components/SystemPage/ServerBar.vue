@@ -12,8 +12,14 @@
         <li class="nav-item active" v-on:click='getUsers' id="server-user-setup">
           <a class="nav-link text-light" href="#"> 用户设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getOrgs' id="server-org-setup">
-          <a class="nav-link text-light" href="#"> 机构设置 <span class="sr-only">(current)</span></a>
+        <li class="nav-item dropdown" v-on:click='getOrgs' id="server-org-setup">
+          <a class="nav-link text-light dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> 机构设置 <span class="sr-only">(current)</span></a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" v-on:click="orgInfo('机构信息')">机构信息</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" v-on:click="orgInfo('科室信息')">科室信息</a>
+            <div class="dropdown-divider"></div>
+          </div>
         </li>
         <li class="nav-item active" v-on:click='getPersons' id="server-people-setup" v-if="this.$store.state.System.userPower === 1">
           <a class="nav-link text-light" href="#"> 人员设置 <span class="sr-only">(current)</span></a>
@@ -30,7 +36,7 @@
 </template>
 
 <script>
-  import { sGetOrg, sGetProvince, sGetUsers } from '../../utils/Server';
+  import { sGetOrg, sGetProvince, sGetUsers, sGetDepart } from '../../utils/Server';
   import loadFile from '../../utils/LoadFile';
   export default {
     data() {
@@ -77,6 +83,20 @@
       getServerFunctions: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServerFunctions');
       },
+      orgInfo: function (value) {
+        switch (value) {
+          case '机构信息':
+            this.$store.commit('SYSTEM_GET_ORGPAGE', 'getOrg');
+            this.$store.commit('SET_NOTICE', '机构信息');
+            break;
+          case '科室信息':
+            this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
+            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.department])
+            this.$store.commit('SET_NOTICE', '科室信息');
+            break;
+          default:
+        }
+      }
     },
   };
 </script>

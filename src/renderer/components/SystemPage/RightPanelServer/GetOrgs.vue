@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="btn-group">
+    <!-- <div class="btn-group">
       <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {{OrgPage}}
       </button>
@@ -8,7 +8,7 @@
         <a class="dropdown-item" href="#" v-on:click="createOrgs('orgsInfo')">机构信息</a>
         <a class="dropdown-item" href="#" v-on:click="createOrgs('departmentsInfo')">科室信息</a>
       </div>
-    </div>
+    </div> -->
     <div v-if="this.orgPageType === 'getOrg'">
       <div class="row">
         <div class="col-10" />
@@ -132,35 +132,35 @@
           }
           return page
         }
-      },
-      OrgPage: {
-        get() {
-          let OrgPage = 1
-          switch (this.$store.state.System.orgPage) {
-            case 'getDepartment':
-              OrgPage = '科室信息'
-              break;
-            case 'getOrg':
-              OrgPage = '机构信息'
-              break;
-            default:
-          }
-          return OrgPage
-        }
       }
+      // OrgPage: {
+      //   get() {
+      //     let OrgPage = 1
+      //     switch (this.$store.state.System.orgPage) {
+      //       case 'getDepartment':
+      //         OrgPage = '科室信息'
+      //         break;
+      //       case 'getOrg':
+      //         OrgPage = '机构信息'
+      //         break;
+      //       default:
+      //     }
+      //     return OrgPage
+      //   }
+      // }
     },
     methods: {
       createOrgs: function (value, index) {
         const deparmentkey = ['org', 'cherf_department', 'class', 'department', 'is_imp', 'is_spe', 'professor', 'wt_code', 'wt_name', 'id']
         const orgkey = ['code', 'name', 'level', 'type', 'province', 'city', 'county', 'person_name', 'tel', 'email', 'id']
         switch (value) {
-          case 'orgsInfo':
-            this.$store.commit('SYSTEM_GET_ORGPAGE', 'getOrg');
-            break;
-          case 'departmentsInfo':
-            this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
-            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.department])
-            break;
+          // case 'orgsInfo':
+          //   this.$store.commit('SYSTEM_GET_ORGPAGE', 'getOrg');
+          //   break;
+          // case 'departmentsInfo':
+          //   this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
+          //   sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.department])
+          //   break;
           case 'updateDepartments':
             deparmentkey.forEach((n) => {
               this.DepartmentInfo[n] = this.$store.state.System.departments.data[index][n]

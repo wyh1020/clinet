@@ -129,6 +129,7 @@
           case '术语字典-术语字典':
             this.$router.push('/library');
             this.$store.commit('LIBRARY_LOAD_FILES');
+            this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'local');
             break;
           case '系统服务-本地文件导入':
             this.$router.push('/system');
