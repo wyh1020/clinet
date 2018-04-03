@@ -115,22 +115,18 @@
               if (this.$store.state.Library.tableType === 'server') {
                 this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
                 getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, this.$store.state.Library.tablePage, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
-                this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Library.serverTable.data.map(x => x.join(',')))
               } else {
                 this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
                 this.$store.commit('SET_NOTICE', `当前${this.$store.state.Library.tablePage}页,共${this.$store.state.Library.countPage}页`)
-                this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Library.localTable.map(x => x.join(',')))
               }
               break;
             case '/stat':
               if (this.$store.state.Stat.tableType === 'server') {
                 this.$store.commit('STAT_TABLE_PAGE', n);
                 getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
-                this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.serverTable.data.map(x => x.join(',')))
               } else {
                 this.$store.commit('STAT_TABLE_PAGE', n);
                 this.$store.commit('SET_NOTICE', `当前${this.$store.state.Stat.tablePage}页,共${this.$store.state.Stat.countPage}页`)
-                this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.localTable.map(x => x.join(',')))
               }
               break;
             default:

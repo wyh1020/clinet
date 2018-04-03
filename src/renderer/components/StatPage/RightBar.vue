@@ -132,8 +132,6 @@
         let f = []
         if (this.$store.state.Stat.isServer) {
           f = this.$store.state.Stat.serverTable.data.filter(x => x !== undefined).map(x => x.join(','))
-        } else {
-          f = this.$store.state.Stat.localTable.filter(x => x !== undefined).map(x => x.join(','))
         }
         switch (this.$store.state.Stat.tableType) {
           case 'local':
@@ -148,7 +146,6 @@
             this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
             this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
             this.$store.commit('EDIT_SET_FILES_INDEX', 0);
-            this.$store.commit('EDIT_LOAD_FILE', f);
             break;
           default:
         }

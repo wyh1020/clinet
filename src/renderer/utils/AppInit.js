@@ -251,7 +251,6 @@ export default function appInit() {
             const k = s.shift()
             obj[k] = s
           })
-          console.log(obj)
           global.hitbmodel = obj
         });
         fReadline.on('line', (line) => {

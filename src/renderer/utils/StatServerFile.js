@@ -110,6 +110,7 @@ export function getStat(obj, data, opt) {
       const resObj = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: res.data.stat, pageList: res.data.page_list, tableName: tableName }
       obj.$store.commit('STAT_SET_COUNT_PAGE', res.data.count)
       obj.$store.commit('STAT_SET_SERVER_TABLE', resObj)
+      obj.$store.commit('EDIT_LOAD_FILE', res.data.stat.filter(x => x !== undefined).map(x => x.join(',')))
     }
   }).catch((err) => {
     console.log(err);

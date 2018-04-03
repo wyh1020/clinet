@@ -16,19 +16,23 @@
     computed: {
       file: {
         get() {
-          const f = []
-          let start = 0
-          let fileLen = this.$store.state.Edit.file.length;
-          if (fileLen > 99) {
-            if (this.$store.state.Edit.filePage > 0) {
-              start = 100 * this.$store.state.Edit.filePage
-              fileLen = start + 99
-            } else {
-              fileLen = 99
+          let f = []
+          if (this.$store.state.Edit.lastNav === 'edit') {
+            let start = 0
+            let fileLen = this.$store.state.Edit.file.length;
+            if (fileLen > 99) {
+              if (this.$store.state.Edit.filePage > 0) {
+                start = 100 * this.$store.state.Edit.filePage
+                fileLen = start + 99
+              } else {
+                fileLen = 99
+              }
             }
-          }
-          for (let i = start; i < fileLen; i += 1) {
-            f.push(this.$store.state.Edit.file[i])
+            for (let i = start; i < fileLen; i += 1) {
+              f.push(this.$store.state.Edit.file[i])
+            }
+          } else {
+            f = this.$store.state.Edit.file
           }
           return f
         }

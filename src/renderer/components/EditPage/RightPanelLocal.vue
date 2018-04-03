@@ -96,12 +96,10 @@
             case '/library':
               this.$store.commit('LIBRARY_SET_TABLE_PAGE', 1);
               getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, data, 1])
-              this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Library.serverTable.data.map(x => x.join(',')));
               break;
             case '/stat':
               this.$store.commit('STAT_SET_TABLE_PAGE', 1)
               getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
-              this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.serverTable.data.map(x => x.join(',')));
               break;
             default:
               break;
