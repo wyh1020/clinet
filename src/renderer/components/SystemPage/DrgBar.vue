@@ -121,26 +121,24 @@
       // 调用drg分组服务器
       drgCompute: function () {
         this.$store.commit('SET_NOTICE', '调用DRG分组服务器');
-        switch (this.toolbar) {
-          case 'getLocalData':
-            console.log(this.$store.state.System.wt4LocalRow);
-            console.log(this.$store.state.System.wt4Tables);
-            this.xsLocal.forEach((n, index) => {
-              sCompDrg(this, [this.server, this.port, this.$store.state.System.wt4Tables[index], 'BJ'], 'getLocalData')
-            })
-            break;
-          case 'getServerData':
-            this.xsServer.forEach((n, index) => {
-              if (this.$store.state.System.connectInfo) {
+        if (this.$store.state.System.connectInfo) {
+          switch (this.toolbar) {
+            case 'getLocalData':
+              this.xsLocal.forEach((n, index) => {
+                sCompDrg(this, [this.server, this.port, this.$store.state.System.wt4Tables[index], 'BJ'], 'getLocalData')
+              })
+              break;
+            case 'getServerData':
+              this.xsServer.forEach((n, index) => {
                 sCompDrg(this, [this.server, this.port, this.$store.state.System.wt4.data[index], 'BJ'])
-              } else {
-                this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
-              }
-            })
-            break;
-          default:
+              })
+              break;
+            default:
+          }
+          this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgCompute');
+        } else {
+          this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
         }
-        this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgCompute');
       },
       drgResult: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgResult');
