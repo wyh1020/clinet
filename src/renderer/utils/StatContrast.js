@@ -71,6 +71,9 @@ export default function addContrast(obj, table = [], compare = [], th = [], yid 
     })
     obj.$store.commit('SET_NOTICE', '加入成功')
     obj.$store.commit('STAT_SET_COMPARE_TABLE', stat)
+    const a = stat.map(x => Object.keys(x).length)
+    const b = Math.max.apply(null, a)
+    obj.$store.commit('STAT_SET_COL_NUM', b)
   }
 }
 

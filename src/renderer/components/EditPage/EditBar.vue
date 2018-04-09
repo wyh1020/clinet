@@ -24,7 +24,7 @@
   export default {
     data() {
       return {
-        item: '',
+        item: this.$store.state.Edit.editBarValue,
       };
     },
     mounted: function () {
@@ -33,6 +33,13 @@
       })
     },
     computed: {
+      // item: {
+      //   get() {
+      //     return this.$store.state.Edit.editBarValue
+      //   },
+      //   set: function () {
+      //   }
+      // },
       hint: {
         get() {
           let content1 = []
@@ -61,15 +68,21 @@
         const n = this.$store.state.Edit.docIndex
         const value = e.target.value.replace(/,/g, '，')
         const v = value.split(' ').filter(i => i !== '');
-        if (v.length > 0) {
-          this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
-          this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
-          const x = this.$store.state.Edit.doc[n + 1]
-          if (x) {
-            this.item = x.toString().replace(/,/g, '   ')
-          } else {
-            this.item = ''
+        if (this.$store.state.Edit.selectedType !== 'col') {
+          if (v.length > 0) {
+            this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
+            this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
+            const x = this.$store.state.Edit.doc[n + 1]
+            if (x) {
+              this.item = x.toString().replace(/,/g, '   ')
+            } else {
+              this.item = ''
+            }
           }
+        } else {
+          const col = this.$store.state.Edit.selectedCol[0]
+          this.$store.commit('EDIT_UPDATE_FILE', [col, v[1]]);
+          this.item = ''
         }
       },
       up() {

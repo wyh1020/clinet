@@ -65,6 +65,12 @@
             <a id="stat-right-dimension-disease" class="nav-link" href="#" v-on:click='selX("全部")'> 全部 <span class="sr-only">(current)</span></a>
           </div>
         </li>
+        <li class="nav-item active" id="stat-prev-page" v-on:click='title(-1)' v-if="this.$store.state.Stat.colNum > 10">
+          <a class="nav-link text-light" href="#"> 左页 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" id="stat-next-page" v-on:click='title(1)' v-if="this.$store.state.Stat.colNum > 10">
+          <a class="nav-link text-light" href="#"> 右页 <span class="sr-only">(current)</span></a>
+        </li>
       </ul>
       <form class="form-inline my-2 my-lg-0" v-on:submit.prevent>
         <input id="stat-right-search" class="mr-sm-2 form-control" type="search" placeholder="Search" aria-label="Search" v-on:keyup.13="statSearch" v-model="stat">
@@ -130,15 +136,15 @@
         }
       },
       edit: function () {
-        let f = []
-        if (this.$store.state.Stat.isServer) {
-          f = this.$store.state.Stat.serverTable.data.filter(x => x !== undefined).map(x => x.join(','))
-        }
+        // let f = []
+        // if (this.$store.state.Stat.isServer) {
+        //   f = this.$store.state.Stat.serverTable.data.filter(x => x !== undefined).map(x => x.join(','))
+        // }
         switch (this.$store.state.Stat.tableType) {
           case 'local':
             if (this.$store.state.Stat.fileIndex !== null) {
               this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
-              this.$store.commit('EDIT_LOAD_FILE', f);
+              this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.localTable);
             }
             this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
             this.$store.commit('EDIT_SET_FILES_INDEX', this.$store.state.Stat.fileIndex);
@@ -250,6 +256,7 @@
         }
       },
       showCompare: function () {
+        console.log(this.$store.state.Stat.compareTable)
         if (this.$store.state.Stat.compareTable.length > 0) {
           this.$store.commit('STAT_SET_TABLE_TYPE', 'compare');
         } else {
@@ -286,7 +293,19 @@
             break;
           default:
         }
-      }
+      },
+      title: function (n) {
+        switch (this.$store.state.Stat.tableType) {
+          case 'server':
+            this.$store.commit('STAT_SET_TITLE_PAGE', n);
+            break;
+          case 'local':
+            this.$store.commit('STAT_SET_TITLE_PAGE', n);
+            break;
+          default:
+            break;
+        }
+      },
     },
   };
 </script>

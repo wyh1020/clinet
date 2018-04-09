@@ -20,6 +20,8 @@ const state = {
   helpType: '编辑器使用帮助',
   serverType: 'user',
   docType: '',
+  selectedCol: [],
+  selectedType: 'row'
 };
 
 const mutations = {
@@ -49,8 +51,15 @@ const mutations = {
     state.files.push(message);
   },
   EDIT_SAVE_DOC(state, m) {
+    if (state.lastNav !== '/edit') {
+      console.log(m)
+      const a = m[1].split(',')
+      console.log(m[1])
+      console.log(a)
+    } else {
+      state.file.splice(m[0], 1, m[1]);
+    }
     // console.log(m[1])
-    state.file.splice(m[0], 1, m[1]);
   },
   EDIT_SAVE_FILE(state, m) {
     state.file.splice(m[0], 1, m[1]);
@@ -134,6 +143,7 @@ const mutations = {
     }
   },
   EDIT_SET_BAR_VALUE(state, value) {
+    console.log(value)
     state.editBarValue = value
   },
   EDIT_SET_HINT_TYPE(state, value) {
@@ -153,6 +163,29 @@ const mutations = {
   },
   EDIT_SEARCH_DOC_INDEX(state, m) {
     state.docIndex = m;
+  },
+  EDIT_SET_COL(state, index) {
+    // state.selectedCol.splice(0, 1, index)
+    const x = state.selectedCol.indexOf(index)
+    if (x === -1) {
+      state.selectedCol.splice(0, 1, index)
+    } else {
+      state.selectedCol.splice(x, 1)
+    }
+  },
+  EDIT_SET_SELECTED_TYPE(state, type) {
+    state.selectedType = type;
+  },
+  EDIT_UPDATE_FILE(state, value) {
+    // state.file = type;
+    console.log(state.file)
+    console.log(value)
+    state.file.map((x, key) => {
+      if (key > 0) {
+        x.splice(value[0], 1, value[1])
+      }
+      return x
+    })
   },
 };
 
@@ -190,6 +223,9 @@ const actions = {
     commit('EDIT_SET_SERVER_TYPE');
     commit('EDIT_SET_DOC_TYPE');
     commit('EDIT_SEARCH_DOC_INDEX');
+    commit('EDIT_SET_COL');
+    commit('EDIT_SET_SELECTED_TYPE');
+    commit('EDIT_UPDATE_FILE');
   },
 };
 

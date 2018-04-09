@@ -39,7 +39,10 @@ const state = {
   dimensionServer: '',
   isServer: false,
   fileName: null,
-  countPage: 0
+  countPage: 0,
+  colNum: 0,
+  titlePage: 0,
+  compareTable1: [],
 };
 
 const mutations = {
@@ -180,6 +183,26 @@ const mutations = {
   },
   STAT_SET_COMPARE_TABLE(state, data) {
     state.compareTable = data
+    // const compare = this.$store.state.Stat.compareTable
+    // 取得所有对比行中所有的key并去重
+    let keys = []
+    keys = keys.concat.apply([], data.map(x => Object.keys(x)))
+    keys = Array.from(new Set(keys))
+    // 存储表头
+    state.compareTable1.push(keys)
+    // 取得表内容,取不到的用-代替
+    data.forEach((xs) => {
+      const f = []
+      keys.forEach((x, i) => {
+        if (xs[x]) {
+          f[i] = xs[x]
+        } else {
+          f[i] = '-'
+        }
+      })
+      state.compareTable1.push(f)
+    })
+    console.log(state.compareTable1)
   },
   STAT_SET_SERVER_TABLE(state, opt) {
     state.isServer = true
@@ -229,7 +252,22 @@ const mutations = {
       state.localTables[i] = f
     }
     state.localTable = state.localTables[state.tablePage]
-  }
+  },
+  STAT_SET_COL_NUM(state, num) {
+    state.colNum = num
+  },
+  STAT_SET_TITLE_PAGE(state, num) {
+    console.log(num)
+    state.colNum = num
+  },
+  // STAT_TABLE_PAGE(state, n) {
+  //   if (state.tableType === 'server' && n === 0) {
+  //     state.serverTable.page = n;
+  //   } else if (state.countPage !== n) {
+  //     state.tablePage += n;
+  //     state.localTable = state.localTables[state.tablePage]
+  //   }
+  // },
 };
 
 const actions = {
@@ -258,6 +296,8 @@ const actions = {
     commit('STAT_SET_TABLE_PAGE');
     commit('STAT_SET_FILE_NAME');
     commit('STAT_SET_COUNT_PAGE');
+    commit('STAT_SET_COL_NUM');
+    commit('STAT_SET_TITLE_PAGE');
   },
 };
 export default {

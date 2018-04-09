@@ -22,7 +22,7 @@
     </div>
     <table>
       <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" class="stat-right-table-tr" v-bind:class="{'table-danger':flag.find((n)=>n===index)}">
-        <td v-for="(field, index) in data" v-bind:key='index' v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}" v-on:click="onClickTd(data, index)" class="stat-right-table-td"  v-if="index < 10">{{data[index]}}</td>
+        <td v-for="(field, index) in data" v-bind:key='index' v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}" v-on:click="onClickTd(data, index)" class="stat-right-table-td"  v-if="index < 20">{{data[index]}}</td>
       </tr>
     </table>
     <nav aria-label="Page navigation example" v-if="this.$store.state.Stat.tableType === 'server'">
@@ -94,6 +94,7 @@
               break;
             }
           }
+          console.log(table)
           return table
         }
       },

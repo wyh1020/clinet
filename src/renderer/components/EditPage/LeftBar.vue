@@ -157,8 +157,14 @@
             } else if (this.$store.state.Edit.serverType === 'show') {
               saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], this.$store.state.Edit.file, this.$store.state.System.user.username])
             } else {
+              let x = ''
+              if (this.$store.state.Edit.lastNav === '/stat') {
+                x = this.$store.state.Stat.fileName
+              } else {
+                x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
+              }
               this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
-              const x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
+              // const x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
               const p = this.$store.state.Edit.lastNav
               saveFile(this, x, p)
             }
