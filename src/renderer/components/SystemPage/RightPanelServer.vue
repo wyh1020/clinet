@@ -212,7 +212,43 @@
       register: function () {
         this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
         const user = { username: this.email, password: this.password, org: this.org, age: this.age, tel: this.tel, email: this.email, name: this.personname, type: 2 }
-        sRegister(this, [this.server, this.port, user])
+        const reg = [/^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g,
+          /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&*]+$)(?![\d!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]+$$/, /^[0-9]{1,2}$/, /^1[0-9]{10}$/]
+        console.log(this.password)
+        let a = 1;
+        let b = 1;
+        let c = 1;
+        let d = 1;
+        const age = parseInt(this.age, 10)
+        console.log(age)
+        if (reg[0].test(this.email)) {
+          a = 1
+        } else {
+          a = 0
+          this.$store.commit('SET_NOTICE', '用户名或邮箱输入错误');
+        }
+        if (reg[1].test(this.password)) {
+          b = 1
+        } else {
+          b = 0
+          this.$store.commit('SET_NOTICE', '密码错误 只能由数字字母和@#$%^&组成');
+        }
+        if (reg[2].test(parseInt(this.age, 10))) {
+          c = 1
+        } else {
+          c = 0
+          this.$store.commit('SET_NOTICE', '年龄输入错误');
+        }
+        if (reg[3].test(this.tel)) {
+          d = 1
+        } else {
+          d = 0
+          this.$store.commit('SET_NOTICE', '电话输入错误');
+        }
+        if (a * b * c * d === 1) {
+          console.log(user)
+          sRegister(this, [this.server, this.port, user])
+        }
       },
       newRegister: function () {
         this.$store.commit('SYSTEM_REGISTER_USER', [{}, '重新创建用户'])
