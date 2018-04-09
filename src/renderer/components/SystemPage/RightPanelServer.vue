@@ -210,6 +210,7 @@
         }
       },
       register: function () {
+        this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
         const user = { username: this.email, password: this.password, org: this.org, age: this.age, tel: this.tel, email: this.email, name: this.personname, type: 2 }
         sRegister(this, [this.server, this.port, user])
       },
