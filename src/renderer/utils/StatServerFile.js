@@ -117,7 +117,7 @@ export function getStat(obj, data, opt) {
   })
 }
 
-// 清空对比
+// 保存对比
 export function saveStat(obj, compare, data) {
   axios({
     method: 'post',
@@ -135,6 +135,23 @@ export function saveStat(obj, compare, data) {
     } else {
       obj.$store.commit('SET_NOTICE', '保存对比失败!');
     }
+  }).catch((err) => {
+    console.log(err)
+    obj.$store.commit('SET_NOTICE', '保存对比失败!');
+  })
+}
+
+// 获取从stat得到的wt4数据
+export function getStatWt4(obj, data, org, time, drg) {
+  axios({
+    method: 'get',
+    url: `http://${data[0]}:${data[1]}/library/stat_wt4?org=${org}&time=${time}&drg=${drg}`,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    responseType: 'json'
+  }).then((res) => {
+    const resObj = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: res.data.wt4, pageList: res.data.page_list, tableName: '' }
+    obj.$store.commit('STAT_SET_COUNT_PAGE', res.data.count)
+    obj.$store.commit('STAT_SET_SERVER_TABLE', resObj)
   }).catch((err) => {
     console.log(err)
     obj.$store.commit('SET_NOTICE', '保存对比失败!');

@@ -87,7 +87,7 @@
   import chartPie from '../../utils/ChartPie';
   import addContrast from '../../utils/StatContrast';
   import saveFile from '../../utils/SaveFile';
-  import { getStatFiles, getStat, saveStat, getList } from '../../utils/StatServerFile';
+  import { getStatFiles, getStat, saveStat, getList, getStatWt4 } from '../../utils/StatServerFile';
   import loadFile from '../../utils/LoadFile';
 
   export default {
@@ -114,6 +114,12 @@
           this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
           getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], '', this.$store.state.System.user.username)
         }
+      },
+      test: function () {
+        const org = '测试医院1'
+        const time = '2015年'
+        const drg = ''
+        getStatWt4(this, [this.$store.state.System.server, this.$store.state.System.port], org, time, drg)
       },
       page: function (n) {
         if (this.$store.state.Stat.tablePage === 1 && n === -1) {
