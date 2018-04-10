@@ -13,7 +13,7 @@
 
 <script>
   import loadFile from '../../utils/LoadFile';
-  import { sCompDrg } from '../../utils/Server';
+  import { sCompDrg, sGetTarget } from '../../utils/Server';
   export default {
     data() {
       return {
@@ -120,6 +120,9 @@
             case 'drgCompute':
               xs = this.$store.state.System.computeVersion
               break;
+            case 'getIndex':
+              xs = this.$store.state.System.targetList;
+              break;
             default:
               xs = [];
           }
@@ -169,6 +172,9 @@
             break;
           case 'drgCompute':
             this.drgCompute(data)
+            break;
+          case 'getIndex':
+            sGetTarget(this, [this.$store.state.System.server, this.$store.state.System.port], data);
             break;
           default:
             break;

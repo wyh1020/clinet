@@ -55,7 +55,7 @@
       // 获取分析指标
       getIndex: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getIndex');
-        sGetTarget(this, [this.server, this.port]);
+        sGetTarget(this, [this.server, this.port], 'list');
       },
       // 获取维度
       getDimension: function () {

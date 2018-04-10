@@ -106,7 +106,6 @@ export function sGetUsers(obj, data) {
   axios.get(`http://${data[0]}:${data[1]}/servers/user/`)
     .then((res) => {
       if (res.status === 200) {
-        console.log(res.data);
         obj.$store.commit('SYSTEM_GET_USERS', res.data)
       } else {
         // obj.$store.commit('SYSTEM_SET_USERS', [data[2], '连接失败'])
@@ -150,7 +149,6 @@ export function sGetOrg(obj, data) {
   axios.get(url)
     .then((res) => {
       if (res.status === 200) {
-        console.log(res.data);
         obj.$store.commit('SYSTEM_GET_ORGS', res.data)
       } else {
         obj.$store.commit('SYSTEM_GET_ORGS', [])
@@ -344,7 +342,6 @@ export function sGetCompRule(obj, data) {
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
-      console.log(res.data);
       obj.$store.commit('SYSTEM_GET_COMPRULE', [res.data, '规则查询成功', true])
     } else {
       obj.$store.commit('SYSTEM_GET_COMPRULE', [{}, '规则查询成功', false])
@@ -403,18 +400,23 @@ export function sCompDrg(obj, data, type = '') {
   }
 }
 // 获取分析字段和范围
-export function sGetTarget(obj, data) {
+export function sGetTarget(obj, data, type) {
+  let url = ''
+  if (type === 'list') {
+    url = `http://${data[0]}:${data[1]}/stat/target1/`
+  } else {
+    url = `http://${data[0]}:${data[1]}/stat/target?file=${type}`
+  }
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/stat/target/`,
+    url: url,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
-    console.log(res.data);
-    if (res.status === 200) {
-      obj.$store.commit('SYSTEM_GET_TARGET', res.data)
+    if (type === 'list') {
+      obj.$store.commit('SYSTEM_GET_TARGET_LIST', res.data.list)
     } else {
-      obj.$store.commit('SYSTEM_GET_TARGET', {})
+      obj.$store.commit('SYSTEM_GET_TARGET', res.data)
     }
   }).catch((err) => {
     console.log(err)

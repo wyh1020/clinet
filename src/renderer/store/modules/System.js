@@ -52,7 +52,8 @@ const state = {
   orgPage: 'getOrg',
   userPower: null,
   persons: {},
-  pageInfo: { org: '1', department: '1' }
+  pageInfo: { org: '1', department: '1' },
+  targetList: []
 };
 
 const mutations = {
@@ -221,6 +222,10 @@ const mutations = {
     state.targetIndex = field.index
     state.targetDimension = field.dimension
   },
+  // 获取计算列表
+  SYSTEM_GET_TARGET_LIST(state, field) {
+    state.targetList = field
+  },
   // 或计算数据
   SYSTEM_GET_SERVER_STAT(state, field) {
     if (state.serverStat[field[0]].includes(field[1])) {
@@ -314,6 +319,7 @@ const actions = {
     commit('SYSTEM_GET_USERS');
     commit('SYSTEM_GET_PAGEINFO');
     commit('SYSTEM_SET_SEARCH');
+    commit('SYSTEM_GET_TARGET_LIST');
   },
 };
 
