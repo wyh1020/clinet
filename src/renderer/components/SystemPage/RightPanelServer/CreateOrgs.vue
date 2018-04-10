@@ -91,16 +91,33 @@
     methods: {
       orgRegister: function (value) {
         const data = this.OrgInfo
-        switch (value) {
-          case 'orgs':
-            sCreateOrg(this, [this.$store.state.System.server, this.$store.state.System.port, data])
-            sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.org]);
-            break;
-          case 'upOrgs':
-            sUpdateOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.orgInfo.id, data])
-            sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.org]);
-            break
-          default:
+        const reg = [/^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g, /^1[0-9]{10}$/]
+        let a = 1
+        let b = 1
+        if (reg[0].test(data.email)) {
+          a = 1
+        } else {
+          a = 0
+          this.$store.commit('SET_NOTICE', '邮箱输入错误');
+        }
+        if (reg[1].test(data.tel)) {
+          b = 1
+        } else {
+          b = 0
+          this.$store.commit('SET_NOTICE', '电话输入错误');
+        }
+        if (a * b === 1) {
+          switch (value) {
+            case 'orgs':
+              sCreateOrg(this, [this.$store.state.System.server, this.$store.state.System.port, data])
+              sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.org]);
+              break;
+            case 'upOrgs':
+              sUpdateOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.orgInfo.id, data])
+              sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.org]);
+              break
+            default:
+          }
         }
       },
       createOrgs: function () {

@@ -72,8 +72,13 @@
       getOrgs: function () {
         sGetProvince(this, [this.server, this.port])
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');
-        sGetOrg(this, [this.server, this.port, this.$store.state.System.user, this.$store.state.System.pageInfo.org]);
-        this.$store.commit('SET_NOTICE', '机构设置');
+        if (!this.$store.state.System.user.login) {
+          this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
+        } else {
+          sGetOrg(this, [this.server, this.port, this.$store.state.System.user, this.$store.state.System.pageInfo.org]);
+          this.$store.commit('SET_NOTICE', '机构设置');
+        }
+        //
       },
       getPersons: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getPersons');
@@ -84,17 +89,21 @@
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServerFunctions');
       },
       orgInfo: function (value) {
-        switch (value) {
-          case '机构信息':
-            this.$store.commit('SYSTEM_GET_ORGPAGE', 'getOrg');
-            this.$store.commit('SET_NOTICE', '机构信息');
-            break;
-          case '科室信息':
-            this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
-            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.department])
-            this.$store.commit('SET_NOTICE', '科室信息');
-            break;
-          default:
+        if (!this.$store.state.System.user.login) {
+          this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
+        } else {
+          switch (value) {
+            case '机构信息':
+              this.$store.commit('SYSTEM_GET_ORGPAGE', 'getOrg');
+              this.$store.commit('SET_NOTICE', '机构信息');
+              break;
+            case '科室信息':
+              this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
+              sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.department])
+              this.$store.commit('SET_NOTICE', '科室信息');
+              break;
+            default:
+          }
         }
       }
     },
