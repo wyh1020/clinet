@@ -1,12 +1,13 @@
 const axios = require('axios');
 const qs = require('qs');
 export function getEditFiles(obj, data) {
-  let url = ''
-  if (data[2] === 'user') {
-    url = `http://${data[0]}:${data[1]}/edit/cda_user/`
-  } else {
-    url = `http://${data[0]}:${data[1]}/edit/cda_file?username=${data[3]}`
-  }
+  // let url = ''
+  // if (data[2] === 'user') {
+  //   url = `http://${data[0]}:${data[1]}/edit/cda_user/`
+  // } else {
+  //   url = `http://${data[0]}:${data[1]}/edit/cda_file?username=${data[3]}`
+  // }
+  const url = `http://${data[0]}:${data[1]}/edit/cda_file`
   axios({
     method: 'get',
     url: url,
