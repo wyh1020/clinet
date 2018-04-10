@@ -142,6 +142,7 @@ const mutations = {
       }
       state.localTables[i] = f
     }
+    state.tablePage = 1
     state.localTable = state.localTables[state.tablePage]
   },
   LIBRARY_GET_FIELD(state, field) {
