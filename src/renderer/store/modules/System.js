@@ -162,7 +162,10 @@ const mutations = {
   },
   // 读取本地wt4文件目录
   SYSTEM_LOAD_WT4_FILES() {
-    const files = fs.readdirSync(global.hitbdata.path.stat).filter(x => x.endsWith('.csv'))
+    const files = fs.readdirSync(global.hitbdata.path.stat).filter(x => x.endsWith('.csv') && (x.startsWith('test_wt4_') || x.startsWith('wt4_')))
+    console.log(files);
+    // const reg = /^$/
+    // fs.filter(x => )
     state.wt4Files = files;
   },
   // 读取本地wt4文件
