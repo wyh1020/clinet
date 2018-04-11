@@ -85,6 +85,7 @@
   import chartRadar from '../../utils/ChartRadar';
   import chartBar from '../../utils/ChartBar';
   import chartPie from '../../utils/ChartPie';
+  import chartData from '../../utils/ChartData';
   import addContrast from '../../utils/StatContrast';
   import saveFile from '../../utils/SaveFile';
   import { getStatFiles, getStat, saveStat, getList, getStatWt4 } from '../../utils/StatServerFile';
@@ -127,17 +128,57 @@
         } else if ((this.$store.state.Stat.tablePage === this.$store.state.Stat.countPage && n === 1) || this.$store.state.Stat.countPage === 0) {
           this.$store.commit('SET_NOTICE', '当前已是尾页');
         } else {
+          let table = []
           switch (this.$store.state.Stat.tableType) {
             case 'server':
               this.$store.commit('STAT_TABLE_PAGE', n);
               getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
+              table = this.$store.state.Stat.serverTable.data
               break;
             case 'local':
               this.$store.commit('STAT_TABLE_PAGE', n);
               this.$store.commit('SET_NOTICE', `当前${this.$store.state.Stat.tablePage}页,共${this.$store.state.Stat.countPage}页`)
+              table = this.$store.state.Stat.localTable
               break;
             default:
               break;
+          }
+          chartData(this, table, this.$store.state.Stat.selectedRow, this.$store.state.Stat.selectedCold)
+          switch (this.$store.state.Stat.chartLeft) {
+            case '柱状图':
+              chartBar('chartLeft', this.$store.state.Stat.chartData)
+              break;
+            case '折线图':
+              chartLine('chartLeft', this.$store.state.Stat.chartData)
+              break;
+            case '雷达图':
+              chartRadar('chartLeft', this.$store.state.Stat.chartData)
+              break;
+            case '散点图':
+              chartScatter('chartLeft', this.$store.state.Stat.chartData)
+              break;
+            case '饼图':
+              chartPie('chartLeft', this.$store.state.Stat.chartData)
+              break;
+            default: break;
+          }
+          switch (this.$store.state.Stat.chartRight) {
+            case '柱状图':
+              chartBar('chartRight', this.$store.state.Stat.chartData)
+              break;
+            case '折线图':
+              chartLine('chartRight', this.$store.state.Stat.chartData)
+              break;
+            case '雷达图':
+              chartRadar('chartRight', this.$store.state.Stat.chartData)
+              break;
+            case '散点图':
+              chartScatter('chartRight', this.$store.state.Stat.chartData)
+              break;
+            case '饼图':
+              chartPie('chartRight', this.$store.state.Stat.chartData)
+              break;
+            default: break;
           }
         }
       },

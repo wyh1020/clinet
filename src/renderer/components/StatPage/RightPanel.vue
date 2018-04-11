@@ -94,7 +94,7 @@
               break;
             }
           }
-          console.log(table)
+          // console.log(table)
           return table
         }
       },
