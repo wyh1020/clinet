@@ -153,6 +153,7 @@
           case '区块链服务-服务器节点设置':
             this.$router.push('/blockChain');
             this.$store.commit('BLOCK_SET_TOOLBAR', 'getServers');
+            this.$store.commit('BLOCK_SET_TOOLBAR', 'blockChainInfo');
             break;
           case '区块链服务-账户设置':
             this.$router.push('/blockChain');
