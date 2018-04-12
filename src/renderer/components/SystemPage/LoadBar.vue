@@ -69,6 +69,37 @@
       },
       checkTable: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'checkTable');
+        const y = this.$store.state.System.table.filter(x => x[x.length - 1] !== '')
+        const [first, ...rest] = this.$store.state.System.file
+        const header = first.split(',')
+        const files = []
+        const headers = [...header, ...y.map(n => n[5])]
+        rest.forEach((n) => {
+          let body = n.split(',')
+          y.forEach((n1) => {
+            const type = typeof (body[header.indexOf(n1[5])])
+            if (n1[3] === type) {
+              body = [...body, body[header.indexOf(n1[5])]]
+            } else {
+              console.log('数据类型校验错误');
+            }
+          });
+          files.push(body);
+        })
+        const file = [headers, ...files]
+        console.log(file);
+        // y.forEach((n) => {
+        //   const x = first.split(',').indexOf(n[n.length - 1])
+        //   const type = typeof (this.$store.state.System.file[1].split(',')[x])
+        //   if (n[3] === type) {
+        //     first = [...first.split(','), n[2]]
+        //     rest = rest.map(n => [...n.split(','), n.split(',')[x]])
+        //   } else {
+        //     console.log('数据类型校验错误');
+        //   }
+        //   const array = [first, ...rest]
+        //   console.log(array);
+        // })
       },
       editTable: function () {
         this.$store.commit('EDIT_SET_LAST_NAV', '/system');

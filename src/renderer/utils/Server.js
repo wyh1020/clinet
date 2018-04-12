@@ -261,17 +261,21 @@ export function sCreateDepart(obj, data) {
   }).then((res) => {
     if (res.status === 201) {
       if (res.data.success) {
-        obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '机构创建成功', true])
-        obj.$store.commit('SYSTEM_SET_TOOLBAR', 'getDepart')
+        obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '科室创建成功', true])
+        // obj.$store.commit('SYSTEM_SET_TOOLBAR', 'getDepart')
+        obj.$store.commit('SET_NOTICE', '科室创建成功')
       } else {
-        obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '机构创建失败,机构编码重复', false])
+        obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '科室创建失败,机构编码重复', false])
+        obj.$store.commit('SET_NOTICE', '科室更新失败,机构编码重复')
       }
     } else {
       obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '连接失败', false])
+      obj.$store.commit('SET_NOTICE', '连接失败')
     }
   }).catch((err) => {
     console.log(err);
     obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [{}, '连接失败', false])
+    obj.$store.commit('SET_NOTICE', '连接失败')
   })
 }
 // 更新科室信息
@@ -285,17 +289,21 @@ export function sUpdateDepart(obj, data) {
   }).then((res) => {
     if (res.status === 201) {
       if (res.data.success) {
-        obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '机构更新成功', true])
-        obj.$store.commit('SYSTEM_SET_TOOLBAR', 'getDepart')
+        obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '科室更新成功', true])
+        // obj.$store.commit('SYSTEM_SET_TOOLBAR', 'getDepart')
+        obj.$store.commit('SET_NOTICE', '科室更新成功')
       } else {
-        obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '机构更新失败,机构编码重复', false])
+        obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '科室更新失败,机构编码重复', false])
+        obj.$store.commit('SET_NOTICE', '科室更新失败,机构编码重复')
       }
     } else {
       obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '连接失败', false])
+      obj.$store.commit('SET_NOTICE', '连接失败')
     }
   }).catch((err) => {
     console.log(err);
     obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [{}, '连接失败', false])
+    obj.$store.commit('SET_NOTICE', '连接失败')
   })
 }
 // ------------病案
