@@ -69,7 +69,7 @@ export function getStat(obj, data, opt) {
   file = file.split('_')
   let toolType = ''
   if (['总数', '平均', '占比'].includes(file[file.length - 1])) {
-    pageType = ''
+    pageType = file.splice(0, file.length - 1).join('_')
     switch (file[file.length - 1]) {
       case '总数':
         toolType = 'total'
@@ -96,7 +96,7 @@ export function getStat(obj, data, opt) {
       url = `&drg2=${data[6]}`
       break;
     default:
-      url = `&${opt.type}=${opt.value}`
+      url = ''
       break;
   }
   axios({
