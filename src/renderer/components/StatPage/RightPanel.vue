@@ -6,10 +6,10 @@
         <left-panel></left-panel>
       </div>
       <div class="col">
-        <div id="chartLeft" style="width: 600px; height:400px;"></div>
+        <div id="chartLeft" style="width: 600px; height:400px;" v-on:click="chart('left')"></div>
       </div>
       <div class="col">
-        <div id="chartRight" style="width: 600px; height:400px;"></div>
+        <div id="chartRight" style="width: 600px; height:400px;" v-on:click="chart('right')"></div>
       </div>
       <div class="col">
         <div class="alert alert-danger" id="stat-right-prompt" role="alert" style="height:100%; overflow-y:auto;">
@@ -212,6 +212,17 @@
       serverPage: function (data) {
         this.$store.commit('STAT_SET_TABLE_PAGE', parseInt(data, 10))
         getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: parseInt(data, 10), username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
+      },
+      chart: function (data) {
+        switch (data) {
+          case 'left':
+            break;
+          case 'right':
+            break;
+          default:
+            break;
+        }
+        this.$router.push('/chart');
       }
     },
   };

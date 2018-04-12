@@ -41,6 +41,11 @@ export default new Router({
       component: require('@/components/BlockChain').default,
     },
     {
+      path: '/chart',
+      name: 'chart-page',
+      component: require('@/components/ChartPage').default,
+    },
+    {
       path: '*',
       redirect: '/',
     },

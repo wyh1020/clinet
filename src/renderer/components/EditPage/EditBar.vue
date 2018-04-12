@@ -22,24 +22,19 @@
 <script>
 
   export default {
-    data() {
-      return {
-        item: this.$store.state.Edit.editBarValue,
-      };
-    },
     mounted: function () {
       this.$nextTick(() => {
         document.getElementById('edit-editbar-input').focus()
       })
     },
     computed: {
-      // item: {
-      //   get() {
-      //     return this.$store.state.Edit.editBarValue
-      //   },
-      //   set: function () {
-      //   }
-      // },
+      item: {
+        get() {
+          return this.$store.state.Edit.editBarValue
+        },
+        set: function () {
+        }
+      },
       hint: {
         get() {
           let content1 = []
