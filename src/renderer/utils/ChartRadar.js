@@ -1,6 +1,18 @@
 const echarts = require('echarts');
 export default function chartRadar(id, opt = null) {
-  let option = {}
+  let option = {
+    xAxis: {
+      type: 'category',
+      data: []
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [{
+      data: [],
+      type: 'bar'
+    }]
+  }
   const myChart = echarts.init(document.getElementById(id));
   if (opt) {
     // 取得表头并删除前两位

@@ -183,10 +183,6 @@
         }
       },
       edit: function () {
-        // let f = []
-        // if (this.$store.state.Stat.isServer) {
-        //   f = this.$store.state.Stat.serverTable.data.filter(x => x !== undefined).map(x => x.join(','))
-        // }
         switch (this.$store.state.Stat.tableType) {
           case 'local':
             if (this.$store.state.Stat.fileIndex !== null) {
@@ -233,7 +229,11 @@
         }
       },
       showChart: function (id, type) {
-        const option = this.$store.state.Stat.chartData
+        let option = this.$store.state.Stat.chartData
+        if (option.length === 0) {
+          option = null
+        }
+        // console.log(option.length);
         if (id === 'chartRight') {
           this.$store.commit('STAT_SET_CHART_RIGHT', type);
           switch (type) {
