@@ -45,6 +45,7 @@ const state = {
   compareTable1: [],
   chartOption: '',
   chartIsShow: true
+  serverMenu: { first: [], second: [], third: [], type: '' },
 };
 
 const mutations = {
@@ -268,6 +269,24 @@ const mutations = {
   STAT_SET_CHART_IS_SHOW(state, value) {
     state.chartIsShow = value
   },
+  STAT_SET_SERVER_MENU(state, opt) {
+    const type = opt[0]
+    const opt2 = opt[1]
+    switch (type) {
+      case '一级菜单':
+        state.serverMenu.first = opt2
+        break;
+      case '二级菜单':
+        state.serverMenu.second = opt2
+        break;
+      case '三级菜单':
+        state.serverMenu.third = opt2
+        break;
+      default:
+        break;
+    }
+    state.serverMenu.type = type
+  },
   // STAT_TABLE_PAGE(state, n) {
   //   if (state.tableType === 'server' && n === 0) {
   //     state.serverTable.page = n;
@@ -307,6 +326,7 @@ const actions = {
     commit('STAT_SET_COL_NUM');
     commit('STAT_SET_TITLE_PAGE');
     commit('STAT_SET_CHART_IS_SHOW');
+    commit('STAT_SET_SERVER_MENU');
   },
 };
 export default {

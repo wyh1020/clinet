@@ -145,9 +145,13 @@
       },
       // 查看drg规则
       drgRule: function () {
-        this.$store.commit('SET_NOTICE', '查看DRG分组规则');
-        this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgRule');
-        sGetCompRule(this, [this.server, this.port, 'mdc', {}])
+        if (this.$store.state.System.connectInfo) {
+          this.$store.commit('SET_NOTICE', '查看DRG分组规则');
+          this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgRule');
+          sGetCompRule(this, [this.server, this.port, 'mdc', {}])
+        } else {
+          this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
+        }
       },
       // 翻页
       page: function (value) {

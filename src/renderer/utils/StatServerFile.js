@@ -14,6 +14,8 @@ export function getStatFiles(obj, data, filename, username) {
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
+      // 菜单层级
+      obj.$store.commit('STAT_SET_SERVER_MENU', [res.data.menu, res.data.data])
       obj.$store.commit('STAT_SERVER_FILES', res.data)
       obj.$store.commit('STAT_SET_TABLE_TYPE', 'server');
     } else {
