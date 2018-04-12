@@ -1,7 +1,7 @@
 <template>
   <div>
     <right-bar></right-bar>
-    <div class="row">
+    <div class="row" v-if="this.$store.state.Stat.chartIsShow === true">
       <div class="col">
         <left-panel></left-panel>
       </div>
@@ -10,6 +10,39 @@
       </div>
       <div class="col">
         <div id="chartRight" style="width: 600px; height:400px;" v-on:click="chart('right')"></div>
+      </div>
+      <div class="col">
+        <div class="alert alert-danger" id="stat-right-prompt" role="alert" style="height:100%; overflow-y:auto;">
+          <h4 class="alert-heading">数据分析提示</h4>
+          <ol class="">
+            <li v-for="(data, index) in notice" v-bind:key='index'>{{data}}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="row" v-if="this.$store.state.Stat.chartIsShow === false">
+      <div class="col">
+        <left-panel></left-panel>
+      </div>
+      <div class="col">
+        <table>
+          <tr>
+            <th class="table-danger"> 数据分析文件</th>
+          </tr>
+          <tr class="stat-left-file-tr" v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
+            <td>{{data}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col">
+        <table>
+          <tr>
+            <th class="table-danger"> 数据分析文件</th>
+          </tr>
+          <tr class="stat-left-file-tr" v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
+            <td>{{data}}</td>
+          </tr>
+        </table>
       </div>
       <div class="col">
         <div class="alert alert-danger" id="stat-right-prompt" role="alert" style="height:100%; overflow-y:auto;">
@@ -94,7 +127,6 @@
               break;
             }
           }
-          // console.log(table)
           return table
         }
       },
@@ -126,39 +158,49 @@
         }
       }
     },
+    mounted: function () {
+      if (this.flag.length > 0 || this.flagTd.length > 0) {
+        this.onClick()
+        this.onClickTd()
+      }
+    },
     methods: {
       onClickTd: function (data, index) {
-        const value = this.$store.state.Stat.tableSel.map((x) => {
-          let isType = false
-          if (x[index] === '-' || x[index] === '') {
-            isType = false
-          } else {
-            isType = true
-          }
-          return isType
-        })
-        switch (this.$store.state.Stat.tableType) {
-          case 'local':
-            if (value.includes(true)) {
-              if (data[0] === 'org' && data[1] === 'time') {
+        if (index !== undefined) {
+          const value = this.$store.state.Stat.tableSel.map((x) => {
+            let isType = false
+            if (x[index] === '-' || x[index] === '') {
+              isType = false
+            } else {
+              isType = true
+            }
+            return isType
+          })
+          switch (this.$store.state.Stat.tableType) {
+            case 'local':
+              if (value.includes(true)) {
+                if (data[0] === 'org' && data[1] === 'time') {
+                  this.$store.commit('STAT_SET_COL', index);
+                }
+              } else {
+                this.$store.commit('SET_NOTICE', '无数据,无法选中当前列!');
+              }
+              break;
+            case 'server':
+              if (data[0] === '机构' && data[1] === '时间') {
                 this.$store.commit('STAT_SET_COL', index);
               }
-            } else {
-              this.$store.commit('SET_NOTICE', '无数据,无法选中当前列!');
-            }
-            break;
-          case 'server':
-            if (data[0] === '机构' && data[1] === '时间') {
-              this.$store.commit('STAT_SET_COL', index);
-            }
-            break;
-          default:
+              break;
+            default:
+          }
         }
       },
       onClick: function (data, index) {
-        this.$store.commit('STAT_SET_ROW', index);
-        this.$store.commit('STAT_GET_FIELD', data);
-        this.$store.commit('STAT_GET_FIELD_INDEX', index);
+        if (index !== undefined) {
+          this.$store.commit('STAT_SET_ROW', index);
+          this.$store.commit('STAT_GET_FIELD', data);
+          this.$store.commit('STAT_GET_FIELD_INDEX', index);
+        }
         const id = 'chartLeft'
         const type = this.$store.state.Stat.chartLeft
         let table = []
@@ -214,15 +256,10 @@
         getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: parseInt(data, 10), username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
       },
       chart: function (data) {
-        switch (data) {
-          case 'left':
-            break;
-          case 'right':
-            break;
-          default:
-            break;
+        this.$store.commit('STAT_SET_CHART_OPTION', data)
+        if (this.flag.length > 0 || this.flagTd.length > 0) {
+          this.$router.push('/chart');
         }
-        this.$router.push('/chart');
       }
     },
   };

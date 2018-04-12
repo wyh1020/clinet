@@ -13,8 +13,8 @@
 
 <script>
   import loadFile from '../../utils/LoadFile';
-  import chartLine from '../../utils/ChartLine';
-  import chartBar from '../../utils/ChartBar';
+  // import chartLine from '../../utils/ChartLine';
+  // import chartBar from '../../utils/ChartBar';
   import { getStatFiles, getStat } from '../../utils/StatServerFile'
   export default {
     data() {
@@ -41,14 +41,18 @@
         this.$store.commit('STAT_SET_FILE_NAME', data);
         this.$store.commit('STAT_SET_FILE_INDEX', index);
         // 图表
-        chartBar('chartLeft', null)
-        chartLine('chartRight', null)
+        // chartBar('chartLeft', null)
+        // chartLine('chartRight', null)
         this.$store.commit('STAT_SET_TABLE_PAGE', 1)
+        console.log(this.$store.state.Stat.isServer)
         if (this.$store.state.Stat.isServer) {
+          console.log('qqq')
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server')
           if (data.endsWith('.csv')) {
+            console.log('111')
             getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: data, page: 1, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
           } else {
+            console.log('adf')
             getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], data, this.$store.state.System.user.username)
           }
         } else {

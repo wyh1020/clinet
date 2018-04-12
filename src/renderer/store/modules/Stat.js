@@ -43,6 +43,8 @@ const state = {
   colNum: 0,
   titlePage: 0,
   compareTable1: [],
+  chartOption: '',
+  chartIsShow: true
 };
 
 const mutations = {
@@ -50,6 +52,7 @@ const mutations = {
     state.files = fs.readdirSync(global.hitbdata.path.stat).filter(x => x.endsWith('.csv')).filter(x => !x.startsWith('wt4'))
   },
   STAT_SET_FILE_NAME(state, value) {
+    console.log(value)
     state.fileName = value;
   },
   STAT_LOAD_FILE(state, message) {
@@ -96,7 +99,9 @@ const mutations = {
     state.tablePage = n
   },
   STAT_SERVER_FILES(state, opt) {
+    console.log(opt.data)
     state.files = opt.data;
+    console.log(state.files)
   },
   STAT_SET_LEFT_PANEL(state, opt) {
     if (state.tableType === 'local') {
@@ -157,8 +162,6 @@ const mutations = {
     }
     state.localTable = state.localTables[state.tablePage]
   },
-  // STAT_SET_CHART_OPTION(state, opt) {
-  // },
   STAT_GET_FIELD(state, field) {
     state.field = field;
   },
@@ -257,8 +260,13 @@ const mutations = {
     state.colNum = num
   },
   STAT_SET_TITLE_PAGE(state, num) {
-    console.log(num)
     state.colNum = num
+  },
+  STAT_SET_CHART_OPTION(state, opt) {
+    state.chartOption = opt
+  },
+  STAT_SET_CHART_IS_SHOW(state, value) {
+    state.chartIsShow = value
   },
   // STAT_TABLE_PAGE(state, n) {
   //   if (state.tableType === 'server' && n === 0) {
@@ -298,6 +306,7 @@ const actions = {
     commit('STAT_SET_COUNT_PAGE');
     commit('STAT_SET_COL_NUM');
     commit('STAT_SET_TITLE_PAGE');
+    commit('STAT_SET_CHART_IS_SHOW');
   },
 };
 export default {
