@@ -205,21 +205,25 @@
       selX: function (x) {
         switch (this.$store.state.Stat.tableType) {
           case 'local': {
-            if (x === '全部') {
-              this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
-              loadFile(this, this.$store.state.Stat.fileName, 'stat')
-            } else {
-              this.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', x]);
+            if (this.$store.state.Stat.localTable.length > 0) {
+              if (x === '全部') {
+                this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
+                loadFile(this, this.$store.state.Stat.fileName, 'stat')
+              } else {
+                this.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', x]);
+              }
             }
             break;
           }
           case 'server': {
-            if (x === '全部') {
-              this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
-              this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
-              getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
-            } else {
-              getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Stat.serverTable.tableName, x, this.$store.state.System.user.username)
+            if (this.$store.state.Stat.serverTable.data.length > 0) {
+              if (x === '全部') {
+                this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
+                this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
+                getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
+              } else {
+                getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Stat.serverTable.tableName, x, this.$store.state.System.user.username)
+              }
             }
             break;
           }
@@ -233,7 +237,6 @@
         if (option.length === 0) {
           option = null
         }
-        // console.log(option.length);
         if (id === 'chartRight') {
           this.$store.commit('STAT_SET_CHART_RIGHT', type);
           switch (type) {
