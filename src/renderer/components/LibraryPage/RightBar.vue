@@ -114,21 +114,29 @@
       selX: function (x) {
         switch (this.$store.state.Library.tableType) {
           case 'local': {
-            if (x === 'all') {
-              this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
-              loadFile(this, this.$store.state.Library.files[this.$store.state.Library.fileIndex], 'library')
+            if (this.$store.state.Library.localTable.length > 0) {
+              if (x === 'all') {
+                this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
+                loadFile(this, this.$store.state.Library.files[this.$store.state.Library.fileIndex], 'library')
+              } else {
+                this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['dimension', x]);
+                this.$store.commit('SET_NOTICE', '维度选择');
+              }
             } else {
-              this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['dimension', x]);
-              this.$store.commit('SET_NOTICE', '维度选择');
+              this.$store.commit('SET_NOTICE', '请选择文件');
             }
             break;
           }
           case 'server': {
-            if (x === 'all') {
-              this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
-              getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, this.$store.state.Library.serverTable.page, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
+            if (this.$store.state.Library.serverTable.data.length > 0) {
+              if (x === 'all') {
+                this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
+                getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, this.$store.state.Library.serverTable.page, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
+              } else {
+                getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.serverTable.tableName, x, this.$store.state.System.user.username)
+              }
             } else {
-              getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.serverTable.tableName, x, this.$store.state.System.user.username)
+              this.$store.commit('SET_NOTICE', '请选择文件');
             }
             break;
           }
