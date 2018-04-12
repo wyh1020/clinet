@@ -46,11 +46,18 @@
         }
       },
     },
+    created: function () {
+      this.serverData();
+    },
     methods: {
       // 获取服务器数据
       serverData: function () {
-        this.$store.commit('SYSTEM_SET_TOOLBAR', 'serverData');
-        sGetWt4(this, [this.server, this.port, 1])
+        if (!this.$store.state.System.user.login) {
+          this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
+        } else {
+          this.$store.commit('SYSTEM_SET_TOOLBAR', 'serverData');
+          sGetWt4(this, [this.server, this.port, 1])
+        }
       },
       // 获取分析指标
       getIndex: function () {
@@ -59,6 +66,7 @@
       },
       // 获取维度
       getDimension: function () {
+        sGetTarget(this, [this.server, this.port], '');
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getDimension');
       },
       // 调用分组计算

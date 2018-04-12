@@ -9,6 +9,7 @@
 </template>
 
 <script>
+  import loadFile from '../../utils/LoadFile';
   export default {
     data() {
       return {
@@ -51,6 +52,10 @@
           return f
         }
       },
+    },
+    created: function () {
+      loadFile(this, this.$store.state.System.serverTable, 'system-home')
+      // console.log(this.$store.state.System.serverTable);
     },
     methods: {
       onClick: function (data, index) {

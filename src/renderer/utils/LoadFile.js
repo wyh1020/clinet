@@ -136,6 +136,7 @@ export default function loadFile(obj, x, p, e = null) {
       }
     })
   } else {
+    obj.$store.commit('SYSTEM_LOAD_FILE', []);
     obj.$store.commit('SET_NOTICE', '选择的不是CSV文件，不能导入！');
   }
 }

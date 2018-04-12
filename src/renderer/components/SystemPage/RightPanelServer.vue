@@ -111,6 +111,7 @@
 </template>
 
 <script>
+  import loadFile from '../../utils/LoadFile';
   import GetUsers from './RightPanelServer/GetUsers';
   import GetOrgs from './RightPanelServer/GetOrgs';
   import CreateOrgs from './RightPanelServer/CreateOrgs';
@@ -134,6 +135,9 @@
         userInfo: 'info',
         upUserInfo: { org: this.$store.state.System.user.org, password: '' }
       }
+    },
+    created: function () {
+      loadFile(this, 'hitb_server.csv', 'system')
     },
     computed: {
       file: {
