@@ -29,7 +29,7 @@
           <tr>
             <th class="table-danger"> 数据分析文件</th>
           </tr>
-          <tr class="stat-left-file-tr" v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
+          <tr class="stat-left-file-tr" v-for="(data, index) in serverMenu.second" v-bind:key='index' v-on:click="loadFile(data, ['second', index])" v-bind:class="{'table-danger':fileIndex.second == index}">
             <td>{{data}}</td>
           </tr>
         </table>
@@ -39,7 +39,7 @@
           <tr>
             <th class="table-danger"> 数据分析文件</th>
           </tr>
-          <tr class="stat-left-file-tr" v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
+          <tr class="stat-left-file-tr" v-for="(data, index) in serverMenu.third" v-bind:key='index' v-on:click="loadFile(data, ['third', index])" v-bind:class="{'table-danger':fileIndex.third == index}">
             <td>{{data}}</td>
           </tr>
         </table>
@@ -77,7 +77,8 @@
   import chartPie from '../../utils/ChartPie';
   import RightBar from './RightBar';
   import LeftPanel from './LeftPanel';
-  import { getStat } from '../../utils/StatServerFile'
+  import { getStatFiles, getStat } from '../../utils/StatServerFile';
+  import loadFile from '../../utils/LoadFile';
   export default {
     components: { RightBar, LeftPanel },
     data() {
@@ -87,6 +88,16 @@
       };
     },
     computed: {
+      serverMenu: {
+        get() {
+          return this.$store.state.Stat.serverMenu
+        }
+      },
+      fileIndex: {
+        get() {
+          return this.$store.state.Stat.fileIndex
+        }
+      },
       notice: {
         get() {
           return this.$store.state.Stat.notice
@@ -167,6 +178,7 @@
     methods: {
       onClickTd: function (data, index) {
         if (index !== undefined) {
+          this.$store.commit('STAT_SET_CHART_IS_SHOW', true);
           const value = this.$store.state.Stat.tableSel.map((x) => {
             let isType = false
             if (x[index] === '-' || x[index] === '') {
@@ -201,6 +213,7 @@
           this.$store.commit('STAT_GET_FIELD', data);
           this.$store.commit('STAT_GET_FIELD_INDEX', index);
         }
+        this.$store.commit('STAT_SET_CHART_IS_SHOW', true);
         const id = 'chartLeft'
         const type = this.$store.state.Stat.chartLeft
         let table = []
@@ -260,7 +273,28 @@
         if (this.flag.length > 0 || this.flagTd.length > 0) {
           this.$router.push('/chart');
         }
-      }
+      },
+      loadFile: function (data, index) {
+        this.$store.commit('STAT_SET_FILE_FLAG');
+        // this.flag = index
+        this.$store.commit('STAT_SET_FILE_NAME', data);
+        this.$store.commit('STAT_SET_FILE_INDEX', index);
+        // 图表
+        // chartBar('chartLeft', null)
+        // chartLine('chartRight', null)
+        this.$store.commit('STAT_SET_TABLE_PAGE', 1)
+        if (this.$store.state.Stat.isServer) {
+          this.$store.commit('STAT_SET_TABLE_TYPE', 'server')
+          if (data.endsWith('.csv')) {
+            getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: data, page: 1, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
+          } else {
+            getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], data, this.$store.state.System.user.username)
+          }
+        } else {
+          loadFile(this, data, 'stat')
+          this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
+        }
+      },
     },
   };
 </script>
@@ -269,7 +303,7 @@
   table {
     width: 100%;
     margin: 40px;
-    margin-top: 5px;
+    margin-top: 0px;
     margin-left: 2px;
     padding: 0;
   }

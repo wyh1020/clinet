@@ -118,8 +118,7 @@
         this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
         this.$store.commit('STAT_LOAD_FILES');
       },
-      serverData: function (data) {
-        console.log(data)
+      serverData: function () {
         if (!this.$store.state.System.user.login) {
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
         } else {
@@ -324,7 +323,6 @@
         }
       },
       showCompare: function () {
-        console.log(this.$store.state.Stat.compareTable)
         if (this.$store.state.Stat.compareTable.length > 0) {
           this.$store.commit('STAT_SET_TABLE_TYPE', 'compare');
         } else {

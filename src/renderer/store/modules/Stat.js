@@ -35,7 +35,7 @@ const state = {
   chartLeft: '柱状图',
   chartRight: '折线图',
   tableType: 'local',
-  fileIndex: null,
+  fileIndex: { first: 0, second: 0, third: 0 },
   dimensionServer: '',
   isServer: false,
   fileName: null,
@@ -44,7 +44,7 @@ const state = {
   titlePage: 0,
   compareTable1: [],
   chartOption: '',
-  chartIsShow: true
+  chartIsShow: true,
   serverMenu: { first: [], second: [], third: [], type: '' },
 };
 
@@ -53,7 +53,6 @@ const mutations = {
     state.files = fs.readdirSync(global.hitbdata.path.stat).filter(x => x.endsWith('.csv')).filter(x => !x.startsWith('wt4'))
   },
   STAT_SET_FILE_NAME(state, value) {
-    console.log(value)
     state.fileName = value;
   },
   STAT_LOAD_FILE(state, message) {
@@ -100,9 +99,7 @@ const mutations = {
     state.tablePage = n
   },
   STAT_SERVER_FILES(state, opt) {
-    console.log(opt.data)
     state.files = opt.data;
-    console.log(state.files)
   },
   STAT_SET_LEFT_PANEL(state, opt) {
     if (state.tableType === 'local') {
@@ -110,7 +107,6 @@ const mutations = {
       state.dimensionType = opt[1];
       switch (opt[1]) {
         case '机构':
-          console.log(state.dimensionOrg);
           state.dimension = state.dimensionOrg
           break;
         case '时间':
@@ -206,7 +202,6 @@ const mutations = {
       })
       state.compareTable1.push(f)
     })
-    console.log(state.compareTable1)
   },
   STAT_SET_SERVER_TABLE(state, opt) {
     state.isServer = true
@@ -231,8 +226,21 @@ const mutations = {
   STAT_SET_CHART_DATA(state, data) {
     state.chartData = data
   },
-  STAT_SET_FILE_INDEX(state, index) {
-    state.fileIndex = index
+  STAT_SET_FILE_INDEX(state, value) {
+    state.fileIndex = []
+    switch (value[0]) {
+      case 'first':
+        state.fileIndex.first = value[1]
+        break;
+      case 'second':
+        state.fileIndex.second = value[1]
+        break;
+      case 'third':
+        state.fileIndex.third = value[1]
+        break;
+      default:
+        break;
+    }
   },
   STAT_TABLE_NAME(state, index) {
     state.tableName = index
