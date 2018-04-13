@@ -165,7 +165,15 @@
             this.$store.commit('SET_NOTICE', '数据表读取成功！');
             break;
           case 'compareTable':
-            this.$store.commit('SYSTEM_SET_TABLE', data);
+            if (this.$store.state.System.tables.length !== 0) {
+              if (this.$store.state.System.fieldIndex === null) {
+                this.$store.commit('SET_NOTICE', '请选择要对照的列');
+              } else {
+                this.$store.commit('SYSTEM_SET_TABLE', data);
+              }
+            } else {
+              this.$store.commit('SET_NOTICE', '请选择数据表');
+            }
             break;
           case 'getLocalData':
             loadFile(this, data, 'wt4')

@@ -72,14 +72,17 @@
     methods: {
       orgRegister: function (value) {
         const data = this.DepartmentInfo
-        console.log(data);
         switch (value) {
           case 'departments':
             sCreateDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, data]);
+            this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');
+            this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
             sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.department])
             break;
           case 'updepartments':
             sUpdateDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.departmentInfo.id, data]);
+            this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');
+            this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
             sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.department])
             break;
           default:
