@@ -25,12 +25,24 @@
     computed: {
       flag: {
         get() {
-          return this.$store.state.Stat.fileIndex.first
+          let flag = []
+          if (this.$store.state.Stat.isServer) {
+            flag = this.$store.state.Stat.fileIndex.first
+          } else {
+            flag = this.$store.state.Stat.fileIndex
+          }
+          return flag
         }
       },
       xs: {
         get() {
-          return this.$store.state.Stat.serverMenu.first
+          let xs = []
+          if (this.$store.state.Stat.isServer) {
+            xs = this.$store.state.Stat.serverMenu.first
+          } else {
+            xs = this.$store.state.Stat.files
+          }
+          return xs
         }
       },
     },

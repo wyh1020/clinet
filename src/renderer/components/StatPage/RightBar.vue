@@ -117,6 +117,7 @@
         this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
         this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
         this.$store.commit('STAT_LOAD_FILES');
+        this.$store.commit('STAT_SET_CHART_IS_SHOW', true);
       },
       serverData: function () {
         if (!this.$store.state.System.user.login) {
