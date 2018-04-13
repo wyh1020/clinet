@@ -38,12 +38,7 @@
               f.push(this.$store.state.Edit.file[i])
             }
           } else {
-            const table = this.$store.state.Edit.file.slice(0, 40)
-            if (table.length !== 20) {
-              f = table.map(x => x.split(','))
-            } else {
-              f = table
-            }
+            f = this.$store.state.Edit.file
           }
           return f
         }
@@ -85,11 +80,12 @@
         if (this.$store.state.Edit.fileType === 'csv') {
           const file = this.$store.state.Edit.file
           let h = []
-          if (file.length === 20) {
-            h = file[index]
-          } else {
-            h = file[0].split(',')
-          }
+          h = file[index]
+          // if (file.length === 20) {
+          //   h = file[index]
+          // } else {
+          //   h = file[0].split(',')
+          // }
           h.forEach((key, i) => {
             r.push(`${key} ${data[i]}`)
           });

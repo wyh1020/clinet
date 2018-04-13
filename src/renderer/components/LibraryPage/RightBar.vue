@@ -91,9 +91,15 @@
       },
       edit: function () {
         let f = []
-        if (this.$store.state.Library.tableType === 'server') {
-          f = this.$store.state.Library.serverTable.data.filter(x => x !== undefined).map(x => x.join(','))
+        console.log(this.$store.state.Library.localTable);
+        if (this.$store.state.Library.tableType === 'local') {
+          if (this.$store.state.Library.localTable.includes(undefined)) {
+            f = this.$store.state.Library.localTable.filter(x => x !== undefined)
+          } else {
+            f = this.$store.state.Library.localTable
+          }
         }
+        console.log(f);
         if (this.$store.state.Library.tableType === 'server') {
           this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
           this.$store.commit('EDIT_SET_LAST_NAV', '/library');

@@ -65,6 +65,7 @@ const mutations = {
     state.files = opt.data;
   },
   LIBRARY_TABLE_PAGE(state, m) {
+    console.log(m[0]);
     if (m[1]) {
       state.tablePage = 1;
     } else {
