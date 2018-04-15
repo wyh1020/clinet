@@ -228,18 +228,22 @@ const mutations = {
   },
   STAT_SET_FILE_INDEX(state, value) {
     state.fileIndex = []
-    switch (value[0]) {
-      case 'first':
-        state.fileIndex.first = value[1]
-        break;
-      case 'second':
-        state.fileIndex.second = value[1]
-        break;
-      case 'third':
-        state.fileIndex.third = value[1]
-        break;
-      default:
-        break;
+    if (state.isServer) {
+      switch (value[0]) {
+        case 'first':
+          state.fileIndex.first = value[1]
+          break;
+        case 'second':
+          state.fileIndex.second = value[1]
+          break;
+        case 'third':
+          state.fileIndex.third = value[1]
+          break;
+        default:
+          break;
+      }
+    } else {
+      state.fileIndex = value[1]
     }
   },
   STAT_TABLE_NAME(state, index) {
@@ -272,6 +276,7 @@ const mutations = {
     state.colNum = num
   },
   STAT_SET_CHART_OPTION(state, opt) {
+    state.chartIsShow = true
     state.chartOption = opt
   },
   STAT_SET_CHART_IS_SHOW(state, value) {

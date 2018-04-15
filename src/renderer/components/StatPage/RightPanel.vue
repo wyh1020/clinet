@@ -286,6 +286,7 @@
         if (this.$store.state.Stat.isServer) {
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server')
           if (data.endsWith('.csv')) {
+            this.$store.commit('STAT_SET_CHART_IS_SHOW', true);
             getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: data, page: 1, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
           } else {
             getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], data, this.$store.state.System.user.username)
