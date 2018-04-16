@@ -46,6 +46,7 @@ const state = {
   chartOption: '',
   chartIsShow: true,
   serverMenu: { first: [], second: [], third: [], type: '' },
+  caseTable: { page: 1, countPage: 0, data: [], pageList: [], tableName: '' }
 };
 
 const mutations = {
@@ -227,7 +228,6 @@ const mutations = {
     state.chartData = data
   },
   STAT_SET_FILE_INDEX(state, value) {
-    state.fileIndex = []
     if (state.isServer) {
       switch (value[0]) {
         case 'first':
@@ -300,6 +300,9 @@ const mutations = {
     }
     state.serverMenu.type = type
   },
+  STAT_SET_CASE_TABLE(state, value) {
+    state.caseTable = value
+  },
   // STAT_TABLE_PAGE(state, n) {
   //   if (state.tableType === 'server' && n === 0) {
   //     state.serverTable.page = n;
@@ -340,6 +343,7 @@ const actions = {
     commit('STAT_SET_TITLE_PAGE');
     commit('STAT_SET_CHART_IS_SHOW');
     commit('STAT_SET_SERVER_MENU');
+    commit('STAT_SET_CASE_TABLE');
   },
 };
 export default {

@@ -153,7 +153,8 @@ export function getStatWt4(obj, data, org, time, drg) {
   }).then((res) => {
     const resObj = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: res.data.wt4, pageList: res.data.page_list, tableName: '' }
     obj.$store.commit('STAT_SET_COUNT_PAGE', res.data.count)
-    obj.$store.commit('STAT_SET_SERVER_TABLE', resObj)
+    obj.$store.commit('STAT_SET_CASE_TABLE', resObj)
+    obj.$store.commit('STAT_SET_TABLE_TYPE', 'case')
   }).catch((err) => {
     console.log(err)
     obj.$store.commit('SET_NOTICE', '保存对比失败!');

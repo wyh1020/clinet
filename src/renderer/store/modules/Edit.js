@@ -81,10 +81,8 @@ const mutations = {
     state.filesPage += n;
   },
   EDIT_LOAD_DOC(state, message) {
-    // console.log(message)
     const x = message.map(m => m.split(' ').filter(i => i !== ''))
     state.doc = x;
-    // console.log(state.doc)
   },
   EDIT_SET_DOC(state) {
     state.doc = [];
@@ -143,7 +141,6 @@ const mutations = {
     }
   },
   EDIT_SET_BAR_VALUE(state, value) {
-    console.log(value)
     state.editBarValue = value
   },
   EDIT_SET_HINT_TYPE(state, value) {

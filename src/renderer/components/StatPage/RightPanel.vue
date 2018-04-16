@@ -77,7 +77,7 @@
   import chartPie from '../../utils/ChartPie';
   import RightBar from './RightBar';
   import LeftPanel from './LeftPanel';
-  import { getStatFiles, getStat } from '../../utils/StatServerFile';
+  import { getStatFiles, getStat, getStatWt4 } from '../../utils/StatServerFile';
   import loadFile from '../../utils/LoadFile';
   export default {
     components: { RightBar, LeftPanel },
@@ -85,6 +85,7 @@
       return {
         // flag: [],
         // flagTd: [],
+        // table: false
       };
     },
     computed: {
@@ -115,6 +116,10 @@
               table = this.$store.state.Stat.serverTable.data
               break;
             }
+            case 'case': {
+              table = this.$store.state.Stat.caseTable.data
+              break;
+            }
             default: {
               const compare = this.$store.state.Stat.compareTable
               // 取得所有对比行中所有的key并去重
@@ -138,6 +143,7 @@
               break;
             }
           }
+          // this.table = table
           return table
         }
       },
@@ -146,22 +152,28 @@
           let f = []
           if (this.$store.state.Stat.tableType === 'compare') {
             f = []
+          } else if (this.$store.state.Stat.tableType === 'case') {
+            f = []
           } else {
             f = this.$store.state.Stat.selectedRow
           }
           return f
-        }
+        },
+        set() {}
       },
       flagTd: {
         get() {
           let f = []
           if (this.$store.state.Stat.tableType === 'compare') {
             f = []
+          } else if (this.$store.state.Stat.tableType === 'case') {
+            f = []
           } else {
             f = this.$store.state.Stat.selectedCol
           }
           return f
-        }
+        },
+        set() {}
       },
       page: {
         get() {
@@ -177,6 +189,10 @@
     },
     methods: {
       onClickTd: function (data, index) {
+        const header = this.$store.state.Stat.serverTable.data[0]
+        const cindex = header.indexOf('病历数')
+        const oindex = header.indexOf('机构')
+        const tindex = header.indexOf('时间')
         if (index !== undefined) {
           this.$store.commit('STAT_SET_CHART_IS_SHOW', true);
           const value = this.$store.state.Stat.tableSel.map((x) => {
@@ -202,7 +218,23 @@
               if (data[0] === '机构' && data[1] === '时间') {
                 this.$store.commit('STAT_SET_COL', index);
               }
+              if (index === cindex && data !== this.$store.state.Stat.serverTable.data[0]) {
+                this.$store.commit('STAT_SET_TABLE_TYPE', 'case');
+                const org = data[oindex]
+                const time = data[tindex]
+                const drg = ''
+                getStatWt4(this, [this.$store.state.System.server, this.$store.state.System.port], org, time, drg)
+              }
               break;
+            // case 'case':
+            //   if (value.includes(true)) {
+            //     if (data[0] === 'org' && data[1] === 'time') {
+            //       this.$store.commit('STAT_SET_COL', index);
+            //     }
+            //   } else {
+            //     this.$store.commit('SET_NOTICE', '无数据,无法选中当前列!');
+            //   }
+            //   break;
             default:
           }
         }
@@ -221,25 +253,33 @@
           table = this.$store.state.Stat.localTable
         } else if (this.$store.state.Stat.tableType === 'server') {
           table = this.$store.state.Stat.serverTable.data
+        } else if (this.$store.state.Stat.tableType === 'case') {
+          table = this.$store.state.Stat.caseTable.data
         } else {
           table = this.$store.state.Stat.compareTable
         }
         chartData(this, table, this.flag, this.flagTd)
+        let chartdata = []
+        if (this.$store.state.Stat.chartData.length === 0) {
+          chartdata = null
+        } else {
+          chartdata = this.$store.state.Stat.chartData
+        }
         switch (type) {
           case '柱状图':
-            chartBar(id, this.$store.state.Stat.chartData)
+            chartBar(id, chartdata)
             break;
           case '折线图':
-            chartLine(id, this.$store.state.Stat.chartData)
+            chartLine(id, chartdata)
             break;
           case '雷达图':
-            chartRadar(id, this.$store.state.Stat.chartData)
+            chartRadar(id, chartdata)
             break;
           case '散点图':
-            chartScatter(id, this.$store.state.Stat.chartData)
+            chartScatter(id, chartdata)
             break;
           case '饼图':
-            chartPie(id, this.$store.state.Stat.chartData)
+            chartPie(id, chartdata)
             break;
           default: break;
         }
@@ -247,19 +287,19 @@
         const typeRight = this.$store.state.Stat.chartRight
         switch (typeRight) {
           case '柱状图':
-            chartBar(idRight, this.$store.state.Stat.chartData)
+            chartBar(idRight, chartdata)
             break;
           case '折线图':
-            chartLine(idRight, this.$store.state.Stat.chartData)
+            chartLine(idRight, chartdata)
             break;
           case '雷达图':
-            chartRadar(idRight, this.$store.state.Stat.chartData)
+            chartRadar(idRight, chartdata)
             break;
           case '散点图':
-            chartScatter(idRight, this.$store.state.Stat.chartData)
+            chartScatter(idRight, chartdata)
             break;
           case '饼图':
-            chartPie(idRight, this.$store.state.Stat.chartData)
+            chartPie(idRight, chartdata)
             break;
           default: break;
         }
@@ -286,7 +326,7 @@
         if (this.$store.state.Stat.isServer) {
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server')
           if (data.endsWith('.csv')) {
-            this.$store.commit('STAT_SET_CHART_IS_SHOW', true);
+            // this.$store.commit('STAT_SET_CHART_IS_SHOW', true);
             getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: data, page: 1, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
           } else {
             getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], data, this.$store.state.System.user.username)

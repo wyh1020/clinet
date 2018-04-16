@@ -80,7 +80,7 @@
         if (this.$store.state.Edit.fileType === 'csv') {
           const file = this.$store.state.Edit.file
           let h = []
-          h = file[index]
+          h = file[0]
           // if (file.length === 20) {
           //   h = file[index]
           // } else {

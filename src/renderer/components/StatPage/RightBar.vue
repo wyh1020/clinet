@@ -6,6 +6,9 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
+        <li class="nav-item active" v-if="this.$store.state.Stat.tableType === 'case'" v-on:click='backTable'>
+          <a class="nav-link text-light" href="#"> 返回 <span class="sr-only">(current)</span></a>
+        </li>
         <li class="nav-item active" id="stat-local-doc" v-on:click='loadData'>
           <a class="nav-link text-light" href="#"> 本地文件 <span class="sr-only">(current)</span></a>
         </li>
@@ -100,7 +103,7 @@
   import chartData from '../../utils/ChartData';
   import addContrast from '../../utils/StatContrast';
   import saveFile from '../../utils/SaveFile';
-  import { getStatFiles, getStat, saveStat, getList, getStatWt4 } from '../../utils/StatServerFile';
+  import { getStatFiles, getStat, saveStat, getList } from '../../utils/StatServerFile';
   import loadFile from '../../utils/LoadFile';
 
   export default {
@@ -130,12 +133,7 @@
           getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], '', this.$store.state.System.user.username)
         }
       },
-      test: function () {
-        const org = '测试医院1'
-        const time = '2015年'
-        const drg = ''
-        getStatWt4(this, [this.$store.state.System.server, this.$store.state.System.port], org, time, drg)
-      },
+
       page: function (n) {
         if (this.$store.state.Stat.tablePage === 1 && n === -1) {
           this.$store.commit('SET_NOTICE', '当前已是第一页')
@@ -372,6 +370,9 @@
           default:
             break;
         }
+      },
+      backTable: function () {
+        this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
       },
     },
   };
