@@ -21,12 +21,12 @@
         <li class="nav-item active" v-on:click='editTable' id="server-load-editdata">
           <a class="nav-link text-light" href="#"> 编辑数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='loadTable' id="server-load-import">
+        <!-- <li class="nav-item active" v-on:click='loadTable' id="server-load-import">
           <a class="nav-link text-light" href="#"> 导入数据 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active" v-on:click='saveTableData' id="server-load-savelocal">
+        </li> -->
+        <!-- <li class="nav-item active" v-on:click='saveTableData' id="server-load-savelocal">
           <a class="nav-link text-light" href="#"> 保存本地文件 <span class="sr-only">(current)</span></a>
-        </li>
+        </li> -->
         <li class="nav-item active" v-on:click='upLoadTableData' id="server-load-uploaddata">
           <a class="nav-link text-light" href="#"> 上传服务器数据 <span class="sr-only">(current)</span></a>
         </li>
@@ -69,25 +69,30 @@
       },
       checkTable: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'checkTable');
-        const y = this.$store.state.System.table.filter(x => x[x.length - 1] !== '')
-        const [first, ...rest] = this.$store.state.System.file
-        const header = first.split(',')
-        const files = []
-        const headers = [...header, ...y.map(n => n[5])]
-        rest.forEach((n) => {
-          let body = n.split(',')
-          y.forEach((n1) => {
-            const type = typeof (body[header.indexOf(n1[5])])
-            if (n1[3] === type) {
-              body = [...body, body[header.indexOf(n1[5])]]
-            } else {
-              console.log('数据类型校验错误');
-            }
-          });
-          files.push(body);
-        })
-        const file = [headers, ...files]
-        console.log(file);
+        console.log(this.$store.state.System.table);
+        if (this.$store.state.System.table.length === 0) {
+          this.$store.commit('SET_NOTICE', '无校验文件');
+        } else {
+          const y = this.$store.state.System.table.filter(x => x[x.length - 1] !== '')
+          const [first, ...rest] = this.$store.state.System.file
+          const header = first.split(',')
+          const files = []
+          const headers = [...header, ...y.map(n => n[2])]
+          rest.forEach((n) => {
+            let body = n.split(',')
+            y.forEach((n1) => {
+              const type = typeof (body[header.indexOf(n1[5])])
+              if (n1[3] === type) {
+                body = [...body, body[header.indexOf(n1[5])]]
+              } else {
+                console.log('数据类型校验错误');
+              }
+            });
+            files.push(body);
+          })
+          const file = [headers, ...files]
+          console.log(file);
+        }
         // y.forEach((n) => {
         //   const x = first.split(',').indexOf(n[n.length - 1])
         //   const type = typeof (this.$store.state.System.file[1].split(',')[x])
