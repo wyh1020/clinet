@@ -26,11 +26,7 @@
       flag: {
         get() {
           let flag = []
-          if (this.$store.state.Stat.isServer) {
-            flag = this.$store.state.Stat.fileIndex.first
-          } else {
-            flag = this.$store.state.Stat.fileIndex
-          }
+          flag = this.$store.state.Stat.fileIndex.first
           return flag
         }
       },

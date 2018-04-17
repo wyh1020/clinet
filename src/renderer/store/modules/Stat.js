@@ -243,7 +243,7 @@ const mutations = {
           break;
       }
     } else {
-      state.fileIndex = value[1]
+      state.fileIndex.first = value[1]
     }
   },
   STAT_TABLE_NAME(state, index) {
