@@ -144,7 +144,7 @@
           switch (this.$store.state.Stat.tableType) {
             case 'server':
               this.$store.commit('STAT_TABLE_PAGE', n);
-              getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
+              getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer }, 'stat')
               table = this.$store.state.Stat.serverTable.data
               break;
             case 'local':
@@ -234,7 +234,7 @@
               if (x === '全部') {
                 this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
                 this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
-                getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer })
+                getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer }, 'stat')
               } else {
                 getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Stat.serverTable.tableName, x, this.$store.state.System.user.username)
               }
@@ -354,7 +354,7 @@
             this.$store.commit('STAT_GET_FILE_SEARCH', this.stat)
             break;
           case 'server':
-            getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: 0, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.stat })
+            getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: 0, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.stat }, 'stat')
             break;
           default:
         }
