@@ -40,6 +40,7 @@
 
 <script>
   import { sUploadDoc } from '../../utils/Server';
+  // import loadFile from '../../utils/LoadFile';
   export default {
     data() {
       return {
@@ -69,7 +70,6 @@
       },
       checkTable: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'checkTable');
-        console.log(this.$store.state.System.table);
         if (this.$store.state.System.table.length === 0) {
           this.$store.commit('SET_NOTICE', '无校验文件');
         } else {
@@ -91,6 +91,7 @@
             files.push(body);
           })
           const file = [headers, ...files]
+          this.$store.commit('SYSTEM_GET_CHECKDATA', file)
           console.log(file);
         }
         // y.forEach((n) => {
@@ -107,9 +108,11 @@
         // })
       },
       editTable: function () {
+        this.$store.commit('EDIT_LOAD_FILE', this.$store.state.System.checkData)
         this.$store.commit('EDIT_SET_LAST_NAV', '/system');
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
-        this.$store.commit('EDIT_SET_FILES_INDEX', this.$store.state.System.fileIndex);
+        this.$store.commit('EDIT_SET_FILES_INDEX', this.$store.state.System.checkData);
+        this.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
         this.$router.push('/edit');
       },
       loadTable: function () {
@@ -137,6 +140,7 @@
           f = this.$store.state.System.table
           fileName = `${this.serverTable}.csv`
         }
+        console.log(f);
         sUploadDoc(this, [server[0], server[1], fileName, f])
       }
     },
