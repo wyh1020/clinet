@@ -38,7 +38,12 @@
               f.push(this.$store.state.Edit.file[i])
             }
           } else {
-            f = this.$store.state.Edit.file
+            const type = typeof this.$store.state.Edit.file[0]
+            if (type === 'object') {
+              f = this.$store.state.Edit.file
+            } else {
+              f = this.$store.state.Edit.file.map(n => n.split(','))
+            }
           }
           return f
         }
@@ -75,10 +80,13 @@
         this.$store.commit('EDIT_SET_BAR_VALUE', data[index]);
       },
       loadDoc: function (data, index) {
+        // console.log(data);
+        // console.log(index);
         this.$store.commit('EDIT_SET_FILE_INDEX', index)
         let r = []
         if (this.$store.state.Edit.fileType === 'csv') {
           const file = this.$store.state.Edit.file
+          const type = typeof this.$store.state.Edit.file[0]
           let h = []
           h = file[0]
           // if (file.length === 20) {
@@ -86,9 +94,15 @@
           // } else {
           //   h = file[0].split(',')
           // }
-          h.forEach((key, i) => {
-            r.push(`${key} ${data[i]}`)
-          });
+          if (type === 'string') {
+            h.split(',').forEach((key, i) => {
+              r.push(`${key} ${data[i]}`)
+            });
+          } else {
+            h.forEach((key, i) => {
+              r.push(`${key} ${data[i]}`)
+            });
+          }
         } else {
           r = data.split(',')
         }
