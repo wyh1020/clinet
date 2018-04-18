@@ -14,21 +14,21 @@
             <th>ID</th>
             <th>生产者</th>
             <th>交易</th>
-            <th>总金额</th>
+            <!-- <th>总金额</th>
             <th>总费用</th>
-            <th>奖励</th>
+            <th>奖励</th> -->
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(value, index) in blockBlock.data.blocks"  v-bind:key='index' v-bind:class="{'table-danger': hightLight === index}" v-on:click="block(index)">
-            <td>{{value.height}}</td>
-            <td></td>
-            <td>{{value.id}}</td>
-            <td>{{value.generatorId}}</td>
-            <td>{{value.numberOfTransactions}}</td>
-            <td>{{value.totalAmount/100000000}}</td>
+          <tr v-for="(value, index) in blockBlock.blocks"  v-bind:key='index' v-bind:class="{'table-danger': hightLight === index}" v-on:click="block(index)">
+            <td>{{value.index}}</td>
+            <td>{{value.data}}</td>
+            <td>{{value.hash}}</td>
+            <td>{{value.generateAdress}}</td>
+            <td>{{value.transactions}}</td>
+            <!-- <td>{{value.totalAmount/100000000}}</td>
             <td>{{value.totalFee/100000000}}</td>
-            <td>{{value.reward/100000000}}</td>
+            <td>{{value.reward/100000000}}</td> -->
           </tr>
         </tbody>
       </table>
@@ -99,7 +99,7 @@
       },
       block: function (value) {
         this.hightLight = value;
-        this.$store.commit('BLOCK_GET_BLOCK_INFO', this.blockBlock.data.blocks[value])
+        this.$store.commit('BLOCK_GET_BLOCK_INFO', this.blockBlock.blocks[value])
       },
       blockChainPage: function (value) {
         const ip = this.$store.state.System.server

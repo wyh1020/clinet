@@ -7,8 +7,7 @@
           <input type="password" placeholder="用户名" v-model="name">
         </div>
       </form>
-      <button v-if="account.address === ''" id="block-rightpanel-login" class="btn btn-outline-primary" v-on:click="login">登陆</button>
-      {{account}} -->
+      <button v-if="account.address === ''" id="block-rightpanel-login" class="btn btn-outline-primary" v-on:click="login">登陆</button> -->
       <div v-if="account.address !== ''">
         <table>
           <tr v-for="(line, index) in Object.entries(account)" v-bind:key='index'>
@@ -24,27 +23,29 @@
       <form>
         <div class="form-group">
           <label>发送者</label>
-          <input type="text" class="form-control" placeholder="Enter email" v-model="this.$store.state.Block.account.address" disabled="true">
+          <input type="text" class="form-control" placeholder="发送者" v-model="this.$store.state.Block.account.publicKey" disabled="true">
         </div>
         <div class="form-group">
           <label>接受者</label>
-          <input type="text" class="form-control" placeholder="Enter email" v-model="pay.targetAddress">
+          <select class="form-control" v-model="pay.targetAddress">
+            <option v-for="value in publicKeys">{{value}}</option>
+          </select>
         </div>
         <div class="form-group">
           <label>金额</label>
-          <input type="text" class="form-control" placeholder="Enter email" v-model="pay.amount">
+          <input type="text" class="form-control" placeholder="金额" v-model="pay.amount">
         </div>
         <div class="form-group"  v-if="this.$store.state.Block.account.secondPublicKey">
           <label>二级密码</label>
-          <input type="password" class="form-control" placeholder="Enter email" v-model="pay.secondPassword">
+          <input type="password" class="form-control" placeholder="二级密码" v-model="pay.secondPassword">
         </div>
         <div class="form-group">
           <label>费用</label>
-          <input type="text" class="form-control" placeholder="Enter email" v-model="pay.fee">
+          <input type="text" class="form-control" placeholder="费用" v-model="pay.fee">
         </div>
         <div class="form-group">
           <label>备注</label>
-          <input type="text" class="form-control" placeholder="Enter email" v-model="pay.message">
+          <input type="text" class="form-control" placeholder="备注" v-model="pay.message">
         </div>
       </form>
       <button type="submit" class="btn btn-primary" v-on:click="payTrans">发送</button>
@@ -61,7 +62,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(tran, index) in trans.transactions" v-bind:key='index'>
+          <tr v-for="(tran, index) in trans" v-bind:key='index'>
             <td>{{tran.id}}</td>
             <td>{{tran.type}}</td>
             <td>{{tran.recipientId}}</td>
@@ -92,7 +93,7 @@
         flag: null,
         name: 'someone manual strong movie roof episode eight spatial brown soldier soup motor',
         pay: {
-          recipientId: this.$store.state.Block.account.address,
+          recipientId: this.$store.state.Block.account.publicKey,
           targetAddress: 'ABbhjhV4g32tWr7JPg1fZfX1TGH9TZQEFg',
           amount: 100,
           secondPass: 'dzc944262316',
@@ -114,15 +115,24 @@
       },
       trans: {
         get() {
-          return this.$store.state.Block.trans
+          return this.$store.state.Block.transUn
         }
       },
       blockChain: {
         get() {
           return this.$store.state.Block.blockChain
         }
+      },
+      publicKeys: {
+        get() {
+          console.log(this.$store.state.Block.publicKeys);
+          return this.$store.state.Block.publicKeys
+        }
       }
     },
+    // created: function () {
+    //   this.getPublicKey()
+    // },
     methods: {
       load: function (n) {
         switch (n) {
@@ -151,7 +161,7 @@
         const data = this.pay
         console.log(data);
         const ip = this.$store.state.System.server
-        const port = this.$store.state.System.port
+        const port = 4000
         blockPost(this, [ip, port, data])
         // transactions1(this, [ip, port, data])
       },
