@@ -53,7 +53,8 @@ const state = {
   userPower: null,
   persons: {},
   pageInfo: { org: '1', department: '1' },
-  targetList: []
+  targetList: [],
+  checkData: []
 };
 
 const mutations = {
@@ -282,6 +283,10 @@ const mutations = {
     })
     state.wt4TablePage = Math.floor(wt4Tables.length / 10)
     state.wt4Tables = wt4Tables.slice(state.localPage * 10, (state.localPage * 10) + 10);
+  },
+  // 更新校验后数据
+  SYSTEM_GET_CHECKDATA(state, value) {
+    state.checkData = value
   }
 };
 
@@ -323,6 +328,7 @@ const actions = {
     commit('SYSTEM_GET_PAGEINFO');
     commit('SYSTEM_SET_SEARCH');
     commit('SYSTEM_GET_TARGET_LIST');
+    commit('SYSTEM_GET_CHECKDATA');
   },
 };
 

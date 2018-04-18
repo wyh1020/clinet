@@ -69,6 +69,7 @@ const mutations = {
     state.files = files;
   },
   EDIT_LOAD_FILE(state, message) {
+    console.log(message);
     state.file = message;
   },
   EDIT_NEW_FILES(state) {

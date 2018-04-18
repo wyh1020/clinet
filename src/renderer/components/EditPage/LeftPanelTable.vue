@@ -23,6 +23,7 @@
       file: {
         get() {
           let f = []
+          console.log(this.$store.state.Edit.lastNav);
           if (this.$store.state.Edit.lastNav === '/edit') {
             let start = 0
             let fileLen = this.$store.state.Edit.file.length;

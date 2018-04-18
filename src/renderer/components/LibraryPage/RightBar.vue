@@ -91,7 +91,6 @@
       },
       edit: function () {
         let f = []
-        console.log(this.$store.state.Library.localTable);
         if (this.$store.state.Library.tableType === 'local') {
           if (this.$store.state.Library.localTable.includes(undefined)) {
             f = this.$store.state.Library.localTable.filter(x => x !== undefined)
@@ -99,7 +98,6 @@
             f = this.$store.state.Library.localTable
           }
         }
-        console.log(f);
         if (this.$store.state.Library.tableType === 'server') {
           this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
           this.$store.commit('EDIT_SET_LAST_NAV', '/library');
@@ -137,7 +135,7 @@
             if (this.$store.state.Library.serverTable.data.length > 0) {
               if (x === 'all') {
                 this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
-                getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, this.$store.state.Library.serverTable.page, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
+                getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, this.$store.state.Library.serverTable.page, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer], 'library')
               } else {
                 getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.serverTable.tableName, x, this.$store.state.System.user.username)
               }
@@ -157,7 +155,7 @@
             this.$store.commit('LIBRARY_GET_SEARCH_TABLE', this.library)
             break;
           case 'server':
-            getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, 1, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
+            getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, 1, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer], 'library')
             break;
           default:
         }
