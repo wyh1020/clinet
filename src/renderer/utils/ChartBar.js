@@ -1,5 +1,6 @@
 const echarts = require('echarts');
 export default function chartBar(id, opt = null) {
+  console.log(id, opt)
   let option = {
     xAxis: {
       type: 'category',
@@ -13,7 +14,7 @@ export default function chartBar(id, opt = null) {
       type: 'bar'
     }]
   }
-
+  console.log(document.getElementById(id))
   const myChart = echarts.init(document.getElementById(id), 'light');
   if (opt) {
     // 取得表头并删除前两位

@@ -1,7 +1,7 @@
 <template>
   <div>
     <right-bar></right-bar>
-    <div class="row" v-if="this.$store.state.Stat.chartIsShow === true">
+    <div class="row" v-show="this.$store.state.Stat.chartIsShow === true">
       <div class="col">
         <left-panel></left-panel>
       </div>
@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <div class="row" v-if="this.$store.state.Stat.chartIsShow === false">
+    <div class="row" v-show="this.$store.state.Stat.chartIsShow === false">
       <div class="col">
         <left-panel></left-panel>
       </div>
@@ -83,9 +83,6 @@
     components: { RightBar, LeftPanel },
     data() {
       return {
-        // flag: [],
-        // flagTd: [],
-        // table: false
       };
     },
     computed: {
@@ -225,7 +222,13 @@
               }
               if (index === cindex && data !== this.$store.state.Stat.serverTable.data[0]) {
                 this.$store.commit('STAT_SET_TABLE_TYPE', 'case');
-                const org = data[oindex]
+                let org = ''
+                console.log(data[oindex])
+                if (data[oindex] === '全部机构') {
+                  org = ''
+                } else {
+                  org = data[oindex]
+                }
                 const time = data[tindex]
                 const drg = ''
                 getStatWt4(this, [this.$store.state.System.server, this.$store.state.System.port], org, time, drg)
@@ -243,8 +246,6 @@
         }
         this.$store.commit('STAT_SET_CHART_IS_SHOW', true);
         const id = 'chartLeft'
-        console.log(document.getElementById('chartLeft'))
-        console.log(id)
         const type = this.$store.state.Stat.chartLeft
         let table = []
         if (this.$store.state.Stat.tableType === 'local') {
@@ -318,13 +319,15 @@
         this.$store.commit('STAT_SET_FILE_NAME', data);
         this.$store.commit('STAT_SET_FILE_INDEX', index);
         // 图表
-        // chartBar('chartLeft', null)
-        // chartLine('chartRight', null)
+        if (index[0] === 'third') {
+          this.$store.commit('STAT_SET_CHART_IS_SHOW', true);
+          chartBar('chartLeft', null)
+          chartLine('chartRight', null)
+        }
         this.$store.commit('STAT_SET_TABLE_PAGE', 1)
         if (this.$store.state.Stat.isServer) {
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server')
           if (data.endsWith('.csv')) {
-            // this.$store.commit('STAT_SET_CHART_IS_SHOW', true);
             getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: data, page: 1, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer }, 'stat')
           } else {
             getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], data, this.$store.state.System.user.username)

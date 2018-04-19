@@ -159,6 +159,6 @@ export function getStatWt4(obj, data, org, time, drg) {
     obj.$store.commit('STAT_SET_TABLE_TYPE', 'case')
   }).catch((err) => {
     console.log(err)
-    obj.$store.commit('SET_NOTICE', '保存对比失败!');
+    obj.$store.commit('SET_NOTICE', '查询病案失败!');
   })
 }
