@@ -141,6 +141,9 @@
         const fileIndex = this.$store.state.Edit.fileIndex
         let doc = this.$store.state.Edit.doc
         doc = doc.map(x => x.join(' '))
+        const arr = this.$store.state.Edit.file[this.$store.state.Edit.fileIndex]
+        let x = ''
+        let p = ''
         switch (n) {
           case 0:
             if (this.$store.state.Edit.fileIndex === null) {
@@ -153,26 +156,30 @@
             }
             break;
           case 1:
-            if (doc.toString() === '') {
-              this.$store.commit('SET_NOTICE', '保存内容不能为空');
-            } else if (this.$store.state.Edit.serverType === 'show') {
+            if (this.$store.state.Edit.serverType === 'show') {
               saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], this.$store.state.Edit.file, this.$store.state.System.user.username])
             } else {
-              let x = ''
               if (this.$store.state.Edit.lastNav === '/stat') {
                 x = this.$store.state.Stat.fileName
               } else {
                 x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
               }
               this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
-              // const x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
-              const p = this.$store.state.Edit.lastNav
+              p = this.$store.state.Edit.lastNav
               saveFile(this, x, p)
             }
             break;
           case 2:
-            this.$store.commit('EDIT_ADD_DOC', doc.toString());
-            this.$store.commit('SET_NOTICE', '另存成功');
+            console.log(this.$store.state.Edit.file[0])
+            if (this.$store.state.Edit.lastNav === '/stat') {
+              x = this.$store.state.Stat.fileName
+              this.$store.commit('EDIT_ADD_DOC', arr);
+            } else {
+              x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
+              this.$store.commit('EDIT_ADD_DOC', doc.toString());
+            }
+            p = this.$store.state.Edit.lastNav
+            saveFile(this, x, p)
             break;
           default:
             break;

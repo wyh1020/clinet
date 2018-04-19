@@ -46,7 +46,7 @@
       loadFile: function (data, index) {
         this.$store.commit('STAT_SET_FILE_FLAG');
         // this.flag = index
-        // this.$store.commit('STAT_SET_FILE_NAME', data);
+        this.$store.commit('STAT_SET_FILE_NAME', data);
         this.$store.commit('STAT_SET_FILE_INDEX', ['first', index]);
         this.$store.commit('STAT_SET_TABLE_PAGE', 1)
         if (this.$store.state.Stat.isServer) {
