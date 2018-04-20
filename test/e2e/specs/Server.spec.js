@@ -13,7 +13,7 @@ describe('Server', function () {
     // 2.1、点击本地文件导入
       .click('#navbar-system')
       .click('#navbar-system-local')
-      .waitUntilTextExists('#notice-bar', '系统服务-本地文件导入')
+      // .waitUntilTextExists('#notice-bar', '系统服务-本地文件导入')
       // 2.1.1、点击选择csv文件(server-load-loaclfile)，左侧列表显示clinet-data下所有csv文件
       .click('#server-load-loaclfile')
       .getHTML('.server-leftpanel')
@@ -55,9 +55,9 @@ describe('Server', function () {
         expect(rightpanel).to.be.an('array');
       })
       // 2.1.5、点击导入数据(server-load-import)，左侧列表显示clinet-data文件夹下可导入的文件
-      .click('#server-load-import')
+      // .click('#server-load-import')
       // 2.1.6、点击保存本地文件(server-load-savelocal)，把当前数据保存成本地文件
-      .click('#server-load-savelocal')
+      // .click('#server-load-savelocal')
       // 2.1.7、点击上传服务器数据(server-load-uploaddata)，把数据传到服务器上，在服务器上可以进行统计计算等服务
       .click('#server-load-uploaddata')
       // 2.1.8、点击编辑数据(server-load-editdata)，把当前数据转入到编辑模块，对数据进行修改
