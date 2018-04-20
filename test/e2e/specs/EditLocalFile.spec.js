@@ -48,14 +48,14 @@ describe('EditLocalFile', function () {
     // ++++++++++++++++++点击用户本地文件单行---不点击选择编辑条目单行+++++++++++++++++++++++++++++
     // 2.10.1.1 点击左侧工具栏 保存按钮 对该病历进行保存
       .click('#edit-leftbar-preservation')
-      .waitUntilTextExists('#edit-bar-prompt', '保存内容不能为空')
+      .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
     // 2.10.1.2 点击左侧工具栏 另存按钮 对该病历进行另存
       .click('#edit-leftbar-save')
-      .waitUntilTextExists('#edit-bar-prompt', '另存成功')
+      .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         expect(editText).to.be.an('string');
@@ -211,14 +211,14 @@ describe('EditLocalFile', function () {
     // 2.10.2.1.2 底部输入框输入,修改病历
     // 2.10.2.1.3 点击左侧工具栏 保存按钮 对该病历进行保存
       .click('#edit-leftbar-preservation')
-      .waitUntilTextExists('#edit-bar-prompt', '保存内容不能为空')
+      .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
     // 2.10.2.1.4 点击左侧工具栏 另存按钮 对该病历进行另存
       .click('#edit-leftbar-save')
-      .waitUntilTextExists('#edit-bar-prompt', '另存成功')
+      .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         expect(editText).to.be.an('string');
@@ -367,14 +367,14 @@ describe('EditLocalFile', function () {
     // 2.10.2 选择本地文件 不点击单行
     // 2.10.2.2.1 点击左侧工具栏 保存按钮
       .click('#edit-leftbar-preservation')
-      .waitUntilTextExists('#edit-bar-prompt', '保存内容不能为空')
+      .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
     // 2.10.2.2.2 点击左侧工具栏 另存按钮
       .click('#edit-leftbar-save')
-      .waitUntilTextExists('#edit-bar-prompt', '另存成功')
+      .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         expect(editText).to.be.an('string');

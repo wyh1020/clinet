@@ -33,14 +33,14 @@ describe('Edit', function () {
       })
     // 2.1、点击左侧工具栏 保存按钮 edit-leftbar-preservation
       .click('#edit-leftbar-preservation')
-      .waitUntilTextExists('#edit-bar-prompt', '保存内容不能为空')
+      .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件！')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
     // 2.1.1、点击左侧工具栏 另存按钮 edit-leftbar-save
       .click('#edit-leftbar-save')
-      .waitUntilTextExists('#edit-bar-prompt', '另存成功')
+      .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件！')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         expect(editText).to.be.an('string');
@@ -304,14 +304,14 @@ describe('Edit', function () {
     // 2.3、点击左侧工具栏 新建按钮 edit-leftbar-newdoc
     // 2.4、点击左侧工具栏 保存按钮 edit-leftbar-preservation
       .click('#edit-leftbar-preservation')
-      .waitUntilTextExists('#edit-bar-prompt', '保存内容不能为空')
+      .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件！')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
     // 2.5、点击左侧工具栏 另存按钮 edit-leftbar-save
       .click('#edit-leftbar-save')
-      .waitUntilTextExists('#edit-bar-prompt', '另存成功')
+      .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件！')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         expect(editText).to.be.an('string');
