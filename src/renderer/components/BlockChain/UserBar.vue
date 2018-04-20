@@ -33,8 +33,8 @@
 </template>
 
 <script>
+  import { open, getAccountsPublicKey } from '../../utils/BlockAccount'
   import { transactionsUnconfirmedAll } from '../../utils/BlockTransaction'
-  import { open } from '../../utils/BlockAccount'
   export default {
     data() {
       return {
@@ -55,10 +55,14 @@
       transaction: function () {
         this.$store.commit('BLOCK_SET_TOOLBAR', 'transaction');
         this.$store.commit('SET_NOTICE', '转账交易');
+        const ip = this.$store.state.System.server
+        const port = 4000
+        const username = this.$store.state.Block.account.username
+        getAccountsPublicKey(this, [ip, port, username])
       },
       transRecord: function () {
-        const ip = this.$store.state.Block.server
-        const port = this.$store.state.Block.port
+        const ip = this.$store.state.System.server
+        const port = 4000
         const user = global.hitbdata.blockchain_user
         // console.log(ip)
         // getTransactions(this, [ip, port, user])
@@ -67,9 +71,9 @@
         this.$store.commit('SET_NOTICE', '账户交易记录');
       },
       login: function () {
-        console.log('sssssssssss');
+        // console.log('sssssssssss');
         const ip = this.$store.state.System.server
-        const port = this.$store.state.System.port
+        const port = 4000
         // const user = global.hitbdata.blockchain_user
         const username = this.$store.state.System.user.username
         open(this, [ip, port, this.name, 1, username])

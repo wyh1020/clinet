@@ -6,19 +6,31 @@ const axios = require('axios');
 // 获取区块数据
 export function bcBlockchain(obj, data) {
   // const serverIp = '127.0.0.1'
-  // const serverPort = '80'
+  // const serverPort = '80'blocks
   console.log(data);
-  axios.get(`http://${data[0]}:${data[1]}/block/bc_blockchain?page=${data[2]}`)
+  axios.get(`http://${data[0]}:${data[1]}/api/blocks`)
     .then((res) => {
       if (res.status === 200) {
         console.log(res.data);
-        obj.$store.commit('BLOCK_SET_BLOCKBLOCK', res.data)
-        obj.$store.commit('BLOCK_SET_PEERS', res.data.data.blocks)
+        // obj.$store.commit('BLOCK_SET_BLOCKBLOCK', res.data)
+        // obj.$store.commit('BLOCK_SET_PEERS', res.data.data.blocks)
       }
     })
     .catch((err) => {
       console.log(err);
     });
+  // console.log(data);
+  // axios.get(`http://${data[0]}:${data[1]}/block/bc_blockchain?page=${data[2]}`)
+  //   .then((res) => {
+  //     if (res.status === 200) {
+  //       console.log(res.data);
+  //       obj.$store.commit('BLOCK_SET_BLOCKBLOCK', res.data)
+  //       obj.$store.commit('BLOCK_SET_PEERS', res.data.data.blocks)
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 }
 
 // 获取区块数据

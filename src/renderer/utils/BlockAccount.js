@@ -1,6 +1,6 @@
 // const AschJS = require('asch-js');
 const axios = require('axios');
-
+const qs = require('qs');
 // const secret = 'someone manual strong movie roof episode eight spatial brown soldier soup motor';
 // const keys = AschJS.crypto.getKeys(secret);
 // console.log('根据密码生成公钥、私钥');
@@ -60,14 +60,17 @@ const axios = require('axios');
 export function open(obj, data) {
   console.log(data);
   axios({
-    method: 'get',
-    url: `http://${data[0]}:${data[1]}/block/blockchain?page=${data[3]}&username=${data[4]}`,
+    method: 'post',
+    url: `http://${data[0]}:${data[1]}/api/open/`,
+    data: qs.stringify({ username: data[2] }),
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
+      console.log(res)
       obj.$store.commit('SET_NOTICE', '区块链服务登录成功!');
-      obj.$store.commit('BLOCK_SET_ACCOUNT', res.data.data.account);
-      obj.$store.commit('BLOCK_SET_TRANS', res.data.transactions)
+      obj.$store.commit('BLOCK_SET_ACCOUNT', res.data.user);
+      // obj.$store.commit('BLOCK_SET_TRANS', res.data.transactions)
       obj.$store.commit('BLOCK_SET_BLOCKCHAIN', res.data)
     } else {
       obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
@@ -76,6 +79,24 @@ export function open(obj, data) {
     obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
     console.log(err)
   })
+  // console.log(data);
+  // axios({
+  //   method: 'get',
+  //   url: `http://${data[0]}:${data[1]}/block/blockchain?page=${data[3]}&username=${data[4]}`,
+  //   responseType: 'json'
+  // }).then((res) => {
+  //   if (res.status === 200) {
+  //     obj.$store.commit('SET_NOTICE', '区块链服务登录成功!');
+  //     obj.$store.commit('BLOCK_SET_ACCOUNT', res.data.data.account);
+  //     obj.$store.commit('BLOCK_SET_TRANS', res.data.transactions)
+  //     obj.$store.commit('BLOCK_SET_BLOCKCHAIN', res.data)
+  //   } else {
+  //     obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
+  //   }
+  // }).catch((err) => {
+  //   obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
+  //   console.log(err)
+  // })
 }
 // 本地不加密直接登陆
 export function open3(obj, data) {
@@ -345,4 +366,25 @@ export function multisignaturesAccounts(obj, data) {
     .catch((err) => {
       console.log(err);
     });
+}
+// 获取用户地址
+export function getAccountsPublicKey(obj, data) {
+  axios({
+    method: 'get',
+    url: `http://${data[0]}:${data[1]}/api/getAccountsPublicKey?username=${data[2]}`,
+    responseType: 'json'
+  }).then((res) => {
+    if (res.status === 200) {
+      console.log(res.data.publicKeys)
+      // obj.$store.commit('SET_NOTICE', '区块链服务登录成功!');
+      // obj.$store.commit('BLOCK_SET_ACCOUNT', res.data.data.account);
+      // obj.$store.commit('BLOCK_SET_TRANS', res.data.transactions)
+      obj.$store.commit('BLOCK_GET_PUBLICKEYS', res.data.publicKeys)
+    } else {
+      obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
+    }
+  }).catch((err) => {
+    obj.$store.commit('SET_NOTICE', '未注册用户登陆！');
+    console.log(err)
+  })
 }

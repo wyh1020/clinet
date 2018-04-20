@@ -25,7 +25,8 @@ const state = {
   pege: 0,
   blockPage: 0,
   blockChain: {},
-  blockBlock: { data: { blocks: [] } }
+  blockBlock: { data: { blocks: [] } },
+  publicKeys: []
 };
 
 const mutations = {
@@ -60,6 +61,7 @@ const mutations = {
     state.trans = trans;
   },
   BLOCK_SET_TRANSUN(state, transUn) {
+    console.log(transUn);
     state.transUn = transUn;
   },
   BLOCK_SET_SERVER_STATUS(state, m) {
@@ -125,6 +127,9 @@ const mutations = {
   BLOCK_SET_BLOCKBLOCK(state, value) {
     state.blockBlock = value
   },
+  BLOCK_GET_PUBLICKEYS(state, value) {
+    state.publicKeys = value
+  },
 };
 
 const actions = {
@@ -149,6 +154,7 @@ const actions = {
     commit('BLOCK_SET_BLOCKPAGE');
     commit('BLOCK_SET_BLOCKCHAIN');
     commit('BLOCK_SET_BLOCKBLOCK');
+    commit('BLOCK_GET_PUBLICKEYS');
   },
 };
 
