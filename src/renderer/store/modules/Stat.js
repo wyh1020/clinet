@@ -15,7 +15,7 @@ const state = {
   rightLine: null,
   rightRadar: null,
   rightScatter: null,
-  dimension: [],
+  dimensionSel: ['时间', '机构', '病种', '全部', '自定义维度'],
   dimensionType: null,
   dimensionOrg: [],
   dimensionTime: [],
@@ -44,7 +44,7 @@ const state = {
   titlePage: 0,
   compareTable1: [],
   chartOption: '',
-  chartIsShow: true,
+  chartIsShow: 'chart',
   serverMenu: { first: [], second: [], third: [], type: '' },
   caseTable: { page: 1, countPage: 0, data: [], pageList: [], tableName: '' }
 };
@@ -276,7 +276,7 @@ const mutations = {
     state.colNum = num
   },
   STAT_SET_CHART_OPTION(state, opt) {
-    state.chartIsShow = true
+    state.chartIsShow = 'chart'
     state.chartOption = opt
   },
   STAT_SET_CHART_IS_SHOW(state, value) {
@@ -303,14 +303,12 @@ const mutations = {
   STAT_SET_CASE_TABLE(state, value) {
     state.caseTable = value
   },
-  // STAT_TABLE_PAGE(state, n) {
-  //   if (state.tableType === 'server' && n === 0) {
-  //     state.serverTable.page = n;
-  //   } else if (state.countPage !== n) {
-  //     state.tablePage += n;
-  //     state.localTable = state.localTables[state.tablePage]
-  //   }
-  // },
+  STAT_SET_DIMENSION_SEL(state, value) {
+    const index = state.dimensionSel.indexOf(value)
+    if (index === -1) {
+      state.dimensionSel.push(value)
+    }
+  }
 };
 
 const actions = {
@@ -344,6 +342,7 @@ const actions = {
     commit('STAT_SET_CHART_IS_SHOW');
     commit('STAT_SET_SERVER_MENU');
     commit('STAT_SET_CASE_TABLE');
+    commit('STAT_SET_DIMENSION_SEL');
   },
 };
 export default {

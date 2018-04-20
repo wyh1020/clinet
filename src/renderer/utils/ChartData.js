@@ -1,6 +1,6 @@
 // (数据, 行集合)
 export default function chartData(obj, table, xid = [], yid = []) {
-  obj.$store.commit('STAT_SET_CHART_IS_SHOW', true);
+  obj.$store.commit('STAT_SET_CHART_IS_SHOW', 'chart');
   const xArr = []
   let yArr = []
   const stat = []

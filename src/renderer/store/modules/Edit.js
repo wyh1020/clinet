@@ -52,14 +52,10 @@ const mutations = {
   },
   EDIT_SAVE_DOC(state, m) {
     if (state.lastNav !== '/edit') {
-      console.log(m)
-      const a = m[1].split(',')
-      console.log(m[1])
-      console.log(a)
+      // const a = m[1].split(',')
     } else {
       state.file.splice(m[0], 1, m[1]);
     }
-    // console.log(m[1])
   },
   EDIT_SAVE_FILE(state, m) {
     state.file.splice(m[0], 1, m[1]);
@@ -69,7 +65,6 @@ const mutations = {
     state.files = files;
   },
   EDIT_LOAD_FILE(state, message) {
-    console.log(message);
     state.file = message;
   },
   EDIT_NEW_FILES(state) {
@@ -176,8 +171,6 @@ const mutations = {
   },
   EDIT_UPDATE_FILE(state, value) {
     // state.file = type;
-    console.log(state.file)
-    console.log(value)
     state.file.map((x, key) => {
       if (key > 0) {
         x.splice(value[0], 1, value[1])

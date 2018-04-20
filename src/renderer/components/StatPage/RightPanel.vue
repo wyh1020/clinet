@@ -1,7 +1,7 @@
 <template>
   <div>
     <right-bar></right-bar>
-    <div class="row" v-show="this.$store.state.Stat.chartIsShow === true">
+    <div class="row" v-show="this.$store.state.Stat.chartIsShow === 'chart'">
       <div class="col">
         <left-panel></left-panel>
       </div>
@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <div class="row" v-show="this.$store.state.Stat.chartIsShow === false">
+    <div class="row" v-show="this.$store.state.Stat.chartIsShow === 'menu'">
       <div class="col">
         <left-panel></left-panel>
       </div>
@@ -51,6 +51,24 @@
             <li v-for="(data, index) in notice" v-bind:key='index'>{{data}}</li>
           </ol>
         </div>
+      </div>
+    </div>
+    <div class="row" v-show="this.$store.state.Stat.chartIsShow === 'dimension'">
+      <div class="col">
+        <left-panel></left-panel>
+      </div>
+      <div class="col">
+        <form style="margin-top: 20px">
+          <div class="form-group">
+            <label for="exampleInputEmail1">维度选择：</label>
+            <input type="text" class="form-control" placeholder="">
+          </div>
+          <button type="submit" class="btn btn-primary">查询</button>
+        </form>
+      </div>
+      <div class="col">
+      </div>
+      <div class="col">
       </div>
     </div>
     <table>
@@ -140,7 +158,6 @@
               break;
             }
           }
-          // this.table = table
           return table
         }
       },
@@ -148,8 +165,6 @@
         get() {
           let f = []
           if (this.$store.state.Stat.tableType === 'compare') {
-            f = []
-          } else if (this.$store.state.Stat.tableType === 'case') {
             f = []
           } else {
             f = this.$store.state.Stat.selectedRow
@@ -196,7 +211,7 @@
           tindex = header.indexOf('时间')
         }
         if (index !== undefined) {
-          this.$store.commit('STAT_SET_CHART_IS_SHOW', true);
+          this.$store.commit('STAT_SET_CHART_IS_SHOW', 'chart');
           const value = this.$store.state.Stat.tableSel.map((x) => {
             let isType = false
             if (x[index] === '-' || x[index] === '') {
@@ -223,7 +238,6 @@
               if (index === cindex && data !== this.$store.state.Stat.serverTable.data[0]) {
                 this.$store.commit('STAT_SET_TABLE_TYPE', 'case');
                 let org = ''
-                console.log(data[oindex])
                 if (data[oindex] === '全部机构') {
                   org = ''
                 } else {
@@ -240,11 +254,12 @@
       },
       onClick: function (data, index) {
         if (index !== undefined) {
+          this.flag = index
           this.$store.commit('STAT_SET_ROW', index);
           this.$store.commit('STAT_GET_FIELD', data);
           this.$store.commit('STAT_GET_FIELD_INDEX', index);
         }
-        this.$store.commit('STAT_SET_CHART_IS_SHOW', true);
+        this.$store.commit('STAT_SET_CHART_IS_SHOW', 'chart');
         const id = 'chartLeft'
         const type = this.$store.state.Stat.chartLeft
         let table = []
@@ -320,7 +335,7 @@
         this.$store.commit('STAT_SET_FILE_INDEX', index);
         // 图表
         if (index[0] === 'third') {
-          this.$store.commit('STAT_SET_CHART_IS_SHOW', true);
+          this.$store.commit('STAT_SET_CHART_IS_SHOW', 'chart');
           chartBar('chartLeft', null)
           chartLine('chartRight', null)
         }
