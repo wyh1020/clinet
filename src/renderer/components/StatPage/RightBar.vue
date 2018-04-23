@@ -166,11 +166,11 @@
               this.$store.commit('STAT_TABLE_PAGE', n);
               this.$store.commit('SET_NOTICE', `当前${this.$store.state.Stat.tablePage}页,共${this.$store.state.Stat.countPage}页`)
               table = this.$store.state.Stat.localTable
+              chartData(this, table, this.$store.state.Stat.selectedRow, this.$store.state.Stat.selectedCol)
               break;
             default:
               break;
           }
-          chartData(this, table, this.$store.state.Stat.selectedRow, this.$store.state.Stat.selectedCol)
           switch (this.$store.state.Stat.chartLeft) {
             case '柱状图':
               chartBar('chartLeft', this.$store.state.Stat.chartData)
