@@ -73,7 +73,7 @@
     </div>
     <table>
       <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" class="stat-right-table-tr" v-bind:class="{'table-danger':flag.find((n)=>n===index)}">
-        <td v-for="(field, index) in data" v-bind:key='index' v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}" v-on:click="onClickTd(data, index)" class="stat-right-table-td"  v-if="index < 20">{{data[index]}}</td>
+        <td v-for="(field, index) in data" v-bind:key='index' v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}" v-on:click="onClickTd(data, index)" class="stat-right-table-td"  v-if="index < 10">{{data[index]}}</td>
       </tr>
     </table>
     <nav aria-label="Page navigation example" v-if="this.$store.state.Stat.tableType === 'server'">
@@ -237,6 +237,7 @@
               }
               if (index === cindex && data !== this.$store.state.Stat.serverTable.data[0]) {
                 this.$store.commit('STAT_SET_TABLE_TYPE', 'case');
+                this.$store.commit('SET_NOTICE', '查看病历数');
                 let org = ''
                 if (data[oindex] === '全部机构') {
                   org = ''

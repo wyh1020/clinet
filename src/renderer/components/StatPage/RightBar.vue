@@ -12,7 +12,7 @@
         <li class="nav-item active" id="stat-local-doc" v-on:click='loadData'>
           <a class="nav-link text-light" href="#"> 本地文件 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="stat-left-chart" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             远程文件
           </a>
@@ -23,7 +23,7 @@
             <a id="stat-left-chart-scatter-plot" class="nav-link" href="#" v-on:click='serverData("统计分析")'> 统计分析 <span class="sr-only">(current)</span></a>
             <a id="stat-left-chart-pie-map" class="nav-link" href="#" v-on:click='serverData("Drg分析")'> drg分析 <span class="sr-only">(current)</span></a>
           </div>
-        </li>
+        </li> -->
         <li class="nav-item active" id="stat-remote-file" v-on:click='serverData'>
           <a class="nav-link text-light" href="#"> 远程文件 <span class="sr-only">(current)</span></a>
         </li>
@@ -74,10 +74,11 @@
             维度选择
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a id="stat-right-dimension-org" class="nav-link" href="#" v-on:click='selX("机构")'> 机构 <span class="sr-only">(current)</span></a>
+            <!-- <a id="stat-right-dimension-org" class="nav-link" href="#" v-on:click='selX("机构")'> 机构 <span class="sr-only">(current)</span></a>
             <a id="stat-right-dimension-time" class="nav-link" href="#" v-on:click='selX("时间")'> 时间 <span class="sr-only">(current)</span></a>
             <a id="stat-right-dimension-disease" class="nav-link" href="#" v-on:click='selX("病种")' v-if="tableType === 'local'"> 病种 <span class="sr-only">(current)</span></a>
-            <a id="stat-right-dimension-disease" class="nav-link" href="#" v-on:click='selX("全部")'> 全部 <span class="sr-only">(current)</span></a>
+            <a id="stat-right-dimension-disease" class="nav-link" href="#" v-on:click='selX("全部")'> 全部 <span class="sr-only">(current)</span></a> -->
+            <a id="stat-right-dimension-org" v-for="(data, index) in dimensionSel" v-bind:key='index' class="nav-link" href="#" v-on:click='selX(index)'> {{data}} <span class="sr-only">(current)</span></a>
           </div>
         </li>
         <li class="nav-item active" id="stat-prev-page" v-on:click='title(-1)' v-if="this.$store.state.Stat.colNum > 10">
@@ -114,19 +115,33 @@
         tableType: this.$store.state.Stat.tableType,
       };
     },
+    computed: {
+      dimensionSel: {
+        get() {
+          return this.$store.state.Stat.dimensionSel
+        }
+      },
+      file: {
+        get() {
+          return this.$store.state.Stat.file
+        }
+      }
+    },
     methods: {
       loadData: function () {
+        this.$store.commit('SET_NOTICE', '选择本地文件')
         this.$store.commit('STAT_SET_TABLE_PAGE', 1)
         this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
         this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
         this.$store.commit('STAT_LOAD_FILES');
-        this.$store.commit('STAT_SET_CHART_IS_SHOW', true);
+        this.$store.commit('STAT_SET_CHART_IS_SHOW', 'chart');
       },
       serverData: function () {
         if (!this.$store.state.System.user.login) {
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
         } else {
-          this.$store.commit('STAT_SET_CHART_IS_SHOW', false);
+          this.$store.commit('SET_NOTICE', '选择远程文件')
+          this.$store.commit('STAT_SET_CHART_IS_SHOW', 'menu');
           this.$store.commit('STAT_SET_TABLE_PAGE', 1)
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
           this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
@@ -155,7 +170,7 @@
             default:
               break;
           }
-          chartData(this, table, this.$store.state.Stat.selectedRow, this.$store.state.Stat.selectedCold)
+          chartData(this, table, this.$store.state.Stat.selectedRow, this.$store.state.Stat.selectedCol)
           switch (this.$store.state.Stat.chartLeft) {
             case '柱状图':
               chartBar('chartLeft', this.$store.state.Stat.chartData)
@@ -212,17 +227,25 @@
           default:
         }
         this.$store.commit('EDIT_SET_LAST_NAV', '/stat');
+        this.$store.commit('SET_NOTICE', '数据采集-数据采集');
         this.$router.push('/edit');
       },
       selX: function (x) {
+        this.$store.commit('SET_NOTICE', `选择维度：${this.dimensionSel[x]}`)
         switch (this.$store.state.Stat.tableType) {
           case 'local': {
             if (this.$store.state.Stat.localTable.length > 0) {
-              if (x === '全部') {
+              if (this.dimensionSel[x] === '全部') {
                 this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
                 loadFile(this, this.$store.state.Stat.fileName, 'stat')
-              } else {
+              } else if (this.dimensionSel[x] === '自定义维度') {
+                const header = this.file[0].split(',')
+                const col = this.$store.state.Stat.selectedCol
+                col.map(x => this.$store.commit('STAT_SET_DIMENSION_SEL', header[x]));
+              } else if (this.dimensionSel[x] === '时间' || this.dimensionSel[x] === '机构' || this.dimensionSel[x] === '病种') {
                 this.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', x]);
+              } else {
+                this.$store.commit('STAT_SET_CHART_IS_SHOW', 'dimension');
               }
             } else {
               this.$store.commit('SET_NOTICE', '请选择文件');
@@ -231,10 +254,14 @@
           }
           case 'server': {
             if (this.$store.state.Stat.serverTable.data.length > 0) {
-              if (x === '全部') {
+              if (this.dimensionSel[x] === '全部') {
                 this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
                 this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
                 getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer }, 'stat')
+              } else if (this.dimensionSel[x] === '自定义维度') {
+                const header = this.file[0].split(',')
+                const col = this.$store.state.Stat.selectedCol
+                col.map(x => this.$store.commit('STAT_SET_DIMENSION_SEL', header[x]));
               } else {
                 getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Stat.serverTable.tableName, x, this.$store.state.System.user.username)
               }
@@ -250,6 +277,7 @@
       },
       showChart: function (id, type) {
         let option = this.$store.state.Stat.chartData
+        this.$store.commit('SET_NOTICE', type)
         if (option.length === 0) {
           option = null
         }
