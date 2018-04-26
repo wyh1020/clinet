@@ -166,9 +166,12 @@
           let f = []
           if (this.$store.state.Stat.tableType === 'compare') {
             f = []
+          } else if (this.$store.state.Stat.tableType === 'case') {
+            f = this.$store.state.Stat.caseSelectedRow
           } else {
             f = this.$store.state.Stat.selectedRow
           }
+          // console.log(f)
           return f
         },
         set() {}
@@ -179,7 +182,7 @@
           if (this.$store.state.Stat.tableType === 'compare') {
             f = []
           } else if (this.$store.state.Stat.tableType === 'case') {
-            f = []
+            f = this.$store.state.Stat.caseSelectedCol
           } else {
             f = this.$store.state.Stat.selectedCol
           }
@@ -249,6 +252,12 @@
                 getStatWt4(this, [this.$store.state.System.server, this.$store.state.System.port], org, time, drg)
               }
               break;
+            case 'case':
+              console.log(data[0])
+              if (data[0] === '病案ID' && data[1] === '主要诊断') {
+                this.$store.commit('STAT_SET_CASE_COL', index);
+              }
+              break;
             default:
           }
         }
@@ -269,6 +278,7 @@
         } else if (this.$store.state.Stat.tableType === 'server') {
           table = this.$store.state.Stat.serverTable.data
         } else if (this.$store.state.Stat.tableType === 'case') {
+          this.$store.commit('STAT_SET_CASE_ROW', index);
           table = this.$store.state.Stat.caseTable.data
         } else {
           table = this.$store.state.Stat.compareTable

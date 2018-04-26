@@ -15,6 +15,7 @@ const state = {
   rightLine: null,
   rightRadar: null,
   rightScatter: null,
+  dimension: null,
   dimensionSel: ['时间', '机构', '病种', '全部', '自定义维度'],
   dimensionType: null,
   dimensionOrg: [],
@@ -46,7 +47,9 @@ const state = {
   chartOption: '',
   chartIsShow: 'chart',
   serverMenu: { first: [], second: [], third: [], type: '' },
-  caseTable: { page: 1, countPage: 0, data: [], pageList: [], tableName: '' }
+  caseTable: { page: 1, countPage: 0, data: [], pageList: [], tableName: '' },
+  caseSelectedRow: [],
+  caseSelectedCol: []
 };
 
 const mutations = {
@@ -308,6 +311,26 @@ const mutations = {
     if (index === -1) {
       state.dimensionSel.push(value)
     }
+  },
+  STAT_SET_CASE_ROW(state, index) {
+    const x = state.caseSelectedRow.indexOf(index)
+    if (x === -1) {
+      state.caseSelectedRow.push(index)
+    } else {
+      state.caseSelectedRow.splice(x, 1)
+    }
+  },
+  STAT_SET_CASE_COL(state, index) {
+    const x = state.caseSelectedCol.indexOf(index)
+    if (x === -1) {
+      state.caseSelectedCol.push(index)
+    } else {
+      state.caseSelectedCol.splice(x, 1)
+    }
+  },
+  STAT_SET_CASE_FLAG(state) {
+    state.caseSelectedRow = []
+    state.caseSelectedCol = []
   }
 };
 
@@ -343,6 +366,9 @@ const actions = {
     commit('STAT_SET_SERVER_MENU');
     commit('STAT_SET_CASE_TABLE');
     commit('STAT_SET_DIMENSION_SEL');
+    commit('STAT_SET_CASE_ROW');
+    commit('STAT_SET_CASE_COL');
+    commit('STAT_SET_CASE_FLAG');
   },
 };
 export default {

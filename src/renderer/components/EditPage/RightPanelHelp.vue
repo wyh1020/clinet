@@ -118,6 +118,11 @@
         <th class="table-danger"> 病案参考</th>
       </tr>
     </table>
+    <table v-if="type === 'drg分析'">
+      <tr>
+        <th class="table-danger"> drg分析</th>
+      </tr>
+    </table>
   </div>
 </template>
 

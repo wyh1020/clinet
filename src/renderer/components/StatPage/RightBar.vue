@@ -235,6 +235,15 @@
         switch (this.$store.state.Stat.tableType) {
           case 'local': {
             if (this.$store.state.Stat.localTable.length > 0) {
+              let x1 = ''
+              if (this.dimensionSel[x] === '时间') {
+                x1 = 'time'
+              } else if (this.dimensionSel[x] === '机构') {
+                x1 = 'org'
+              } else {
+                x1 = 'drg2'
+              }
+              console.log(x1)
               if (this.dimensionSel[x] === '全部') {
                 this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
                 loadFile(this, this.$store.state.Stat.fileName, 'stat')
@@ -243,7 +252,8 @@
                 const col = this.$store.state.Stat.selectedCol
                 col.map(x => this.$store.commit('STAT_SET_DIMENSION_SEL', header[x]));
               } else if (this.dimensionSel[x] === '时间' || this.dimensionSel[x] === '机构' || this.dimensionSel[x] === '病种') {
-                this.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', x]);
+                console.log('111')
+                this.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', this.dimensionSel[x]]);
               } else {
                 this.$store.commit('STAT_SET_CHART_IS_SHOW', 'dimension');
               }

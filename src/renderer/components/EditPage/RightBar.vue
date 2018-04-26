@@ -16,6 +16,7 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" v-on:click='help("病案历史")' id="edit-rightbar-medicalHistory">病案历史</a>
             <a class="dropdown-item" href="#" v-on:click='help("病案参考")' id="edit-rightbar-medicalRefer">病案参考</a>
+            <a class="dropdown-item" href="#" v-on:click='help("drg分析")'>drg分析</a>
           </div>
         </li>
         <li class="nav-item active" v-on:click='help(null)' id="edit-rightbar-help">
@@ -45,6 +46,7 @@
   import { getEditFiles, getEdit } from '../../utils/EditServerFile'
   import { getStat } from '../../utils/StatServerFile'
   import { getLibrary } from '../../utils/LibraryServerFile'
+  import { sCompDrg } from '../../utils/Server'
   export default {
     data() {
       return {
@@ -58,6 +60,8 @@
         if (n) {
           this.$store.commit('EDIT_SET_HELP_TYPE', n);
           this.$store.commit('SET_NOTICE', n);
+        } else if (n === 'drg分析') {
+          sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables, 'BJ'], 'getLocalData')
         }
       },
       localData: function () {
@@ -82,7 +86,6 @@
       },
       serverData: function () {
         this.$store.commit('EDIT_SET_SERVER_TYPE', 'server');
-        console.log(this.$store.state.Edit.serverType);
         if (!this.$store.state.System.user.login) {
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
         } else {

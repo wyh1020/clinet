@@ -28,7 +28,10 @@
     computed: {
       xs: {
         get() {
-          return this.$store.state.Stat.dimension
+          let a = null
+          a = this.$store.state.Stat.dimension
+          console.log(a)
+          return a
         }
       }
     },
