@@ -30,7 +30,7 @@
                   ：{{ item[1] }} {{ item[2] }} {{ item[3] }} {{ item[4] }} {{ item[5] }} {{ item[6] }} {{ item[7] }} {{ item[8] }}
                 </li>
                 <li class="breadcrumb-item" v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-if="item.length < 2">
-                  <b>{{ item[0] }}</b>
+                  <b>{{ item[0] }} </b>
                 </li>
                 <hr>
               </ol>      

@@ -125,6 +125,11 @@
         get() {
           return this.$store.state.Stat.file
         }
+      },
+      selectedCol: {
+        get() {
+          return this.$store.state.Stat.selectedCol
+        }
       }
     },
     methods: {
@@ -235,27 +240,28 @@
         switch (this.$store.state.Stat.tableType) {
           case 'local': {
             if (this.$store.state.Stat.localTable.length > 0) {
-              let x1 = ''
-              if (this.dimensionSel[x] === '时间') {
-                x1 = 'time'
-              } else if (this.dimensionSel[x] === '机构') {
-                x1 = 'org'
-              } else {
-                x1 = 'drg2'
-              }
-              console.log(x1)
+              // let x1 = ''
+              // if (this.dimensionSel[x] === '时间') {
+              //   x1 = 'time'
+              // } else if (this.dimensionSel[x] === '机构') {
+              //   x1 = 'org'
+              // } else {
+              //   x1 = 'drg2'
+              // }
               if (this.dimensionSel[x] === '全部') {
                 this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
                 loadFile(this, this.$store.state.Stat.fileName, 'stat')
               } else if (this.dimensionSel[x] === '自定义维度') {
-                const header = this.file[0].split(',')
-                const col = this.$store.state.Stat.selectedCol
-                col.map(x => this.$store.commit('STAT_SET_DIMENSION_SEL', header[x]));
+                if (this.selectedCol.length > 0) {
+                  this.$store.commit('STAT_SET_CHART_IS_SHOW', 'dimension');
+                } else {
+                  this.$store.commit('SET_NOTICE', '请选择维度！')
+                }
+                // const header = this.file[0].split(',')
+                // const col = this.$store.state.Stat.selectedCol
+                // col.map(x => this.$store.commit('STAT_SET_DIMENSION_SEL', header[x]));
               } else if (this.dimensionSel[x] === '时间' || this.dimensionSel[x] === '机构' || this.dimensionSel[x] === '病种') {
-                console.log('111')
                 this.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', this.dimensionSel[x]]);
-              } else {
-                this.$store.commit('STAT_SET_CHART_IS_SHOW', 'dimension');
               }
             } else {
               this.$store.commit('SET_NOTICE', '请选择文件');

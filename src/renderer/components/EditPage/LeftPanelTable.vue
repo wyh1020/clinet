@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="overflow:auto;">
     <table id="edit-leftpaneltable-table">
       <tr>
         <th colspan="10" class="table-danger"> 选择编辑条目</th>
@@ -23,7 +23,6 @@
       file: {
         get() {
           let f = []
-          console.log(this.$store.state.Edit.lastNav);
           if (this.$store.state.Edit.lastNav === '/edit') {
             let start = 0
             let fileLen = this.$store.state.Edit.file.length;
@@ -81,8 +80,6 @@
         this.$store.commit('EDIT_SET_BAR_VALUE', data[index]);
       },
       loadDoc: function (data, index) {
-        // console.log(data);
-        // console.log(index);
         this.$store.commit('EDIT_SET_FILE_INDEX', index)
         let r = []
         if (this.$store.state.Edit.fileType === 'csv') {

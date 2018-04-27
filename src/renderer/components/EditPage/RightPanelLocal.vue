@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="overflow:auto;">
     <table id="edit-rightpanellocal-table">
       <tr>
         <th class="table-danger" id="edit-rightpanellocal-title"> {{title}}</th>

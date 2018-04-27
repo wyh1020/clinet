@@ -331,6 +331,18 @@ const mutations = {
   STAT_SET_CASE_FLAG(state) {
     state.caseSelectedRow = []
     state.caseSelectedCol = []
+  },
+  STAT_SET_TABLE(state, value) {
+    switch (value[0]) {
+      case 'local':
+        state.localTable = value[1]
+        break;
+      case 'server':
+        state.serverTable = value[1]
+        break;
+      default:
+        break;
+    }
   }
 };
 
@@ -369,6 +381,7 @@ const actions = {
     commit('STAT_SET_CASE_ROW');
     commit('STAT_SET_CASE_COL');
     commit('STAT_SET_CASE_FLAG');
+    commit('STAT_SET_TABLE');
   },
 };
 export default {
