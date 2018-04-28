@@ -69,11 +69,49 @@
         </form>
       </div>
     </div>
-    <table>
-      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" class="stat-right-table-tr" v-bind:class="{'table-danger':flag.find((n)=>n===index)}">
-        <td v-for="(field, index) in data" v-bind:key='index' v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}" v-on:click="onClickTd(data, index)" class="stat-right-table-td"  v-if="index < 10">{{data[index]}}</td>
-      </tr>
-    </table>
+    <div v-show="this.$store.state.Stat.fileName !== '病案数据'">
+      <table>
+        <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" class="stat-right-table-tr" v-bind:class="{'table-danger':flag.find((n)=>n===index)}">
+          <td v-for="(field, index) in data" v-bind:key='index' v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}" v-on:click="onClickTd(data, index)" class="stat-right-table-td"  v-if="index < 10">{{data[index]}}</td>
+        </tr>
+      </table>
+    </div>
+    <div v-show="this.$store.state.Stat.fileName === '病案数据'">
+      <table>
+          <thead>
+            <tr>
+              <th>年龄</th>
+              <th>性别</th>
+              <th>出院转归</th>
+              <th>主要诊断</th>
+              <th>其他诊断</th>
+              <th>手术操作</th>
+              <th>新生儿出生天数</th>
+              <th>新生儿入院体重</th>
+              <th>呼吸机使用小时数</th>
+              <th>总费用</th>
+              <th>住院天数</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(value, index) in this.$store.state.Stat.serverTable.data"  v-bind:key="index">
+              <td>{{value.age}}</td>
+              <td>{{value.gender}}</td>
+              <td>{{value.sf0108}}</td>
+              <td>{{value.disease_code}}</td>
+              <td v-if="value.diags_code.length > 0">{{value.diags_code.join(',')}}</td>
+              <td v-if="value.diags_code.length === 0"></td>
+              <td v-if="value.opers_code.length > 0">{{value.opers_code.join(',')}}</td>
+              <td v-if="value.opers_code.length === 0"></td>
+              <td>{{value.sf0100}}</td>
+              <td>{{value.sf0102}}</td>
+              <td>{{value.sf0104}}</td>
+              <td>{{value.total_expense}}</td>
+              <td>{{value.acctual_days}}</td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
     <nav aria-label="Page navigation example" v-if="this.$store.state.Stat.tableType === 'server'">
       <ul class="pagination">
         <li class="page-item" v-for= "(value, index) in page.pageList" v-bind:key="index" v-bind:class="{'disabled':value.page == page.page}" v-on:click="serverPage(value.page)"><a class="page-link" href="#">
@@ -130,6 +168,7 @@
             }
             case 'server': {
               table = this.$store.state.Stat.serverTable.data
+              console.log(table)
               break;
             }
             case 'case': {

@@ -208,6 +208,7 @@ const mutations = {
     })
   },
   STAT_SET_SERVER_TABLE(state, opt) {
+    console.log(opt)
     state.isServer = true
     state.serverTable = opt
   },
@@ -291,6 +292,7 @@ const mutations = {
     switch (type) {
       case '一级菜单':
         state.serverMenu.first = opt2
+        state.serverMenu.first.push('病案数据')
         break;
       case '二级菜单':
         state.serverMenu.second = opt2

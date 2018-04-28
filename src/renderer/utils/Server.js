@@ -315,7 +315,13 @@ export function sGetWt4(obj, data) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
-    if (res.status === 200) {
+    console.log(data)
+    if (data[3] === 'stat') {
+      if (res.status === 200) {
+        console.log(res.data)
+        obj.$store.commit('STAT_SET_SERVER_TABLE', res.data)
+      }
+    } else if (res.status === 200) {
       obj.$store.commit('SYSTEM_SET_WT4', [res.data, '病案查询成功', true])
     } else {
       obj.$store.commit('SYSTEM_SET_WT4', [{}, '病案查询失败', false])

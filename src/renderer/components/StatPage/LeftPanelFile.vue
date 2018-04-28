@@ -16,6 +16,7 @@
   import chartLine from '../../utils/ChartLine';
   import chartBar from '../../utils/ChartBar';
   import { getStatFiles, getStat } from '../../utils/StatServerFile'
+  import { sGetWt4 } from '../../utils/Server'
   export default {
     data() {
       return {
@@ -44,12 +45,26 @@
     },
     methods: {
       loadFile: function (data, index) {
+        console.log(data)
         this.$store.commit('STAT_SET_FILE_FLAG');
         // this.flag = index
         this.$store.commit('STAT_SET_FILE_NAME', data);
         this.$store.commit('STAT_SET_FILE_INDEX', ['first', index]);
         this.$store.commit('STAT_SET_TABLE_PAGE', 1)
-        if (this.$store.state.Stat.isServer) {
+        if (data === '病案数据') {
+          if (this.$store.state.System.connectInfo) {
+            // this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServerData');
+            this.$store.commit('SET_NOTICE', '远程病案数据');
+            // 返回默认值页码
+            this.$store.commit('SYSTEM_SET_LOCAL_PAGE', 1);
+            // 保存分组数据类型
+            this.$store.commit('SYSTEM_SET_COMPUTE_DATA', 'getServerData');
+            sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, 1, 'stat'])
+            // this.$store.commit('STAT_SET_SERVER_TABLE', this.$store.state.System.wt4);
+          } else {
+            this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
+          }
+        } else if (this.$store.state.Stat.isServer) {
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server')
           if (data.endsWith('.csv')) {
             this.$store.commit('STAT_SET_CHART_IS_SHOW', 'chart');
