@@ -17,7 +17,6 @@ describe('EditLocalFile', function () {
       .getText('#edit-editbar-input')
       .then(function (editText) {
         expect(editText).to.equal('');
-        console.log('11111111111')
       })
     // 2.10、点击右侧工具栏 本地按钮 edit-rightbar-local 右侧出现当前本地文件
       .click('#edit-rightbar-local')

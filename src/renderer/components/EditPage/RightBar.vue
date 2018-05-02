@@ -88,9 +88,11 @@
         this.$store.commit('EDIT_SET_SERVER_TYPE', 'server');
         if (!this.$store.state.System.user.login) {
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
+          this.$store.commit('EDIT_SERVER_FILES', []);
+          this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
         } else {
-          getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType])
           this.$store.commit('SET_NOTICE', '读取远程文件');
+          getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType])
           this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
         }
       },

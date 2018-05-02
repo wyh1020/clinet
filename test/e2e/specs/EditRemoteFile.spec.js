@@ -17,7 +17,6 @@ describe('EditRemoteFile', function () {
       .getText('#edit-editbar-input')
       .then(function (editText) {
         expect(editText).to.equal('');
-        console.log('22222222222')
       })
       .click('#edit-rightbar-server')
       .getText('#edit-bar-prompt')
@@ -67,13 +66,13 @@ describe('EditRemoteFile', function () {
       .click('#server-login')
       .getText('#server-login')
       .then(function (editText) {
-        console.log(editText)
-        // expect(editText).to.be.an('string');
+        // console.log(editText)
+        expect(editText).to.be.an('string');
       })
       .waitUntilWindowLoaded(10000)
       .getText('#notice-bar')
       .then(function (editText) {
-        console.log(editText)
+        // console.log(editText)
         expect(editText).to.be.an('string');
       })
       .click('#navbar-edit')
@@ -81,8 +80,7 @@ describe('EditRemoteFile', function () {
       .click('#edit-rightbar-server')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
-        console.log(editText);
-        // console.log('111111111111')
+        // console.log(editText);
         expect(editText).to.be.an('string');
       })
       // .click('.edit-rightpanellocal-tr')

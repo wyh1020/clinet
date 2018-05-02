@@ -114,6 +114,7 @@ const mutations = {
       if (state.docIndex < 0) { state.docIndex = 0 }
       if (state.docIndex > state.doc.length) { state.docIndex = state.doc.length }
     }
+    state.editBarValue = state.doc[state.docIndex]
   },
   EDIT_SET_HINT_PAGE(state, page) {
     if (page === 'up') {
