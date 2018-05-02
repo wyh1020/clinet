@@ -87,6 +87,9 @@
         <li class="nav-item active" id="stat-next-page" v-on:click='title(1)' v-if="this.$store.state.Stat.colNum > 10">
           <a class="nav-link text-light" href="#"> 右页 <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active" id="stat-edit-data" v-on:click='edit'>
+          <a class="nav-link text-light" href="#"> 详情 <span class="sr-only">(current)</span></a>
+        </li>
       </ul>
       <form class="form-inline my-2 my-lg-0" v-on:submit.prevent>
         <input id="stat-right-search" class="mr-sm-2 form-control" type="search" placeholder="Search" aria-label="Search" v-on:keyup.13="statSearch" v-model="stat">
@@ -228,6 +231,7 @@
             this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
             this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
             this.$store.commit('EDIT_SET_FILES_INDEX', 0);
+            this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.serverTable.data);
             break;
           default:
         }

@@ -69,47 +69,11 @@
         </form>
       </div>
     </div>
-    <div v-show="this.$store.state.Stat.fileName !== '病案数据'">
+    <div>
       <table>
         <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" class="stat-right-table-tr" v-bind:class="{'table-danger':flag.find((n)=>n===index)}">
-          <td v-for="(field, index) in data" v-bind:key='index' v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}" v-on:click="onClickTd(data, index)" class="stat-right-table-td"  v-if="index < 10">{{data[index]}}</td>
+          <td v-for="(field, index) in data"  v-bind:key='index' v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}" v-on:click="onClickTd(data, index)" class="stat-right-table-td"  v-if="index < 10">{{data[index]}}</td>
         </tr>
-      </table>
-    </div>
-    <div v-show="this.$store.state.Stat.fileName === '病案数据'">
-      <table>
-          <thead>
-            <tr>
-              <th>年龄</th>
-              <th>性别</th>
-              <th>出院转归</th>
-              <th>主要诊断</th>
-              <th>其他诊断</th>
-              <th>手术操作</th>
-              <th>新生儿出生天数</th>
-              <th>新生儿入院体重</th>
-              <th>呼吸机使用小时数</th>
-              <th>总费用</th>
-              <th>住院天数</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(value, index) in this.$store.state.Stat.serverTable.data"  v-bind:key="index">
-              <td>{{value.age}}</td>
-              <td>{{value.gender}}</td>
-              <td>{{value.sf0108}}</td>
-              <td>{{value.disease_code}}</td>
-              <td v-if="value.diags_code.length > 0">{{value.diags_code.join(',')}}</td>
-              <td v-if="value.diags_code.length === 0"></td>
-              <td v-if="value.opers_code.length > 0">{{value.opers_code.join(',')}}</td>
-              <td v-if="value.opers_code.length === 0"></td>
-              <td>{{value.sf0100}}</td>
-              <td>{{value.sf0102}}</td>
-              <td>{{value.sf0104}}</td>
-              <td>{{value.total_expense}}</td>
-              <td>{{value.acctual_days}}</td>
-            </tr>
-          </tbody>
       </table>
     </div>
     <nav aria-label="Page navigation example" v-if="this.$store.state.Stat.tableType === 'server'">
@@ -144,6 +108,8 @@
     computed: {
       serverMenu: {
         get() {
+          console.log(this.$store.state.Stat.localTable)
+          console.log(this.$store.state.Stat.serverTable.data)
           return this.$store.state.Stat.serverMenu
         }
       },
@@ -163,12 +129,10 @@
           switch (this.$store.state.Stat.tableType) {
             case 'local': {
               table = this.$store.state.Stat.localTable
-              console.log(table)
               break;
             }
             case 'server': {
               table = this.$store.state.Stat.serverTable.data
-              console.log(table)
               break;
             }
             case 'case': {
@@ -239,6 +203,7 @@
           } else {
             f = this.$store.state.Stat.selectedCol
           }
+          console.log(f)
           return f
         },
         set() {}
@@ -280,6 +245,8 @@
     },
     methods: {
       onClickTd: function (data, index) {
+        console.log(data, index)
+        console.log(this.$store.state.Stat.selectedCol)
         const header = this.$store.state.Stat.serverTable.data[0]
         let cindex = 0
         let oindex = 0
@@ -312,6 +279,7 @@
               break;
             case 'server':
               if (data[0] === '机构' && data[1] === '时间') {
+                console.log('dd')
                 this.$store.commit('STAT_SET_COL', index);
               }
               if (index === cindex && data !== this.$store.state.Stat.serverTable.data[0]) {
