@@ -33,6 +33,8 @@ const state = {
   localTables: {},
   localTable: [],
   chartData: [],
+  haveRight: false,
+  colNum: 10,
   chartLeft: '柱状图',
   chartRight: '折线图',
   tableType: 'local',
@@ -41,7 +43,6 @@ const state = {
   isServer: false,
   fileName: null,
   countPage: 0,
-  colNum: 0,
   titlePage: 0,
   compareTable1: [],
   chartOption: '',
@@ -87,6 +88,16 @@ const mutations = {
       state.localTables[i] = f
     }
     state.localTable = state.localTables[state.tablePage]
+    if (state.tableHeader[0].length > 10) {
+      state.haveRight = true
+      state.colNum = 10
+      const table = []
+      const indexs = [...Array(10)].map((v, k) => k)
+      state.localTable.forEach((xs) => {
+        table.push(indexs.map(x => xs[x]))
+      })
+      state.localTable = table
+    }
   },
   STAT_TABLE_PAGE(state, n) {
     if (state.tableType === 'server' && n === 0) {
@@ -275,10 +286,19 @@ const mutations = {
   },
   STAT_SET_COL_NUM(state, num) {
     state.colNum = num
+    const indexs = []
+    // const rangeArray = (start, end) => Array(end - start + 1).map((v, i) => i + start)
+    for (let i = num - 10; i < num; i += 1) { indexs.push(i) }
+    state.haveRight = true
+    const table = []
+    state.localTables[state.tablePage].forEach((xs) => {
+      table.push(indexs.map(x => xs[x]))
+    })
+    state.localTable = table
   },
-  STAT_SET_TITLE_PAGE(state, num) {
-    state.colNum = num
-  },
+  // STAT_SET_TITLE_PAGE(state, num) {
+  //   state.colNum = num
+  // },
   STAT_SET_CHART_OPTION(state, opt) {
     state.chartIsShow = 'chart'
     state.chartOption = opt

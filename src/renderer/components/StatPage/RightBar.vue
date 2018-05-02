@@ -81,10 +81,10 @@
             <a id="stat-right-dimension-org" v-for="(data, index) in dimensionSel" v-bind:key='index' class="nav-link" href="#" v-on:click='selX(index)'> {{data}} <span class="sr-only">(current)</span></a>
           </div>
         </li>
-        <li class="nav-item active" id="stat-prev-page" v-on:click='title(-1)' v-if="this.$store.state.Stat.colNum > 10">
+        <li class="nav-item active" id="stat-prev-page" v-on:click='title(-10)' v-if="this.$store.state.Stat.haveRight">
           <a class="nav-link text-light" href="#"> 左页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" id="stat-next-page" v-on:click='title(1)' v-if="this.$store.state.Stat.colNum > 10">
+        <li class="nav-item active" id="stat-next-page" v-on:click='title(10)' v-if="this.$store.state.Stat.haveRight">
           <a class="nav-link text-light" href="#"> 右页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" id="stat-edit-data" v-on:click='edit'>
@@ -410,10 +410,16 @@
       title: function (n) {
         switch (this.$store.state.Stat.tableType) {
           case 'server':
-            this.$store.commit('STAT_SET_TITLE_PAGE', n);
+            // this.$store.commit('STAT_SET_TITLE_PAGE', n);
             break;
           case 'local':
-            this.$store.commit('STAT_SET_TITLE_PAGE', n);
+            if (n > 0 && this.$store.state.Stat.colNum + n <= this.$store.state.Stat.tableHeader[0].length) {
+              this.$store.commit('STAT_SET_COL_NUM', this.$store.state.Stat.colNum + n);
+            } else if (n < 0 && this.$store.state.Stat.colNum + n > 0) {
+              this.$store.commit('STAT_SET_COL_NUM', this.$store.state.Stat.colNum + n);
+            } else {
+              this.$store.commit('SET_NOTICE', '超出范围');
+            }
             break;
           default:
             break;
