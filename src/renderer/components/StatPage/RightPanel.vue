@@ -163,12 +163,10 @@
           switch (this.$store.state.Stat.tableType) {
             case 'local': {
               table = this.$store.state.Stat.localTable
-              console.log(table)
               break;
             }
             case 'server': {
               table = this.$store.state.Stat.serverTable.data
-              console.log(table)
               break;
             }
             case 'case': {
