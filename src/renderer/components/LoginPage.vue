@@ -95,11 +95,16 @@
     data() {
       return {
         hasData: false,
-        loginName: '',
+        // loginName: '',
         loginPassword: ''
       };
     },
     computed: {
+      loginName: {
+        get() {
+          return this.$store.state.System.user.username
+        }
+      },
       notice: {
         get() {
           return this.$store.state.Home.notice

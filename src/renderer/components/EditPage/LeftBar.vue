@@ -14,6 +14,8 @@
             {{docType}}
           </a>
           <div class="dropdown-menu" id="edit-leftba-sel" aria-labelledby="edit-leftbar-choice">
+            <a class="dropdown-item" href="#" v-on:click="newDoc('自定义文档')" id="edit-leftbar-wt4">自定义文档</a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" v-on:click="newDoc('病案首页（卫统四CSV）')" id="edit-leftbar-wt4">病案首页（卫统四CSV）</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" v-on:click="newDoc('入院申请')" id="eidt-leftbar-admissionApplication">入院申请</a>
@@ -63,7 +65,7 @@
       return {
         name: this.$route.name,
         leftItem: '',
-        docType: '选择'
+        docType: '自定义文档'
       };
     },
     methods: {

@@ -113,7 +113,7 @@
         }
         switch (n) {
           case '首页':
-            this.$router.push('/home');
+            this.$router.push('/');
             break;
           case '数据采集-数据采集':
             this.$router.push('/edit');
@@ -178,6 +178,7 @@
             break;
           case '已登录':
             this.$store.commit('SET_NOTICE', '已登录');
+            this.$router.push('/');
             break;
           default:
             this.$store.commit('SET_NAVBAR', '登陆页');

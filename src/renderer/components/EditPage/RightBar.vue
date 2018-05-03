@@ -52,7 +52,7 @@
       return {
         name: this.$route.name,
         rightItem: '',
-        helpType: '选择'
+        helpType: '编辑器使用帮助'
       };
     },
     methods: {
