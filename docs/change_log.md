@@ -1,5 +1,7 @@
 ### 2018-05-3
 * edit页的左右toolbar上的《选择》可以显示选择的内容
+* app的body添加背景色，login页添加底图
+* navbar的显示去除hasdata的判断
 ### 2018-05-2
 * 输入框上下键选取docIndex的时候，同时更新editBarValue
 * 未注册用户登陆，点击《远程文件》，rightPanel也显示《用户远程文件》

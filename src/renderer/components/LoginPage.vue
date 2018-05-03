@@ -2,7 +2,7 @@
   <div id="wrapper">
     <!-- <nav-bar></nav-bar> -->
     <div class="row">
-      <div class="col-6">
+      <div class="col-4">
         <main>
           <div class="left-side">
             <div class="jumbotron">
@@ -22,12 +22,20 @@
           </div>
         </main>
       </div>
-      <div class="col-6" id="right-side">
+      <div class="col-8" id="right-side">
         <div class="card">
           <div class="card-header">
-            系统说明：
+            面向互联网+医疗，适合医生个人使用的医生工作站系统：
           </div>
           <div class="card-body">
+            <p class="card-text">
+              互联网+医疗：
+              <ul>
+                <li>需要适合互联网+的终端</li>
+                <li>需要适合互联网+的平台</li>
+                <li>需要适合互联网+的服务</li>
+              </ul>
+            </p>
             <p class="card-text">
               本系统包括4部分功能：
               <ul>
@@ -141,15 +149,17 @@
   }
 
   #wrapper {
-    background:
+    /* background:
       radial-gradient(
         ellipse at top left,
         rgba(255, 255, 255, 1) 40%,
         rgba(229, 229, 229, .9) 100%
-      );
+      ); */
     height: 100vh;
     padding: 40px 80px;
     width: 100vw;
+    background: url('~@/assets/logo1.png') center center no-repeat;
+    background-size: 100% auto;
   }
 
   #logo {
@@ -162,6 +172,7 @@
     display: flex;
     justify-content: space-between;
     padding: 0;
+    opacity: 0.75;
   }
 
   form {
@@ -184,7 +195,7 @@
 
   p {
     padding-bottom: 0;
-    margin-top: 5%;
+    margin-top: 1%;
   }
 
   #right-side {
@@ -196,7 +207,7 @@
   }
 
   .card {
-    background-color: #FFFFFF;
+    opacity: 0.75;
   }
 
 </style>

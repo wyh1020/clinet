@@ -14,4 +14,13 @@
   * {
     font-size: medium
   }
+
+  body {
+  background:
+    radial-gradient(
+      ellipse at top left,
+      rgb(130, 241, 233) 40%,
+      rgba(130, 224, 224, 0.9) 100%
+    );
+  }
 </style>
