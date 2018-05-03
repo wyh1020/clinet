@@ -45,13 +45,16 @@
     },
     methods: {
       loadFile: function (data, index) {
-        console.log(data)
         this.$store.commit('STAT_SET_FILE_FLAG');
         // this.flag = index
         this.$store.commit('STAT_SET_FILE_NAME', data);
         this.$store.commit('STAT_SET_FILE_INDEX', ['first', index]);
         this.$store.commit('STAT_SET_TABLE_PAGE', 1)
-        if (data === '病案数据') {
+        if (data === '病案数据.csv') {
+          if (this.$store.state.Stat.serverMenu.type === '二级菜单') {
+            this.$store.commit('STAT_SET_SERVER_MENU', ['二级菜单', []]);
+            this.$store.commit('STAT_SET_SERVER_MENU', ['三级菜单', []]);
+          }
           if (this.$store.state.System.connectInfo) {
             // this.$store.commit('SYSTEM_SET_TOOLBAR', 'getServerData');
             this.$store.commit('SET_NOTICE', '远程病案数据');
@@ -70,6 +73,9 @@
             this.$store.commit('STAT_SET_CHART_IS_SHOW', 'chart');
             getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: data, page: 1, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer }, 'stat')
           } else {
+            if (this.$store.state.Stat.serverMenu.type === '二级菜单') {
+              this.$store.commit('STAT_SET_SERVER_MENU', ['三级菜单', []]);
+            }
             this.$store.commit('STAT_SET_CHART_IS_SHOW', 'menu');
             getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], data, this.$store.state.System.user.username)
           }

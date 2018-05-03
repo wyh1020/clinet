@@ -285,9 +285,10 @@ const mutations = {
     state.localTable = state.localTables[state.tablePage]
   },
   STAT_SET_COL_NUM(state, num) {
+    console.log(num)
     state.colNum = num
     const indexs = []
-    // const rangeArray = (start, end) => Array(end - start + 1).map((v, i) => i + start)
+    // const rangeArray = (start, end) => Array((end - start) + 1).map((v, i) => i + start)
     for (let i = num - 10; i < num; i += 1) { indexs.push(i) }
     state.haveRight = true
     const table = []
@@ -312,7 +313,7 @@ const mutations = {
     switch (type) {
       case '一级菜单':
         state.serverMenu.first = opt2
-        state.serverMenu.first.push('病案数据')
+        state.serverMenu.first.push('病案数据.csv')
         break;
       case '二级菜单':
         state.serverMenu.second = opt2
@@ -360,7 +361,7 @@ const mutations = {
         state.localTable = value[1]
         break;
       case 'server':
-        state.serverTable = value[1]
+        state.serverTable.data = value[1]
         break;
       default:
         break;

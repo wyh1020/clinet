@@ -244,14 +244,6 @@
         switch (this.$store.state.Stat.tableType) {
           case 'local': {
             if (this.$store.state.Stat.localTable.length > 0) {
-              // let x1 = ''
-              // if (this.dimensionSel[x] === '时间') {
-              //   x1 = 'time'
-              // } else if (this.dimensionSel[x] === '机构') {
-              //   x1 = 'org'
-              // } else {
-              //   x1 = 'drg2'
-              // }
               if (this.dimensionSel[x] === '全部') {
                 this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
                 loadFile(this, this.$store.state.Stat.fileName, 'stat')
@@ -261,9 +253,6 @@
                 } else {
                   this.$store.commit('SET_NOTICE', '请选择维度！')
                 }
-                // const header = this.file[0].split(',')
-                // const col = this.$store.state.Stat.selectedCol
-                // col.map(x => this.$store.commit('STAT_SET_DIMENSION_SEL', header[x]));
               } else if (this.dimensionSel[x] === '时间' || this.dimensionSel[x] === '机构' || this.dimensionSel[x] === '病种') {
                 this.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', this.dimensionSel[x]]);
               }
@@ -279,9 +268,11 @@
                 this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
                 getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: this.$store.state.Stat.tablePage, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer }, 'stat')
               } else if (this.dimensionSel[x] === '自定义维度') {
-                const header = this.file[0].split(',')
-                const col = this.$store.state.Stat.selectedCol
-                col.map(x => this.$store.commit('STAT_SET_DIMENSION_SEL', header[x]));
+                if (this.selectedCol.length > 0) {
+                  this.$store.commit('STAT_SET_CHART_IS_SHOW', 'dimension');
+                } else {
+                  this.$store.commit('SET_NOTICE', '请选择维度！')
+                }
               } else {
                 getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Stat.serverTable.tableName, x, this.$store.state.System.user.username)
               }
@@ -346,6 +337,8 @@
       compare: function () {
         let table = []
         let header = []
+        console.log('111')
+        console.log(this.$store.state.Stat.localTable)
         switch (this.$store.state.Stat.tableType) {
           case 'server':
             table = this.$store.state.Stat.serverTable.data
@@ -362,7 +355,9 @@
         const row = this.$store.state.Stat.selectedRow
         const compareTable = this.$store.state.Stat.compareTable
         if (this.$store.state.Stat.tableType !== 'compare') {
-          if (col.length > 0 || row.length > 0) {
+          if (row.length > 0) {
+            console.log('====')
+            console.log(compareTable, table, header)
             addContrast(this, table, compareTable, header, col, row)
           } else {
             this.$store.commit('SET_NOTICE', '请选择加入对比数据!');

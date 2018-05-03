@@ -241,7 +241,7 @@
       }
     },
     mounted: function () {
-      if (this.flag.length > 0 || this.flagTd.length > 0) {
+      if (this.$store.state.Stat.chartData.length > 0) {
         this.onClick()
         this.onClickTd()
       }
@@ -378,7 +378,7 @@
       },
       chart: function (data) {
         this.$store.commit('STAT_SET_CHART_OPTION', data)
-        if (this.flag.length > 0 || this.flagTd.length > 0) {
+        if (this.$store.state.Stat.chartData.length > 0) {
           this.$router.push('/chart');
         }
       },
@@ -416,6 +416,11 @@
             table = this.$store.state.Stat.localTable
             header = table.shift()
             tableType = 'local'
+            break;
+          case 'server':
+            table = this.$store.state.Stat.serverTable.data
+            header = table.shift()
+            tableType = 'server'
             break;
           default:
             break;
