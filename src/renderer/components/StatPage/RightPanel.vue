@@ -108,8 +108,6 @@
     computed: {
       serverMenu: {
         get() {
-          console.log(this.$store.state.Stat.localTable)
-          console.log(this.$store.state.Stat.serverTable.data)
           return this.$store.state.Stat.serverMenu
         }
       },
@@ -188,7 +186,6 @@
           } else {
             f = this.$store.state.Stat.selectedRow
           }
-          // console.log(f)
           return f
         },
         set() {}
@@ -203,7 +200,6 @@
           } else {
             f = this.$store.state.Stat.selectedCol
           }
-          console.log(f)
           return f
         },
         set() {}
@@ -231,7 +227,14 @@
             table = this.$store.state.Stat.serverTable
             col = this.$store.state.Stat.selectedCol
           }
-          col.map(x => name.push(table[0][x]))
+          col.map((x) => {
+            if (table.length > 0) {
+              name.push(table[0][x])
+            } else if (table.length === undefined) {
+              name.push(table.data[0][x])
+            }
+            return name
+          })
           f = name
           return f
         },
@@ -245,8 +248,6 @@
     },
     methods: {
       onClickTd: function (data, index) {
-        console.log(data, index)
-        console.log(this.$store.state.Stat.selectedCol)
         const header = this.$store.state.Stat.serverTable.data[0]
         let cindex = 0
         let oindex = 0
@@ -279,7 +280,6 @@
               break;
             case 'server':
               if (data[0] === '机构' && data[1] === '时间') {
-                console.log('dd')
                 this.$store.commit('STAT_SET_COL', index);
               }
               if (index === cindex && data !== this.$store.state.Stat.serverTable.data[0]) {
