@@ -10,8 +10,8 @@
           <a class="nav-link text-light" href="#"> 返回 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-light" href="#" id="edit-leftbar-choice" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            选择
+          <a class="nav-link dropdown-toggle text-light" href="#" id="edit-leftbar-choice" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+            {{docType}}
           </a>
           <div class="dropdown-menu" id="edit-leftba-sel" aria-labelledby="edit-leftbar-choice">
             <a class="dropdown-item" href="#" v-on:click="newDoc('病案首页（卫统四CSV）')" id="edit-leftbar-wt4">病案首页（卫统四CSV）</a>
@@ -62,7 +62,8 @@
     data() {
       return {
         name: this.$route.name,
-        leftItem: ''
+        leftItem: '',
+        docType: '选择'
       };
     },
     methods: {
@@ -78,6 +79,7 @@
         if (n) {
           this.$store.commit('EDIT_SET_DOC_TYPE', n)
           this.$store.commit('SET_NOTICE', n);
+          this.docType = n
         } else {
           this.$store.commit('EDIT_SET_DOC');
           this.$store.commit('EDIT_SET_BAR_VALUE', '');

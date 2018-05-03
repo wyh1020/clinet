@@ -8,7 +8,7 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="edit-rightbar-choice" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            选择
+            {{helpType}}
           </a>
           <div class="dropdown-menu" aria-labelledby="edit-rightbar-choice">
             <a class="dropdown-item" href="#" v-on:click='help("编辑器使用帮助")' id="edit-rightbar-editorHelp">编辑器使用帮助</a>
@@ -51,12 +51,14 @@
     data() {
       return {
         name: this.$route.name,
-        rightItem: ''
+        rightItem: '',
+        helpType: '选择'
       };
     },
     methods: {
       help: function (n) {
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
+        this.helpType = n
         if (n) {
           this.$store.commit('EDIT_SET_HELP_TYPE', n);
           this.$store.commit('SET_NOTICE', n);
