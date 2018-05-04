@@ -219,7 +219,16 @@ const mutations = {
     })
   },
   STAT_SET_SERVER_TABLE(state, opt) {
-    console.log(opt)
+    state.tableSel = opt.tableSel
+    state.dimensionOrg = opt.dimensionOrg
+    state.dimensionTime = opt.dimensionTime
+    state.dimensionDrg = opt.dimensionDrg
+    state.notice = [
+      `病案总数：${state.tableSel}`,
+      `机构总数：${state.dimensionOrg}`,
+      `时间维度总数：${state.dimensionTime}`,
+      `病种维度总数：${state.dimensionDrg}`,
+    ]
     state.isServer = true
     state.serverTable = opt
   },
