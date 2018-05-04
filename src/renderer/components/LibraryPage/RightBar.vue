@@ -114,6 +114,7 @@
           this.$store.commit('EDIT_SET_FILES_INDEX', this.$store.state.Library.fileIndex);
         }
         this.$router.push('/edit');
+        this.$store.commit('EDIT_SET_BAR_VALUE', '');
       },
       selX: function (x) {
         switch (this.$store.state.Library.tableType) {

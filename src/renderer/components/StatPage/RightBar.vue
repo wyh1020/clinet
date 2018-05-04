@@ -106,7 +106,7 @@
   import chartPie from '../../utils/ChartPie';
   import chartData from '../../utils/ChartData';
   import addContrast from '../../utils/StatContrast';
-  import saveFile from '../../utils/SaveFile';
+  // import saveFile from '../../utils/SaveFile';
   import { getStatFiles, getStat, saveStat, getList } from '../../utils/StatServerFile';
   import loadFile from '../../utils/LoadFile';
 
@@ -174,6 +174,7 @@
               this.$store.commit('STAT_TABLE_PAGE', n);
               this.$store.commit('SET_NOTICE', `当前${this.$store.state.Stat.tablePage}页,共${this.$store.state.Stat.countPage}页`)
               table = this.$store.state.Stat.localTable
+              console.log(table)
               chartData(this, table, this.$store.state.Stat.selectedRow, this.$store.state.Stat.selectedCol)
               break;
             default:
@@ -237,6 +238,7 @@
         }
         this.$store.commit('EDIT_SET_LAST_NAV', '/stat');
         this.$store.commit('SET_NOTICE', '数据采集-数据采集');
+        this.$store.commit('EDIT_SET_BAR_VALUE', '');
         this.$router.push('/edit');
       },
       selX: function (x) {
@@ -373,22 +375,26 @@
       },
       saveCompare: function () {
         if (this.$store.state.Stat.tableType === 'server' || this.$store.state.Stat.serverTable !== []) {
-          saveStat(this, this.$store.state.Stat.compareTable, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user])
-        } else if (this.$store.state.Stat.compareTable.length > 0) {
-          const d = new Date();
-          let month = d.getMonth() + 1
-          if (month < 10) {
-            month = `0${month}`
-          }
-          let date = d.getDate() + 1
-          if (date < 10) {
-            date = `0${date}`
-          }
-          const datetime = `${d.getFullYear()}${month}${date}`
-          this.$store.commit('EDIT_LOAD_FILE', this.$store.state.Stat.compareTable);
-          saveFile(this, `${datetime}_stat.csv`, '/stat')
-        } else {
-          this.$store.commit('SET_NOTICE', '无法保存对比,请选择对比数据!');
+          // 取得所有对比行中所有的key并去重
+          const compareFile = []
+          let keys = []
+          keys = keys.concat.apply([], this.$store.state.Stat.compareTable.map(x => Object.keys(x)))
+          keys = Array.from(new Set(keys))
+          // 存储表头
+          compareFile.push(keys)
+          // 取得表内容,取不到的用-代替
+          this.$store.state.Stat.compareTable.forEach((xs) => {
+            const f = []
+            keys.forEach((x, i) => {
+              if (xs[x]) {
+                f[i] = xs[x]
+              } else {
+                f[i] = '-'
+              }
+            })
+            compareFile.push(f)
+          })
+          saveStat(this, compareFile, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user])
         }
       },
       statSearch: function () {

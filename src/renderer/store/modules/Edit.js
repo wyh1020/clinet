@@ -26,7 +26,17 @@ const state = {
 
 const mutations = {
   EDIT_UPDATE_DOC(state, m) {
-    state.doc.splice(m[0], 1, m[1])
+    let isFalse = null
+    state.doc.map((x) => {
+      if (x[0] === m[1][0]) {
+        x[1] = m[1][1]
+        isFalse = true
+      }
+      return state.doc
+    })
+    if (!isFalse) {
+      state.doc.splice(0, 1, m[1])
+    }
     // if (m[0] === 0) {
     //   state.doc.splice(0, 1, m[1])
     // } else {
