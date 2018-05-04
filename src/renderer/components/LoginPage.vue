@@ -95,16 +95,16 @@
     data() {
       return {
         hasData: false,
-        // loginName: '',
+        loginName: '',
         loginPassword: ''
       };
     },
+    mounted: function () {
+      this.$nextTick(function () {
+        this.loginName = this.$store.state.System.user.username
+      })
+    },
     computed: {
-      loginName: {
-        get() {
-          return this.$store.state.System.user.username
-        }
-      },
       notice: {
         get() {
           return this.$store.state.Home.notice
