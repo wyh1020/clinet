@@ -30,6 +30,7 @@ const mutations = {
   },
   EDIT_DELETE_ITEM(state, n) {
     state.doc.splice(n, 1);
+    state.editBarValue = state.doc[n]
   },
   EDIT_DELETE_DOC(state, n) {
     state.file.splice(n, 1);

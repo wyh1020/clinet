@@ -33,7 +33,7 @@
     computed: {
       item: {
         get() {
-          return this.$store.state.Edit.editBarValue
+          return this.$store.state.Edit.editBarValue.toString().replace(/,/g, '  ')
         },
         set: function () {
         }
@@ -70,30 +70,17 @@
           if (v.length > 0) {
             this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
             this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
-            const x = this.$store.state.Edit.doc[n + 1]
-            if (x) {
-              this.item = x.toString().replace(/,/g, '   ')
-            } else {
-              this.item = ''
-            }
           }
         } else {
           const col = this.$store.state.Edit.selectedCol[0]
           this.$store.commit('EDIT_UPDATE_FILE', [col, v[1]]);
-          this.item = ''
         }
       },
       up() {
-        const n = this.$store.state.Edit.docIndex - 1
-        const x = this.$store.state.Edit.doc[n]
         this.$store.commit('EDIT_SET_DOC_INDEX', [-1]);
-        if (x) { this.item = x.toString().replace(/,/g, '  ') }
       },
       down() {
-        const n = this.$store.state.Edit.docIndex + 1
-        const x = this.$store.state.Edit.doc[n]
         this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
-        if (x) { this.item = x.toString().replace(/,/g, '  ') }
       },
       itemUp() {
         if (this.$store.state.Edit.docIndex > 0 && this.$store.state.Edit.fileType === 'cda') {
@@ -120,9 +107,6 @@
       del() {
         if (this.$store.state.Edit.fileType === 'cda') {
           const n1 = this.$store.state.Edit.docIndex
-          const n2 = this.$store.state.Edit.docIndex + 1
-          const x = this.$store.state.Edit.doc[n2]
-          if (x) { this.item = x.toString().replace(/,/g, '   ') } else { this.item = '' }
           this.$store.commit('EDIT_DELETE_ITEM', n1);
         }
       },
