@@ -93,19 +93,12 @@ export function getStat(obj, data, opt, tableType) {
     }
   }
   let url = ''
-  switch (opt.type) {
-    case '机构':
-      url = `&org=${opt.value}`
-      break;
-    case '时间':
-      url = `&time=${data[6]}`
-      break;
-    case '病种':
-      url = `&drg2=${data[6]}`
-      break;
-    default:
-      url = ''
-      break;
+  if (opt.type === '机构' || opt.type === 'org') {
+    url = `&org=${opt.value}`
+  } else if (opt.type === '时间' || opt.type === 'time') {
+    url = `&time=${opt.value}`
+  } else if (opt.type === '病种' || opt.type === 'drg' || opt.type === 'drg2') {
+    url = `&drg=${opt.value}`
   }
   axios({
     method: 'get',

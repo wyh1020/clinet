@@ -274,7 +274,7 @@
                   this.$store.commit('SET_NOTICE', '请选择维度！')
                 }
               } else {
-                getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Stat.serverTable.tableName, x, this.$store.state.System.user.username)
+                getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Stat.serverTable.tableName, this.dimensionSel[x], this.$store.state.System.user.username)
               }
             } else {
               this.$store.commit('SET_NOTICE', '请选择文件');
