@@ -107,8 +107,10 @@ const mutations = {
     state.lastNav = message;
   },
   EDIT_SET_DOC_INDEX(state, m) {
-    if (m[1]) {
+    if (m[1] === true) {
       state.docIndex = 0;
+    } else if (m[1] === 'set') {
+      state.docIndex = m[0];
     } else {
       state.docIndex += m[0];
       if (state.docIndex < 0) { state.docIndex = 0 }

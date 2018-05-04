@@ -7,7 +7,7 @@
           <table>
             <tr class="table-info"><td>{{key}}</td><td></td></tr>
             <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}">
-              <td><b>{{ item[0] }}</b></td>
+              <td><b v-on:click="changeIndex(item)">{{ item[0] }}</b></td>
               <td>{{ item[1] }}{{ item[2] }}{{ item[3] }}{{ item[4] }}{{ item[5] }}{{ item[6] }}{{ item[7] }}{{ item[8] }}</td>
             </tr>
           </table>
@@ -16,7 +16,7 @@
           <table v-if="key === '个人信息'">
             <tr class="table-info"><td>{{key}}</td><td></td></tr>
             <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}">
-              <td><b>{{ item[0] }}</b></td>
+              <td><b v-on:click="changeIndex(item)">{{ item[0] }}</b></td>
               <td>{{ item[1] }}{{ item[2] }}{{ item[3] }}{{ item[4] }}{{ item[5] }}{{ item[6] }}{{ item[7] }}{{ item[8] }}</td>
             </tr>
           </table>
@@ -26,7 +26,7 @@
             <tr><td>
               <ol class="breadcrumb" >
                 <li class="breadcrumb-item" v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}">
-                  <b>{{ item[0] }}</b>
+                  <b v-on:click="changeIndex(item)">{{ item[0] }}</b>
                   ：{{ item[1] }} {{ item[2] }} {{ item[3] }} {{ item[4] }} {{ item[5] }} {{ item[6] }} {{ item[7] }} {{ item[8] }}
                 </li>
                 <hr>
@@ -37,7 +37,7 @@
           <table v-if="key === '医嘱'">
             <tr class="table-info"><td>{{key}}</td></tr>
             <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}">
-              <td><b>{{ item[0] }}</b>
+              <td><b v-on:click="changeIndex(item)">{{ item[0] }}</b>
                 {{ item[1] }}  {{ item[2] }}  {{ item[3] }}  {{ item[4] }}
                 {{ item[5] }}  {{ item[6] }}  {{ item[7] }}  {{ item[8] }}
               </td>
@@ -49,7 +49,8 @@
           <!-- 签名-日期 -->
           <table v-if="key === '签名'">
             <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}">
-              <td class="text-right" v-bind:class="{'table-info':index == 0}"><b>{{ item[0] }}</b>
+              <td class="text-right" v-bind:class="{'table-info':index == 0}">
+                <b v-on:click="changeIndex(item)">{{ item[0] }}</b>
                 {{ item[1] }}  {{ item[2] }}  {{ item[3] }}  {{ item[4] }}
                 {{ item[5] }}  {{ item[6] }}  {{ item[7] }}  {{ item[8] }}
               </td>
@@ -89,6 +90,18 @@
       }
     },
     methods: {
+      changeIndex: function (value) {
+        this.$store.commit('EDIT_SET_BAR_VALUE', value)
+        const doc = this.$store.state.Edit.doc
+        let index = 0
+        doc.map((x, key) => {
+          if (x[0] === value[0]) {
+            index = key
+          }
+          return index
+        })
+        this.$store.commit('EDIT_SET_DOC_INDEX', [index, 'set']);
+      },
     },
   };
 </script>
