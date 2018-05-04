@@ -85,26 +85,28 @@
       </div>
     </div>
     <div v-if="this.$store.state.System.toolbar === 'drgCompute'">
-      <table>
-        <thead>
-          <tr>
-            <th>版本</th>
-            <th>病案号</th>
-            <th>DRG</th>
-            <th>分组日志</th>
-            <th>结果</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(value, index) in this.$store.state.System.wt4Comp"  v-bind:key="index" v-on:click="drgRule(value[0].drg)">
-            <td>{{value[0].version}}</td>
-            <td>{{value[0].B_WT4_V1_ID}}</td>
-            <td>{{value[0].drg}}</td>
-            <td>{{value[0].log}}</td>
-            <td>{{value[2]}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div v-bind:style="{ height: height + 'px', overflow: 'auto' }">
+        <table>
+          <thead>
+            <tr>
+              <th>版本</th>
+              <th>病案号</th>
+              <th>DRG</th>
+              <th>分组日志</th>
+              <th>结果</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(value, index) in this.$store.state.System.wt4Comp"  v-bind:key="index" v-on:click="drgRule(value[0].drg)">
+              <td>{{value[0].version}}</td>
+              <td>{{value[0].B_WT4_V1_ID}}</td>
+              <td>{{value[0].drg}}</td>
+              <td>{{value[0].log}}</td>
+              <td>{{value[2]}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div v-if="this.$store.state.System.toolbar === 'drgRule'">
       <drg-rule></drg-rule>
@@ -120,7 +122,11 @@
     data() {
       return {
         flag: [],
+        height: 0
       }
+    },
+    created: function () {
+      this.height = document.body.clientHeight - 120
     },
     computed: {
       file: {

@@ -8,7 +8,7 @@
 <script>
   import LeftPanelFile from './LeftPanelFile'
   import LeftPanelDimension from './LeftPanelDimension'
-  
+
   export default {
     components: { LeftPanelFile, LeftPanelDimension },
     computed: {
