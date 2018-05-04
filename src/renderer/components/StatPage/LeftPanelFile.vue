@@ -67,6 +67,9 @@
           } else {
             this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
           }
+          chartBar('chartLeft', null)
+          chartLine('chartRight', null)
+          this.$store.commit('STAT_SET_CHART_IS_SHOW', 'chart');
         } else if (this.$store.state.Stat.isServer) {
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server')
           if (data.endsWith('.csv')) {
