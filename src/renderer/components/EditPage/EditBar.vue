@@ -33,7 +33,9 @@
     computed: {
       item: {
         get() {
-          return this.$store.state.Edit.editBarValue.toString().replace(/,/g, '  ')
+          const x = this.$store.state.Edit.editBarValue
+          if (x) { return this.$store.state.Edit.editBarValue.toString().replace(/,/g, '  ') }
+          return ''
         },
         set: function () {
         }
