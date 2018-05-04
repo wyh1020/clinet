@@ -16,7 +16,10 @@ function editDoc(x) {
       obj[key] = []
     }
   }
+  let n = 0
   x.forEach((x) => {
+    x = [n].concat(x)
+    n += 1
     // console.log(x[0])
     switch (x[0]) {
       case '个人信息':
