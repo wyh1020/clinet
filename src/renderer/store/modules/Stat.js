@@ -294,17 +294,18 @@ const mutations = {
     state.localTable = state.localTables[state.tablePage]
   },
   STAT_SET_COL_NUM(state, num) {
-    console.log(num)
-    state.colNum = num
-    const indexs = []
-    // const rangeArray = (start, end) => Array((end - start) + 1).map((v, i) => i + start)
-    for (let i = num - 10; i < num; i += 1) { indexs.push(i) }
-    state.haveRight = true
-    const table = []
-    state.localTables[state.tablePage].forEach((xs) => {
-      table.push(indexs.map(x => xs[x]))
-    })
-    state.localTable = table
+    if (state.tableType === 'local') {
+      state.colNum = num
+      const indexs = []
+      // const rangeArray = (start, end) => Array((end - start) + 1).map((v, i) => i + start)
+      for (let i = num - 10; i < num; i += 1) { indexs.push(i) }
+      state.haveRight = true
+      const table = []
+      state.localTables[state.tablePage].forEach((xs) => {
+        table.push(indexs.map(x => xs[x]))
+      })
+      state.localTable = table
+    }
   },
   // STAT_SET_TITLE_PAGE(state, num) {
   //   state.colNum = num
