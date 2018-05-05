@@ -20,7 +20,7 @@ const state = {
   hint: [],
   helpType: '编辑器使用帮助',
   serverType: 'user',
-  docType: '',
+  docType: '自定义文档',
   selectedCol: [],
   selectedType: 'row'
 };
@@ -81,6 +81,7 @@ const mutations = {
   EDIT_LOAD_DOC(state, message) {
     const x = message.map(m => m.split(' ').filter(i => i !== ''))
     state.doc = x;
+    state.editBarValue = x[0]
   },
   EDIT_SET_DOC(state) {
     state.doc = [];

@@ -74,23 +74,21 @@
         this.$store.commit('EDIT_SET_LAST_NAV', '/edit');
       },
       newDoc: function (n) {
-        // this.$store.commit('EDIT_SET_DOC')
         this.$store.commit('EDIT_SET_DOC_INDEX', [0, true])
         this.$store.commit('EDIT_SET_FILE_INDEX', this.$store.state.Edit.file.length)
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
+        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'left')
+
         if (n) {
           this.$store.commit('EDIT_SET_DOC_TYPE', n)
-          this.$store.commit('SET_NOTICE', n);
-          this.docType = n
-        } else {
-          this.$store.commit('EDIT_SET_DOC');
-          this.$store.commit('EDIT_SET_BAR_VALUE', '');
-          const docType = this.$store.state.Edit.docType
-          if (global.hitbmodel[docType] !== undefined) {
-            this.$store.commit('EDIT_LOAD_DOC', global.hitbmodel[docType])
-            this.$store.commit('SET_NOTICE', docType);
-          }
-        }
+        } else { n = this.$store.state.Edit.docType }
+        this.$store.commit('SET_NOTICE', n);
+
+        if (global.hitbmodel[n] !== undefined) {
+          this.$store.commit('EDIT_LOAD_DOC', global.hitbmodel[n])
+        } else { this.$store.commit('EDIT_SET_DOC'); }
+
+        this.docType = n
         document.getElementById('edit-editbar-input').focus()
       },
       page: function (n) {

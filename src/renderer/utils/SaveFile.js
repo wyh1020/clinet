@@ -39,7 +39,7 @@ export default function saveFile(obj, x, p) {
     const data = obj.$store.state.Edit.file.join('\n')
     fs.writeFile(fileName, data, (err) => {
       if (!err) {
-        obj.$store.commit('SET_NOTICE', '文件保存成功！')
+        obj.$store.commit('SET_NOTICE', `文件成功保存到《${fileName}》！`)
       }
     })
   } else {
