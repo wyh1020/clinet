@@ -2,9 +2,9 @@
   <div style="overflow:auto;">
     <table id="edit-leftpaneltable-table">
       <tr>
-        <th colspan="10" class="table-info"> {{fileName}}</th>
+        <th colspan="10" class="table-info"> {{fileName}}（共有{{fileLength}}条记录）</th>
       </tr>
-      <tr class="edit-leftpaneltable-tr" v-for="(data, index) in file" v-bind:key='index' v-on:click="loadDoc(data, index)" v-bind:class="{'table-danger':flag === index && index !== 0}">
+      <tr class="edit-leftpaneltable-tr" v-for="(data, index) in file" v-bind:key='index' v-on:click="loadDoc(data, index)" v-bind:class="{'table-warning':flag === index}">
         <td v-if="lastNav !== '/edit' && index < 10" v-for="(field, index) in data" v-bind:key='index' v-on:click="onClickTd(data, index)" v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}">{{data[index]}}</td>
         <td v-if="lastNav === '/edit'">{{data.substr(0, 100)}}</td>
       </tr>
@@ -23,6 +23,11 @@
       fileName: {
         get() {
           return this.$store.state.Edit.fileName
+        }
+      },
+      fileLength: {
+        get() {
+          return this.$store.state.Edit.file.length
         }
       },
       file: {
