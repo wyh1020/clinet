@@ -8,7 +8,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom">
       <input id="edit-editbar-input" style="line-height: 3" type="text" class="form-control"
       placeholder="请输入……" aria-label="Username" aria-describedby="basic-addon1" v-model="item"
-      v-on:input="change" v-on:keyup.enter="enter"  v-on:keyup.ctrl.delete="del"
+      v-on:input="change" v-on:keydown.enter="enter" v-on:keyup.ctrl.delete="del" v-on:keyup.ctrl.enter="addItem"
       v-on:keyup.up="up" v-on:keyup.down="down" 
       v-on:keydown.ctrl.up="itemUp" v-on:keydown.ctrl.down="itemDown"      
       v-on:keyup.space="space" v-on:keyup.left="space" v-on:keyup.right="space"
@@ -75,6 +75,12 @@
         } else {
           const col = this.$store.state.Edit.selectedCol[0]
           this.$store.commit('EDIT_UPDATE_FILE', [col, v[1]]);
+        }
+      },
+      addItem() {
+        if (this.$store.state.Edit.fileType === 'cda') {
+          console.log('aaadd')
+          this.$store.commit('EDIT_ADD_ITEM');
         }
       },
       up() {

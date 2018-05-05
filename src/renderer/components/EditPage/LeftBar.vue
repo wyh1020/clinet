@@ -144,6 +144,7 @@
       save: function (n) {
         const fileIndex = this.$store.state.Edit.fileIndex
         let doc = this.$store.state.Edit.doc
+        doc = doc.filter(x => x !== '')
         doc = doc.map(x => x.join(' '))
         const arr = this.$store.state.Edit.file[this.$store.state.Edit.fileIndex]
         let x = ''

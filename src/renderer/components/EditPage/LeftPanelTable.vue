@@ -2,7 +2,7 @@
   <div style="overflow:auto;">
     <table id="edit-leftpaneltable-table">
       <tr>
-        <th colspan="10" class="table-danger"> {{fileName}}</th>
+        <th colspan="10" class="table-info"> {{fileName}}</th>
       </tr>
       <tr class="edit-leftpaneltable-tr" v-for="(data, index) in file" v-bind:key='index' v-on:click="loadDoc(data, index)" v-bind:class="{'table-danger':flag === index && index !== 0}">
         <td v-if="lastNav !== '/edit' && index < 10" v-for="(field, index) in data" v-bind:key='index' v-on:click="onClickTd(data, index)" v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}">{{data[index]}}</td>

@@ -33,6 +33,11 @@ const mutations = {
     state.doc.splice(n, 1);
     state.editBarValue = state.doc[n]
   },
+  EDIT_ADD_ITEM(state) {
+    const n = state.docIndex
+    state.doc.splice(n, 0, '');
+    state.editBarValue = ''
+  },
   EDIT_DELETE_DOC(state, n) {
     state.file.splice(n, 1);
     state.doc = [];
@@ -204,6 +209,7 @@ const actions = {
     commit('EDIT_DELETE_FILE');
     commit('EDIT_ADD_DOC');
     commit('EDIT_ADD_FILE');
+    commit('EDIT_ADD_ITEM');
     commit('EDIT_SAVE_DOC');
     commit('EDIT_SAVE_FILE');
     commit('EDIT_SET_FILE_TYPE');
