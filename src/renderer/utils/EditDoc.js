@@ -9,10 +9,10 @@ function editDoc(x) {
   let key = '未定义'
   obj[key] = []
   const funx = function (obj, x) {
-    if (obj[x[0]]) {
-      obj[x[0]].push(x)
+    if (obj[x[1]]) {
+      obj[x[1]].push(x)
     } else {
-      key = x[0]
+      key = x[1]
       obj[key] = []
     }
   }
@@ -21,7 +21,7 @@ function editDoc(x) {
     x = [n].concat(x)
     n += 1
     // console.log(x[0])
-    switch (x[0]) {
+    switch (x[1]) {
       case '个人信息':
         funx(obj, x)
         break

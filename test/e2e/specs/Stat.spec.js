@@ -213,11 +213,11 @@ describe('Stat', function () {
       .click('#navbar-stat')
       .click('#stat-local-doc')
       .click('#stat-remote-file')
-      .waitUntilTextExists('.stat-left-file-tr', '医疗质量')
-      .getText('.stat-left-file-tr')
-      .then(function (file) {
-        expect(file).to.be.an('array');
-      })
+      // .waitUntilTextExists('.stat-left-file-tr', '医疗质量')
+      // .getText('.stat-left-file-tr')
+      // .then(function (file) {
+      //   expect(file).to.be.an('array');
+      // })
     // 2.2.1 点击leftPanel列表 rightPanel数据表显示当前文件的前十条数据 chart显示当前数据图表 提示显示当前数据提示内容
       // .click('.stat-left-file-tr')
       // .click('.stat-left-file-tr')

@@ -10,6 +10,7 @@ const state = {
   leftPanel: 'table',
   rightPanel: 'local',
   lastNav: '/edit',
+  fileName: '',
   filePage: 0,
   filesPage: 0,
   fileType: 'cda',
@@ -92,6 +93,7 @@ const mutations = {
   },
   EDIT_SET_FILES_INDEX(state, message) {
     state.filesIndex = message;
+    state.fileName = state.files[message]
   },
   EDIT_SET_FILE_INDEX(state, message) {
     state.fileIndex = message;
