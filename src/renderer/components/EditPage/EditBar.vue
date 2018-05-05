@@ -114,7 +114,7 @@
       space() {
         const aa = document.getElementById('edit-editbar-input')
         const start = aa.selectionStart;
-        if (this.$store.state.Edit.editBarValue[start - 1] === ' ') {
+        if (start > 0 && this.$store.state.Edit.editBarValue[start - 1] === ' ') {
           const value = this.$store.state.Edit.editBarValue.slice(0, start)
           const value1 = value.replace(/\s/ig, '')
           if (global.hitbdata.cdh[value1] !== undefined) {

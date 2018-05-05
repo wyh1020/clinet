@@ -135,6 +135,7 @@
           this.$store.commit('SET_NAVBAR', 'edit');
           this.$store.commit('HAS_DATA');
           this.$router.push('/edit');
+          this.$store.commit('EDIT_LOAD_FILES');
         } else {
           this.hasData = true;
           this.$store.commit('SET_NOTICE', '初次启动，读取系统初始化文件，请先关闭系统，再打开！')

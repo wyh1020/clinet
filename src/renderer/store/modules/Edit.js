@@ -7,8 +7,8 @@ const state = {
   docIndex: 0,
   filesIndex: null,
   fileIndex: null,
-  leftPanel: 'doc',
-  rightPanel: 'help',
+  leftPanel: 'table',
+  rightPanel: 'local',
   lastNav: '/edit',
   filePage: 0,
   filesPage: 0,
@@ -101,6 +101,8 @@ const mutations = {
   },
   EDIT_SET_LAST_NAV(state, message) {
     state.lastNav = message;
+    state.doc = []
+    // state.file = []
   },
   EDIT_SET_DOC_INDEX(state, m) {
     if (m[1] === true) {

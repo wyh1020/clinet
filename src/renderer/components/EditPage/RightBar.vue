@@ -58,12 +58,13 @@
     methods: {
       help: function (n) {
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
-        this.helpType = n
         if (n) {
           this.$store.commit('EDIT_SET_HELP_TYPE', n);
           this.$store.commit('SET_NOTICE', n);
-        } else if (n === 'drg分析') {
-          sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables, 'BJ'], 'getLocalData')
+          this.helpType = n
+          if (n === 'drg分析') {
+            sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables, 'BJ'], 'getLocalData')
+          }
         }
       },
       localData: function () {
