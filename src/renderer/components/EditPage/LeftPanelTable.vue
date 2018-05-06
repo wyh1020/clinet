@@ -34,27 +34,23 @@
       file: {
         get() {
           let f = []
-          if (this.$store.state.Edit.lastNav === '/edit') {
-            let start = 0
-            let fileLen = this.$store.state.Edit.file.length;
-            if (fileLen > 99) {
-              if (this.$store.state.Edit.filePage > 0) {
-                start = 100 * this.$store.state.Edit.filePage
-                fileLen = start + 99
-              } else {
-                fileLen = 99
-              }
-            }
-            for (let i = start; i < fileLen; i += 1) {
-              f.push(this.$store.state.Edit.file[i])
-            }
-          } else {
-            const type = typeof this.$store.state.Edit.file[0]
-            if (type === 'object') {
-              f = this.$store.state.Edit.file
+          const file = this.$store.state.Edit.file
+          let start = 0
+          let fileLen = this.$store.state.Edit.file.length;
+          if (fileLen > 100) {
+            if (this.$store.state.Edit.filePage > 0) {
+              start = 100 * this.$store.state.Edit.filePage
+              fileLen = start + 100
             } else {
-              f = this.$store.state.Edit.file.map(n => n.split(','))
+              fileLen = 100
             }
+          }
+          for (let i = start; i < fileLen; i += 1) {
+            f.push(file[i])
+          }
+          const type = typeof file[0]
+          if (this.$store.state.Edit.lastNav !== '/edit' && type !== 'object') {
+            f = f.map(n => n.split(','))
           }
           return f
         }
