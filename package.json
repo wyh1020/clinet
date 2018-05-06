@@ -1,6 +1,6 @@
 {
   "name": "clinet",
-  "version": "0.1.4",
+  "version": "0.1.5-180506",
   "author": "dingyun <dingyun@hitb.com.cn>",
   "description": "asch-client-emr-hl7",
   "license": "HITB",
@@ -49,7 +49,7 @@
       "icon": "build/icons/icon.icns"
     },
     "win": {
-      "icon": "build/icons/icon.ico"
+      "icon": "build/icons/icon.jpg"
     },
     "linux": {
       "icon": "build/icons"

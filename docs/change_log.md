@@ -1,4 +1,8 @@
-### 2018-05-4
+### 2018-05-6
+* 部分click操作改为双击dblclick，比如stat里的小图跳转大图
+* 更换windows系统上的程序图标icon.jpg
+* 更新发布版本号0.1.5-180506（-后面的代表年月日）
+### 2018-05-5
 * 修复ctrl+del键，删除doc的item。输入框出现各种操作bug的原因是输入框v-model="item"的item原来是data属性，后来改成了computed属性，所以原来使用的this.item = XXX的赋值方法就失效了，要通过state.editBarValue = state.doc[n]的方法来赋值了。
 * 修复空格键、左右键，都是space方法，判断光标左侧是空格时触发
 * 登陆后，默认进入edit页，默认显示右local和左table
