@@ -333,6 +333,7 @@
         } else {
           chartdata = this.$store.state.Stat.chartData
         }
+        // console.log(chartdata)
         switch (type) {
           case '柱状图':
             chartBar(id, chartdata)
