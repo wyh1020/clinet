@@ -55,8 +55,8 @@ export default function chartData(obj, table, xid = [], yid = []) {
     xid.forEach(x => xArr.push(statObj[x]))
     // 按照字段取得对应结果
     // console.log(xid)
-    console.log(xArr)
-    console.log(yArr)
+    // console.log(xArr)
+    // console.log(yArr)
     xArr.forEach((xs) => {
       const obj = {}
       yArr.forEach((y) => {
@@ -65,15 +65,15 @@ export default function chartData(obj, table, xid = [], yid = []) {
       // console.log(obj)
       stat.push(obj)
     })
-    console.log(stat)
-    stat.forEach((xs, i) => {
-      Object.keys(xs).forEach((x) => {
-        if (xs[x] === '-' || xs[x] === '' || x === 'stat_type' || `${x}` === 'undefined') {
-          delete xs[x]
-        }
-      })
-      stat[i] = xs
-    })
+    // console.log(stat)
+    // stat.forEach((xs, i) => {
+    //   Object.keys(xs).forEach((x) => {
+    //     if (xs[x] === '-' || xs[x] === '' || x === 'stat_type' || `${x}` === 'undefined') {
+    //       delete xs[x]
+    //     }
+    //   })
+    //   stat[i] = xs
+    // })
     // console.log(stat)
     obj.$store.commit('STAT_SET_CHART_DATA', stat)
   }
