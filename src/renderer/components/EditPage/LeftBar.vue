@@ -6,7 +6,7 @@
 
     <div class="collapse navbar-collapse" id="edit-leftbar-nav">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" id="edit-leftbar-back" v-on:click="lastNav" v-if="this.$store.state.Edit.lastNav !== '/edit'">
+        <li class="nav-item active" id="edit-leftbar-back" v-on:click="lastNav()" v-if="this.$store.state.Edit.lastNav !== '/edit'">
           <a class="nav-link text-light" href="#"> 返回 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
@@ -32,14 +32,14 @@
         <li class="nav-item" id="edit-leftbar-newdoc" v-on:click="newDoc(null)">
           <a class="nav-link text-light" href="#">新建</a>
         </li>
+        <li class="nav-item" id="edit-leftbar-del" v-on:click="save(0)">
+          <a class="nav-link text-light" href="#">删除</a>
+        </li>
         <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save(1)">
           <a class="nav-link text-light" href="#">保存</a>
         </li>
         <li class="nav-item" id="edit-leftbar-save" v-on:click="save(2)">
           <a class="nav-link text-light" href="#">另存</a>
-        </li>
-        <li class="nav-item" id="edit-leftbar-del" v-on:click="save(0)">
-          <a class="nav-link text-light" href="#">删除</a>
         </li>
         <li class="nav-item active" id="edit-leftbar-uppage" v-on:click='page(-1)' v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
@@ -49,7 +49,7 @@
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0" v-on:submit.prevent>
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-on:keyup.enter="leftEnter" v-model="leftItem">
+        <input class="form-control mr-sm-2" type="search" placeholder="模糊查询" aria-label="Search" v-on:keyup.enter="leftEnter()" v-model="leftItem">
       </form>
     </div>
   </nav>
@@ -63,7 +63,7 @@
   export default {
     data() {
       return {
-        name: this.$route.name,
+        // name: this.$route.name,
         leftItem: '',
         docType: '自定义文档'
       };
@@ -140,6 +140,7 @@
         }
       },
       save: function (n) {
+        const fileName = this.$store.state.Edit.fileName
         const fileIndex = this.$store.state.Edit.fileIndex
         let doc = this.$store.state.Edit.doc
         doc = doc.filter(x => x !== '')
@@ -159,7 +160,7 @@
             }
             break;
           case 1:
-            if (this.$store.state.Edit.serverType === 'show') {
+            if (fileName.includes('@')) {
               saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], this.$store.state.Edit.file, this.$store.state.System.user.username])
             } else {
               if (this.$store.state.Edit.lastNav === '/stat') {
@@ -173,16 +174,20 @@
             }
             break;
           case 2:
-            console.log(this.$store.state.Edit.file[0])
-            if (this.$store.state.Edit.lastNav === '/stat') {
-              x = this.$store.state.Stat.fileName
-              this.$store.commit('EDIT_ADD_DOC', arr);
+            // console.log(this.$store.state.Edit.file[0])
+            if (fileName.includes('@')) {
+              saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], this.$store.state.Edit.file, this.$store.state.System.user.username])
             } else {
-              x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
-              this.$store.commit('EDIT_ADD_DOC', doc.toString());
+              if (this.$store.state.Edit.lastNav === '/stat') {
+                x = this.$store.state.Stat.fileName
+                this.$store.commit('EDIT_ADD_DOC', arr);
+              } else {
+                x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
+                this.$store.commit('EDIT_ADD_DOC', doc.toString());
+              }
+              p = this.$store.state.Edit.lastNav
+              saveFile(this, x, p)
             }
-            p = this.$store.state.Edit.lastNav
-            saveFile(this, x, p)
             break;
           default:
             break;
