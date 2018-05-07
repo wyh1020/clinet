@@ -119,11 +119,7 @@
         <th class="table-danger"> 病案历史</th>
       </tr>
     </table>
-    <table v-if="type === '病案参考'">
-      <tr>
-        <th class="table-danger"> 病案参考</th>
-      </tr>
-    </table>
+    <right-panel-doc v-if="type === '病案参考'"></right-panel-doc>
     <table v-if="type === 'drg分析'">
       <tr>
         <th class="table-danger"> drg分析</th>
@@ -133,8 +129,9 @@
 </template>
 
 <script>
+  import RightPanelDoc from './RightPanelDoc';
   export default {
-    components: { },
+    components: { RightPanelDoc },
     computed: {
       type: {
         get() {

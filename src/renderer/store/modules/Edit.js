@@ -4,7 +4,9 @@ const state = {
   files: [],
   file: [],
   doc: [],
+  docShow: [],
   docIndex: 0,
+  docShowIndex: 0,
   filesIndex: null,
   fileIndex: null,
   leftPanel: 'table',
@@ -83,6 +85,10 @@ const mutations = {
     state.doc = x;
     state.editBarValue = x[0]
   },
+  EDIT_LOAD_DOC_SHOW(state, message) {
+    const x = message.map(m => m.split(' ').filter(i => i !== ''))
+    state.docShow = x;
+  },
   EDIT_SET_DOC(state) {
     state.doc = [];
   },
@@ -109,7 +115,7 @@ const mutations = {
   },
   EDIT_SET_LAST_NAV(state, message) {
     state.lastNav = message;
-    state.doc = []
+    // state.doc = []
     // state.file = []
   },
   EDIT_SET_DOC_INDEX(state, m) {
@@ -123,6 +129,17 @@ const mutations = {
       if (state.docIndex > state.doc.length) { state.docIndex = state.doc.length }
     }
     state.editBarValue = state.doc[state.docIndex]
+  },
+  EDIT_SET_DOC_SHOW_INDEX(state, m) {
+    if (m[1] === true) {
+      state.docShowIndex = 0;
+    } else if (m[1] === 'set') {
+      state.docShowIndex = m[0];
+    } else {
+      state.docShowIndex += m[0];
+      if (state.docShowIndex < 0) { state.docShowIndex = 0 }
+      if (state.docShowIndex > state.docShow.length) { state.docShowIndex = state.docShow.length }
+    }
   },
   EDIT_SET_HINT_PAGE(state, page) {
     if (page === 'up') {
@@ -194,6 +211,7 @@ const actions = {
     commit('EDIT_LOAD_FILES');
     commit('EDIT_LOAD_FILE');
     commit('EDIT_LOAD_DOC');
+    commit('EDIT_LOAD_DOC_SHOW');
     commit('EDIT_SET_DOC');
     commit('EDIT_SERVER_FILES');
     commit('EDIT_SET_LEFT_PANEL');
@@ -204,6 +222,7 @@ const actions = {
     commit('EDIT_SET_FILE_PAGE');
     commit('EDIT_SET_FILES_PAGE');
     commit('EDIT_SET_DOC_INDEX');
+    commit('EDIT_SET_DOC_SHOW_INDEX');
     commit('EDIT_UPDATE_DOC');
     commit('EDIT_DELETE_ITEM');
     commit('EDIT_DELETE_DOC');

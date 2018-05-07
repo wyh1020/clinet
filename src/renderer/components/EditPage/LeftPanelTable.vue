@@ -4,10 +4,12 @@
       <tr>
         <th colspan="10" class="table-info"> {{fileName}}（共有{{fileLength}}条记录）</th>
       </tr>
-      <tr class="edit-leftpaneltable-tr" v-for="(data, index) in file" v-bind:key='index' v-on:click="loadDoc(data, index)" v-bind:class="{'table-warning':flag === index}">
+      <tr class="edit-leftpaneltable-tr" v-for="(data, index) in file" v-bind:key='index' v-bind:class="{'table-warning':flag === index}">
         <td> {{index + 1}} </td>
         <td v-if="lastNav !== '/edit' && index < 10" v-for="(field, index) in data" v-bind:key='index' v-on:click="onClickTd(data, index)" v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}">{{data[index]}}</td>
         <td v-if="lastNav === '/edit'">{{data.substr(0, 100)}}</td>
+        <td v-on:click="loadDoc(data, index, 'edit')"><a href="#">编辑</a></td>
+        <td v-on:click="loadDoc(data, index, 'show')"><a href="#">参考</a></td>
       </tr>
     </table>
   </div>
@@ -86,38 +88,44 @@
         }
         this.$store.commit('EDIT_SET_BAR_VALUE', data[index]);
       },
-      loadDoc: function (data, index) {
-        this.$store.commit('EDIT_SET_FILE_INDEX', index)
-        let r = []
-        if (this.$store.state.Edit.fileType === 'csv') {
-          const file = this.$store.state.Edit.file
-          const type = typeof this.$store.state.Edit.file[0]
-          let h = []
-          h = file[0]
-          // if (file.length === 20) {
-          //   h = file[index]
-          // } else {
-          //   h = file[0].split(',')
-          // }
-          if (type === 'string') {
-            h.split(',').forEach((key, i) => {
-              r.push(`${key} ${data[i]}`)
-            });
+      loadDoc: function (data, index, type) {
+        if (type === 'edit') {
+          this.$store.commit('EDIT_SET_FILE_INDEX', index)
+          let r = []
+          if (this.$store.state.Edit.fileType === 'csv') {
+            const file = this.$store.state.Edit.file
+            const type = typeof this.$store.state.Edit.file[0]
+            let h = []
+            h = file[0]
+            // if (file.length === 20) {
+            //   h = file[index]
+            // } else {
+            //   h = file[0].split(',')
+            // }
+            if (type === 'string') {
+              h.split(',').forEach((key, i) => {
+                r.push(`${key} ${data[i]}`)
+              });
+            } else {
+              h.forEach((key, i) => {
+                r.push(`${key} ${data[i]}`)
+              });
+            }
           } else {
-            h.forEach((key, i) => {
-              r.push(`${key} ${data[i]}`)
-            });
+            r = data.split(',')
           }
+          this.$store.commit('EDIT_LOAD_DOC', r)
+          if (this.$store.state.Edit.selectedType === 'row') {
+            this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
+            this.$store.commit('EDIT_SET_RIGHT_PANEL', 'left')
+          }
+          this.$store.commit('EDIT_SET_DOC_INDEX', [0, true]);
+          document.getElementById('edit-editbar-input').focus()
         } else {
-          r = data.split(',')
+          this.$store.commit('EDIT_LOAD_DOC_SHOW', data.split(','))
+          this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
+          this.$store.commit('EDIT_SET_HELP_TYPE', '病案参考');
         }
-        this.$store.commit('EDIT_LOAD_DOC', r)
-        if (this.$store.state.Edit.selectedType === 'row') {
-          this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
-          this.$store.commit('EDIT_SET_RIGHT_PANEL', 'left')
-        }
-        this.$store.commit('EDIT_SET_DOC_INDEX', [0, true]);
-        document.getElementById('edit-editbar-input').focus()
       },
     },
   };

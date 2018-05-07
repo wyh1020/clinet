@@ -8,7 +8,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom">
       <input id="edit-editbar-input" style="line-height: 3" type="text" class="form-control"
       placeholder="请输入……" aria-label="Username" aria-describedby="basic-addon1" v-model="item"
-      v-on:input="change()" v-on:keydown.enter="enter()" v-on:keyup.ctrl.delete="del()" v-on:keyup.ctrl.enter="addItem()"
+      v-on:click="show()"
+      v-on:input="change()" v-on:keydown.enter="enter" v-on:keyup.ctrl.delete="del()" v-on:keyup.ctrl.enter="addItem()"
       v-on:keyup.up="up()" v-on:keyup.down="down()" 
       v-on:keydown.ctrl.up="itemUp()" v-on:keydown.ctrl.down="itemDown()"      
       v-on:keyup.space="space()" v-on:keyup.left="space()" v-on:keyup.right="space()"
@@ -63,6 +64,9 @@
       }
     },
     methods: {
+      show() {
+        this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
+      },
       enter(e) {
         const n = this.$store.state.Edit.docIndex
         const value = e.target.value.replace(/,/g, '，')
