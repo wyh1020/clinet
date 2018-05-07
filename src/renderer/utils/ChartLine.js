@@ -48,6 +48,8 @@ export default function chartLine(id, opt = null) {
         name = `${v.机构} ${v.时间} ${v.病种}`
       } else if (keys.includes('org') && keys.includes('time')) {
         name = `${v.org} ${v.time}`
+      } else if (keys.includes('year_time')) {
+        name = `${v.year_time}`
       } else {
         name = `${v.机构} ${v.时间}`
       }

@@ -116,30 +116,23 @@
         this.$electron.shell.openExternal(link);
       },
       login() {
-        if (global.hitbdata) {
-          const name = this.loginName;
-          const pass = this.loginPassword;
-          const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
-          if (reg.test(name)) {
-            const user = { username: name, password: pass }
-            const server = global.hitbdata.server['远程测试服务器'][0];
-            sLogin(this, [server[0], server[1], user])
-          } else if (Array.from(name.split(' ')).length === 12) {
-            const key = Object.keys(global.hitbdata.blockchain)[0]
-            const server = global.hitbdata.blockchain[key][0];
-            this.$store.commit('BLOCK_SET_SERVER', server)
-            open(this, [server[0], server[1], name]);
-          } else {
-            this.$store.commit('SET_NOTICE', '未注册用户登陆！');
-          }
-          this.$store.commit('SET_NAVBAR', 'edit');
-          this.$store.commit('HAS_DATA');
-          this.$router.push('/edit');
-          this.$store.commit('EDIT_LOAD_FILES');
+        const name = this.loginName;
+        const pass = this.loginPassword;
+        // const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
+        if (Array.from(name.split(' ')).length === 12) {
+          const key = Object.keys(global.hitbdata.blockchain)[0]
+          const server = global.hitbdata.blockchain[key][0];
+          this.$store.commit('BLOCK_SET_SERVER', server)
+          open(this, [server[0], server[1], name]);
         } else {
-          this.hasData = true;
-          this.$store.commit('SET_NOTICE', '初次启动，读取系统初始化文件，请先关闭系统，再打开！')
+          const user = { username: name, password: pass }
+          const server = global.hitbdata.server['远程测试服务器'][0];
+          sLogin(this, [server[0], server[1], user])
         }
+        this.$store.commit('SET_NAVBAR', 'edit');
+        this.$store.commit('HAS_DATA');
+        this.$router.push('/edit');
+        this.$store.commit('EDIT_LOAD_FILES');
       },
     },
   };
