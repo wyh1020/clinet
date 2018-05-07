@@ -75,6 +75,7 @@ export function sRegister(obj, data) {
 }
 // 登录
 export function sLogin(obj, data) {
+  console.log(data)
   const secret = 'someone manual strong movie roof episode eight spatial brown soldier soup motor';
   const keys = AschJS.crypto.getKeys(secret)
   const publicKey = keys.publicKey
@@ -94,6 +95,9 @@ export function sLogin(obj, data) {
       obj.$store.commit('SYSTEM_SET_CONNECT_INFO', true)
       obj.$store.commit('SET_NOTICE', '远程服务用户登录成功')
     } else {
+      obj.$store.commit('SYSTEM_SET_USER', ['用户登录失败', { username: '', org: '', type: 2, login: false }])
+      obj.$store.commit('SYSTEM_SET_SERVER', ['', '', ''])
+      obj.$store.commit('SYSTEM_SET_CONNECT_INFO', false)
       obj.$store.commit('SET_NOTICE', '用户名或密码错误,使用未注册用户登陆！');
     }
   }).catch((err) => {
