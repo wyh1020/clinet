@@ -109,16 +109,12 @@
         </td>
       </tr>
     </table>
-    <table v-if="type === '输入框提示'">
-      <tr>
-        <th class="table-danger"> 输入框提示</th>
-      </tr>
-    </table>
     <table v-if="type === '病案历史'">
       <tr>
         <th class="table-danger"> 病案历史</th>
       </tr>
     </table>
+    <right-panel-cdh v-if="type === '输入框提示'"></right-panel-cdh>
     <right-panel-doc v-if="type === '病案参考'"></right-panel-doc>
     <table v-if="type === 'drg分析'">
       <tr>
@@ -130,8 +126,9 @@
 
 <script>
   import RightPanelDoc from './RightPanelDoc';
+  import RightPanelCdh from './RightPanelCdh';
   export default {
-    components: { RightPanelDoc },
+    components: { RightPanelDoc, RightPanelCdh },
     computed: {
       type: {
         get() {
