@@ -161,7 +161,7 @@
             break;
           case 1:
             if (fileName.includes('@')) {
-              saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], this.$store.state.Edit.file, this.$store.state.System.user.username])
+              saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1])
             } else {
               if (this.$store.state.Edit.lastNav === '/stat') {
                 x = this.$store.state.Stat.fileName
@@ -176,7 +176,7 @@
           case 2:
             // console.log(this.$store.state.Edit.file[0])
             if (fileName.includes('@')) {
-              saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], this.$store.state.Edit.file, this.$store.state.System.user.username])
+              saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 2])
             } else {
               if (this.$store.state.Edit.lastNav === '/stat') {
                 x = this.$store.state.Stat.fileName
