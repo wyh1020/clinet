@@ -6,16 +6,16 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='setUser' id="block-user-setup">
+        <li class="nav-item active" v-on:click='setUser()' id="block-user-setup">
           <a class="nav-link text-light" href="#"> 账户设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='account' id="block-user-account">
+        <li class="nav-item active" v-on:click='account()' id="block-user-account">
           <a class="nav-link text-light" href="#"> 账户余额 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='transaction' id="block-user-transaction">
+        <li class="nav-item active" v-on:click='transaction()' id="block-user-transaction">
           <a class="nav-link text-light" href="#"> 转账交易 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='transRecord' id="block-user-trans-record">
+        <li class="nav-item active" v-on:click='transRecord()' id="block-user-trans-record">
           <a class="nav-link text-light" href="#"> 账户交易记录 <span class="sr-only">(current)</span></a>
         </li>
         <!-- <li class="nav-item active" v-on:click="page('up')" id="block-user-trans-record">

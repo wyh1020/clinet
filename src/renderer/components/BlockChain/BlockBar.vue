@@ -6,7 +6,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='blockList' id="block-list">
+        <li class="nav-item active" v-on:click='blockList()' id="block-list">
           <a class="nav-link text-light" href="#"> 区块列表 <span class="sr-only">(current)</span></a>
         </li>
         <!-- <li class="nav-item active" v-on:click="page('up')" id="block-up">
@@ -18,7 +18,7 @@
         <!-- <li class="nav-item active" v-on:click='block' id="block-content">
           <a class="nav-link text-light" href="#"> 区块内容 <span class="sr-only">(current)</span></a>
         </li> -->
-        <li class="nav-item active" v-on:click='blockInfo' id="block-info">
+        <li class="nav-item active" v-on:click='blockInfo()' id="block-info">
           <a class="nav-link text-light" href="#"> 区块内容明细 <span class="sr-only">(current)</span></a>
         </li>
       </ul>

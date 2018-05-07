@@ -6,10 +6,10 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='loadData' id="library-local-file">
+        <li class="nav-item active" v-on:click='loadData()' id="library-local-file">
           <a class="nav-link text-light" href="#"> 本地文件 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='serverData' id="library-remote-file">
+        <li class="nav-item active" v-on:click='serverData()' id="library-remote-file">
           <a class="nav-link text-light" href="#"> 远程文件 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='page(-1)' id="library-up">
@@ -18,7 +18,7 @@
         <li class="nav-item active" v-on:click='page(1)' id="library-down">
           <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='edit' id="library-edit">
+        <li class="nav-item active" v-on:click='edit()' id="library-edit">
           <a class="nav-link text-light" href="#"> 编辑数据 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
@@ -36,7 +36,7 @@
         </li>
       </ul>
       <div class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-on:keyup.13="librarySearch" v-model="library">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-on:keyup.13="librarySearch()" v-model="library">
       </div>
     </div>
   </nav>

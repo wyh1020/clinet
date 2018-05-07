@@ -65,7 +65,7 @@
             <input type="text" class="form-control" placeholder="" v-model="bvalue">
           </div>
           <button type="submit" class="btn btn-primary" v-on:click="selX(data)">查询</button>
-          <button type="submit" class="btn btn-primary" v-on:click="selX">清空</button>
+          <button type="submit" class="btn btn-primary" v-on:click="selX()">清空</button>
         </form>
       </div>
     </div>

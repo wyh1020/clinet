@@ -3,7 +3,7 @@
     <div class="row" style="margin-top: 5%">
       <div class="col"></div>
       <div class="col">
-        <div id="chartPage" style="width: 1200px; height:800px;" v-on:dblclick="back"></div>
+        <div id="chartPage" style="width: 1200px; height:800px;" v-on:dblclick="back()"></div>
       </div>
       <div class="col"></div>
     </div>

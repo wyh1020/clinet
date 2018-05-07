@@ -6,10 +6,10 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='getLocalData' id="server-drg-localcase-data">
+        <li class="nav-item active" v-on:click='getLocalData()' id="server-drg-localcase-data">
           <a class="nav-link text-light" href="#"> 本地病案数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getServerData' id="server-drg-sercase-data">
+        <li class="nav-item active" v-on:click='getServerData()' id="server-drg-sercase-data">
           <a class="nav-link text-light" href="#"> 服务器病案数据 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click="page('up')" id="server-drg-checkdata">
@@ -21,18 +21,18 @@
         <!-- <li class="nav-item active" v-on:click='compareData' id="server-drg-checkdata">
           <a class="nav-link text-light" href="#"> 校验数据 <span class="sr-only">(current)</span></a>
         </li> -->
-        <li class="nav-item active" v-on:click='drgCompute' id="server-drg-comp">
+        <li class="nav-item active" v-on:click='drgCompute()' id="server-drg-comp">
           <a class="nav-link text-light" href="#"> 调用Drg分组服务 <span class="sr-only">(current)</span></a>
         </li>
         <!-- <li class="nav-item active" v-on:click='drgResult' id="server-drg-stop">
           <a class="nav-link text-light" href="#"> 停止Drg分组服务 <span class="sr-only">(current)</span></a>
         </li> -->
-        <li class="nav-item active" v-on:click='drgRule' id="server-drg-rule">
+        <li class="nav-item active" v-on:click='drgRule()' id="server-drg-rule">
           <a class="nav-link text-light" href="#"> 查看Drg分组规则 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <div class="form-inline my-2 my-lg-0" v-if="this.toolbar === 'getLocalData'">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="server-drg-search" v-on:keyup.13="systemSearch" v-model='system'>
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="server-drg-search" v-on:keyup.13="systemSearch()" v-model='system'>
       </div>
     </div>
   </nav>

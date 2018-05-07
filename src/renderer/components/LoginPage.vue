@@ -131,7 +131,7 @@
         }
         this.$store.commit('SET_NAVBAR', 'edit');
         this.$store.commit('HAS_DATA');
-        this.$router.push('/edit');
+        this.$router.push('/home');
         this.$store.commit('EDIT_LOAD_FILES');
       },
     },

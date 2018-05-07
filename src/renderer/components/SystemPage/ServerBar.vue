@@ -6,13 +6,13 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='getServers' id="server-remote-list">
+        <li class="nav-item active" v-on:click='getServers()' id="server-remote-list">
           <a class="nav-link text-light" href="#"> 远程服务器列表 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getUsers' id="server-user-setup">
+        <li class="nav-item active" v-on:click='getUsers()' id="server-user-setup">
           <a class="nav-link text-light" href="#"> 用户设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item dropdown" v-on:click='getOrgs' id="server-org-setup">
+        <li class="nav-item dropdown" v-on:click='getOrgs()' id="server-org-setup">
           <a class="nav-link text-light dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> 机构设置 <span class="sr-only">(current)</span></a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#" v-on:click="orgInfo('机构信息')">机构信息</a>
@@ -21,7 +21,7 @@
             <div class="dropdown-divider"></div>
           </div>
         </li>
-        <li class="nav-item active" v-on:click='getPersons' id="server-people-setup" v-if="this.$store.state.System.userPower === 1">
+        <li class="nav-item active" v-on:click='getPersons()' id="server-people-setup" v-if="this.$store.state.System.userPower === 1">
           <a class="nav-link text-light" href="#"> 人员设置 <span class="sr-only">(current)</span></a>
         </li>
         <!-- <li class="nav-item active" v-on:click='getServerFunctions' id="server-remote-function-setup">

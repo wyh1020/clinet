@@ -58,7 +58,7 @@
                   <input type="text" class="form-control" id="InputPersonname" placeholder="Personname" v-model="personname">
                 </div>
               </form>
-              <button type="submit" class="btn btn-primary" v-on:click="register">注册用户</button>
+              <button type="submit" class="btn btn-primary" v-on:click="register()">注册用户</button>
             </div>
           </div>
         </div>

@@ -28,7 +28,7 @@
         <div class="form-group">
           <label>接受者</label>
           <select class="form-control" v-model="pay.targetAddress">
-            <option v-for="value in publicKeys">{{value}}</option>
+            <option v-for="(value, index) in publicKeys"  v-bind:key='index'>{{value}}</option>
           </select>
         </div>
         <div class="form-group">
@@ -48,7 +48,7 @@
           <input type="text" class="form-control" placeholder="备注" v-model="pay.message">
         </div>
       </form>
-      <button type="submit" class="btn btn-primary" v-on:click="payTrans">发送</button>
+      <button type="submit" class="btn btn-primary" v-on:click="payTrans()">发送</button>
     </div>
     <div v-if="toolbar == 'transRecord'">
       <table>
@@ -134,15 +134,6 @@
     //   this.getPublicKey()
     // },
     methods: {
-      load: function (n) {
-        switch (n) {
-          case 1:
-            this.$router.push('/edit');
-            break;
-          default:
-            this.$router.push('/edit');
-        }
-      },
       login: function () {
         const ip = this.$store.state.System.server
         const port = this.$store.state.System.port

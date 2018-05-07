@@ -6,19 +6,19 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='getFiles' id="server-load-loaclfile">
+        <li class="nav-item active" v-on:click='getFiles()' id="server-load-loaclfile">
           <a class="nav-link text-light" href="#"> 选择CSV文件 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='getTables' id="server-load-choosedb">
+        <li class="nav-item active" v-on:click='getTables()' id="server-load-choosedb">
           <a class="nav-link text-light" href="#"> 选择数据表 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='compareTable' id="server-load-contrast">
+        <li class="nav-item active" v-on:click='compareTable()' id="server-load-contrast">
           <a class="nav-link text-light" href="#"> 对照数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='checkTable' id="server-load-checkdata">
+        <li class="nav-item active" v-on:click='checkTable()' id="server-load-checkdata">
           <a class="nav-link text-light" href="#"> 校验数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='editTable' id="server-load-editdata">
+        <li class="nav-item active" v-on:click='editTable()' id="server-load-editdata">
           <a class="nav-link text-light" href="#"> 编辑数据 <span class="sr-only">(current)</span></a>
         </li>
         <!-- <li class="nav-item active" v-on:click='loadTable' id="server-load-import">
@@ -27,7 +27,7 @@
         <!-- <li class="nav-item active" v-on:click='saveTableData' id="server-load-savelocal">
           <a class="nav-link text-light" href="#"> 保存本地文件 <span class="sr-only">(current)</span></a>
         </li> -->
-        <li class="nav-item active" v-on:click='upLoadTableData' id="server-load-uploaddata">
+        <li class="nav-item active" v-on:click='upLoadTableData()' id="server-load-uploaddata">
           <a class="nav-link text-light" href="#"> 上传服务器数据 <span class="sr-only">(current)</span></a>
         </li>
       </ul>

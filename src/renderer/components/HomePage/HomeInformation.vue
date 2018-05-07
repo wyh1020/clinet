@@ -8,30 +8,44 @@
       </ol>
     </div>
     <div class="alert alert-primary" role="alert">
-      <h4 class="alert-heading">第一次试用体验：体验数据分析功能!</h4>
+      <h4 class="alert-heading">病历编辑（数据采集）</h4>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">点击菜单栏的<a href="#">数据采集，打开数据采集的页面</a></li>
+        <li class="breadcrumb-item active" aria-current="page"></li>
+      </ol>
+    </div>
+    <div class="alert alert-primary" role="alert">
+      <h4 class="alert-heading">数据分析</h4>
       <ol class="breadcrumb">
         <li class="breadcrumb-item">点击菜单栏的<a href="#">数据分析，打开数据分析的页面</a></li>
+        <li class="breadcrumb-item active" aria-current="page"></li>
+      </ol>
+    </div>
+    <div class="alert alert-primary" role="alert">
+      <h4 class="alert-heading">术语字典</h4>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">点击菜单栏的<a href="#">术语字典，打开术语字典的页面</a></li>
         <li class="breadcrumb-item active" aria-current="page"></li>
       </ol>
     </div>
     <div class="alert alert-success" role="alert">
-      <h4 class="alert-heading">第一次试用体验：导入用户自己的本地数据!</h4>
+      <h4 class="alert-heading">导入用户自己的本地数据</h4>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item">点击菜单栏的<a href="#">数据分析，打开数据分析的页面</a></li>
+        <li class="breadcrumb-item">点击菜单栏的<a href="#">系统服务，打开系统服务的页面</a></li>
         <li class="breadcrumb-item active" aria-current="page"></li>
       </ol>
     </div>
     <div class="alert alert-warning" role="alert">
-      <h4 class="alert-heading">第一次试用体验：使用系统服务提供的DRG分组服务!</h4>
+      <h4 class="alert-heading">系统服务</h4>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item">点击菜单栏的<a href="#">数据分析，打开数据分析的页面</a></li>
+        <li class="breadcrumb-item">点击菜单栏的<a href="#">系统服务，打开系统服务的页面</a></li>
         <li class="breadcrumb-item active" aria-current="page"></li>
       </ol>
     </div>
     <div class="alert alert-secondary" role="alert">
-      <h4 class="alert-heading">第一次试用体验：使用区块链服务提供的DRG分组服务!</h4>
+      <h4 class="alert-heading">区块链服务</h4>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item">点击菜单栏的<a href="#">数据分析，打开数据分析的页面</a></li>
+        <li class="breadcrumb-item">点击菜单栏的<a href="#">区块链服务，打开区块链服务的页面</a></li>
         <li class="breadcrumb-item active" aria-current="page"></li>
       </ol>
     </div>

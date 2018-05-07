@@ -22,10 +22,10 @@
         <li class="nav-item active" v-on:click='help(null)' id="edit-rightbar-help">
           <a class="nav-link text-light" href="#"> 帮助 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='localData' id="edit-rightbar-local">
+        <li class="nav-item active" v-on:click='localData()' id="edit-rightbar-local">
           <a class="nav-link text-light" href="#"> 本地文件 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='serverData' id="edit-rightbar-server">
+        <li class="nav-item active" v-on:click='serverData()' id="edit-rightbar-server">
           <a class="nav-link text-light" href="#"> 远程文件 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
@@ -36,7 +36,7 @@
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0" v-on:submit.prevent>
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-on:keyup.enter="rightEnter" v-model="rightItem">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-on:keyup.enter="rightEnter()" v-model="rightItem">
       </form>
     </div>
   </nav>

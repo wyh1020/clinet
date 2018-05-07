@@ -6,16 +6,16 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <!-- <li class="nav-item active" v-on:click='getServers' id="block-get-servers">
+        <!-- <li class="nav-item active" v-on:click='getServers()' id="block-get-servers">
           <a class="nav-link text-light" href="#"> 服务器节点列表 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='setNodes' id="block-set-nodes">
+        <li class="nav-item active" v-on:click='setNodes()' id="block-set-nodes">
           <a class="nav-link text-light" href="#"> 设置连接节点 <span class="sr-only">(current)</span></a>
         </li> -->
-        <li class="nav-item active" v-on:click='blockChainInfo' id="block-chain-info">
+        <li class="nav-item active" v-on:click='blockChainInfo()' id="block-chain-info">
           <a class="nav-link text-light" href="#"> 区块链服务介绍 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='blockChainFunction' id="block-chain-function">
+        <li class="nav-item active" v-on:click='blockChainFunction()' id="block-chain-function">
           <a class="nav-link text-light" href="#"> 区块链服务功能列表 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
