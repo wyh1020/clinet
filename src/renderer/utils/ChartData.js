@@ -5,11 +5,15 @@ export default function chartData(obj, table, xid = [], yid = []) {
   let yArr = []
   const stat = []
   // 按照逗号切分并取得表头
-  // console.log(table)
   table = table.map((x) => {
     let y = []
     if (Array.isArray(x)) {
       y = x
+    } else if (typeof (x) === 'object') {
+      const keys = Object.keys(x)
+      const newArr = []
+      newArr.push(keys.map(k => x[k]))
+      y = newArr
     } else {
       y = x.split(',')
     }

@@ -6,7 +6,7 @@
         <left-panel></left-panel>
       </div>
       <div class="col">
-        <div id="chartLeft" style="width: 600px; height:400px;" v-on:dblclick="chart('left')"></div>
+        <div id="chartLeft" style="width: 600px; height:400px; background-color: #E0FFFF" v-on:dblclick="chart('left')"></div>
       </div>
       <div class="col">
         <div id="chartRight" style="width: 600px; height:400px;" v-on:dblclick="chart('right')"></div>
@@ -194,7 +194,7 @@
         get() {
           let f = []
           if (this.$store.state.Stat.tableType === 'compare') {
-            f = []
+            f = this.$store.state.Stat.selectedCol
           } else if (this.$store.state.Stat.tableType === 'case') {
             f = this.$store.state.Stat.caseSelectedCol
           } else {
@@ -279,7 +279,7 @@
               }
               break;
             case 'server':
-              if (data[0] === '机构' && data[1] === '时间') {
+              if ((data[0] === '机构' && data[1] === '时间') || data[0] === 'year_time') {
                 this.$store.commit('STAT_SET_COL', index);
               }
               if (index === cindex && data !== this.$store.state.Stat.serverTable.data[0]) {
