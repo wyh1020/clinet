@@ -54,7 +54,9 @@ const state = {
   persons: {},
   pageInfo: { org: '1', department: '1' },
   targetList: [],
-  checkData: []
+  checkData: [],
+  // 文件上传信息
+  upLoadFile: {}
 };
 
 const mutations = {
@@ -242,7 +244,7 @@ const mutations = {
     state.serverTable = field
   },
   SYSTEM_UPLOAD_FILE(state, field) {
-    console.log(field);
+    state.upLoadFile = field
   },
   // SYSTEM_TABLE_TYPE(state, field) {
   //   state.tableType = field;
