@@ -4,6 +4,12 @@ const AschJS = require('asch-js');
 // 正则表达式
 const regEmail = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
 const regTel = /^1[34578]\d{9}$/
+const ChartScatter = require('./ChartScatter');
+const ChartRadar = require('./ChartRadar');
+const ChartBar = require('./ChartBar');
+const ChartLine = require('./ChartLine');
+const ChartPie = require('./ChartPie');
+const ChartData = require('./ChartData');
 
 //  测试连接服务器
 export function sConnect(obj, data) {
@@ -341,6 +347,43 @@ export function sGetWt4(obj, data) {
         })
         res.data.data = newWt4
         obj.$store.commit('STAT_SET_SERVER_TABLE', res.data)
+        ChartData.default(obj, res.data.data, obj.$store.state.Stat.selectedRow, obj.$store.state.Stat.selectedCol)
+        switch (obj.$store.state.Stat.chartLeft) {
+          case '柱状图':
+            ChartBar.default('chartLeft', obj.$store.state.Stat.chartData)
+            break;
+          case '折线图':
+            ChartLine.default('chartLeft', obj.$store.state.Stat.chartData)
+            break;
+          case '雷达图':
+            ChartRadar.default('chartLeft', obj.$store.state.Stat.chartData)
+            break;
+          case '散点图':
+            ChartScatter.default('chartLeft', obj.$store.state.Stat.chartData)
+            break;
+          case '饼图':
+            ChartPie.default('chartLeft', obj.$store.state.Stat.chartData)
+            break;
+          default: break;
+        }
+        switch (obj.$store.state.Stat.chartRight) {
+          case '柱状图':
+            ChartBar.default('chartRight', obj.$store.state.Stat.chartData)
+            break;
+          case '折线图':
+            ChartLine.default('chartRight', obj.$store.state.Stat.chartData)
+            break;
+          case '雷达图':
+            ChartRadar.default('chartRight', obj.$store.state.Stat.chartData)
+            break;
+          case '散点图':
+            ChartScatter.default('chartRight', obj.$store.state.Stat.chartData)
+            break;
+          case '饼图':
+            ChartPie.default('chartRight', obj.$store.state.Stat.chartData)
+            break;
+          default: break;
+        }
       }
     } else if (res.status === 200) {
       obj.$store.commit('SYSTEM_SET_WT4', [res.data, '病案查询成功', true])

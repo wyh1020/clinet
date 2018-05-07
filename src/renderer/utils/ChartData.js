@@ -21,6 +21,8 @@ export default function chartData(obj, table, xid = [], yid = []) {
     const th = table[0].filter(x => x !== 'stat_type')
     if (th.includes('org') && th.includes('time')) {
       yArr = ['org', 'time']
+    } else if (th.includes('year_time')) {
+      yArr = []
     } else {
       yArr = ['机构', '时间']
     }
