@@ -29,12 +29,12 @@
             <div class="dropdown-divider"></div>
           </div>
         </li>
-        <li class="nav-item" id="edit-leftbar-newdoc" v-on:click="newDoc(null)">
-          <a class="nav-link text-light" href="#">新建</a>
+        <li class="nav-item" id="edit-leftbar-newdoc" v-on:click="show()">
+          <a class="nav-link text-light" href="#">编辑</a>
         </li>
-        <li class="nav-item" id="edit-leftbar-del" v-on:click="save(0)">
-          <a class="nav-link text-light" href="#">删除</a>
-        </li>
+        <!-- <li class="nav-item" id="edit-leftbar-del" v-on:click="save(0)">
+          <a class="nav-link text-light" href="#">去除</a>
+        </li> -->
         <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save(1)">
           <a class="nav-link text-light" href="#">保存</a>
         </li>
@@ -72,6 +72,10 @@
       lastNav: function () {
         this.$router.push(this.$store.state.Edit.lastNav);
         this.$store.commit('EDIT_SET_LAST_NAV', '/edit');
+      },
+      show() {
+        this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
+        document.getElementById('edit-editbar-input').focus()
       },
       newDoc: function (n) {
         this.$store.commit('EDIT_SET_DOC_INDEX', [0, true])
@@ -149,16 +153,6 @@
         let x = ''
         let p = ''
         switch (n) {
-          case 0:
-            if (this.$store.state.Edit.fileIndex === null) {
-              this.$store.commit('SET_NOTICE', '请选择删除内容');
-            } else {
-              this.$store.commit('SET_NOTICE', '删除成功');
-              this.$store.commit('EDIT_DELETE_DOC', fileIndex);
-              this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
-              this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
-            }
-            break;
           case 1:
             if (fileName.includes('@')) {
               saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1])

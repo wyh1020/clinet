@@ -8,6 +8,7 @@
         <td> {{index + 1}} </td>
         <td v-if="lastNav !== '/edit' && index < 10" v-for="(field, index) in data" v-bind:key='index' v-on:click="onClickTd(data, index)" v-bind:class="{'table-danger':flagTd.find((n)=>n===index)}">{{data[index]}}</td>
         <td v-if="lastNav === '/edit'">{{data.substr(0, 100)}}</td>
+        <td v-on:click="delDoc(data, index)"><a href="#">删除</a></td>
         <td v-on:click="loadDoc(data, index, 'edit')"><a href="#">编辑</a></td>
         <td v-on:click="loadDoc(data, index, 'show')"><a href="#">参考</a></td>
       </tr>
@@ -87,6 +88,10 @@
           default:
         }
         this.$store.commit('EDIT_SET_BAR_VALUE', data[index]);
+      },
+      delDoc: function (data, index) {
+        this.$store.commit('EDIT_DELETE_DOC', index);
+        this.$store.commit('SET_NOTICE', '删除成功');
       },
       loadDoc: function (data, index, type) {
         if (type === 'edit') {
