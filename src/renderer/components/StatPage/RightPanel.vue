@@ -6,7 +6,7 @@
         <left-panel></left-panel>
       </div>
       <div class="col">
-        <div id="chartLeft" style="width: 600px; height:400px; background-color: #E0FFFF" v-on:dblclick="chart('left')"></div>
+        <div id="chartLeft" style="width: 600px; height:400px;" v-on:dblclick="chart('left')"></div>
       </div>
       <div class="col">
         <div id="chartRight" style="width: 600px; height:400px;" v-on:dblclick="chart('right')"></div>
@@ -180,7 +180,7 @@
         get() {
           let f = []
           if (this.$store.state.Stat.tableType === 'compare') {
-            f = []
+            f = this.$store.state.Stat.selectedRow
           } else if (this.$store.state.Stat.tableType === 'case') {
             f = this.$store.state.Stat.caseSelectedRow
           } else {
@@ -299,6 +299,11 @@
             case 'case':
               if (data[0] === '病案ID' && data[1] === '主要诊断') {
                 this.$store.commit('STAT_SET_CASE_COL', index);
+              }
+              break;
+            case 'compare':
+              if (data[0] === 'id') {
+                this.$store.commit('STAT_SET_COL', index);
               }
               break;
             default:

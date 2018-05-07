@@ -87,7 +87,7 @@
         <li class="nav-item active" id="stat-next-page" v-on:click='title(10)' v-if="this.$store.state.Stat.haveRight">
           <a class="nav-link text-light" href="#"> 右页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" id="stat-edit-data" v-on:click='edit'>
+        <li class="nav-item active" id="stat-edit-data" v-on:click='edit()'>
           <a class="nav-link text-light" href="#"> 详情 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -174,7 +174,6 @@
               this.$store.commit('STAT_TABLE_PAGE', n);
               this.$store.commit('SET_NOTICE', `当前${this.$store.state.Stat.tablePage}页,共${this.$store.state.Stat.countPage}页`)
               table = this.$store.state.Stat.localTable
-              console.log(table)
               chartData(this, table, this.$store.state.Stat.selectedRow, this.$store.state.Stat.selectedCol)
               break;
             default:
@@ -339,8 +338,6 @@
       compare: function () {
         let table = []
         let header = []
-        console.log('111')
-        console.log(this.$store.state.Stat.localTable)
         switch (this.$store.state.Stat.tableType) {
           case 'server':
             table = this.$store.state.Stat.serverTable.data
@@ -358,9 +355,11 @@
         const compareTable = this.$store.state.Stat.compareTable
         if (this.$store.state.Stat.tableType !== 'compare') {
           if (row.length > 0) {
-            console.log('====')
-            console.log(compareTable, table, header)
-            addContrast(this, table, compareTable, header, col, row)
+            if (col.length > 0) {
+              addContrast(this, table, compareTable, header, col, row)
+            } else {
+              this.$store.commit('SET_NOTICE', '请选择加入对比行!');
+            }
           } else {
             this.$store.commit('SET_NOTICE', '请选择加入对比数据!');
           }

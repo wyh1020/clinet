@@ -66,7 +66,9 @@ export default function chartData(obj, table, xid = [], yid = []) {
     xArr.forEach((xs) => {
       const obj = {}
       yArr.forEach((y) => {
-        obj[y] = xs[y]
+        if (xs !== undefined) {
+          obj[y] = xs[y]
+        }
       })
       // console.log(obj)
       stat.push(obj)
