@@ -36,36 +36,36 @@ describe('EditLocalFile', function () {
       })
     // ++++++++++++++++++点击用户本地文件单行+++++++++++++++++++++++++++++
     // 2.10.1 选择本地文件 点击单行,左侧出现该文件中的病历
-      .click('#edit-rightpanellocal-table')
-      // .getText('.edit-leftpaneltable-tr')
-      .getText('#edit-leftpaneltable-table')
-      // .waitUntilWindowLoaded(1000)
-      .then(function (editText) {
-        // console.log(editText);
-        expect(editText).to.not.equal('');
-      })
+      // .click('#edit-rightpanellocal-table')
+      // // .getText('.edit-leftpaneltable-tr')
+      // .getText('#edit-leftpaneltable-table')
+      // // .waitUntilWindowLoaded(1000)
+      // .then(function (editText) {
+      //   // console.log(editText);
+      //   expect(editText).to.not.equal('');
+      // })
     // ++++++++++++++++++点击用户本地文件单行---不点击选择编辑条目单行+++++++++++++++++++++++++++++
     // 2.10.1.1 点击左侧工具栏 保存按钮 对该病历进行保存
-      .click('#edit-leftbar-preservation')
-      .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-preservation')
+      // .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.10.1.2 点击左侧工具栏 另存按钮 对该病历进行另存
-      .click('#edit-leftbar-save')
-      .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-save')
+      // .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.10.1.3 点击左侧工具栏 删除按钮 对该病历进行删除
-      .click('#edit-leftbar-del')
-      .waitUntilTextExists('#edit-bar-prompt', '请选择删除内容')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-del')
+      // .waitUntilTextExists('#edit-bar-prompt', '请选择删除内容')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.10.1.4 点击左侧工具栏 前页按钮 对该病历进行跳页
     // 2.10.1.5 点击左侧工具栏 后页按钮 对该病历进行跳页
     // 2.10.1.6 点击左侧工具栏 选择按钮
@@ -209,26 +209,26 @@ describe('EditLocalFile', function () {
     // })
     // 2.10.2.1.2 底部输入框输入,修改病历
     // 2.10.2.1.3 点击左侧工具栏 保存按钮 对该病历进行保存
-      .click('#edit-leftbar-preservation')
-      .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-preservation')
+      // .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.10.2.1.4 点击左侧工具栏 另存按钮 对该病历进行另存
-      .click('#edit-leftbar-save')
-      .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-save')
+      // .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.10.2.1.5 点击左侧工具栏 删除按钮 对该病历进行删除
-      .click('#edit-leftbar-del')
-      .waitUntilTextExists('#edit-bar-prompt', '删除成功')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-del')
+      // .waitUntilTextExists('#edit-bar-prompt', '删除成功')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.10.2.1.6 点击左侧工具栏 前页按钮 对该病历进行跳页
     // 2.10.2.1.7 点击左侧工具栏 后页按钮 对该病历进行跳页
     // 2.10.2.1.6 点击左侧工具栏 选择按钮
@@ -365,26 +365,26 @@ describe('EditLocalFile', function () {
     // ++++++++++++++++++不点击用户本地文件单行+++++++++++++++++++++++++++++
     // 2.10.2 选择本地文件 不点击单行
     // 2.10.2.2.1 点击左侧工具栏 保存按钮
-      .click('#edit-leftbar-preservation')
-      .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-preservation')
+      // .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.10.2.2.2 点击左侧工具栏 另存按钮
-      .click('#edit-leftbar-save')
-      .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-save')
+      // .waitUntilTextExists('#edit-bar-prompt', '文件保存成功！')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.10.2.2.3 点击左侧工具栏 删除按钮
-      .click('#edit-leftbar-del')
-      .waitUntilTextExists('#edit-bar-prompt', '删除成功')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-del')
+      // .waitUntilTextExists('#edit-bar-prompt', '删除成功')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.10.2.2.4 点击左侧工具栏 前页按钮
     // 2.10.2.2.5 点击左侧工具栏 后页按钮
     // 2.10.2.2.6 点击左侧工具栏 选择按钮

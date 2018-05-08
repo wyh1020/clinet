@@ -32,26 +32,26 @@ describe('Edit', function () {
         expect(editText).to.be.an('string');
       })
     // 2.1、点击左侧工具栏 保存按钮 edit-leftbar-preservation
-      .click('#edit-leftbar-preservation')
-      .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件！')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-preservation')
+      // .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件！')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.1.1、点击左侧工具栏 另存按钮 edit-leftbar-save
-      .click('#edit-leftbar-save')
-      .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件！')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-save')
+      // .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件！')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.1.2、点击左侧工具栏 删除按钮 edit-leftbar-del
-      .click('#edit-leftbar-del')
-      .waitUntilTextExists('#edit-bar-prompt', '请选择删除内容')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-del')
+      // .waitUntilTextExists('#edit-bar-prompt', '请选择删除内容')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.1.3、点击左侧工具栏 写文件按钮 edit-leftbar-file
       // .click('#edit-leftbar-file')
       // .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件')
@@ -303,26 +303,26 @@ describe('Edit', function () {
       })
     // 2.3、点击左侧工具栏 新建按钮 edit-leftbar-newdoc
     // 2.4、点击左侧工具栏 保存按钮 edit-leftbar-preservation
-      .click('#edit-leftbar-preservation')
-      .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件！')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-preservation')
+      // .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件！')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.5、点击左侧工具栏 另存按钮 edit-leftbar-save
-      .click('#edit-leftbar-save')
-      .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件！')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-save')
+      // .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件！')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.6、点击左侧工具栏 删除按钮 edit-leftbar-del
-      .click('#edit-leftbar-del')
-      .waitUntilTextExists('#edit-bar-prompt', '删除成功')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-del')
+      // .waitUntilTextExists('#edit-bar-prompt', '删除成功')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.7、点击左侧工具栏 写文件按钮 edit-leftbar-file
       // .click('#edit-leftbar-file')
       // .waitUntilTextExists('#edit-bar-prompt', '请先打开一个本地或者远程的CDA文件')
