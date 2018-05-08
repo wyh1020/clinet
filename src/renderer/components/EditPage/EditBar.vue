@@ -68,17 +68,28 @@
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
       },
       enter(e) {
-        const n = this.$store.state.Edit.docIndex
-        const value = e.target.value.replace(/,/g, '，')
-        const v = value.split(' ').filter(i => i !== '');
+        let n = this.$store.state.Edit.docIndex
+        let value = e.target.value
+
         if (this.$store.state.Edit.selectedType !== 'col') {
-          if (v.length > 0) {
-            this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
-            this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
-          }
+          const vs = value.split('，').filter(i => i !== '');
+          vs.forEach((element, index) => {
+            const v = element.split(' ').filter(i => i !== '');
+            if (v.length > 0) {
+              if (index > 0) {
+                this.$store.commit('EDIT_UPDATE_DOC', [n, v, true]);
+              } else {
+                this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
+              }
+              this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
+              n += 1
+            }
+          });
         } else {
+          value = value.replace(/,/g, '，')
+          const cv = value.split(' ').filter(i => i !== '');
           const col = this.$store.state.Edit.selectedCol[0]
-          this.$store.commit('EDIT_UPDATE_FILE', [col, v[1]]);
+          this.$store.commit('EDIT_UPDATE_FILE', [col, cv[1]]);
         }
       },
       addItem() {
