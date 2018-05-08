@@ -64,13 +64,6 @@
                 <li>使用未注册用户登陆：前2种用户认证失败，则自动使用未注册用户登陆，可以使用单机版功能，可以在系统服务中再次使用远程服务账户登陆，或者在区块链服务中再次使用区块链服务账户登陆</li>
               </ul>
             </p>
-            <p>
-              鼠标点击《本地文件》或者《远程文件》分2种操作模式：
-              <ul>
-                <li>鼠标单击：只刷新页面，不刷新数据，响应速度快</li>
-                <li>鼠标双击：刷新页面，同时刷新数据，耗时较长</li>
-              </ul>
-            </p>
           </div>
         </div>
         <div v-if="hasData">
@@ -158,7 +151,7 @@
     padding: 40px 80px;
     width: 100vw;
     background: url('~@/assets/logo1.png') center center no-repeat;
-    background-size: 100% auto;
+    background-size: cover;
   }
 
   #logo {

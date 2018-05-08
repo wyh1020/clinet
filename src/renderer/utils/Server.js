@@ -81,7 +81,7 @@ export function sRegister(obj, data) {
 }
 // 登录
 export function sLogin(obj, data) {
-  console.log(data)
+  // console.log(data)
   const secret = 'someone manual strong movie roof episode eight spatial brown soldier soup motor';
   const keys = AschJS.crypto.getKeys(secret)
   const publicKey = keys.publicKey

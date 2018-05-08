@@ -23,7 +23,12 @@
       title: {
         get() {
           let x = '用户本地文件列表'
-          if (this.$store.state.Edit.rightPanel === 'server') { x = '用户远程文件列表' }
+          if (this.$store.state.Edit.rightPanel === 'server') {
+            x = '用户远程文件列表'
+            if (!this.$store.state.System.user.login) {
+              x = '用户远程文件列表（用户未登陆服务器，请先登陆！）'
+            }
+          }
           switch (this.$store.state.Edit.lastNav) {
             case '/stat':
               x = '数据分析文件列表'
