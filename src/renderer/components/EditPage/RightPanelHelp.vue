@@ -121,6 +121,16 @@
         <th class="table-danger"> drg分析</th>
       </tr>
     </table>
+    <table v-if="type === '在线交流'">
+      <tr>
+        <th class="table-danger"> 在线交流</th>
+      </tr>
+    </table>
+    <table v-if="type === 'HIS接口'">
+      <tr>
+        <th class="table-danger"> HIS接口</th>
+      </tr>
+    </table>
   </div>
 </template>
 

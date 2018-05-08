@@ -17,11 +17,15 @@
             <a class="dropdown-item" href="#" v-on:click='help("病案参考")' id="edit-rightbar-medicalRefer">病案参考</a>
             <a class="dropdown-item" href="#" v-on:click='help("病案历史")' id="edit-rightbar-medicalHistory">病案历史</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click='help("drg分析")'>drg分析</a>
+            <a class="dropdown-item" href="#" v-on:click='help("在线交流")'>在线交流</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" v-on:click='help("drg分析")'>DRG分析</a>
+            <div class="dropdown-divider"></div>            
+            <a class="dropdown-item" href="#" v-on:click='help("HIS接口")'>HIS接口</a>
           </div>
         </li>
         <li class="nav-item active" v-on:click='help(null)' id="edit-rightbar-help">
-          <a class="nav-link text-light" href="#"> 帮助 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 辅助 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='localData()' id="edit-rightbar-local">
           <a class="nav-link text-light" href="#"> 本地文件 <span class="sr-only">(current)</span></a>
@@ -37,7 +41,7 @@
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0" v-on:submit.prevent>
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-on:keyup.enter="rightEnter()" v-model="rightItem">
+        <input class="form-control mr-sm-2" type="search" placeholder="模糊查询" aria-label="Search" v-on:keyup.enter="rightEnter()" v-model="rightItem">
       </form>
     </div>
   </nav>

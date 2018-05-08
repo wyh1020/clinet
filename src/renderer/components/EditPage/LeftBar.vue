@@ -158,7 +158,7 @@
       },
       saveDoc: function () {
         const fileIndex = this.$store.state.Edit.fileIndex
-        if (fileIndex) {
+        if (fileIndex >= 0) {
           let doc = this.$store.state.Edit.doc
           doc = doc.filter(x => x !== '')
           doc = doc.map(x => x.join(' '))

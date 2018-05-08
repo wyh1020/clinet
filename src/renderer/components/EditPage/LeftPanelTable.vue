@@ -11,6 +11,8 @@
         <td v-on:click="delDoc(data, index)"><a href="#">删除</a></td>
         <td v-on:click="loadDoc(data, index, 'edit')"><a href="#">编辑</a></td>
         <td v-on:click="loadDoc(data, index, 'show')"><a href="#">参考</a></td>
+        <td v-on:click="uploadDoc(data)" v-if="!fileName.includes('@')"><a href="#">上传</a></td>
+        <td v-on:click="downloadDoc(data)" v-if="fileName.includes('@')"><a href="#">下载</a></td>
       </tr>
     </table>
   </div>
@@ -92,6 +94,14 @@
       delDoc: function (data, index) {
         this.$store.commit('EDIT_DELETE_DOC', index);
         this.$store.commit('SET_NOTICE', '删除成功');
+      },
+      uploadDoc: function (data) {
+        console.log(data)
+        this.$store.commit('SET_NOTICE', '上传病案到服务器');
+      },
+      downloadDoc: function (data) {
+        console.log(data)
+        this.$store.commit('SET_NOTICE', '下载病案到本地文件');
       },
       loadDoc: function (data, index, type) {
         if (type === 'edit') {
