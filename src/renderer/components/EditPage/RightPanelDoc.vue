@@ -5,7 +5,7 @@
         <!-- 个人信息 -->
         <div v-if="lastNav === '/stat'">
           <table>
-            <tr class="table-warning"><td>{{key}}</td><td></td></tr>
+            <tr class="table-warning" v-on:dblclick="addSection(key)"><td>{{key}}</td><td></td></tr>
             <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-on:click="onClick(item)" v-on:dblclick="onDblClick(item)">
               <td><b>{{ item[1] }}</b></td>
               <td>{{ item[2] }}{{ item[3] }}{{ item[4] }}{{ item[5] }}{{ item[6] }}{{ item[7] }}{{ item[8] }}</td>
@@ -14,7 +14,7 @@
         </div>
         <div v-if="lastNav === '/edit'">
           <table v-if="key === '个人信息'">
-            <tr class="table-warning"><td>{{key}}</td><td></td></tr>
+            <tr class="table-warning" v-on:dblclick="addSection(key)"><td>{{key}}</td><td></td></tr>
             <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-on:click="onClick(item)" v-on:dblclick="onDblClick(item)">
               <td><b>{{ item[1] }}</b></td>
               <td>{{ item[2] }}{{ item[3] }}{{ item[4] }}{{ item[5] }}{{ item[6] }}{{ item[7] }}{{ item[8] }}</td>
@@ -22,7 +22,7 @@
           </table>
           <!-- 未定义-主诉-病史-体格检查 -->
           <table v-if="['未定义', '主诉', '病史', '现病史', '既往史', '家族史', '个人史', '月经史', '婚育史', '家庭史', '遗传史', '体格检查'].includes(key)">
-            <tr class="table-warning"><td>{{key}}</td></tr>
+            <tr class="table-warning" v-on:dblclick="addSection(key)"><td>{{key}}</td></tr>
             <tr><td>
               <ol class="breadcrumb" >
                 <li class="breadcrumb-item" v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-on:click="onClick(item)" v-on:dblclick="onDblClick(item)">
@@ -35,7 +35,7 @@
           </table>
           <!-- 医嘱 -->
           <table v-if="key === '医嘱'">
-            <tr class="table-warning"><td>{{key}}</td></tr>
+            <tr class="table-warning" v-on:dblclick="addSection(key)"><td>{{key}}</td></tr>
             <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}">
               <td v-on:click="onClick(item)" v-on:dblclick="onDblClick(item)"><b>{{ item[1] }}</b>
                 {{ item[2] }}  {{ item[3] }}  {{ item[4] }}
@@ -48,6 +48,7 @@
           </table>  
           <!-- 签名-日期 -->
           <table v-if="key === '签名'">
+            <tr class="table-warning" v-on:dblclick="addSection(key)"><td>{{key}}</td></tr>
             <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}">
               <td class="text-right" v-bind:class="{'table-info':index == 0}" v-on:click="onClick(item)" v-on:dblclick="onDblClick(item)">
                 <b>{{ item[1] }}</b>
@@ -105,6 +106,11 @@
 
         const n = this.$store.state.Edit.docIndex
         this.$store.commit('EDIT_UPDATE_DOC', [n, value]);
+        this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
+      },
+      addSection: function (key) {
+        const n = this.$store.state.Edit.docIndex
+        this.$store.commit('EDIT_UPDATE_DOC', [n, [key]]);
         this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
       },
     },

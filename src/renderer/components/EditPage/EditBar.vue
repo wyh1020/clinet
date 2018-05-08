@@ -83,7 +83,6 @@
       },
       addItem() {
         if (this.$store.state.Edit.fileType === 'cda') {
-          console.log('aaadd')
           this.$store.commit('EDIT_ADD_ITEM');
         }
       },
