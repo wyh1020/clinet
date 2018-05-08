@@ -90,6 +90,7 @@
       },
       serverData: function () {
         this.$store.commit('EDIT_SET_SERVER_TYPE', 'server');
+        this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
         if (!this.$store.state.System.user.login) {
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
           this.$store.commit('EDIT_SERVER_FILES', []);

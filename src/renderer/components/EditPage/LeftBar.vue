@@ -36,7 +36,7 @@
           <a class="nav-link text-light" href="#">去除</a>
         </li> -->
         <li class="nav-item" id="edit-leftbar-preservation" v-on:click="saveDoc()" v-if="this.$store.state.Edit.leftPanel == 'doc'">
-          <a class="nav-link text-light" href="#">缓存</a>
+          <a class="nav-link text-light" href="#" v-if="fileName !== ''">缓存</a>
         <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save()" v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#">保存</a>
         </li>
@@ -70,6 +70,13 @@
         docType: '自定义文档'
       };
     },
+    computed: {
+      fileName: {
+        get() {
+          return this.$store.state.Edit.fileName
+        }
+      },
+    },
     methods: {
       lastNav: function () {
         this.$router.push(this.$store.state.Edit.lastNav);
@@ -93,6 +100,10 @@
           this.$store.commit('EDIT_LOAD_DOC', global.hitbmodel[n])
           this.$store.commit('EDIT_ADD_DOC', '');
         } else { this.$store.commit('EDIT_SET_DOC'); }
+
+        // if (fileName.includes('@')) {
+        //   saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [''], this.$store.state.System.user.username, 2])
+        // }
 
         this.docType = n
         document.getElementById('edit-editbar-input').focus()
@@ -147,10 +158,14 @@
       },
       saveDoc: function () {
         const fileIndex = this.$store.state.Edit.fileIndex
-        let doc = this.$store.state.Edit.doc
-        doc = doc.filter(x => x !== '')
-        doc = doc.map(x => x.join(' '))
-        this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
+        if (fileIndex) {
+          let doc = this.$store.state.Edit.doc
+          doc = doc.filter(x => x !== '')
+          doc = doc.map(x => x.join(' '))
+          this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
+        } else {
+          this.$store.commit('SET_NOTICE', '请先打开一个文件，然后选择编辑一个文档，或者新建一个文档！')
+        }
       },
       save: function () {
         const fileName = this.$store.state.Edit.fileName
