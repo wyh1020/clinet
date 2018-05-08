@@ -156,16 +156,28 @@
       // 翻页
       page: function (value) {
         if (this.$store.state.System.computeData === 'getServerData') {
-          this.$store.commit('SYSTEM_SET_LOCAL_PAGE', value);
-          sGetWt4(this, [this.server, this.port, this.localPage])
-          this.$store.commit('SET_NOTICE', `当前页数${this.localPage}`);
-        } else if (value === 'up' && this.localPage === 0) {
-          this.$store.commit('SET_NOTICE', '已经是第一页');
-        } else if (value === 'down' && this.localPage === this.$store.state.System.wt4TablePage) {
-          this.$store.commit('SET_NOTICE', '已经是最后一页');
-        } else {
-          this.$store.commit('SET_NOTICE', `当前页数${this.localPage}`);
-          this.$store.commit('SYSTEM_SET_LOCAL_PAGE', value);
+          if (value === 'up' && this.localPage - 1 > 0) {
+            this.$store.commit('SYSTEM_SET_LOCAL_PAGE', value);
+            sGetWt4(this, [this.server, this.port, this.localPage])
+            this.$store.commit('SET_NOTICE', `当前页数${this.localPage}`);
+          } else if (value === 'up' && this.localPage === 1) {
+            this.$store.commit('SET_NOTICE', '已经是第一页');
+          } else if (value === 'down' && this.localPage + 1 === this.$store.state.System.wt4TablePage) {
+            this.$store.commit('SET_NOTICE', '已经是最后一页');
+          } else if (value === 'down' && this.localPage + 1 < this.$store.state.System.wt4TablePage) {
+            this.$store.commit('SYSTEM_SET_LOCAL_PAGE', value);
+            sGetWt4(this, [this.server, this.port, this.localPage])
+            this.$store.commit('SET_NOTICE', `当前页数${this.localPage}`);
+          }
+        } else if (this.$store.state.System.computeData === 'getLocalData') {
+          if (value === 'up' && this.localPage - 1 <= -1) {
+            this.$store.commit('SET_NOTICE', '已经是第一页');
+          } else if (value === 'down' && this.$store.state.System.wt4Tables.length < 10) {
+            this.$store.commit('SET_NOTICE', '已经是最后一页');
+          } else {
+            this.$store.commit('SYSTEM_SET_LOCAL_PAGE', value);
+            this.$store.commit('SET_NOTICE', `当前页数${this.localPage + 1}`);
+          }
         }
       },
       // 搜索框

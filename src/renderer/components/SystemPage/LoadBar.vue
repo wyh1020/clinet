@@ -69,7 +69,6 @@
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'compareTable');
       },
       checkTable: function () {
-        this.$store.commit('SYSTEM_SET_TOOLBAR', 'checkTable');
         if (this.$store.state.System.table.length === 0) {
           this.$store.commit('SET_NOTICE', '无校验文件');
         } else {
@@ -84,6 +83,7 @@
               const type = typeof (body[header.indexOf(n1[5])])
               if (n1[3] === type) {
                 body = [...body, body[header.indexOf(n1[5])]]
+                this.$store.commit('SET_NOTICE', '数据校验成功');
               } else {
                 console.log('数据类型校验错误');
               }
@@ -92,20 +92,8 @@
           })
           const file = [headers, ...files]
           this.$store.commit('SYSTEM_GET_CHECKDATA', file)
-          console.log(file);
+          this.$store.commit('SYSTEM_SET_TOOLBAR', 'checkTable');
         }
-        // y.forEach((n) => {
-        //   const x = first.split(',').indexOf(n[n.length - 1])
-        //   const type = typeof (this.$store.state.System.file[1].split(',')[x])
-        //   if (n[3] === type) {
-        //     first = [...first.split(','), n[2]]
-        //     rest = rest.map(n => [...n.split(','), n.split(',')[x]])
-        //   } else {
-        //     console.log('数据类型校验错误');
-        //   }
-        //   const array = [first, ...rest]
-        //   console.log(array);
-        // })
       },
       editTable: function () {
         this.$store.commit('EDIT_LOAD_FILE', this.$store.state.System.checkData)
@@ -137,11 +125,11 @@
           f = this.$store.state.System.file
           fileName = this.serverTable
         } else {
-          f = this.$store.state.System.table
+          f = this.$store.state.System.checkData
           fileName = `${this.serverTable}.csv`
         }
-        console.log(f);
         sUploadDoc(this, [server[0], server[1], fileName, f])
+        console.log(this.$store.state.System.upLoadFile)
       }
     },
   };
