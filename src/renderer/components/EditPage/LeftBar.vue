@@ -35,6 +35,8 @@
         <!-- <li class="nav-item" id="edit-leftbar-del" v-on:click="save(0)">
           <a class="nav-link text-light" href="#">去除</a>
         </li> -->
+        <li class="nav-item" id="edit-leftbar-preservation" v-on:click="saveDoc()" v-if="this.$store.state.Edit.leftPanel == 'doc'">
+          <a class="nav-link text-light" href="#">缓存</a>
         <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save()" v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#">保存</a>
         </li>
@@ -143,13 +145,18 @@
           }
         }
       },
-      save: function () {
-        const fileName = this.$store.state.Edit.fileName
+      saveDoc: function () {
         const fileIndex = this.$store.state.Edit.fileIndex
         let doc = this.$store.state.Edit.doc
         doc = doc.filter(x => x !== '')
         doc = doc.map(x => x.join(' '))
-        // const arr = this.$store.state.Edit.file[fileIndex]
+        this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
+      },
+      save: function () {
+        const fileName = this.$store.state.Edit.fileName
+        let doc = this.$store.state.Edit.doc
+        doc = doc.filter(x => x !== '')
+        doc = doc.map(x => x.join(' '))
         let x = ''
         let p = ''
         if (fileName.includes('@')) {
@@ -160,7 +167,6 @@
           } else {
             x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
           }
-          this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
           p = this.$store.state.Edit.lastNav
           saveFile(this, x, p)
         }
