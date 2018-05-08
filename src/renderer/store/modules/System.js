@@ -55,6 +55,9 @@ const state = {
   pageInfo: { org: '1', department: '1' },
   targetList: [],
   checkData: [],
+  checkDataAll: [],
+  checkDataNum: 0,
+  checkDataPage: 0,
   // 文件上传信息
   upLoadFile: {}
 };
@@ -288,7 +291,38 @@ const mutations = {
   },
   // 更新校验后数据
   SYSTEM_GET_CHECKDATA(state, value) {
-    state.checkData = value
+    let table = []
+    if (value[0].length > 10) {
+      table = value.map(n => n.slice(0, 10)).slice(0, 21)
+    }
+    state.checkDataAll = value
+    state.checkData = table
+  },
+  // 左右字段翻页
+  SYSTEM_GET_CHECKDATA_PAGE(state, value) {
+    switch (value) {
+      case 'left':
+        state.checkDataNum -= 1
+        break;
+      case 'right':
+        state.checkDataNum += 1
+        break;
+      case 'up':
+        state.checkDataPage -= 1
+        break;
+      case 'down':
+        state.checkDataPage += 1
+        break;
+      default:
+        break;
+    }
+    state.checkData = state.checkDataAll.map(n => n.slice(state.checkDataNum * 10, (state.checkDataNum * 10) + 10))
+    const [header, ...body] = state.checkData
+    const bodys = body.slice(state.checkDataPage * 20, (state.checkDataPage * 20) + 20);
+    const c = [header, ...bodys]
+    if (c.length !== 1) {
+      state.checkData = c
+    }
   }
 };
 
@@ -331,6 +365,7 @@ const actions = {
     commit('SYSTEM_SET_SEARCH');
     commit('SYSTEM_GET_TARGET_LIST');
     commit('SYSTEM_GET_CHECKDATA');
+    commit('SYSTEM_GET_CHECKDATA_PAGE');
   },
 };
 

@@ -30,6 +30,18 @@
         <li class="nav-item active" v-on:click='upLoadTableData()' id="server-load-uploaddata">
           <a class="nav-link text-light" href="#"> 上传服务器数据 <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active" v-on:click="checkPage('up')" id="server-load-uploaddata">
+          <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click="checkPage('down')" id="server-load-uploaddata">
+          <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click="checkPage('left')" id="server-load-uploaddata">
+          <a class="nav-link text-light" href="#"> 左页 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click="checkPage('right')" id="server-load-uploaddata">
+          <a class="nav-link text-light" href="#"> 右页 <span class="sr-only">(current)</span></a>
+        </li>
       </ul>
       <!-- <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="server-load-search">
@@ -95,11 +107,26 @@
           this.$store.commit('SYSTEM_SET_TOOLBAR', 'checkTable');
         }
       },
+      checkPage: function (value) {
+        console.log(this.$store.state.System.checkData.length)
+        if (this.$store.state.System.checkData[0].length !== 10 && value === 'right') {
+          this.$store.commit('SET_NOTICE', '当前已经是最后一页')
+        } else if (this.$store.state.System.checkDataNum <= 0 && value === 'left') {
+          this.$store.commit('SET_NOTICE', '当前已经是第一页')
+        } else if (value === 'up' && this.$store.state.System.checkDataPage <= 0) {
+          this.$store.commit('SET_NOTICE', '当前已经是第一页')
+        } else if (value === 'down' && this.$store.state.System.checkData.length !== 21) {
+          this.$store.commit('SET_NOTICE', '当前已经是最后一页')
+        } else {
+          this.$store.commit('SYSTEM_GET_CHECKDATA_PAGE', value)
+          this.$store.commit('SET_NOTICE', `当前是${this.$store.state.System.checkDataPage + 1}页`)
+        }
+      },
       editTable: function () {
-        this.$store.commit('EDIT_LOAD_FILE', this.$store.state.System.checkData)
+        this.$store.commit('EDIT_LOAD_FILE', this.$store.state.System.checkDataAll)
         this.$store.commit('EDIT_SET_LAST_NAV', '/system');
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
-        this.$store.commit('EDIT_SET_FILES_INDEX', this.$store.state.System.checkData);
+        this.$store.commit('EDIT_SET_FILES_INDEX', this.$store.state.System.checkDataAll);
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
         this.$router.push('/edit');
       },
@@ -125,11 +152,10 @@
           f = this.$store.state.System.file
           fileName = this.serverTable
         } else {
-          f = this.$store.state.System.checkData
+          f = this.$store.state.System.checkDataAll
           fileName = `${this.serverTable}.csv`
         }
         sUploadDoc(this, [server[0], server[1], fileName, f])
-        console.log(this.$store.state.System.upLoadFile)
       }
     },
   };

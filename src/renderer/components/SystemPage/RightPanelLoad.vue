@@ -54,14 +54,11 @@
               // f = this.$store.state.System.table
               break;
             case 'upLoadTableData':
-              f = [['上传文件名', '上传后路径', '上传文件大小'], [this.$store.state.System.upLoadFile.file_name,
-                this.$store.state.System.upLoadFile.file_path,
-                this.$store.state.System.upLoadFile.file_size]]
+              f = [['文件上传成功']]
               break;
             default:
               break;
           }
-          console.log(f)
           return f
         }
       },
