@@ -4,9 +4,15 @@
       <tr>
         <th colspan="10" class="table-info" id="edit-rightpanellocal-title"> {{title}}</th>
       </tr>
-      <tr class="edit-rightpanellocal-tr" v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger':flag == index}">
+      <tr class="edit-rightpanellocal-tr" v-for="(data, index) in xs" v-bind:key='index' v-bind:class="{'table-danger':flag == index}">
         <td>{{index}}</td>
-        <td>{{data}}</td>
+        <td>
+          <ol class="breadcrumb" >
+            <li class="breadcrumb-item" v-for="(item, i) in data" v-bind:key='i' v-on:click="getItem(item, index)">
+              {{ item }}
+            </li>
+          </ol>
+        </td>
       </tr>
     </table>
   </div>
@@ -35,8 +41,8 @@
       }
     },
     methods: {
-      onClick: function (data, index) {
-        const value = `${index} ${data}`
+      getItem: function (item, index) {
+        const value = `${index} ${item}`
         this.$store.commit('EDIT_SET_BAR_VALUE', value)
         document.getElementById('edit-editbar-input').focus()
       },
