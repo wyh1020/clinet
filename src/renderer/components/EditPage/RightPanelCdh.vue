@@ -8,7 +8,7 @@
         <td>{{index}}</td>
         <td>
           <ol class="breadcrumb" >
-            <li class="breadcrumb-item" v-for="(item, i) in data" v-bind:key='i' v-on:click="getItem(item, index)">
+            <li class="breadcrumb-item" v-for="(item, i) in data" v-bind:key='i' v-on:click="getItem(item, index)" v-on:dblclick="addItem(item, index)">
               {{ item }}
             </li>
           </ol>
@@ -45,6 +45,14 @@
         const value = `${index} ${item}`
         this.$store.commit('EDIT_SET_BAR_VALUE', value)
         document.getElementById('edit-editbar-input').focus()
+      },
+      addItem: function (item, index) {
+        const value = `${index} ${item}`
+        this.$store.commit('EDIT_SET_BAR_VALUE', value)
+
+        const n = this.$store.state.Edit.docIndex
+        this.$store.commit('EDIT_UPDATE_DOC', [n, [index, item]]);
+        this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
       },
     },
   };

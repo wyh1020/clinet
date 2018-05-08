@@ -6,7 +6,7 @@
         <div v-if="lastNav === '/stat'">
           <table>
             <tr class="table-warning"><td>{{key}}</td><td></td></tr>
-            <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-on:click="changeIndex(item)">
+            <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-on:click="onClick(item)" v-on:dblclick="onDblClick(item)">
               <td><b>{{ item[1] }}</b></td>
               <td>{{ item[2] }}{{ item[3] }}{{ item[4] }}{{ item[5] }}{{ item[6] }}{{ item[7] }}{{ item[8] }}</td>
             </tr>
@@ -15,7 +15,7 @@
         <div v-if="lastNav === '/edit'">
           <table v-if="key === '个人信息'">
             <tr class="table-warning"><td>{{key}}</td><td></td></tr>
-            <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-on:click="changeIndex(item)">
+            <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-on:click="onClick(item)" v-on:dblclick="onDblClick(item)">
               <td><b>{{ item[1] }}</b></td>
               <td>{{ item[2] }}{{ item[3] }}{{ item[4] }}{{ item[5] }}{{ item[6] }}{{ item[7] }}{{ item[8] }}</td>
             </tr>
@@ -25,7 +25,7 @@
             <tr class="table-warning"><td>{{key}}</td></tr>
             <tr><td>
               <ol class="breadcrumb" >
-                <li class="breadcrumb-item" v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-on:click="changeIndex(item)">
+                <li class="breadcrumb-item" v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-on:click="onClick(item)" v-on:dblclick="onDblClick(item)">
                   <b>{{ item[1] }}</b>
                   ：{{ item[2] }} {{ item[3] }} {{ item[4] }} {{ item[5] }} {{ item[6] }} {{ item[7] }} {{ item[8] }}
                 </li>
@@ -37,7 +37,7 @@
           <table v-if="key === '医嘱'">
             <tr class="table-warning"><td>{{key}}</td></tr>
             <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}">
-              <td v-on:click="changeIndex(item)"><b>{{ item[1] }}</b>
+              <td v-on:click="onClick(item)" v-on:dblclick="onDblClick(item)"><b>{{ item[1] }}</b>
                 {{ item[2] }}  {{ item[3] }}  {{ item[4] }}
                 {{ item[5] }}  {{ item[6] }}  {{ item[7] }}  {{ item[8] }}
               </td>
@@ -49,7 +49,7 @@
           <!-- 签名-日期 -->
           <table v-if="key === '签名'">
             <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}">
-              <td class="text-right" v-bind:class="{'table-info':index == 0}" v-on:click="changeIndex(item)">
+              <td class="text-right" v-bind:class="{'table-info':index == 0}" v-on:click="onClick(item)" v-on:dblclick="onDblClick(item)">
                 <b>{{ item[1] }}</b>
                 {{ item[2] }}  {{ item[3] }}  {{ item[4] }}
                 {{ item[5] }}  {{ item[6] }}  {{ item[7] }}  {{ item[8] }}
@@ -90,12 +90,22 @@
       }
     },
     methods: {
-      changeIndex: function (v) {
+      onClick: function (v) {
         const value = v.concat()
         const index = value.shift(0)
         this.$store.commit('EDIT_SET_BAR_VALUE', value)
         this.$store.commit('EDIT_SET_DOC_SHOW_INDEX', [index, 'set']);
         document.getElementById('edit-editbar-input').focus()
+      },
+      onDblClick: function (v) {
+        const value = v.concat()
+        const index = value.shift(0)
+        this.$store.commit('EDIT_SET_BAR_VALUE', value)
+        this.$store.commit('EDIT_SET_DOC_SHOW_INDEX', [index, 'set']);
+
+        const n = this.$store.state.Edit.docIndex
+        this.$store.commit('EDIT_UPDATE_DOC', [n, value]);
+        this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
       },
     },
   };
