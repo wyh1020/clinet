@@ -30,17 +30,17 @@
           </div>
         </li>
         <li class="nav-item" id="edit-leftbar-newdoc" v-on:click="show()">
-          <a class="nav-link text-light" href="#">编辑</a>
+          <a class="nav-link text-light" href="#" v-if="this.$store.state.Edit.leftPanel == 'table'">编辑</a>
         </li>
         <!-- <li class="nav-item" id="edit-leftbar-del" v-on:click="save(0)">
           <a class="nav-link text-light" href="#">去除</a>
         </li> -->
-        <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save(1)">
+        <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save()" v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#">保存</a>
         </li>
-        <li class="nav-item" id="edit-leftbar-save" v-on:click="save(2)">
+        <!-- <li class="nav-item" id="edit-leftbar-save" v-on:click="save(2)" v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#">另存</a>
-        </li>
+        </li> -->
         <li class="nav-item active" id="edit-leftbar-uppage" v-on:click='page(-1)' v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
         </li>
@@ -82,7 +82,6 @@
         this.$store.commit('EDIT_SET_FILE_INDEX', this.$store.state.Edit.file.length)
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'left')
-
         if (n) {
           this.$store.commit('EDIT_SET_DOC_TYPE', n)
         } else { n = this.$store.state.Edit.docType }
@@ -90,6 +89,7 @@
 
         if (global.hitbmodel[n] !== undefined) {
           this.$store.commit('EDIT_LOAD_DOC', global.hitbmodel[n])
+          this.$store.commit('EDIT_ADD_DOC', '');
         } else { this.$store.commit('EDIT_SET_DOC'); }
 
         this.docType = n
@@ -143,48 +143,26 @@
           }
         }
       },
-      save: function (n) {
+      save: function () {
         const fileName = this.$store.state.Edit.fileName
         const fileIndex = this.$store.state.Edit.fileIndex
         let doc = this.$store.state.Edit.doc
         doc = doc.filter(x => x !== '')
         doc = doc.map(x => x.join(' '))
-        const arr = this.$store.state.Edit.file[this.$store.state.Edit.fileIndex]
+        // const arr = this.$store.state.Edit.file[fileIndex]
         let x = ''
         let p = ''
-        switch (n) {
-          case 1:
-            if (fileName.includes('@')) {
-              saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1])
-            } else {
-              if (this.$store.state.Edit.lastNav === '/stat') {
-                x = this.$store.state.Stat.fileName
-              } else {
-                x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
-              }
-              this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
-              p = this.$store.state.Edit.lastNav
-              saveFile(this, x, p)
-            }
-            break;
-          case 2:
-            // console.log(this.$store.state.Edit.file[0])
-            if (fileName.includes('@')) {
-              saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 2])
-            } else {
-              if (this.$store.state.Edit.lastNav === '/stat') {
-                x = this.$store.state.Stat.fileName
-                this.$store.commit('EDIT_ADD_DOC', arr);
-              } else {
-                x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
-                this.$store.commit('EDIT_ADD_DOC', doc.toString());
-              }
-              p = this.$store.state.Edit.lastNav
-              saveFile(this, x, p)
-            }
-            break;
-          default:
-            break;
+        if (fileName.includes('@')) {
+          saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1])
+        } else {
+          if (this.$store.state.Edit.lastNav === '/stat') {
+            x = this.$store.state.Stat.fileName
+          } else {
+            x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
+          }
+          this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
+          p = this.$store.state.Edit.lastNav
+          saveFile(this, x, p)
         }
       },
       leftEnter(e) {
