@@ -50,7 +50,8 @@ const state = {
   serverMenu: { first: [], second: [], third: [], type: '' },
   caseTable: { page: 1, countPage: 0, data: [], pageList: [], tableName: '' },
   caseSelectedRow: [],
-  caseSelectedCol: []
+  caseSelectedCol: [],
+  xObj: {}
 };
 
 const mutations = {
@@ -376,7 +377,13 @@ const mutations = {
       default:
         break;
     }
-  }
+  },
+  STAT_SET_XOBJ(state, value) {
+    const key = Object.keys(state.xObj)
+    if ((!key.includes(value[0]) && value[1] === 0) || value[1] === -1) {
+      state.xObj[value[0]] = { bvalue: '', svalue: '' }
+    }
+  },
 };
 
 const actions = {
@@ -415,6 +422,7 @@ const actions = {
     commit('STAT_SET_CASE_COL');
     commit('STAT_SET_CASE_FLAG');
     commit('STAT_SET_TABLE');
+    commit('STAT_SET_XOBJ');
   },
 };
 export default {

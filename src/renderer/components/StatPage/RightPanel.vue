@@ -53,7 +53,7 @@
         </div>
       </div>
     </div>
-    <div class="row" v-show="this.$store.state.Stat.chartIsShow === 'dimension'">
+    <div class="row" v-if="this.$store.state.Stat.chartIsShow === 'dimension'">
       <div class="col" style="max-width:400px">
         <left-panel></left-panel>
       </div>
@@ -61,11 +61,11 @@
         <form style="margin-top: 20px" v-on:submit.prevent>
           <div class="form-group">
             <label for="exampleInputEmail1">维度选择：{{data}}</label>
-            ><input type="text" class="form-control" placeholder="" v-model="svalue">
-            <input type="text" class="form-control" placeholder="" v-model="bvalue">
+            ><input type="text" class="form-control" placeholder="" v-model="xObj[data].svalue">
+            <input type="text" class="form-control" placeholder="" v-model="xObj[data].bvalue">
           </div>
-          <button type="submit" class="btn btn-primary" v-on:click="selX(data)">查询</button>
-          <button type="submit" class="btn btn-primary" v-on:click="selX()">清空</button>
+          <button type="submit" class="btn btn-primary" v-on:click="selX(data, 1)">查询</button>
+          <button type="submit" class="btn btn-primary" v-on:click="selX(data, 0)">清空</button>
         </form>
       </div>
     </div>
@@ -101,11 +101,14 @@
     components: { RightBar, LeftPanel },
     data() {
       return {
-        bvalue: '',
-        svalue: ''
       };
     },
     computed: {
+      xObj: {
+        get() {
+          return this.$store.state.Stat.xObj
+        }
+      },
       serverMenu: {
         get() {
           return this.$store.state.Stat.serverMenu
@@ -229,6 +232,7 @@
           }
           col.map((x) => {
             if (table.length > 0) {
+              // this.xObj[table[0][x]] = { bvalue: '', svalue: '' }
               name.push(table[0][x])
             } else if (table.length === undefined) {
               name.push(table.data[0][x])
@@ -248,6 +252,7 @@
     },
     methods: {
       onClickTd: function (data, index) {
+        this.$store.commit('STAT_SET_XOBJ', [data[index], 0]);
         const header = this.$store.state.Stat.serverTable.data[0]
         let cindex = 0
         let oindex = 0
@@ -412,35 +417,39 @@
           this.$store.commit('STAT_SET_TABLE_TYPE', 'local');
         }
       },
-      selX: function (data) {
-        let tableType = ''
-        let table = []
-        const table1 = []
-        let header = []
-        switch (this.$store.state.Stat.tableType) {
-          case 'local':
-            table = this.$store.state.Stat.localTable
-            header = table.shift()
-            tableType = 'local'
-            break;
-          case 'server':
-            table = this.$store.state.Stat.serverTable.data
-            header = table.shift()
-            tableType = 'server'
-            break;
-          default:
-            break;
-        }
-        const index = header.indexOf(data)
-        if (index > -1) {
-          table.map((x) => {
-            if (x[index] < this.bvalue && x[index] > this.svalue) {
-              table1.push(x)
-            }
-            return table1
-          })
-          table1.splice(0, 0, header)
-          this.$store.commit('STAT_SET_TABLE', [tableType, table1]);
+      selX: function (data, value) {
+        if (value === 1) {
+          let tableType = ''
+          let table = []
+          const table1 = []
+          let header = []
+          switch (this.$store.state.Stat.tableType) {
+            case 'local':
+              table = this.$store.state.Stat.localTable
+              header = table.shift()
+              tableType = 'local'
+              break;
+            case 'server':
+              table = this.$store.state.Stat.serverTable.data
+              header = table.shift()
+              tableType = 'server'
+              break;
+            default:
+              break;
+          }
+          const index = header.indexOf(data)
+          if (index > -1) {
+            table.map((x) => {
+              if (x[index] < this.$store.state.Stat.xObj[data].bvalue && x[index] > this.$store.state.Stat.xObj[data].svalue) {
+                table1.push(x)
+              }
+              return table1
+            })
+            table1.splice(0, 0, header)
+            this.$store.commit('STAT_SET_TABLE', [tableType, table1]);
+          }
+        } else {
+          this.$store.commit('STAT_SET_XOBJ', [data, -1]);
         }
       },
     },

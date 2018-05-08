@@ -12,18 +12,6 @@
         <li class="nav-item active" id="stat-local-doc" v-on:click='loadData()'>
           <a class="nav-link text-light" href="#"> 本地文件 <span class="sr-only">(current)</span></a>
         </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-light" href="#" id="stat-left-chart" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            远程文件
-          </a>
-          <div class="dropdown-menu" aria-labelledby="stat-left-chart">
-            <a id="stat-left-chart-bar" class="nav-link" href="#" v-on:click='serverData("病案首页分析")'> 病案首页分析 <span class="sr-only">(current)</span></a>
-            <a id="stat-left-chart-discount" class="nav-link" href="#" v-on:click='serverData("病案分析")'> 病案分析 <span class="sr-only">(current)</span></a>
-            <a id="stat-left-chart-radar-map" class="nav-link" href="#" v-on:click='serverData("机构分析")'> 机构分析 <span class="sr-only">(current)</span></a>
-            <a id="stat-left-chart-scatter-plot" class="nav-link" href="#" v-on:click='serverData("统计分析")'> 统计分析 <span class="sr-only">(current)</span></a>
-            <a id="stat-left-chart-pie-map" class="nav-link" href="#" v-on:click='serverData("Drg分析")'> drg分析 <span class="sr-only">(current)</span></a>
-          </div>
-        </li> -->
         <li class="nav-item active" id="stat-remote-file" v-on:click='serverData()'>
           <a class="nav-link text-light" href="#"> 远程文件 <span class="sr-only">(current)</span></a>
         </li>
@@ -81,11 +69,11 @@
             <a v-for="(data, index) in dimensionSel" v-bind:key='index' class="nav-link" href="#" v-on:click='selX(index)' v-bind:id="'stat-td-tr'+index" > {{data}} <span class="sr-only">(current)</span></a>
           </div>
         </li>
-        <li class="nav-item active" id="stat-prev-page" v-on:click='title(-10)' v-if="this.$store.state.Stat.haveRight">
-          <a class="nav-link text-light" href="#"> 左页 <span class="sr-only">(current)</span></a>
+        <li class="nav-item active" id="stat-left-page" v-on:click='title(-10)' v-if="this.$store.state.Stat.haveRight">
+          <a class="nav-link text-light" href="#"> 左页 <span class="sr-only"></span></a>
         </li>
-        <li class="nav-item active" id="stat-next-page" v-on:click='title(10)' v-if="this.$store.state.Stat.haveRight">
-          <a class="nav-link text-light" href="#"> 右页 <span class="sr-only">(current)</span></a>
+        <li class="nav-item active" id="stat-right-page" v-on:click='title(10)' v-if="this.$store.state.Stat.haveRight">
+          <a class="nav-link text-light" href="#"> 右页 <span class="sr-only"></span></a>
         </li>
         <li class="nav-item active" id="stat-edit-data" v-on:click='edit()'>
           <a class="nav-link text-light" href="#"> 详情 <span class="sr-only">(current)</span></a>
@@ -354,12 +342,8 @@
         const row = this.$store.state.Stat.selectedRow
         const compareTable = this.$store.state.Stat.compareTable
         if (this.$store.state.Stat.tableType !== 'compare') {
-          if (row.length > 0) {
-            if (col.length > 0) {
-              addContrast(this, table, compareTable, header, col, row)
-            } else {
-              this.$store.commit('SET_NOTICE', '请选择加入对比行!');
-            }
+          if (row.length > 0 && row[0] !== 0) {
+            addContrast(this, table, compareTable, header, col, row)
           } else {
             this.$store.commit('SET_NOTICE', '请选择加入对比数据!');
           }
@@ -399,7 +383,11 @@
       statSearch: function () {
         switch (this.$store.state.Stat.tableType) {
           case 'local':
-            this.$store.commit('STAT_GET_FILE_SEARCH', this.stat)
+            if (this.stat === '') {
+              this.$store.commit('SET_NOTICE', '请选择加入查询內容!');
+            } else {
+              this.$store.commit('STAT_GET_FILE_SEARCH', this.stat)
+            }
             break;
           case 'server':
             getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: this.$store.state.Stat.serverTable.tableName, page: 0, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.stat }, 'stat')
