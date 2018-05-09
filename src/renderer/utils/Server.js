@@ -269,6 +269,7 @@ export function sCreateDepart(obj, data) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
+    console.log(res)
     if (res.status === 201) {
       if (res.data.success) {
         obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '科室创建成功', true])
@@ -297,7 +298,8 @@ export function sUpdateDepart(obj, data) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
-    if (res.status === 201) {
+    console.log(res)
+    if (res.status === 200) {
       if (res.data.success) {
         obj.$store.commit('SYSTEM_NEW_DEPARTMENT', [res.data, '科室更新成功', true])
         // obj.$store.commit('SYSTEM_SET_TOOLBAR', 'getDepart')

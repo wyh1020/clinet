@@ -16,59 +16,65 @@
             <form>
                 <div class="form-group">
                   <label class="">用户名（远程服务用户是电子邮箱，区块链服务用户是12个单词组成的口令）</label>
-                  <input type="text" class="form-control" placeholder="用户名(邮箱)" v-model="emailorname" id="server-username">
+                  <input type="text" class="form-control" placeholder="用户名(邮箱)" v-model="emailorname" id="server-username" @input="userLogins()">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">用户密码（区块链服务用户没有密码，或者使用二级密码）</label>
-                  <input type="password" class="form-control" placeholder="密码" v-model="loginpassword" id="server-password">
+                  <input type="password" class="form-control" placeholder="密码" v-model="loginpassword" id="server-password" @input="userLogins()">
                 </div>
               </form>
-                <button type="submit" class="btn btn-primary" v-on:click="login('login')" id="server-login">登录</button>
-                <button type="submit" class="btn btn-primary" v-on:click="login('regrest')">重新创建用户</button>
           </div>
           <div v-if="this.toolbar === 'createUsers'">
-            <!-- <div v-if="this.$store.state.System.registerInfo[2] == true">
-              <button class="btn btn-primary" v-on:click="newRegister">重新创建用户</button>
-            </div> -->
             <div>
-              <!-- <h3  v-if="this.$store.state.System.registerInfo[2] == false">{{this.$store.state.System.registerInfo[1]}}, &nbsp; &nbsp; &nbsp;请重新注册</h3> -->
               <form>
                 <div class="form-group">
                   <label for="InputEmail">用户注册的Email地址</label>
-                  <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" v-model="email">
+                  <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" v-model="email" @input="register()">
                 </div>
                 <div class="form-group">
                   <label for="InputPassword">用户密码</label>
-                  <input type="password" class="form-control" id="InputPassword" placeholder="Password" v-model="password">
+                  <input type="password" class="form-control" id="InputPassword" placeholder="Password" v-model="password" @input="register()">
                 </div>
                 <div class="form-group">
                   <label for="InputOrg">机构</label>
-                  <input type="text" class="form-control" id="InputOrg" placeholder="InputOrg" v-model="org">
+                  <input type="text" class="form-control" id="InputOrg" placeholder="InputOrg" v-model="org" @input="register()">
                 </div>
                 <div class="form-group">
                   <label for="InputAge">年龄</label>
-                  <input type="number" class="form-control" id="InputAge" placeholder="Age" v-model="age">
+                  <input type="number" class="form-control" id="InputAge" placeholder="Age" v-model="age" @input="register()">
                 </div>
                 <div class="form-group">
                   <label for="InputTel">电话</label>
-                  <input type="text" class="form-control" id="InputTel" placeholder="Tel" v-model="tel">
+                  <input type="text" class="form-control" id="InputTel" placeholder="Tel" v-model="tel" @input="register()">
                 </div>
                 <div class="form-group">
                   <label for="InputPersonname">姓名</label>
-                  <input type="text" class="form-control" id="InputPersonname" placeholder="Personname" v-model="personname">
+                  <input type="text" class="form-control" id="InputPersonname" placeholder="Personname" v-model="personname" @input="register()">
                 </div>
               </form>
-              <button type="submit" class="btn btn-primary" v-on:click="register()">注册用户</button>
             </div>
           </div>
         </div>
         <!-- 未登录 -->
         <!-- 已登录 -->
         <div v-else>
+          <div v-if="this.toolbar === 'upUsers'">
+              <form>
+                <div class="form-group">
+                  <label>新密码</label>
+                  <input type="password" class="form-control" placeholder="新密码" v-model="upUserInfo.password" @input="updateUser()">
+                  <small class="form-text text-muted">请输入新的密码</small>
+                </div>
+                <div class="form-group">
+                  <label>机构</label>
+                  <input type="text" class="form-control" placeholder="新机构" v-model="upUserInfo.org" @input="updateUser()">
+                  <small class="form-text text-muted">请输入新的机构</small>
+                </div>
+              </form>
+          </div>
           <div v-if="this.toolbar === 'getUsers'">
             <div v-if="this.userInfo === 'info'">
               <get-users></get-users>
-              <button type="submit" class="btn btn-primary" v-on:click="orgRegister('userinfo')"  v-if="this.$store.state.System.user.login == true">修改</button>
             </div>
             <div v-else>
               <form>
@@ -83,8 +89,6 @@
                   <small class="form-text text-muted">请输入新的机构</small>
                 </div>
               </form>
-              <button class="btn btn-primary" v-on:click="orgRegister('newUserInfo')" >确认修改</button>
-              <button class="btn btn-primary" v-on:click="orgRegister('returnUserInfo')" >返回</button>
             </div>
           </div>
           <div v-if="this.toolbar === 'getOrgs'" class ="orgs">
@@ -117,8 +121,7 @@
   import CreateOrgs from './RightPanelServer/CreateOrgs';
   import CreateDepartments from './RightPanelServer/CreateDepartments';
   import GetPersons from './RightPanelServer/GetPersons';
-  import { sLogin, sRegister, sConnect, sUpdateUser } from '../../utils/Server'
-  import { open } from '../../utils/BlockAccount'
+  import { sConnect } from '../../utils/Server'
   export default {
     components: { GetUsers, GetOrgs, CreateOrgs, CreateDepartments, GetPersons },
     data() {
@@ -133,7 +136,7 @@
         emailorname: 'test@hitb.com.cn',
         loginpassword: '123456',
         userInfo: 'info',
-        upUserInfo: { org: this.$store.state.System.user.org, password: '' }
+        upUserInfo: { org: this.$store.state.System.user.org, password: '' },
       }
     },
     created: function () {
@@ -179,32 +182,12 @@
         get() {
           return this.$store.state.System.port
         }
-      }
+      },
     },
     methods: {
-      login: function (value) {
-        switch (value) {
-          case 'login':
-            this.login_s();
-            break;
-          case 'regrest':
-            this.$store.commit('SYSTEM_SET_TOOLBAR', 'createUsers')
-            break;
-          default:
-        }
-      },
-      login_s: function () {
-        const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
-        const user = { username: this.emailorname, password: this.loginpassword }
-        if (reg.test(this.emailorname)) {
-          this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
-          sLogin(this, [this.server, this.port, user])
-        } else if (Array.from(this.emailorname.split(' ')).length === 12) {
-          const key = Object.keys(global.hitbdata.blockchain)[0]
-          const server = global.hitbdata.blockchain[key][0];
-          this.$store.commit('BLOCK_SET_SERVER', server)
-          open(this, [server[0], server[1], user.username]);
-        }
+      userLogins: function () {
+        const b = { username: this.emailorname, password: this.loginpassword }
+        this.$store.commit('SYSTEM_LOGIN_USER', b)
       },
       connect: function (data, index) {
         this.flag = index
@@ -214,63 +197,13 @@
         }
       },
       register: function () {
-        this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
         const user = { username: this.email, password: this.password, org: this.org, age: this.age, tel: this.tel, email: this.email, name: this.personname, type: 2 }
-        const reg = [/^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g,
-          /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&*]+$)(?![\d!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]+$$/, /^[0-9]{1,2}$/, /^1[0-9]{10}$/]
-        console.log(this.password)
-        let a = 1;
-        let b = 1;
-        let c = 1;
-        let d = 1;
-        const age = parseInt(this.age, 10)
-        console.log(age)
-        if (reg[0].test(this.email)) {
-          a = 1
-        } else {
-          a = 0
-          this.$store.commit('SET_NOTICE', '用户名或邮箱输入错误');
-        }
-        if (reg[1].test(this.password)) {
-          b = 1
-        } else {
-          b = 0
-          this.$store.commit('SET_NOTICE', '密码错误 只能由数字字母和@#$%^&组成');
-        }
-        if (reg[2].test(parseInt(this.age, 10))) {
-          c = 1
-        } else {
-          c = 0
-          this.$store.commit('SET_NOTICE', '年龄输入错误');
-        }
-        if (reg[3].test(this.tel)) {
-          d = 1
-        } else {
-          d = 0
-          this.$store.commit('SET_NOTICE', '电话输入错误');
-        }
-        if (a * b * c * d === 1) {
-          console.log(user)
-          sRegister(this, [this.server, this.port, user])
-        }
+        this.$store.commit('SYSTEM_REGISTER_USER', user)
       },
-      newRegister: function () {
-        this.$store.commit('SYSTEM_REGISTER_USER', [{}, '重新创建用户'])
+      updateUser: function () {
+        const b = { org: this.upUserInfo.org, password: this.upUserInfo.password }
+        this.$store.commit('SYSTEM_UPDATE_USER', b)
       },
-      orgRegister: function (value) {
-        switch (value) {
-          case 'userinfo':
-            this.userInfo = 'upUserInfo'
-            break;
-          case 'newUserInfo':
-            sUpdateUser(this, [this.server, this.port, this.$store.state.System.user.id, this.upUserInfo])
-            break;
-          case 'returnUserInfo':
-            this.userInfo = 'info'
-            break;
-          default:
-        }
-      }
     },
   };
 </script>

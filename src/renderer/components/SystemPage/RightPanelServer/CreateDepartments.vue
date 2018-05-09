@@ -3,55 +3,51 @@
     <form>
       <div class="form-group">
         <label>所在机构</label>
-        <input type="text" class="form-control" placeholder="OrgName" v-model="DepartmentInfo.org" />
+        <input type="text" class="form-control" placeholder="OrgName" v-model="DepartmentInfo.org" @input="deps()"/>
       </div>
       <div class="form-group">
         <label>科室主任</label>
-        <input type="text" class="form-control" placeholder="Director of the Department" v-model="DepartmentInfo.cherf_department" />
+        <input type="text" class="form-control" placeholder="Director of the Department" v-model="DepartmentInfo.cherf_department" @input="deps()"/>
       </div>
       <div class="form-group">
         <label>所属科室类</label>
-        <input type="text" class="form-control" placeholder="The Department Class" v-model="DepartmentInfo.class" />
+        <input type="text" class="form-control" placeholder="The Department Class" v-model="DepartmentInfo.class" @input="deps()"/>
       </div>
       <div class="form-group">
         <label>所属科室</label>
-        <input type="text" class="form-control" placeholder="The Department" v-model="DepartmentInfo.department" />
+        <input type="text" class="form-control" placeholder="The Department" v-model="DepartmentInfo.department" @input="deps()"/>
       </div>
       <div class="form-group">
         <div class="custom-control custom-checkbox my-1 mr-sm-2">
-          <input type="checkbox" class="custom-control-input" id="Is_Improt" v-model="DepartmentInfo.is_imp">
+          <input type="checkbox" class="custom-control-input" id="Is_Improt" v-model="DepartmentInfo.is_imp" @input="deps()">
           <label class="custom-control-label" for="Is_Improt">是否重点</label>
         </div>
       </div>
       <div class="form-group">
         <div class="custom-control custom-checkbox my-1 mr-sm-2">
-          <input type="checkbox" class="custom-control-input" id="Is_Characteristic" v-model="DepartmentInfo.is_spe">
+          <input type="checkbox" class="custom-control-input" id="Is_Characteristic" v-model="DepartmentInfo.is_spe" @input="deps()">
           <label class="custom-control-label" for="Is_Characteristic">是否特色</label>
         </div>
       </div>
       <div class="form-group">
         <label>副主任</label>
-        <input type="text" class="form-control" placeholder="Professor" v-model="DepartmentInfo.professor" />
+        <input type="text" class="form-control" placeholder="Professor" v-model="DepartmentInfo.professor" @input="deps()"/>
       </div>
       <div class="form-group">
         <label>内部科室编码</label>
-        <input type="text" class="form-control" placeholder="Wt_Code" v-model="DepartmentInfo.code" />
+        <input type="text" class="form-control" placeholder="Wt_Code" v-model="DepartmentInfo.code" @input="deps()"/>
       </div>
       <div class="form-group">
         <label>内部科室名称</label>
-        <input type="text" class="form-control" placeholder="Wt_name" v-model="DepartmentInfo.wt_name" />
+        <input type="text" class="form-control" placeholder="Wt_name" v-model="DepartmentInfo.wt_name" @input="deps()"/>
       </div>
     </form>
     <div class="row">
       <div class="col-9" />
-      <button v-if="this.$store.state.System.departmentInfo.id === ''" type="submit" class="btn btn-primary" v-on:click="orgRegister('departments')">添加科室</button>
-      <button v-else type="submit" class="btn btn-primary" v-on:click="orgRegister('updepartments')">科室修改</button>
-      <button type="submit" class="btn btn-primary" v-on:click="createOrgs()">返回</button>
     </div>
   </div>
 </template>
 <script>
-  import { sCreateDepart, sUpdateDepart, sGetDepart } from '../../../utils/Server'
   export default {
     data() {
       console.log(this.$store.state.System.departmentInfo);
@@ -70,23 +66,19 @@
       }
     },
     methods: {
-      orgRegister: function (value) {
-        const data = this.DepartmentInfo
-        switch (value) {
-          case 'departments':
-            sCreateDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, data]);
-            this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');
-            this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
-            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.department])
-            break;
-          case 'updepartments':
-            sUpdateDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.departmentInfo.id, data]);
-            this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');
-            this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
-            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.department])
-            break;
-          default:
+      deps: function () {
+        const b = {
+          org: this.DepartmentInfo.org,
+          cherf_department: this.DepartmentInfo.cherf_department,
+          class: this.DepartmentInfo.class,
+          department: this.DepartmentInfo.department,
+          is_imp: this.DepartmentInfo.is_imp,
+          is_spe: this.DepartmentInfo.is_spe,
+          professor: this.DepartmentInfo.professor,
+          code: this.DepartmentInfo.code,
+          wt_name: this.DepartmentInfo.wt_name,
         }
+        this.$store.commit('SYSTEM_GET_DEPARTMENT_INFO', b)
       },
       createOrgs: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getOrgs');
