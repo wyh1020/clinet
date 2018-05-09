@@ -1,18 +1,8 @@
 <template>
   <div>
-    <!-- <div class="btn-group">
-      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{OrgPage}}
-      </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#" v-on:click="createOrgs('orgsInfo')">机构信息</a>
-        <a class="dropdown-item" href="#" v-on:click="createOrgs('departmentsInfo')">科室信息</a>
-      </div>
-    </div> -->
     <div v-if="this.orgPageType === 'getOrg'">
       <div class="row">
         <div class="col-10" />
-        <button class="btn btn-primary system_new_org" v-on:click="createOrgs('orgs')">新建机构</button>
       </div>
       <table class="table-hover table-condensed">
         <thead  class="thead-secondary">
@@ -57,7 +47,6 @@
     <div v-if="this.orgPageType === 'getDepartment'">
       <div class="row">
         <div class="col-10"/>
-        <button class="btn btn-primary system_new_org" v-on:click="createOrgs('departments')">新建科室</button>
       </div>
       <table class="table-hover table-condensed">
         <thead>
@@ -131,61 +120,39 @@
             default:
           }
           return page
+        },
+        orgPage: {
+          get() {
+            return this.$store.state.System.orgPage
+          }
         }
       }
-      // OrgPage: {
-      //   get() {
-      //     let OrgPage = 1
-      //     switch (this.$store.state.System.orgPage) {
-      //       case 'getDepartment':
-      //         OrgPage = '科室信息'
-      //         break;
-      //       case 'getOrg':
-      //         OrgPage = '机构信息'
-      //         break;
-      //       default:
-      //     }
-      //     return OrgPage
-      //   }
-      // }
     },
     methods: {
       createOrgs: function (value, index) {
         const deparmentkey = ['org', 'cherf_department', 'class', 'department', 'is_imp', 'is_spe', 'professor', 'wt_code', 'wt_name', 'id']
         const orgkey = ['code', 'name', 'level', 'type', 'province', 'city', 'county', 'person_name', 'tel', 'email', 'id']
         switch (value) {
-          // case 'orgsInfo':
-          //   this.$store.commit('SYSTEM_GET_ORGPAGE', 'getOrg');
-          //   break;
-          // case 'departmentsInfo':
-          //   this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
-          //   sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.department])
-          //   break;
           case 'updateDepartments':
             deparmentkey.forEach((n) => {
               this.DepartmentInfo[n] = this.$store.state.System.departments.data[index][n]
             })
+            this.$store.commit('SYSTEM_GET_DEPARTMENT_ID', this.$store.state.System.departments.data[index].id)
             this.$store.commit('SYSTEM_GET_DEPARTMENT_INFO', this.DepartmentInfo)
             this.$store.commit('SYSTEM_SET_TOOLBAR', 'createDepartments');
             this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
+            this.$store.commit('SYSTEM_SET_ORG_NAME', 'updateDep');
             break;
           case 'updateOres':
             orgkey.forEach((n) => {
               this.OrgInfo[n] = this.$store.state.System.orgs.data[index][n]
             })
+            console.log(this.$store.state.System.orgs.data[index].id)
             this.$store.commit('SYSTEM_GET_ORG_INFO', this.OrgInfo)
+            this.$store.commit('SYSTEM_GET_ORG_ID', this.$store.state.System.orgs.data[index].id)
             this.$store.commit('SYSTEM_SET_TOOLBAR', 'createOrgs');
             this.$store.commit('SYSTEM_GET_ORGPAGE', 'getOrg');
-            break;
-          case 'orgs':
-            this.$store.commit('SYSTEM_GET_ORG_INFO', this.OrgInfo)
-            this.$store.commit('SYSTEM_SET_TOOLBAR', 'createOrgs');
-            this.$store.commit('SYSTEM_GET_ORGPAGE', 'getOrg');
-            break;
-          case 'departments':
-            this.$store.commit('SYSTEM_GET_DEPARTMENT_INFO', this.DepartmentInfo)
-            this.$store.commit('SYSTEM_SET_TOOLBAR', 'createDepartments');
-            this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
+            this.$store.commit('SYSTEM_SET_ORG_NAME', 'update');
             break;
           default:
             break;

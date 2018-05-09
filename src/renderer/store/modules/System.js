@@ -16,19 +16,29 @@ const state = {
   server: '',
   port: '',
   // 用户创建信息
-  registerInfo: [],
+  registerInfo: { username: '', password: '', org: '', age: null, tel: '', email: '', name: '', type: 2 },
   // 连接状态
   connectInfo: false,
+  // 用户登录
+  userLogin: { username: 'test@hitb.com.cn', password: '123456' },
+  // 用户修改
+  userUpdate: { org: '', password: '' },
+  // 人员修改
+  personUpdate: { name: '', org: '', age: '', tel: '', email: '' },
+  personId: null,
   // 用户状态
   user: { username: '', org: '', type: 2, login: false },
   // 机构信息
   orgs: [],
   org: [],
   orgInfo: { code: '', name: '', level: '', type: '', province: '', city: '', county: '', person_name: '', tel: '', email: '' },
+  orgId: null,
+  orgName: null,
   // 科室信息
   departments: [],
   department: [],
   departmentInfo: { org: '', cherf_department: '', class: '', department: '', is_imp: false, is_spe: false, professor: '', wt_code: '', wt_name: '' },
+  departmentId: null,
   wt4: [],
   wt4Page: 0,
   wt4Files: [],
@@ -64,6 +74,7 @@ const state = {
 
 const mutations = {
   SYSTEM_SET_TOOLBAR(state, toolbar) {
+    console.log(toolbar)
     state.toolbar = toolbar;
   },
   SYSTEM_SET_SERVER(state, m) {
@@ -109,18 +120,33 @@ const mutations = {
     state.table[state.fieldIndex].push(field)
     state.table = state.table;
   },
+  SYSTEM_LOGIN_USER(state, value) {
+    state.userLogin = value
+  },
   // 用户注册
   SYSTEM_REGISTER_USER(state, field) {
     state.registerInfo = field
   },
-  // 用户登录
+  // 用户登录后信息
   SYSTEM_SET_USER(state, field) {
     state.user = field[1];
     state.userPower = field[1].type
   },
+  // 用户修改信息
+  SYSTEM_UPDATE_USER(state, value) {
+    state.userUpdate = value
+  },
   // 用户信息
   SYSTEM_INFO_USER(state, field) {
     state.user = field[1]
+  },
+  // 人员修改
+  SYSTEM_UPDATA_PERSON(state, value) {
+    state.personUpdate = value
+  },
+  // 用户ID
+  SYSTEM_ID_PERSON(state, value) {
+    state.personId = value
   },
   // 获取机构信息
   SYSTEM_GET_ORGS(state, field) {
@@ -138,13 +164,23 @@ const mutations = {
   SYSTEM_NEW_DEPARTMENT(state, field) {
     state.department = field
   },
-
+  SYSTEM_GET_DEPARTMENT_ID(state, value) {
+    state.departmentId = value
+  },
   SYSTEM_GET_ORG_INFO(state, field) {
     state.orgInfo = field
   },
+  SYSTEM_GET_ORG_ID(state, value) {
+    state.orgId = value
+  },
+  SYSTEM_SET_ORG_NAME(state, value) {
+    state.orgName = value
+  },
+
   SYSTEM_GET_DEPARTMENT_INFO(state, field) {
     state.departmentInfo = field
   },
+
   // 获取wt4信息
   SYSTEM_SET_WT4(state, field) {
     state.wt4 = field[0]
@@ -337,6 +373,8 @@ const actions = {
     commit('SYSTEM_SET_TABLE');
     commit('SYSTEM_SET_SERVER');
     commit('SYSTEM_SET_SERVER_STATUS');
+    // 用户设置模块
+    commit('SYSTEM_LOGIN_USER');
     commit('SYSTEM_REGISTER_USER');
     commit('SYSTEM_SET_USER');
     commit('SYSTEM_INFO_USER');
@@ -345,7 +383,10 @@ const actions = {
     commit('SYSTEM_GET_DEPARTMENTS');
     commit('SYSTEM_NEW_DEPARTMENT');
     commit('SYSTEM_GET_ORG_INFO');
+    commit('SYSTEM_GET_ORG_ID');
+    commit('SYSTEM_SET_ORG_NAME');
     commit('SYSTEM_GET_DEPARTMENT_INFO');
+    commit('SYSTEM_GET_DEPARTMENT_ID');
     commit('SYSTEM_SET_WT4');
     commit('SYSTEM_LOAD_WT4_FILES');
     commit('SYSTEM_LOAD_WT4_FILE');
