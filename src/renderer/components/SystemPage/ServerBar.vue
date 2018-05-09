@@ -13,7 +13,7 @@
           <a class="nav-link text-light" href="#"> 用户设置 <span class="sr-only">(current)</span></a>
         </li>
         <li v-if="toolbar === 'getUsers' && user.login === false">
-          <a class="nav-link text-light" href="#" v-on:click="systemUsers('login')">登录</a>
+          <a class="nav-link text-light" href="#" v-on:click="systemUsers('login')" id="server-login">登录</a>
         </li>
         <li v-if="toolbar === 'getUsers' && user.login === false">
           <a class="nav-link text-light" href="#" v-on:click="systemUsers('insert')">新建</a>
