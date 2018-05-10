@@ -54,7 +54,7 @@
               // f = this.$store.state.System.table
               break;
             case 'upLoadTableData':
-              f = [['文件上传成功']]
+              f = this.$store.state.System.upLoadFile
               break;
             default:
               break;
