@@ -15,12 +15,13 @@ export function getEditFiles(obj, data) {
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
-      obj.$store.commit('EDIT_SERVER_FILES', res.data)
+      obj.$store.commit('EDIT_SERVER_FILES', res.data.cda)
       if (data[2] === 'user') {
         obj.$store.commit('EDIT_SET_SERVER_TYPE', 'file');
       } else {
         obj.$store.commit('EDIT_SET_SERVER_TYPE', 'show');
       }
+      obj.$store.commit('SET_NOTICE', res.data.info);
     } else {
       obj.$store.commit('EDIT_SERVER_FILES', [])
     }
@@ -45,8 +46,9 @@ export function getEdit(obj, data) {
   }).then((res) => {
     //
     if (res.status === 200) {
-      obj.$store.commit('SET_NOTICE', '读取远程文件成功')
       obj.$store.commit('EDIT_LOAD_FILE', res.data)
+      obj.$store.commit('EDIT_LOAD_FILE', res.data.cda)
+      obj.$store.commit('SET_NOTICE', res.data.info);
       obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
     } else {
       obj.$store.commit('EDIT_LOAD_FILE', [])
