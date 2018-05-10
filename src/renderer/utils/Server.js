@@ -348,7 +348,13 @@ export function sGetWt4(obj, data) {
           }))
         })
         res.data.data = newWt4
-        obj.$store.commit('STAT_SET_SERVER_TABLE', res.data)
+        // const resObj = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: res.data.stat, pageList: res.data.page_list, tableName: tableName, tableSel: res.data.num, dimensionOrg: res.data.org_num, dimensionTime: res.data.time_num, dimensionDrg: res.data.drg_num }
+        const a = res.data
+        a.tableSel = res.data.num
+        a.dimensionOrg = res.data.org_num
+        a.dimensionTime = res.data.time_num
+        a.dimensionDrg = res.data.drg_num
+        obj.$store.commit('STAT_SET_SERVER_TABLE', a)
         ChartData.default(obj, res.data.data, obj.$store.state.Stat.selectedRow, obj.$store.state.Stat.selectedCol)
         switch (obj.$store.state.Stat.chartLeft) {
           case '柱状图':

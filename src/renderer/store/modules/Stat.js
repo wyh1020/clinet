@@ -220,6 +220,7 @@ const mutations = {
     })
   },
   STAT_SET_SERVER_TABLE(state, opt) {
+    console.log(opt);
     // state.tableSel = opt.tableSel
     // state.dimensionOrg = opt.dimensionOrg
     // state.dimensionTime = opt.dimensionTime

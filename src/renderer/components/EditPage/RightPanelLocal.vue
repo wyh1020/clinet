@@ -94,7 +94,7 @@
           switch (this.$store.state.Edit.lastNav) {
             case '/edit':
               if (this.$store.state.Edit.serverType === 'file') {
-                getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType, data])
+                getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType, data, this.$store.state.System.user.username])
               } else {
                 getEdit(this, [this.$store.state.System.server, this.$store.state.System.port, data])
               }

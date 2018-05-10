@@ -20,7 +20,7 @@
             <a class="dropdown-item" href="#" v-on:click='help("在线交流")'>在线交流</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" v-on:click='help("drg分析")'>DRG分析</a>
-            <div class="dropdown-divider"></div>            
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" v-on:click='help("HIS接口")'>HIS接口</a>
           </div>
         </li>
@@ -93,7 +93,7 @@
         this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
       },
       serverData: function () {
-        this.$store.commit('EDIT_SET_SERVER_TYPE', 'server');
+        // this.$store.commit('EDIT_SET_SERVER_TYPE', 'server');
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
         if (!this.$store.state.System.user.login) {
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
@@ -101,7 +101,7 @@
           this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
         } else {
           this.$store.commit('SET_NOTICE', '读取远程文件');
-          getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType])
+          getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType, this.$store.state.System.user.username])
           this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
         }
       },
@@ -173,7 +173,7 @@
           }
           this.rightItem = ''
         } else if (this.$store.state.Edit.rightPanel === 'server' && this.$store.state.Edit.serverType === 'file') {
-          getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType, e.target.value])
+          getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType, e.target.value, this.$store.state.System.user.username])
           if (this.$store.state.Edit.files === []) {
             this.$store.commit('SET_NOTICE', '未查找到，请输入完整用户名！')
           }
