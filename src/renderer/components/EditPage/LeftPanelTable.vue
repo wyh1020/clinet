@@ -19,6 +19,7 @@
 </template>
 
 <script>
+  import { saveEdit } from '../../utils/EditServerFile'
   export default {
     computed: {
       lastNav: {
@@ -96,8 +97,11 @@
         this.$store.commit('SET_NOTICE', '删除成功');
       },
       uploadDoc: function (data) {
-        console.log(data)
-        this.$store.commit('SET_NOTICE', '上传病案到服务器');
+        if (!this.$store.state.System.user.login) {
+          this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
+        } else {
+          saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [data], this.$store.state.System.user.username, 1])
+        }
       },
       downloadDoc: function (data) {
         console.log(data)

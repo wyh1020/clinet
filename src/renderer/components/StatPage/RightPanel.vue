@@ -64,9 +64,9 @@
             ><input type="text" class="form-control" placeholder="" v-model="xObj[data].svalue">
             <input type="text" class="form-control" placeholder="" v-model="xObj[data].bvalue">
           </div>
-          <button type="submit" class="btn btn-primary" v-on:click="selX(data, 1)">查询</button>
-          <button type="submit" class="btn btn-primary" v-on:click="selX(data, 0)">清空</button>
         </form>
+        <button type="submit" class="btn btn-primary" v-on:click="selX(data, 1)">查询</button>
+        <button type="submit" class="btn btn-primary" v-on:click="selX(data, 0)">清空</button>
       </div>
     </div>
     <div>
@@ -106,6 +106,10 @@
     computed: {
       xObj: {
         get() {
+          console.log(this.$store.state.Stat.xObj)
+          return this.$store.state.Stat.xObj
+        },
+        set() {
           return this.$store.state.Stat.xObj
         }
       },

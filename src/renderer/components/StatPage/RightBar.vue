@@ -75,9 +75,9 @@
         <li class="nav-item active" id="stat-right-page" v-on:click='title(10)' v-if="this.$store.state.Stat.haveRight">
           <a class="nav-link text-light" href="#"> 右页 <span class="sr-only"></span></a>
         </li>
-        <li class="nav-item active" id="stat-edit-data" v-on:click='edit()'>
+        <!-- <li class="nav-item active" id="stat-edit-data" v-on:click='edit()'>
           <a class="nav-link text-light" href="#"> 详情 <span class="sr-only">(current)</span></a>
-        </li>
+        </li> -->
       </ul>
       <form class="form-inline my-2 my-lg-0" v-on:submit.prevent>
         <input id="stat-right-search" class="mr-sm-2 form-control" type="search" placeholder="Search" aria-label="Search" v-on:keyup.13="statSearch()" v-model="stat">
