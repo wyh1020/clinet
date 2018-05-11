@@ -27,6 +27,9 @@
         <li v-if="toolbar === 'upUsers'">
           <a class="nav-link text-light" href="#" v-on:click="systemUsers('updataUser')">确认修改</a>
         </li>
+        <li class="nav-item active" v-on:click="systemUsers('docPower')" v-if="toolbar === 'getUsers' && user.login === true">
+          <a class="nav-link text-light" href="#"> 文件权限修改 <span class="sr-only">(current)</span></a>
+        </li>
         <li class="nav-item dropdown" v-on:click='getOrgs()' id="server-org-setup">
           <a class="nav-link text-light dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> 机构设置 <span class="sr-only">(current)</span></a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -267,6 +270,9 @@
           this.$store.commit('SYSTEM_SET_TOOLBAR', 'upUsers')
         } else if (value === 'updataUser') {
           sUpdateUser(this, [this.server, this.port, this.$store.state.System.user.id, this.upUserInfo])
+        } else if (value === 'docPower') {
+          // sUpdateDocPower
+          sUpdateUser(this, [this.server, this.port, this.$store.state.System.user.id, { is_show: !this.$store.state.System.user.is_show }])
         } else if (value === 'personUpdate') {
           sUpdateUser(this, [this.$store.state.System.server, this.$store.state.System.port, this.personId, this.personUpdate])
         } else if (value === 'orgNew') {
