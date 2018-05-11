@@ -10,18 +10,18 @@
           <a class="nav-link dropdown-toggle text-light" href="#" id="edit-rightbar-choice" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{helpType}}
           </a>
-          <div class="dropdown-menu" aria-labelledby="edit-rightbar-choice">
+          <div class="dropdown-menu" id="edit-rightbar-sel" aria-labelledby="edit-rightbar-choice">
             <a class="dropdown-item" href="#" v-on:click='help("编辑器使用帮助")' id="edit-rightbar-editorHelp">编辑器使用帮助</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" v-on:click='help("输入框提示")' id="edit-rightbar-inputPrompt">输入框提示</a>
             <a class="dropdown-item" href="#" v-on:click='help("病案参考")' id="edit-rightbar-medicalRefer">病案参考</a>
             <a class="dropdown-item" href="#" v-on:click='help("病案历史")' id="edit-rightbar-medicalHistory">病案历史</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click='help("在线交流")'>在线交流</a>
+            <a class="dropdown-item" href="#" v-on:click='help("在线交流")' id="edit-rightbar-onlineSay">在线交流</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click='help("drg分析")'>DRG分析</a>
+            <a class="dropdown-item" href="#" v-on:click='help("drg分析")' id="edit-rightbar-drgStat">DRG分析</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click='help("HIS接口")'>HIS接口</a>
+            <a class="dropdown-item" href="#" v-on:click='help("HIS接口")' id="edit-rightbar-hisInterface">HIS接口</a>
           </div>
         </li>
         <li class="nav-item active" v-on:click='help(null)' id="edit-rightbar-help">
