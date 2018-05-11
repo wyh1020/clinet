@@ -69,7 +69,7 @@ const state = {
   checkDataNum: 0,
   checkDataPage: 0,
   // 文件上传信息
-  upLoadFile: {}
+  upLoadFile: []
 };
 
 const mutations = {
@@ -283,7 +283,8 @@ const mutations = {
     state.serverTable = field
   },
   SYSTEM_UPLOAD_FILE(state, field) {
-    state.upLoadFile = field
+    const string = `文件上传成功${field.data.result}条`
+    state.upLoadFile = [[string]]
   },
   // SYSTEM_TABLE_TYPE(state, field) {
   //   state.tableType = field;
