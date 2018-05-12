@@ -127,7 +127,6 @@ export function sGetUsers(obj, data) {
 }
 // 更新用户信息
 export function sUpdateUser(obj, data) {
-  console.log(data);
   axios({
     method: 'post',
     url: `http://${data[0]}:${data[1]}/servers/user_update/`,
@@ -136,6 +135,8 @@ export function sUpdateUser(obj, data) {
     responseType: 'json'
   }).then((res) => {
     if (obj.$store.state.System.toolbar !== 'getPersons') {
+      const objs = res.data.data
+      objs.login = true
       obj.$store.commit('SYSTEM_SET_USER', ['更新用户信息成功', res.data.data])
     }
   }).catch((err) => {

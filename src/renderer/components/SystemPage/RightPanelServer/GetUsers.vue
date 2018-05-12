@@ -15,13 +15,14 @@
         </tr>
       </tbody>
       <tbody v-else>
-        <tr v-for="(values, key) in this.$store.state.System.user" v-bind:key='key' v-if="['username', 'type', 'org', 'id', 'blockchain', 'password'].includes(key)">
+        <tr v-for="(values, key) in this.$store.state.System.user" v-bind:key='key' v-if="['username', 'type', 'org', 'id', 'blockchain', 'password', 'is_show'].includes(key)">
           <td v-if="key === 'username'">用户名</td>
           <td v-else-if="key === 'type'">权限</td>
           <td v-else-if="key === 'org'">机构</td>
           <td v-else-if="key === 'id'">ID</td>
           <td v-else-if="key === 'blockchain'">区块信息</td>
           <td v-else-if="key === 'password'">密码</td>
+          <td v-else-if="key === 'is_show'">文件权限</td>
           <td v-if="key === 'username'"  v-on:click="createUserinfo('name')">
             <!-- <div v-if="userinfo.name">
               <input type="text" v-model="userinfoName" />

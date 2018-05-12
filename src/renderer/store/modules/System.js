@@ -129,6 +129,7 @@ const mutations = {
   },
   // 用户登录后信息
   SYSTEM_SET_USER(state, field) {
+    console.log(field)
     state.user = field[1];
     state.userPower = field[1].type
   },
