@@ -20,6 +20,7 @@
 
 <script>
   import { saveEdit } from '../../utils/EditServerFile'
+  import saveFile from '../../utils/SaveFile';
   export default {
     computed: {
       lastNav: {
@@ -104,8 +105,7 @@
         }
       },
       downloadDoc: function (data) {
-        console.log(data)
-        this.$store.commit('SET_NOTICE', '下载病案到本地文件');
+        saveFile(this, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], data);
       },
       loadDoc: function (data, index, type) {
         if (type === 'edit') {
