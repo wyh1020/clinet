@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-body" v-for="(section, key) of doc" v-bind:key='key'>
         <!-- 个人信息 -->
-        <div v-if="lastNav === '/stat'">
+        <div v-if="lastNav === '/stat' || lastNav === '/library' || lastNav === '/system'">
           <table>
             <tr class="table-warning"><td>{{key}}</td><td></td></tr>
             <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-on:click="changeIndex(item)">
@@ -93,7 +93,6 @@
       changeIndex: function (v) {
         const value = v.concat()
         const index = value.shift(0)
-        // console.log(index)
         this.$store.commit('EDIT_SET_BAR_VALUE', value)
         this.$store.commit('EDIT_SET_DOC_INDEX', [index, 'set']);
         document.getElementById('edit-editbar-input').focus()

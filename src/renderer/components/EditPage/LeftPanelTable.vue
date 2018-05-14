@@ -59,6 +59,7 @@
           if (this.$store.state.Edit.lastNav !== '/edit' && type !== 'object') {
             f = f.map(n => n.split(','))
           }
+          console.log(f)
           return f
         }
       },
@@ -105,7 +106,9 @@
         }
       },
       downloadDoc: function (data) {
-        saveFile(this, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], data);
+        const index = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex].indexOf('-')
+        const filename = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex].substr(index + 1)
+        saveFile(this, filename, data);
       },
       loadDoc: function (data, index, type) {
         if (type === 'edit') {

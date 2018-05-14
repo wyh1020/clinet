@@ -68,7 +68,11 @@
           this.$store.commit('SET_NOTICE', n);
           this.helpType = n
           if (n === 'drg分析') {
-            sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables, 'BJ'], 'getLocalData')
+            if (this.$store.state.System.wt4Tables.length > 1) {
+              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables, 'BJ'], 'getLocalData')
+            } else {
+              this.$store.commit('SET_NOTICE', '请选择分析数据！');
+            }
           }
         }
       },
