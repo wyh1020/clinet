@@ -9,7 +9,7 @@
       <input id="edit-editbar-input" style="line-height: 3" type="text" class="form-control"
       placeholder="请输入……" aria-label="Username" aria-describedby="basic-addon1" v-model="item"
       v-on:click="show()"
-      v-on:input="change()" v-on:keydown.enter="enter" v-on:keyup.ctrl.delete="del()" v-on:keyup.ctrl.enter="addItem()"
+      v-on:input="change" v-on:keydown.enter="enter" v-on:keyup.ctrl.delete="del()" v-on:keyup.ctrl.enter="addItem()"
       v-on:keyup.up="up()" v-on:keyup.down="down()" 
       v-on:keydown.ctrl.up="itemUp()" v-on:keydown.ctrl.down="itemDown()"      
       v-on:keyup.space="space()" v-on:keyup.left="space()" v-on:keyup.right="space()"
@@ -66,6 +66,26 @@
     methods: {
       show() {
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
+      },
+      change(e) {
+        // const value = document.getElementById('edit-editbar-input').value
+        const value = e.target.value
+        this.$store.commit('EDIT_SET_BAR_VALUE', value);
+        let n = this.$store.state.Edit.docIndex
+        if (this.$store.state.Edit.selectedType !== 'col') {
+          const vs = value.split('，').filter(i => i !== '');
+          vs.forEach((element, index) => {
+            const v = element.split(' ').filter(i => i !== '');
+            if (v.length > 0) {
+              if (index > 0) {
+                this.$store.commit('EDIT_UPDATE_DOC', [n, v, true]);
+              } else {
+                this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
+              }
+              n += 1
+            }
+          });
+        }
       },
       enter(e) {
         let n = this.$store.state.Edit.docIndex
@@ -177,11 +197,7 @@
         const value = this.$store.state.Edit.hint.slice(index - 9, index)
         this.$store.commit('EDIT_CONCAT_BAR_VALUE', value[num - 1]);
         this.item = this.$store.state.Edit.editBarValue;
-      },
-      change() {
-        const value = document.getElementById('edit-editbar-input').value
-        this.$store.commit('EDIT_SET_BAR_VALUE', value);
-      },
+      }
     },
   };
 </script>
