@@ -30,7 +30,10 @@
       },
       fileName: {
         get() {
-          return this.$store.state.Edit.fileName
+          if (this.$store.state.Edit.fileName) {
+            return this.$store.state.Edit.fileName
+          }
+          return ''
         }
       },
       fileLength: {
