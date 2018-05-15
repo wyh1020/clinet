@@ -3,32 +3,32 @@
     <form>
       <div class="form-group">
         <label for="InputOrgCode">机构编码</label>
-        <input type="text" class="form-control" placeholder="OrgCode" v-model="OrgInfo.code" @input="orgs()">
+        <input type="text" class="form-control" placeholder="OrgCode" v-model="OrgInfo.code" @input="orgs()" id ="InputOrgCode">
       </div>
       <div class="form-group">
         <label for="InputOrgName">机构名称</label>
-        <input type="text" class="form-control" placeholder="OrgName" v-model="OrgInfo.name" @input="orgs()">
+        <input type="text" class="form-control" placeholder="OrgName" v-model="OrgInfo.name" @input="orgs()" id ="InputOrgName">
       </div>
       <div class="form-group">
         <label for="InputOrgLevel">机构等级</label>
-        <input type="text" class="form-control" placeholder="OrgLevel" v-model="OrgInfo.level" @input="orgs()">
+        <input type="text" class="form-control" placeholder="OrgLevel" v-model="OrgInfo.level" @input="orgs()" id ="InputOrgLevel">
       </div>
       <div class="form-group">
         <label for="InputOrgType">机构类别</label>
-        <input type="text" class="form-control" placeholder="OrgType" v-model="OrgInfo.type" @input="orgs()">
+        <input type="text" class="form-control" placeholder="OrgType" v-model="OrgInfo.type" @input="orgs()" id ="InputOrgType">
       </div>
       <div class="form-group">
         <!-- <label for="InputOrgProvince">省份</label> -->
         <label for="InputOrgProvince">省份</label>
           <select class="form-control" id="InputOrgProvince" v-model="OrgInfo.province" @input="orgs()">
-             <option v-for="(value, index) in provinceAll.province" v-bind:key="index">{{value}}</option>
+             <option v-for="(value, index) in provinceAll.province" v-bind:key="index" v-bind:id="'server-org-province-tr'+index">{{value}}</option>
           </select>
         <!-- <input type="text" class="form-control" placeholder="Province" v-model="OrgInfo.province"> -->
       </div>
       <div class="form-group">
         <label for="InputOrgCity">市</label>
           <select class="form-control" id="InputOrgCity" v-model="OrgInfo.city" @input="orgs()">
-            <option v-for="(value, index) in provinceAll.city[OrgInfo.province]" v-bind:key="index">{{value}}</option>
+            <option v-for="(value, index) in provinceAll.city[OrgInfo.province]" v-bind:key="index" v-bind:id="'server-org-city-tr'+index">{{value}}</option>
           </select>
         <!-- <label for="InputOrgCity">市</label>
         <input type="text" class="form-control" placeholder="City" v-model="OrgInfo.city"> -->
@@ -36,22 +36,22 @@
       <div class="form-group">
         <label for="InputOrgCity">机构县</label>
         <select class="form-control" id="InputOrgCity" v-model="OrgInfo.county" @input="orgs()">
-          <option v-for="(value, index) in provinceAll.county[OrgInfo.city]" v-bind:key="index">{{value}}</option>
+          <option v-for="(value, index) in provinceAll.county[OrgInfo.city]" v-bind:key="index" v-bind:id="'server-org-county-tr'+index">{{value}}</option>
         </select>
         <!-- <label for="InputOrgCounty">机构县</label>
         <input type="text" class="form-control" placeholder="County" v-model="OrgInfo.county"> -->
       </div>
       <div class="form-group">
         <label for="InputOrgPerson_name">联系人</label>
-        <input type="text" class="form-control" placeholder="Person_name" v-model="OrgInfo.person_name" @input="orgs()">
+        <input type="text" class="form-control" placeholder="Person_name" v-model="OrgInfo.person_name" @input="orgs()" id = "InputOrgPerson_name">
       </div>
       <div class="form-group">
         <label for="InputOrgTel">联系电话</label>
-        <input type="text" class="form-control" placeholder="Tel" v-model="OrgInfo.tel" @input="orgs()">
+        <input type="text" class="form-control" placeholder="Tel" v-model="OrgInfo.tel" @input="orgs()" id = "InputOrgTel">
       </div>
       <div class="form-group">
         <label for="InputOrgEmail">Email</label>
-        <input type="email" class="form-control" placeholder="Email" v-model="OrgInfo.email" @input="orgs()">
+        <input type="email" class="form-control" placeholder="Email" v-model="OrgInfo.email" @input="orgs()" id = "InputOrgEmail">
       </div>
     </form>
     <div class="row">
