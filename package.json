@@ -61,6 +61,7 @@
     "bootstrap": "^4.0.0",
     "echarts": "^4.0.2",
     "jquery": "^3.3.1",
+    "phoenix-channels": "^1.0.0",
     "popper.js": "^1.12.9",
     "qs": "^6.5.1",
     "superagent": "^3.8.2",
