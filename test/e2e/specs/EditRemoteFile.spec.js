@@ -18,6 +18,7 @@ describe('EditRemoteFile', function () {
       .then(function (editText) {
         expect(editText).to.equal('');
       })
+    // --------------点击 远程文件按钮-------------------------------------
       .click('#edit-rightbar-server')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
@@ -69,7 +70,7 @@ describe('EditRemoteFile', function () {
         // console.log(editText)
         expect(editText).to.be.an('string');
       })
-      .waitUntilWindowLoaded(10000)
+      .waitUntilTextExists('#notice-bar', '远程服务用户登录成功')
       .getText('#notice-bar')
       .then(function (editText) {
         // console.log(editText)
