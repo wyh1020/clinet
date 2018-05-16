@@ -1,14 +1,20 @@
 const { Socket } = require('phoenix-channels')
-export default function connect(obj, data) {
-  const socket = new Socket(`ws://${data[0]}:${data[1]}`, {});
+let socket = null
+let channel = null
+export function connect(obj, data) {
+  socket = new Socket(`ws://${data[0]}:8000/socket`, {});
   socket.connect();
-  const channel = socket.channel('room:lobby', {})
+  channel = socket.channel('room:lobby', {})
   channel.join()
-    .receive('ok', (resp) => {
-      console.log('Joined successfully', resp)
+    .receive('ok', () => {
+      obj.$store.commit('SET_NOTICE', '加入房间成功')
     })
-    .receive('error', (resp) => {
-      console.log('Unable to join', resp)
+    .receive('error', () => {
+      obj.$store.commit('SET_NOTICE', '加入房间失败')
     })
-  obj.$store.commit('SET_NOTICE', '测试')
+}
+
+export function message(obj, message) {
+  channel.push('新消息', { body: message })
+  obj.$store.commit('SET_NOTICE', '消息发送成功')
 }
