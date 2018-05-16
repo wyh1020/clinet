@@ -30,16 +30,16 @@
         <li class="nav-item active" v-on:click='upLoadTableData()' id="server-load-uploaddata">
           <a class="nav-link text-light" href="#"> 上传服务器数据 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click="checkPage('up')" id="server-load-uploaddata">
+        <li class="nav-item active" v-on:click="checkPage('up')" id="server-load-uppage">
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click="checkPage('down')" id="server-load-uploaddata">
+        <li class="nav-item active" v-on:click="checkPage('down')" id="server-load-downpage">
           <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click="checkPage('left')" id="server-load-uploaddata">
+        <li class="nav-item active" v-on:click="checkPage('left')" id="server-load-leftpage">
           <a class="nav-link text-light" href="#"> 左页 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click="checkPage('right')" id="server-load-uploaddata">
+        <li class="nav-item active" v-on:click="checkPage('right')" id="server-load-rightpage">
           <a class="nav-link text-light" href="#"> 右页 <span class="sr-only">(current)</span></a>
         </li>
       </ul>

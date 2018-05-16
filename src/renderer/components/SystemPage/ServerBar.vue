@@ -18,16 +18,16 @@
         <li v-if="toolbar === 'getUsers' && user.login === false">
           <a class="nav-link text-light" href="#" v-on:click="systemUsers('insert')">新建</a>
         </li>
-        <li v-if="toolbar === 'getUsers' && user.login === true">
+        <li v-if="toolbar === 'getUsers' && user.login === true" id = "server-user-change">
           <a class="nav-link text-light" href="#" v-on:click="systemUsers('update')">修改</a>
         </li>
         <li v-if="toolbar === 'createUsers'">
           <a class="nav-link text-light" href="#" v-on:click="systemUsers('regiest')">注册</a>
         </li>
-        <li v-if="toolbar === 'upUsers'">
+        <li v-if="toolbar === 'upUsers'" id = "server-user-ischange">
           <a class="nav-link text-light" href="#" v-on:click="systemUsers('updataUser')">确认修改</a>
         </li>
-        <li class="nav-item active" v-on:click="systemUsers('docPower')" v-if="toolbar === 'getUsers' && user.login === true">
+        <li class="nav-item active" v-on:click="systemUsers('docPower')" v-if="toolbar === 'getUsers' && user.login === true" id = "server-user-changepower">
           <a class="nav-link text-light" href="#"> 文件权限修改 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown" v-on:click='getOrgs()' id="server-org-setup">
@@ -39,10 +39,10 @@
             <div class="dropdown-divider"></div>
           </div>
         </li>
-        <li class="nav-item active" v-if="toolbar === 'getOrgs' && orgPage === 'getOrg'">
+        <li class="nav-item active" v-if="toolbar === 'getOrgs' && orgPage === 'getOrg'" id = "server-user-neworg">
           <a class="nav-link text-light" href="#" v-on:click="systemUsers('orgNew')"> 新建机构 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-if="toolbar === 'createOrgs' && orgPage === 'getOrg' && orgName ==='insert'">
+        <li class="nav-item active" v-if="toolbar === 'createOrgs' && orgPage === 'getOrg' && orgName ==='insert'" id = "server-user-addorg">
           <a class="nav-link text-light" href="#" v-on:click="systemUsers('orgInsert')"> 添加机构 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-if="toolbar === 'createOrgs' && orgPage === 'getOrg' && orgName ==='update'">

@@ -179,7 +179,7 @@ describe('Edit', function () {
         console.log(editText);
         expect(editText).to.be.an('string');
       })
-      .click('#edit-rightpanellocal-tr1')
+      .click('#edit-rightpanellocal-tr0')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         console.log(editText);

@@ -54,14 +54,23 @@ describe('Server', function () {
       .then(function (rightpanel) {
         expect(rightpanel).to.be.an('array');
       })
-      // 2.1.5、点击导入数据(server-load-import)，左侧列表显示clinet-data文件夹下可导入的文件
-      // .click('#server-load-import')
-      // 2.1.6、点击保存本地文件(server-load-savelocal)，把当前数据保存成本地文件
-      // .click('#server-load-savelocal')
-      // 2.1.7、点击上传服务器数据(server-load-uploaddata)，把数据传到服务器上，在服务器上可以进行统计计算等服务
-      .click('#server-load-uploaddata')
-      // 2.1.8、点击编辑数据(server-load-editdata)，把当前数据转入到编辑模块，对数据进行修改
+      // 2.1.7、点击编辑数据(server-load-editdata)，把当前数据转入到编辑模块，对数据进行修改
       .click('#server-load-editdata')
+      .getText('#edit-editbar-input')
+      .then(function (editText) {
+        expect(editText).to.equal('');
+      })
+      .click('#edit-leftbar-back')
+      // 2.1.8、点击上传服务器数据(server-load-uploaddata)，把数据传到服务器上，在服务器上可以进行统计计算等服务
+      .click('#server-load-uploaddata')
+      // 2.1.8、点击前页
+      .click('#server-load-uppage')
+      // 2.1.9、点击后页
+      .click('#server-load-downpage')
+      // 2.1.10、点击左页
+      .click('#server-load-leftpage')
+      // 2.1.11、点击右页
+      .click('#server-load-rightpage')
     // 2.2、远程服务器设置
       // 2.2.1、远程服务器列表，右侧显示远程测试服务器列表(server-remote-list)
       .click('#navbar-system')
@@ -78,12 +87,56 @@ describe('Server', function () {
       .setValue('#server-username', 'test@hitb.com.cn')
       .setValue('#server-password', '123456')
       .click('#server-login')
-      // 2.2.3、点击机构设置(server-org-setup)，右侧弹出两个输入框，输入信息，点击添加机构按钮，按钮颜色状态发生改变
-      // .click('#server-org-setup')
+      .waitUntilTextExists('#notice-bar', '远程服务用户登录成功')
+      // 2.2.3、点击修改(server-user-change)
+      .click('#server-user-change')
+      // 2.2.4、点击确认修改(server-user-ischange)
+      .click('#server-user-ischange')
+      .click('#server-user-setup')
+      // 2.2.5、点击文件权限修改(server-user-changepower)
+      .click('#server-user-changepower')
+      // 2.2.6、点击机构设置(server-org-setup)，右侧弹出两个输入框，输入信息，点击添加机构按钮，按钮颜色状态发生改变
+      .click('#server-org-setup')
+      // 2.2.7、点击新建机构设置(server-user-addorg)
+      .click('#server-user-neworg')
+      // .setValue('#InputOrgCode', '123456')
+      // .setValue('#InputOrgName', '123456')
+      // .setValue('#InputOrgLevel', '123456')
+      // .setValue('#InputOrgType', '123456')
+      // .click('#InputOrgProvince')
+      // .click('#server-org-province-tr0')
+      // .click('#InputOrgCity')
+      // .click('#server-org-city-tr0')
+      // .click('#InputOrgCity')
+      // .click('#server-org-county-tr0')
+      // .setValue('#InputOrgPerson_name', '123456')
+      // .setValue('#InputOrgTel', '17610513713')
+      // .setValue('#InputOrgEmail', '993939137@qq.com')
+      // 2.2.8、点击添加机构(server-user-addorg)
+      // .click('#server-user-neworg')
+      // .waitUntilTextExists('#notice-bar', '机构创建成功')
+      // 2.2.6、点击科室设置(server-org-setup)，右侧弹出两个输入框，输入信息，点击添加科室按钮，按钮颜色状态发生改变
+      .click('#server-org-setup')
+      // 2.2.7、点击新建科室设置(server-user-adddep)
+      // .click('#server-user-newdep')
+      // .setValue('#InputOrgCode', '123456')
+      // .setValue('#InputOrgName', '123456')
+      // .setValue('#InputOrgLevel', '123456')
+      // .setValue('#InputOrgType', '123456')
+      // .click('#InputOrgProvince')
+      // .click('#server-org-province-tr0')
+      // .click('#InputOrgCity')
+      // .click('#server-org-city-tr0')
+      // .click('#InputOrgCity')
+      // .click('#server-org-county-tr0')
+      // .setValue('#InputOrgPerson_name', '123456')
+      // .setValue('#InputOrgTel', '17610513713')
+      // .setValue('#InputOrgEmail', '993939137@qq.com')
+      // 2.2.8、点击添加科室(server-user-adddep)
+      // .click('#server-user-newdep')
+      // .waitUntilTextExists('#notice-bar', '科室创建成功')
       // 2.2.4、点击人员设置(server-people-setup)，右侧弹出两个输入框，输入信息，点击添加人员按钮，按钮颜色状态发生改变
       // .click('#server-people-setup')
-      // 2.2.5、点击远程服务功能设置(server-remote-function-setup)
-      // .click('#server-remote-function-setup')
     // 2.3、点击DRG分组服务
       .click('#navbar-system')
       .click('#navbar-system-compdrg')
