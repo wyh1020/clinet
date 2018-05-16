@@ -22,7 +22,7 @@
           <a class="nav-link text-light" href="#"> 区块内容明细 <span class="sr-only">(current)</span></a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
+      <form class="form-inline my-2 my-lg-0" v-on:submit.prevent>
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="block-search">
       </form>
     </div>

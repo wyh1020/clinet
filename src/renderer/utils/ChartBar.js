@@ -63,6 +63,7 @@ export default function chartBar(id, opt = null) {
     })
     // 显示图
     option = {
+      backgroundColor: '#fff',
       tooltip: {
         trigger: 'axis',
         axisPointer: {

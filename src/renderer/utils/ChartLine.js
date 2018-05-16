@@ -62,6 +62,7 @@ export default function chartLine(id, opt = null) {
     })
     // 显示图
     option = {
+      backgroundColor: '#fff',
       tooltip: { trigger: 'axis' },
       legend: { data: chartKeys, type: 'scroll', width: '80%' },
       toolbox: {

@@ -251,7 +251,7 @@
     mounted: function () {
       if (this.$store.state.Stat.chartData.length > 0) {
         this.onClick()
-        this.onClickTd()
+        // this.onClickTd()
       }
     },
     methods: {

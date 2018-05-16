@@ -41,7 +41,7 @@
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0" v-on:submit.prevent>
-        <input class="form-control mr-sm-2" type="search" placeholder="模糊查询" aria-label="Search" v-on:keyup.enter="rightEnter()" v-model="rightItem">
+        <input class="form-control mr-sm-2" type="search" placeholder="模糊查询" aria-label="Search" v-on:keyup.enter="rightEnter" v-model="rightItem">
       </form>
     </div>
   </nav>
