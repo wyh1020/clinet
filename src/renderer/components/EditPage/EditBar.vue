@@ -91,6 +91,7 @@
           const col = this.$store.state.Edit.selectedCol[0]
           this.$store.commit('EDIT_UPDATE_FILE', [col, cv[1]]);
         }
+        this.$store.commit('SET_NOTICE', '编辑 -> 缓存 -> 选择文件 -> 保存');
       },
       addItem() {
         if (this.$store.state.Edit.fileType === 'cda') {

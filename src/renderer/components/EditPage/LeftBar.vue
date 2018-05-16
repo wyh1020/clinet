@@ -81,6 +81,7 @@
       lastNav: function () {
         this.$router.push(this.$store.state.Edit.lastNav);
         this.$store.commit('EDIT_SET_LAST_NAV', '/edit');
+        this.$store.commit('EDIT_SET_FILE');
       },
       show() {
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')

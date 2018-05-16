@@ -208,6 +208,9 @@ const mutations = {
       return x
     })
   },
+  EDIT_SET_FILE(state) {
+    state.file = [];
+  },
 };
 
 const actions = {
@@ -250,6 +253,7 @@ const actions = {
     commit('EDIT_SET_COL');
     commit('EDIT_SET_SELECTED_TYPE');
     commit('EDIT_UPDATE_FILE');
+    commit('EDIT_SET_FILE');
   },
 };
 

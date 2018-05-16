@@ -59,7 +59,6 @@
           if (this.$store.state.Edit.lastNav !== '/edit' && type !== 'object') {
             f = f.map(n => n.split(','))
           }
-          console.log(f)
           return f
         }
       },
