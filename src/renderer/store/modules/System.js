@@ -333,6 +333,8 @@ const mutations = {
     let table = []
     if (value[0].length > 10) {
       table = value.map(n => n.slice(0, 10)).slice(0, 21)
+    } else {
+      table = value
     }
     state.checkDataAll = value
     state.checkData = table
