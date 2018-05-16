@@ -2,7 +2,7 @@
   <div>
     <table v-if="this.$store.state.System.toolbar === 'checkTable'" v-bind:style="{ height: height + 'px', overflow: 'auto' }">
       <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger':flag == index}" class="server-load-rightpanel-tr">
-        <td v-for="(field, index) in data" v-bind:key='index' class="server-load-rightpanel-td">{{data[index]}}</td>
+        <td v-for="(field, index) in data" v-bind:key='index' v-bind:class="{'table-danger': String(field) == 'NaN'}" class="server-load-rightpanel-td">{{data[index]}}</td>
       </tr>
     </table>
     <table v-else>

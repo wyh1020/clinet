@@ -93,11 +93,22 @@
             let body = n.split(',')
             y.forEach((n1) => {
               const type = typeof (body[header.indexOf(n1[5])])
-              if (n1[3] === type) {
+              if (n1[3] !== type) {
+                if (n1[3] === 'string') {
+                  const a = String(body[header.indexOf(n1[5])])
+                  body = [...body, a]
+                } else if (n1[3] === 'integer') {
+                  const a = Number(body[header.indexOf(n1[5])])
+                  body = [...body, a]
+                } else if (n1[3] === 'boolean') {
+                  const a = Boolean(body[header.indexOf(n1[5])])
+                  body = [...body, a]
+                } else {
+                  console.log('数据类型校验错误')
+                }
+              } else {
                 body = [...body, body[header.indexOf(n1[5])]]
                 this.$store.commit('SET_NOTICE', '数据校验成功');
-              } else {
-                console.log('数据类型校验错误');
               }
             });
             files.push(body);
@@ -123,10 +134,12 @@
         }
       },
       editTable: function () {
+        const files = this.$store.state.System.files.filter(x => x.endsWith('.csv'))
         this.$store.commit('EDIT_LOAD_FILE', this.$store.state.System.checkDataAll)
+        this.$store.commit('EDIT_SERVER_FILES', files)
         this.$store.commit('EDIT_SET_LAST_NAV', '/system');
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
-        this.$store.commit('EDIT_SET_FILES_INDEX', this.$store.state.System.checkDataAll);
+        this.$store.commit('EDIT_SET_FILES_INDEX', this.$store.state.System.loadTable);
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
         this.$router.push('/edit');
       },
