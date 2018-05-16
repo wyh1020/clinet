@@ -11,8 +11,8 @@
         <td v-on:click="delDoc(data, index)"><a href="#">删除</a></td>
         <td v-on:click="loadDoc(data, index, 'edit')"><a href="#">编辑</a></td>
         <td v-on:click="loadDoc(data, index, 'show')"><a href="#">参考</a></td>
-        <td v-on:click="uploadDoc(data)" v-if="!fileName.includes('@')"><a href="#">上传</a></td>
-        <td v-on:click="downloadDoc(data)" v-if="fileName.includes('@')"><a href="#">下载</a></td>
+        <td v-on:click="uploadDoc(data, index)" v-if="!fileName.includes('@')"><a href="#">上传</a></td>
+        <td v-on:click="downloadDoc(data, index)" v-if="fileName.includes('@')"><a href="#">下载</a></td>
       </tr>
     </table>
   </div>
@@ -97,17 +97,19 @@
         this.$store.commit('EDIT_DELETE_DOC', index);
         this.$store.commit('SET_NOTICE', '删除成功');
       },
-      uploadDoc: function (data) {
+      uploadDoc: function (data, index) {
         if (!this.$store.state.System.user.login) {
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
         } else {
+          this.$store.commit('EDIT_SET_FILE_INDEX', index)
           saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [data], this.$store.state.System.user.username, 1])
         }
       },
-      downloadDoc: function (data) {
-        const index = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex].indexOf('-')
-        const filename = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex].substr(index + 1)
+      downloadDoc: function (data, index) {
+        const index1 = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex].indexOf('-')
+        const filename = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex].substr(index1 + 1)
         saveFile(this, filename, data);
+        this.$store.commit('EDIT_SET_FILE_INDEX', index)
       },
       loadDoc: function (data, index, type) {
         if (type === 'edit') {
@@ -143,6 +145,7 @@
           this.$store.commit('EDIT_SET_DOC_INDEX', [0, true]);
           document.getElementById('edit-editbar-input').focus()
         } else {
+          this.$store.commit('EDIT_SET_FILE_INDEX', index)
           this.$store.commit('EDIT_LOAD_DOC_SHOW', data.split(','))
           this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
           this.$store.commit('EDIT_SET_HELP_TYPE', '病案参考');
