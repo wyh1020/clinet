@@ -52,6 +52,7 @@
   import { getStat } from '../../utils/StatServerFile'
   import { getLibrary } from '../../utils/LibraryServerFile'
   import { sCompDrg } from '../../utils/Server'
+  import { connect } from '../../utils/Socket'
   export default {
     data() {
       return {
@@ -73,6 +74,8 @@
             } else {
               this.$store.commit('SET_NOTICE', '请选择分析数据！');
             }
+          } else if (n === '在线交流') {
+            connect(this, [this.$store.state.System.server, this.$store.state.System.port])
           }
         }
       },
