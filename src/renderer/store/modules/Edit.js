@@ -24,7 +24,8 @@ const state = {
   serverType: 'user',
   docType: '自定义文档',
   selectedCol: [],
-  selectedType: 'row'
+  selectedType: 'row',
+  socketRecord: []
 };
 
 const mutations = {
@@ -211,6 +212,12 @@ const mutations = {
   EDIT_SET_FILE(state) {
     state.file = [];
   },
+  EDIT_SET_SOCKET_RECORD(state, opt) {
+    state.socketRecord.push(opt)
+  },
+  EDIT_CLEAR_SOCKET_RECORD(state) {
+    state.socketRecord = []
+  },
 };
 
 const actions = {
@@ -254,6 +261,8 @@ const actions = {
     commit('EDIT_SET_SELECTED_TYPE');
     commit('EDIT_UPDATE_FILE');
     commit('EDIT_SET_FILE');
+    commit('EDIT_SET_SOCKET_RECORD');
+    commit('EDIT_CLEAR_SOCKET_RECORD');
   },
 };
 
