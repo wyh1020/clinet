@@ -220,7 +220,7 @@ describe('Edit', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-    // 2.2.2 点击下拉菜单入院申请按钮 点击缓存 edit-leftbar-cache
+    // 2.2.2 点击下拉菜单病案首页(卫统四csv)按钮 点击缓存 edit-leftbar-cache
       .click('#edit-leftbar-cache')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
@@ -235,7 +235,7 @@ describe('Edit', function () {
         // console.log(editText);
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1 点击下拉菜单入院申请按钮 eidt-leftbar-admissionApplication
+    // 2.2.1.1 点击下拉菜单病案首页(卫统四csv)按钮 eidt-leftbar-admissionApplication
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
       .getText('#edit-editbar-input')
@@ -284,7 +284,7 @@ describe('Edit', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1.2 点击下拉菜单入院申请按钮 点击缓存 edit-leftbar-cache
+    // 2.2.1.1.2 点击下拉菜单首次病程按钮 点击缓存 edit-leftbar-cache
       .click('#edit-leftbar-cache')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
@@ -317,7 +317,7 @@ describe('Edit', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1.1.2 点击下拉菜单入院申请按钮 点击缓存 edit-leftbar-cache
+    // 2.2.1.1.1.2 点击下拉菜单病程记录按钮 点击缓存 edit-leftbar-cache
       .click('#edit-leftbar-cache')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
@@ -350,7 +350,7 @@ describe('Edit', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1.1.1.1.2 点击下拉菜单入院申请按钮 点击缓存 edit-leftbar-cache
+    // 2.2.1.1.1.1.1.2 点击下拉菜单病案首页按钮 点击缓存 edit-leftbar-cache
       .click('#edit-leftbar-cache')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
@@ -383,7 +383,7 @@ describe('Edit', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1.1.1.1.2 点击下拉菜单入院申请按钮 点击缓存 edit-leftbar-cache
+    // 2.2.1.1.1.1.1.2 点击下拉菜单门诊病案按钮 点击缓存 edit-leftbar-cache
       .click('#edit-leftbar-cache')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
@@ -416,7 +416,7 @@ describe('Edit', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1.1.1.1.1.2 点击下拉菜单入院申请按钮 点击缓存 edit-leftbar-cache
+    // 2.2.1.1.1.1.1.1.2 点击下拉菜单健康体检按钮 点击缓存 edit-leftbar-cache
       .click('#edit-leftbar-cache')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
@@ -426,30 +426,6 @@ describe('Edit', function () {
       .click('#edit-rightbar-local')
       .waitUntilTextExists('#edit-bar-prompt', '读取本地文件')
       .click('#edit-leftbar-preservation')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        // console.log(editText);
-        expect(editText).to.be.an('string');
-      })
-    // --------------本地文件table操作--------------------
-    // 2.3.1 点击本地文件按钮
-      .click('#edit-rightbar-local')
-      .waitUntilTextExists('#edit-bar-prompt', '读取本地文件')
-      // .then(function (editText) {
-      //   console.log(editText);
-      //   // expect(editText).to.be.an('string');
-      // })
-      // .getText('.edit-rightpanellocal-tr')
-      .getText('#edit-rightpanellocal-table')
-      .then(function (editText) {
-        expect(editText).to.not.equal('');
-      })
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        console.log(editText);
-        expect(editText).to.be.an('string');
-      })
-      .click('#edit-rightpanellocal-tr0')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         // console.log(editText);
@@ -493,3 +469,4 @@ describe('Edit', function () {
     //   })
   })
 });
+
