@@ -16,13 +16,13 @@ export function join(obj, filename, username) {
   channel.join()
     .receive('ok', () => {
       obj.$store.commit('SET_NOTICE', '加入房间成功')
+      channel.push('加入房间', { body: username, username: username })
     })
     .receive('error', () => {
       obj.$store.commit('SET_NOTICE', '加入房间失败')
     })
-  channel.push('加入房间', { body: username, username: username })
   channel.on('新消息', (payload) => {
-    obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: payload.body, type: 'message', username: payload.username });
+    obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: payload.body, type: payload.type, username: payload.username });
   })
   channel.on('加入房间', (payload) => {
     obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: payload.body, type: 'info', username: payload.username });
@@ -32,8 +32,8 @@ export function join(obj, filename, username) {
   })
 }
 
-export function message(obj, message, username = '') {
-  channel.push('新消息', { body: message, username: username })
+export function message(obj, message, username = '', type = 'message') {
+  channel.push('新消息', { body: message, username: username, type: type })
   obj.$store.commit('SET_NOTICE', '消息发送成功')
 }
 
