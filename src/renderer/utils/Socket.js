@@ -1,4 +1,5 @@
-const { Socket } = require('phoenix-channels')
+// const { Socket } = require('phoenix-channels')
+import { Socket } from 'phoenix'
 let socket = null
 let channel = null
 // 连接(obj, [url, port, username])
