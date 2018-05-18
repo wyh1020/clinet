@@ -139,22 +139,22 @@ describe('EditRemoteFile', function () {
       //   expect(editText).to.be.an('string');
       // })
     // 2.3.4 点击左侧 第一行 td 参考按钮 edit-leftpaneltable-ref0
-      .click('#edit-leftpaneltable-ref0')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftpaneltable-ref0')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
       // .getText('#edit-rightpanellocal-table')
       // .then(function (editText) {
       //   // console.log(editText);
       //   expect(editText).to.not.equal('');
       // })
     // 2.3.5 点击左侧 第一行 td 下载 edit-leftpaneltable-dow
-      .click('#edit-leftpaneltable-dow0')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftpaneltable-dow0')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
   });
 });
 

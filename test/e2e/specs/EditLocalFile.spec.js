@@ -191,11 +191,11 @@ describe('EditLocalFile', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      .click('#eidt-leftbar-admissionApplication')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#eidt-leftbar-admissionApplication')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.2.1.1.1 点击下拉菜单 首次病程按钮 eidt-leftbar-firstDisease
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
@@ -208,12 +208,12 @@ describe('EditLocalFile', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      .click('#eidt-leftbar-firstDisease')
-      // .waitUntilTextExists('#edit-bar-prompt', '首次病程')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#eidt-leftbar-firstDisease')
+      // // .waitUntilTextExists('#edit-bar-prompt', '首次病程')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.2.1.1.1.1 点击下拉菜单 病程记录按钮 eidt-leftbar-diseaseRecord
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
@@ -226,12 +226,12 @@ describe('EditLocalFile', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      .click('#eidt-leftbar-diseaseRecord')
-      // .waitUntilTextExists('#edit-bar-prompt', '病程记录')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#eidt-leftbar-diseaseRecord')
+      // // .waitUntilTextExists('#edit-bar-prompt', '病程记录')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.2.1.1.1.1.1 点击下拉菜单 病案首页按钮 eidt-leftbar-medicalHome
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
@@ -244,12 +244,12 @@ describe('EditLocalFile', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      .click('#eidt-leftbar-medicalHome')
-      // .waitUntilTextExists('#edit-bar-prompt', '病案首页')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#eidt-leftbar-medicalHome')
+      // // .waitUntilTextExists('#edit-bar-prompt', '病案首页')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.2.1.1.1.1.1.1 点击下拉菜单 门诊病案按钮 eidt-leftbar-outpatientMedical
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
@@ -262,12 +262,12 @@ describe('EditLocalFile', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      .click('#eidt-leftbar-outpatientMedical')
-      // .waitUntilTextExists('#edit-bar-prompt', '门诊病案')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#eidt-leftbar-outpatientMedical')
+      // // .waitUntilTextExists('#edit-bar-prompt', '门诊病案')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.2.1.1.1.1.1.1.1 点击下拉菜单 健康体检按钮 eidt-leftbar-healthExamination
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
@@ -280,12 +280,12 @@ describe('EditLocalFile', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      .click('#eidt-leftbar-admissionApplication')
-      // .waitUntilTextExists('#edit-bar-prompt', '健康体检')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#eidt-leftbar-admissionApplication')
+      // // .waitUntilTextExists('#edit-bar-prompt', '健康体检')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // -----------------只点击 本地文件按钮 点击文件列表---------------------------------
     // --------------本地文件table操作--------------------
     // 2.3、点击右侧工具栏 本地按钮 edit-rightbar-local 右侧出现当前本地文件
