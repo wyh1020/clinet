@@ -90,3 +90,13 @@ export function saveEdit(obj, data) {
     obj.$store.commit('SET_NOTICE', '保存失败')
   })
 }
+
+export function getDocTypes(obj) {
+  console.log(obj)
+  obj.$store.commit('SET_NOTICE', '远程docType未查询')
+}
+
+export function getHelps(obj) {
+  console.log(obj)
+  obj.$store.commit('SET_NOTICE', '远程帮助未查询')
+}

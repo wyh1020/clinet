@@ -23,7 +23,7 @@
 </template>
 
 <script>
-
+  import { message } from '../../utils/Socket'
   export default {
     // mounted: function () {
     //   this.$nextTick(() => {
@@ -90,7 +90,7 @@
       enter(e) {
         let n = this.$store.state.Edit.docIndex
         let value = e.target.value
-
+        message(this, e.target.value, this.$store.state.System.user.username, 'message')
         if (this.$store.state.Edit.selectedType !== 'col') {
           const vs = value.split('，').filter(i => i !== '');
           vs.forEach((element, index) => {

@@ -23,9 +23,11 @@ const state = {
   helpType: '编辑器使用帮助',
   serverType: 'user',
   docType: '自定义文档',
+  docTypes: ['自定义文档', '病案首页（卫统四CSV）', '入院申请', '首次病程', '病程记录', '病案首页', '门诊病案', '健康体检'],
   selectedCol: [],
   selectedType: 'row',
-  socketRecord: []
+  socketRecord: [],
+  chatType: false
 };
 
 const mutations = {
@@ -218,6 +220,12 @@ const mutations = {
   EDIT_CLEAR_SOCKET_RECORD(state) {
     state.socketRecord = []
   },
+  EDIT_SET_DOC_TYPES(state, value) {
+    state.docTypes = value
+  },
+  EDIT_SET_CHAT_TYPE(state, value) {
+    state.chatType = value
+  },
 };
 
 const actions = {
@@ -263,6 +271,8 @@ const actions = {
     commit('EDIT_SET_FILE');
     commit('EDIT_SET_SOCKET_RECORD');
     commit('EDIT_CLEAR_SOCKET_RECORD');
+    commit('EDIT_SET_DOC_TYPES');
+    commit('EDIT_SET_CHAT_TYPE');
   },
 };
 

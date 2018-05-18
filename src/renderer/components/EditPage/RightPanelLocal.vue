@@ -1,13 +1,21 @@
 <template>
-  <div style="overflow:auto;">
-    <table id="edit-rightpanellocal-table">
-      <tr>
-        <th colspan="10" class="table-info" id="edit-rightpanellocal-title"> {{title}}</th>
-      </tr>
-      <tr class="edit-rightpanellocal-tr" v-for="(data, index) in xs" v-bind:key='index' v-bind:id="'edit-rightpanellocal-tr'+index" v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
-        <td>{{index + 1}}</td>
-        <td>{{data}}</td>
-      </tr>
+  <div>
+    <div style="overflow:auto;">
+      <table id="edit-rightpanellocal-table" v-show="this.$store.state.Edit.chatType === false">
+        <tr>
+          <th colspan="10" class="table-info" id="edit-rightpanellocal-title"> {{title}}</th>
+        </tr>
+        <tr class="edit-rightpanellocal-tr" v-for="(data, index) in xs" v-bind:key='index' v-bind:id="'edit-rightpanellocal-tr'+index" v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
+          <td>{{index + 1}}</td>
+          <td>{{data}}</td>
+        </tr>
+      </table>
+    </div>
+    <table v-bind:style="{ height: height + 'px', overflow: 'auto' }">
+      <div v-show="chatType" v-for="(data, index) in socketRecord" v-bind:key='index'>
+        <div v-if="data.username === username" style="margin: 15px"><span class="alert alert-success" style="padding: 5px"><b>{{data.username}}</b>: {{data.message}}1111</span></div>
+        <div v-if="data.username !== username" style="margin: 15px"><span class="alert alert-warning" style="padding: 5px"><b>{{data.username}}</b>: {{data.message}}2222</span></div>
+      </div>
     </table>
   </div>
 </template>
@@ -17,9 +25,29 @@
   import { getLibrary } from '../../utils/LibraryServerFile'
   import { getStat } from '../../utils/StatServerFile';
   import { getEditFiles, getEdit } from '../../utils/EditServerFile'
+  import { join } from '../../utils/Socket'
   export default {
-    components: { },
+    created: function () {
+      this.height = document.body.clientHeight - 120
+    },
     computed: {
+      username: {
+        get() {
+          return this.$store.state.System.user.username
+        }
+      },
+      chatType: {
+        get() {
+          return this.$store.state.Edit.chatType
+        }
+      },
+      socketRecord: {
+        get() {
+          // console.log(this.$store.state.Edit.chatType)
+          console.log(this.$store.state.Edit.socketRecord)
+          return this.$store.state.Edit.socketRecord
+        }
+      },
       title: {
         get() {
           let x = '用户本地的文件列表'
@@ -96,6 +124,7 @@
               if (this.$store.state.Edit.serverType === 'file') {
                 getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType, data, this.$store.state.System.user.username])
               } else {
+                join(this, data, this.$store.state.System.user.username)
                 getEdit(this, [this.$store.state.System.server, this.$store.state.System.port, data])
               }
               break;

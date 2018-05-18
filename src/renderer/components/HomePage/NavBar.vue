@@ -73,6 +73,7 @@
 
 <script>
   import loadFile from '../../utils/LoadFile';
+  import { getDocTypes, gethelps } from '../../utils/EditServerFile';
   export default {
     data() {
       return {
@@ -117,6 +118,10 @@
             break;
           case '数据采集-数据采集':
             this.$router.push('/edit');
+            if (this.$store.state.System.user.login) {
+              getDocTypes(this)
+              gethelps(this)
+            }
             break;
           case '数据分析-数据分析':
             this.$router.push('/stat');

@@ -14,9 +14,9 @@
             {{docType}}
           </a>
           <div class="dropdown-menu" id="edit-leftba-sel" aria-labelledby="edit-leftbar-choice">
-            <a class="dropdown-item" href="#" v-on:click="newDoc('自定义文档')" id="edit-leftbar-wt4">自定义文档</a>
+            <a v-for="(data, index) in docTypes" v-bind:key='index' class="dropdown-item" href="#" v-on:click="newDoc(data)" id="edit-leftbar-wt4">{{data}}</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="newDoc('病案首页（卫统四CSV）')" id="edit-leftbar-wt4">病案首页（卫统四CSV）</a>
+            <!-- <a class="dropdown-item" href="#" v-on:click="newDoc('病案首页（卫统四CSV）')" id="edit-leftbar-wt4">病案首页（卫统四CSV）</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" v-on:click="newDoc('入院申请')" id="eidt-leftbar-admissionApplication">入院申请</a>
             <a class="dropdown-item" href="#" v-on:click="newDoc('首次病程')" id="eidt-leftbar-firstDisease">首次病程</a>
@@ -26,7 +26,7 @@
             <a class="dropdown-item" href="#" v-on:click="newDoc('门诊病案')" id="eidt-leftbar-outpatientMedical">门诊病案</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" v-on:click="newDoc('健康体检')" id="eidt-leftbar-healthExamination">健康体检</a>
-            <div class="dropdown-divider"></div>
+            <div class="dropdown-divider"></div> -->
           </div>
         </li>
         <li class="nav-item" id="edit-leftbar-newdoc" v-on:click="show()">
@@ -62,6 +62,7 @@
   import { saveEdit } from '../../utils/EditServerFile'
   import { getStat } from '../../utils/StatServerFile'
   import { getLibrary } from '../../utils/LibraryServerFile';
+  import { message } from '../../utils/Socket'
   export default {
     data() {
       return {
@@ -76,6 +77,11 @@
           return this.$store.state.Edit.fileName
         }
       },
+      docTypes: {
+        get() {
+          return this.$store.state.Edit.docTypes
+        }
+      },
     },
     methods: {
       lastNav: function () {
@@ -88,6 +94,7 @@
         document.getElementById('edit-editbar-input').focus()
       },
       newDoc: function (n) {
+        this.$store.commit('EDIT_SET_CHAT_TYPE', true);
         this.$store.commit('EDIT_SET_DOC_INDEX', [0, true])
         this.$store.commit('EDIT_SET_FILE_INDEX', this.$store.state.Edit.file.length)
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
@@ -158,6 +165,7 @@
         }
       },
       saveDoc: function () {
+        message(this, this.$store.state.Edit.file[this.$store.state.Edit.fileIndex], this.$store.state.System.user.username, 'doc')
         const fileIndex = this.$store.state.Edit.fileIndex
         if (fileIndex >= 0) {
           let doc = this.$store.state.Edit.doc
