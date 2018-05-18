@@ -170,13 +170,15 @@
       },
       save: function () {
         const fileName = this.$store.state.Edit.fileName
+        console.log(fileName);
         let doc = this.$store.state.Edit.doc
         doc = doc.filter(x => x !== '')
         doc = doc.map(x => x.join(' '))
         let x = ''
         let p = ''
         if (fileName.includes('@')) {
-          saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1])
+          console.log(this.$store.state.Edit.docType);
+          saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1, this.$store.state.Edit.docType])
         } else {
           if (this.$store.state.Edit.lastNav === '/stat') {
             x = this.$store.state.Stat.fileName
