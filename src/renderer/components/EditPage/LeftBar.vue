@@ -13,8 +13,8 @@
           <a class="nav-link dropdown-toggle text-light" href="#" id="edit-leftbar-choice" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
             {{docType}}
           </a>
-          <div class="dropdown-menu" id="edit-leftba-sel" aria-labelledby="edit-leftbar-choice">
-            <a v-for="(data, index) in docTypes" v-bind:key='index' class="dropdown-item" href="#" v-on:click="newDoc(data)" id="edit-leftbar-wt4">{{data}}</a>
+          <div class="dropdown-menu" id="edit-leftbar-sel" aria-labelledby="edit-leftbar-choice">
+            <a v-for="(data, index) in docTypes" v-bind:key='index' class="dropdown-item" href="#" v-on:click="newDoc(data)"  v-bind:id="'edit-leftbar-'+data">{{data}}</a>
             <div class="dropdown-divider"></div>
             <!-- <a class="dropdown-item" href="#" v-on:click="newDoc('病案首页（卫统四CSV）')" id="edit-leftbar-wt4">病案首页（卫统四CSV）</a>
             <div class="dropdown-divider"></div>
@@ -62,7 +62,7 @@
   import { saveEdit } from '../../utils/EditServerFile'
   import { getStat } from '../../utils/StatServerFile'
   import { getLibrary } from '../../utils/LibraryServerFile';
-  import { message } from '../../utils/Socket'
+  // import { message } from '../../utils/Socket'
   export default {
     data() {
       return {
@@ -114,6 +114,7 @@
         // }
 
         this.docType = n
+        this.saveDoc()
         document.getElementById('edit-editbar-input').focus()
       },
       page: function (n) {
@@ -165,7 +166,7 @@
         }
       },
       saveDoc: function () {
-        message(this, this.$store.state.Edit.file[this.$store.state.Edit.fileIndex], this.$store.state.System.user.username, 'doc')
+        // message(this, this.$store.state.Edit.file[this.$store.state.Edit.fileIndex], this.$store.state.System.user.username, 'doc')
         const fileIndex = this.$store.state.Edit.fileIndex
         if (fileIndex >= 0) {
           let doc = this.$store.state.Edit.doc
