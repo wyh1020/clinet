@@ -5,7 +5,7 @@ let channel = null
 // 连接(obj, [url, port, username])
 export function connect(obj, data) {
   if (data[0] !== '' && data[1] !== '' && data[2] !== '') {
-    socket = new Socket(`ws://${data[0]}:8000/socket`, {});
+    socket = new Socket(`ws://${data[0]}:8000/socket`, { params: { token: 'a token', username: data[2] } });
     socket.connect();
     obj.$store.commit('SET_NOTICE', '在线交流连接成功，点击远程文件选择聊天房间！');
   } else {
