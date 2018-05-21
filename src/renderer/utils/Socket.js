@@ -24,14 +24,14 @@ export function join(obj, filename, username) {
     .receive('error', () => {
       obj.$store.commit('SET_NOTICE', '加入房间失败')
     })
-  channel.on('新消息', (payload) => {
-    obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: payload.body, type: payload.type, username: payload.username });
+  channel.on('新消息', (r) => {
+    obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.body, type: r.type, username: r.username, time: r.time });
   })
-  channel.on('加入房间', (payload) => {
-    obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: payload.body, type: 'info', username: payload.username });
+  channel.on('加入房间', (r) => {
+    obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.body, type: 'info', username: r.username, time: r.time });
   })
-  channel.on('离开房间', (payload) => {
-    obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: payload.body, type: 'info', username: payload.username });
+  channel.on('离开房间', (r) => {
+    obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.body, type: 'info', username: r.username, time: r.time });
   })
 }
 
