@@ -7,14 +7,19 @@ export function connect(obj, data) {
   if (data[0] !== '' && data[1] !== '' && data[2] !== '') {
     socket = new Socket(`ws://${data[0]}:8000/socket`, { params: { token: 'a token', username: data[2] } });
     socket.connect();
-    obj.$store.commit('SET_NOTICE', '在线交流连接成功，点击远程文件选择聊天房间！');
+    const channel2 = socket.channel('online:list', {})
+    channel2.join();
+    channel2.on('邀请加入', (r) => {
+      obj.$store.commit('EDIT_SET_CHAT_TYPE', true);
+      obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.message, type: 'info', time: r.time, room: r.room });
+    })
   } else {
     obj.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
   }
 }
 
 export function join(obj, filename, username) {
-  channel = socket.channel(`room:${filename}`, {})
+  channel = socket.channel(`room:${filename}`, { username: username })
   channel.join()
     .receive('ok', () => {
       obj.$store.commit('SET_NOTICE', '加入房间成功')
@@ -33,6 +38,14 @@ export function join(obj, filename, username) {
   channel.on('离开房间', (r) => {
     obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.body, type: 'info', username: r.username, time: r.time });
   })
+  channel.on('ping', (r) => {
+    obj.$store.commit('EDIT_SET_CHAT_USERS', r.users);
+  })
+}
+
+
+export function invite(obj, filename, username = '') {
+  channel.push('邀请加入', { body: '', room: filename, username: username, })
 }
 
 export function message(obj, message, username = '', type = 'message') {
