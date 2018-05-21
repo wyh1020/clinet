@@ -27,7 +27,8 @@ const state = {
   selectedCol: [],
   selectedType: 'row',
   socketRecord: [],
-  chatType: false
+  chatType: false,
+  editType: '病案编辑'
 };
 
 const mutations = {
@@ -226,6 +227,9 @@ const mutations = {
   EDIT_SET_CHAT_TYPE(state, value) {
     state.chatType = value
   },
+  EDIT_SET_EDIT_TYPE(state, value) {
+    state.editType = value
+  },
 };
 
 const actions = {
@@ -273,6 +277,7 @@ const actions = {
     commit('EDIT_CLEAR_SOCKET_RECORD');
     commit('EDIT_SET_DOC_TYPES');
     commit('EDIT_SET_CHAT_TYPE');
+    commit('EDIT_SET_EDIT_TYPE');
   },
 };
 

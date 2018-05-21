@@ -6,6 +6,15 @@
       </div>
     </nav>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom">
+      <div class="btn-group dropup">
+        <button type="button" class="btn btn-info dropdown-toggle" href="#" id="edit-rightbar-choice" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{editType}}
+        </button>
+        <div class="dropdown-menu">
+          <a v-on:click='changeEditType("在线交流")' class="dropdown-item" href="#">在线交流</a>
+          <a v-on:click='changeEditType("病案编辑")' class="dropdown-item" href="#">病案编辑</a>
+        </div>
+      </div>
       <input id="edit-editbar-input" style="line-height: 3" type="text" class="form-control"
       placeholder="请输入……" aria-label="Username" aria-describedby="basic-addon1" v-model="item"
       v-on:click="show()"
@@ -17,7 +26,7 @@
       v-on:keyup.ctrl.97="hintSet(1)" v-on:keyup.ctrl.98="hintSet(2)"
       v-on:keyup.ctrl.99="hintSet(3)" v-on:keyup.ctrl.100="hintSet(4)" v-on:keyup.ctrl.101="hintSet(5)"
       v-on:keyup.ctrl.102="hintSet(6)" v-on:keyup.ctrl.103="hintSet(7)" v-on:keyup.ctrl.104="hintSet(8)"
-      v-on:keyup.ctrl.105="hintSet(9)">
+      v-on:keyup.ctrl.105="hintSet(9)" v-on:keyup.ctrl.space="changeEditType()">
     </nav>
   </div>
 </template>
@@ -31,6 +40,12 @@
     //   })
     // },
     computed: {
+      editType: {
+        get() {
+          return this.$store.state.Edit.editType
+        },
+        set() {}
+      },
       item: {
         get() {
           const x = this.$store.state.Edit.editBarValue
@@ -68,50 +83,56 @@
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
       },
       change(e) {
-        // const value = document.getElementById('edit-editbar-input').value
-        const value = e.target.value
-        this.$store.commit('EDIT_SET_BAR_VALUE', value);
-        let n = this.$store.state.Edit.docIndex
-        if (this.$store.state.Edit.selectedType !== 'col') {
-          const vs = value.split('，').filter(i => i !== '');
-          vs.forEach((element, index) => {
-            const v = element.split(' ').filter(i => i !== '');
-            if (v.length > 0) {
-              if (index > 0) {
-                this.$store.commit('EDIT_UPDATE_DOC', [n, v, true]);
-              } else {
-                this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
+        if (this.$store.state.Edit.editType === '病案编辑') {
+          // const value = document.getElementById('edit-editbar-input').value
+          const value = e.target.value
+          this.$store.commit('EDIT_SET_BAR_VALUE', value);
+          let n = this.$store.state.Edit.docIndex
+          if (this.$store.state.Edit.selectedType !== 'col') {
+            const vs = value.split('，').filter(i => i !== '');
+            vs.forEach((element, index) => {
+              const v = element.split(' ').filter(i => i !== '');
+              if (v.length > 0) {
+                if (index > 0) {
+                  this.$store.commit('EDIT_UPDATE_DOC', [n, v, true]);
+                } else {
+                  this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
+                }
+                n += 1
               }
-              n += 1
-            }
-          });
+            });
+          }
         }
       },
       enter(e) {
-        let n = this.$store.state.Edit.docIndex
-        let value = e.target.value
-        message(this, e.target.value, this.$store.state.System.user.username, 'message')
-        if (this.$store.state.Edit.selectedType !== 'col') {
-          const vs = value.split('，').filter(i => i !== '');
-          vs.forEach((element, index) => {
-            const v = element.split(' ').filter(i => i !== '');
-            if (v.length > 0) {
-              if (index > 0) {
-                this.$store.commit('EDIT_UPDATE_DOC', [n, v, true]);
-              } else {
-                this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
+        if (this.$store.state.Edit.editType === '病案编辑') {
+          let n = this.$store.state.Edit.docIndex
+          let value = e.target.value
+          if (this.$store.state.Edit.selectedType !== 'col') {
+            const vs = value.split('，').filter(i => i !== '');
+            vs.forEach((element, index) => {
+              const v = element.split(' ').filter(i => i !== '');
+              if (v.length > 0) {
+                if (index > 0) {
+                  this.$store.commit('EDIT_UPDATE_DOC', [n, v, true]);
+                } else {
+                  this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
+                }
+                this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
+                n += 1
               }
-              this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
-              n += 1
-            }
-          });
+            });
+          } else {
+            value = value.replace(/,/g, '，')
+            const cv = value.split(' ').filter(i => i !== '');
+            const col = this.$store.state.Edit.selectedCol[0]
+            this.$store.commit('EDIT_UPDATE_FILE', [col, cv[1]]);
+          }
+          this.$store.commit('SET_NOTICE', '编辑 -> 缓存 -> 选择文件 -> 保存');
         } else {
-          value = value.replace(/,/g, '，')
-          const cv = value.split(' ').filter(i => i !== '');
-          const col = this.$store.state.Edit.selectedCol[0]
-          this.$store.commit('EDIT_UPDATE_FILE', [col, cv[1]]);
+          message(this, e.target.value, this.$store.state.System.user.username, 'message')
+          this.$store.commit('EDIT_SET_BAR_VALUE', '');
         }
-        this.$store.commit('SET_NOTICE', '编辑 -> 缓存 -> 选择文件 -> 保存');
       },
       addItem() {
         if (this.$store.state.Edit.fileType === 'cda') {
@@ -197,6 +218,15 @@
         const value = this.$store.state.Edit.hint.slice(index - 9, index)
         this.$store.commit('EDIT_CONCAT_BAR_VALUE', value[num - 1]);
         this.item = this.$store.state.Edit.editBarValue;
+      },
+      changeEditType(type) {
+        if (type) {
+          this.$store.commit('EDIT_SET_EDIT_TYPE', type);
+        } else if (this.$store.state.Edit.editType === '在线交流') {
+          this.$store.commit('EDIT_SET_EDIT_TYPE', '病案编辑');
+        } else {
+          this.$store.commit('EDIT_SET_EDIT_TYPE', '在线交流');
+        }
       }
     },
   };
