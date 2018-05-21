@@ -27,7 +27,8 @@ const state = {
   selectedCol: [],
   selectedType: 'row',
   socketRecord: [],
-  chatType: false
+  chatType: false,
+  chatUsers: []
 };
 
 const mutations = {
@@ -226,10 +227,14 @@ const mutations = {
   EDIT_SET_CHAT_TYPE(state, value) {
     state.chatType = value
   },
+  EDIT_SET_CHAT_USERS(state, user) {
+    state.chatUsers = user
+  },
 };
 
 const actions = {
   someAsyncTask({ commit }) {
+    commit('EDIT_SET_CHAT_USERS');
     commit('EDIT_LOAD_FILES');
     commit('EDIT_LOAD_FILE');
     commit('EDIT_LOAD_DOC');
