@@ -124,7 +124,9 @@
               if (this.$store.state.Edit.serverType === 'file') {
                 getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType, data, this.$store.state.System.user.username])
               } else {
-                join(this, data, this.$store.state.System.user.username)
+                if (this.$store.state.Edit.helpType === '在线交流') {
+                  join(this, data, this.$store.state.System.user.username)
+                }
                 getEdit(this, [this.$store.state.System.server, this.$store.state.System.port, data])
               }
               break;
