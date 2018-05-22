@@ -163,35 +163,35 @@ describe('Stat', function () {
       })
     // 2.1.1.1.9 点击工具栏的维度选择 下拉框显示可选维度
     // 2.1.1.1.9.1 点击时间 leftPanel显示可选时间维度
-      // .click('#stat-right-dimension')
-      // .click('#stat-td-tr1')
-      // .getText('.stat-left-dimension-tr')
-      // .then(function (time) {
-      //   expect(time).to.be.an('array');
-      // })
-      // .click('.stat-left-dimension-tr')
-      // .getText('.stat-right-table-tr')
-      // .then(function (time) {
-      //   expect(time).to.be.an('array');
-      // })
+      .click('#stat-right-dimension')
+      .click('#stat-td-tr0')
+      .getText('.stat-left-dimension-tr')
+      .then(function (time) {
+        expect(time).to.be.an('array');
+      })
+      .click('.stat-left-dimension-tr')
+      .getText('.stat-right-table-tr')
+      .then(function (time) {
+        expect(time).to.be.an('array');
+      })
     // 2.1.1.1.9.2 点击机构 leftPanel显示可选机构维度
-      // .click('#stat-right-dimension')
-      // .click('#stat-td-tr2')
-      // .getText('.stat-left-dimension-tr')
-      // .then(function (org) {
-      //   expect(org).to.be.an('array');
-      // })
-      // .click('.stat-left-dimension-tr')
-      // .getText('.stat-right-table-tr')
-      // .then(function (org) {
-      //   expect(org).to.be.an('array');
-      // })
+      .click('#stat-right-dimension')
+      .click('#stat-td-tr1')
+      .getText('.stat-left-dimension-tr')
+      .then(function (org) {
+        expect(org).to.be.an('array');
+      })
+      .click('.stat-left-dimension-tr')
+      .getText('.stat-right-table-tr')
+      .then(function (org) {
+        expect(org).to.be.an('array');
+      })
     // 2.1.1.1.9.3 点击病种 leftPanel显示可选病种维度
       // .click('#stat-right-dimension')
-      // .click('##stat-td-tr3')
+      // .click('##stat-td-tr2')
       // .getText('.stat-left-dimension-tr')
       // .then(function (disease) {
-      //   // console.log(disease);
+      //   console.log(disease);
       //   expect(disease).to.be.an('array');
       // })
       // .click('.stat-left-dimension-tr')

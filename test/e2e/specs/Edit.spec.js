@@ -209,12 +209,12 @@ describe('Edit', function () {
         // console.log(editText)
         expect(editText).to.equal('');
       })
-      .getText('#edit-leftba-sel')
+      .getText('#edit-leftbar-sel')
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-    // 2.2.1 点击下拉菜单 病案首页(卫统四csv)按钮 edit-leftbar-wt4
-      .click('#edit-leftbar-wt4')
+    // 2.2.1 点击下拉菜单 病案首页(卫统四csv)按钮 edit-leftbar-病案首页（卫统四CSV）
+      .click('#edit-leftbar-病案首页（卫统四CSV）')
       // .waitUntilTextExists('#edit-bar-prompt', '病案首页')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
@@ -235,22 +235,22 @@ describe('Edit', function () {
         // console.log(editText);
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1 点击下拉菜单病案首页(卫统四csv)按钮 eidt-leftbar-admissionApplication
+    // 2.2.1.1 点击下拉菜单入院申请按钮 edit-leftbar-入院申请
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
       .getText('#edit-editbar-input')
       .then(function (editText) {
         expect(editText).to.equal('');
       })
-      .getText('#edit-leftba-sel')
+      .getText('#edit-leftbar-sel')
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      // .click('#eidt-leftbar-admissionApplication')
-      // .getText('#edit-bar-prompt')
-      // .then(function (editText) {
-      //   expect(editText).to.be.an('string');
-      // })
+      .click('#edit-leftbar-入院申请')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
     // 2.2.1.2 点击下拉菜单入院申请按钮 点击缓存 edit-leftbar-cache
       // .click('#edit-leftbar-cache')
       // .getText('#edit-bar-prompt')
@@ -266,7 +266,7 @@ describe('Edit', function () {
         // console.log(editText);
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1.1 点击下拉菜单 首次病程按钮 eidt-leftbar-firstDisease
+    // 2.2.1.1.1 点击下拉菜单 首次病程按钮 edit-leftbar-首次病程
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
       .getText('#edit-editbar-input')
@@ -274,16 +274,16 @@ describe('Edit', function () {
         // console.log(editText)
         expect(editText).to.equal('');
       })
-      .getText('#edit-leftba-sel')
+      .getText('#edit-leftbar-sel')
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-    //   .click('#eidt-leftbar-firstDisease')
-    //   // .waitUntilTextExists('#edit-bar-prompt', '首次病程')
-    //   .getText('#edit-bar-prompt')
-    //   .then(function (editText) {
-    //     expect(editText).to.be.an('string');
-    //   })
+      .click('#edit-leftbar-首次病程')
+      // .waitUntilTextExists('#edit-bar-prompt', '首次病程')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
     // // 2.2.1.1.2 点击下拉菜单首次病程按钮 点击缓存 edit-leftbar-cache
     //   .click('#edit-leftbar-cache')
     //   .getText('#edit-bar-prompt')
@@ -299,7 +299,7 @@ describe('Edit', function () {
         // console.log(editText);
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1.1.1 点击下拉菜单 病程记录按钮 eidt-leftbar-diseaseRecord
+    // 2.2.1.1.1.1 点击下拉菜单 病程记录按钮 edit-leftbar-病程记录
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
       .getText('#edit-editbar-input')
@@ -307,16 +307,16 @@ describe('Edit', function () {
         // console.log(editText)
         expect(editText).to.equal('');
       })
-      .getText('#edit-leftba-sel')
+      .getText('#edit-leftbar-sel')
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      // .click('#eidt-leftbar-diseaseRecord')
-      // // .waitUntilTextExists('#edit-bar-prompt', '病程记录')
-      // .getText('#edit-bar-prompt')
-      // .then(function (editText) {
-      //   expect(editText).to.be.an('string');
-      // })
+      .click('#edit-leftbar-病程记录')
+      // .waitUntilTextExists('#edit-bar-prompt', '病程记录')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
     // 2.2.1.1.1.2 点击下拉菜单病程记录按钮 点击缓存 edit-leftbar-cache
       // .click('#edit-leftbar-cache')
       // .getText('#edit-bar-prompt')
@@ -332,7 +332,7 @@ describe('Edit', function () {
         // console.log(editText);
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1.1.1.1 点击下拉菜单 病案首页按钮 eidt-leftbar-medicalHome
+    // 2.2.1.1.1.1.1 点击下拉菜单 病案首页按钮 edit-leftbar-病案首页
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
       .getText('#edit-editbar-input')
@@ -340,16 +340,16 @@ describe('Edit', function () {
         // console.log(editText)
         expect(editText).to.equal('');
       })
-      .getText('#edit-leftba-sel')
+      .getText('#edit-leftbar-sel')
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      // .click('#eidt-leftbar-medicalHome')
-      // // .waitUntilTextExists('#edit-bar-prompt', '病案首页')
-      // .getText('#edit-bar-prompt')
-      // .then(function (editText) {
-      //   expect(editText).to.be.an('string');
-      // })
+      .click('#edit-leftbar-病案首页')
+      // .waitUntilTextExists('#edit-bar-prompt', '病案首页')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
     // 2.2.1.1.1.1.1.2 点击下拉菜单病案首页按钮 点击缓存 edit-leftbar-cache
       // .click('#edit-leftbar-cache')
       // .getText('#edit-bar-prompt')
@@ -365,7 +365,7 @@ describe('Edit', function () {
         // console.log(editText);
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1.1.1.1.1 点击下拉菜单 门诊病案按钮 eidt-leftbar-outpatientMedical
+    // 2.2.1.1.1.1.1.1 点击下拉菜单 门诊病案按钮 edit-leftbar-门诊病案
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
       .getText('#edit-editbar-input')
@@ -373,16 +373,16 @@ describe('Edit', function () {
         // console.log(editText)
         expect(editText).to.equal('');
       })
-      .getText('#edit-leftba-sel')
+      .getText('#edit-leftbar-sel')
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      // .click('#eidt-leftbar-outpatientMedical')
-      // // .waitUntilTextExists('#edit-bar-prompt', '门诊病案')
-      // .getText('#edit-bar-prompt')
-      // .then(function (editText) {
-      //   expect(editText).to.be.an('string');
-      // })
+      .click('#edit-leftbar-门诊病案')
+      // .waitUntilTextExists('#edit-bar-prompt', '门诊病案')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
     // 2.2.1.1.1.1.1.2 点击下拉菜单门诊病案按钮 点击缓存 edit-leftbar-cache
       // .click('#edit-leftbar-cache')
       // .getText('#edit-bar-prompt')
@@ -398,7 +398,7 @@ describe('Edit', function () {
         // console.log(editText);
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1.1.1.1.1.1 点击下拉菜单 健康体检按钮 eidt-leftbar-healthExamination
+    // 2.2.1.1.1.1.1.1.1 点击下拉菜单 健康体检按钮 edit-leftbar-健康体检
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
       .getText('#edit-editbar-input')
@@ -406,16 +406,16 @@ describe('Edit', function () {
         // console.log(editText)
         expect(editText).to.equal('');
       })
-      .getText('#edit-leftba-sel')
+      .getText('#edit-leftbar-sel')
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      // .click('#eidt-leftbar-admissionApplication')
-      // // .waitUntilTextExists('#edit-bar-prompt', '健康体检')
-      // .getText('#edit-bar-prompt')
-      // .then(function (editText) {
-      //   expect(editText).to.be.an('string');
-      // })
+      .click('#edit-leftbar-健康体检')
+      // .waitUntilTextExists('#edit-bar-prompt', '健康体检')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        expect(editText).to.be.an('string');
+      })
     // 2.2.1.1.1.1.1.1.2 点击下拉菜单健康体检按钮 点击缓存 edit-leftbar-cache
       // .click('#edit-leftbar-cache')
       // .getText('#edit-bar-prompt')
