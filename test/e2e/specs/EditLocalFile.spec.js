@@ -178,7 +178,7 @@ describe('EditLocalFile', function () {
         // console.log(editText)
         expect(editText).to.be.an('string');
       })
-    // 2.2.1 点击下拉菜单 病案首页(卫统四csv)按钮 edit-leftbar-wt4
+    // 2.2.1 点击下拉菜单 病案首页(卫统四csv)按钮 edit-leftbar-病案首页（卫统四CSV）
       .click('#edit-leftbar-病案首页（卫统四CSV）')
       // .waitUntilTextExists('#edit-bar-prompt', '病案首页')
       .getText('#edit-bar-prompt')
@@ -186,7 +186,7 @@ describe('EditLocalFile', function () {
         // console.log(editText)
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1 点击下拉菜单病案首页(卫统四csv)按钮 eidt-leftbar-admissionApplication
+    // 2.2.1.1 点击下拉菜单入院申请按钮 eidt-leftbar-入院申请
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
       .getText('#edit-editbar-input')
@@ -202,7 +202,7 @@ describe('EditLocalFile', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1.1 点击下拉菜单 首次病程按钮 eidt-leftbar-firstDisease
+    // 2.2.1.1.1 点击下拉菜单 首次病程按钮 eidt-leftbar-首次病程
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
       .getText('#edit-editbar-input')
@@ -220,7 +220,7 @@ describe('EditLocalFile', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1.1.1 点击下拉菜单 病程记录按钮 eidt-leftbar-diseaseRecord
+    // 2.2.1.1.1.1 点击下拉菜单 病程记录按钮 eidt-leftbar-病程记录
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
       .getText('#edit-editbar-input')
@@ -238,7 +238,7 @@ describe('EditLocalFile', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1.1.1.1 点击下拉菜单 病案首页按钮 eidt-leftbar-medicalHome
+    // 2.2.1.1.1.1.1 点击下拉菜单 病案首页按钮 eidt-leftbar-病案首页
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
       .getText('#edit-editbar-input')
@@ -256,7 +256,7 @@ describe('EditLocalFile', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1.1.1.1.1 点击下拉菜单 门诊病案按钮 eidt-leftbar-outpatientMedical
+    // 2.2.1.1.1.1.1.1 点击下拉菜单 门诊病案按钮 eidt-leftbar-门诊病案
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
       .getText('#edit-editbar-input')
@@ -274,7 +274,7 @@ describe('EditLocalFile', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-    // 2.2.1.1.1.1.1.1.1 点击下拉菜单 健康体检按钮 eidt-leftbar-healthExamination
+    // 2.2.1.1.1.1.1.1.1 点击下拉菜单 健康体检按钮 eidt-leftbar-健康体检
       .click('#edit-leftbar-choice')
       .hasFocus('[aria-labelledby="edit-leftbar-choice"]')
       .getText('#edit-editbar-input')
@@ -373,17 +373,18 @@ describe('EditLocalFile', function () {
       })
       .click('#edit-editbar-input')
       .keys('\uE015')
-      .setValue('#edit-editbar-input', '姓名 这是个名字')
+      .getValue('#edit-editbar-input', '姓名 这是个名字输入')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
     // 2.3.3 点击缓存 edit-leftbar-cache
-      .click('#edit-leftbar-cache')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-cache')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   console.log(editText);
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.3.3.1 点击右侧 本地按钮 左侧保存按钮
       .click('#edit-rightbar-local')
       .waitUntilTextExists('#edit-bar-prompt', '读取本地文件')
