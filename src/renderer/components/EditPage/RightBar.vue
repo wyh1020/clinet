@@ -66,9 +66,9 @@
         if (n) {
           this.$store.commit('SET_NOTICE', n);
           this.helpType = n
+          this.$store.commit('EDIT_SET_HELP_TYPE', n);
+          this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
           if (n === 'drg分析') {
-            this.$store.commit('EDIT_SET_HELP_TYPE', n);
-            this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
             if (this.$store.state.System.wt4Tables.length > 1) {
               sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables, 'BJ'], 'getLocalData')
             } else {
@@ -76,9 +76,6 @@
             }
           } else if (n === '在线交流') {
             connect(this, [this.$store.state.System.server, this.$store.state.System.port])
-          } else {
-            this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
-            this.$store.commit('EDIT_SET_HELP_TYPE', n);
           }
         }
       },

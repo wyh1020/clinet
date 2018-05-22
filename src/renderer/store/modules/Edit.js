@@ -27,7 +27,9 @@ const state = {
   selectedCol: [],
   selectedType: 'row',
   socketRecord: [],
-  chatType: false
+  chatType: false,
+  editType: '病案编辑',
+  chatUsers: []
 };
 
 const mutations = {
@@ -226,10 +228,17 @@ const mutations = {
   EDIT_SET_CHAT_TYPE(state, value) {
     state.chatType = value
   },
+  EDIT_SET_EDIT_TYPE(state, value) {
+    state.editType = value
+  },
+  EDIT_SET_CHAT_USERS(state, user) {
+    state.chatUsers = user
+  },
 };
 
 const actions = {
   someAsyncTask({ commit }) {
+    commit('EDIT_SET_CHAT_USERS');
     commit('EDIT_LOAD_FILES');
     commit('EDIT_LOAD_FILE');
     commit('EDIT_LOAD_DOC');
@@ -273,6 +282,7 @@ const actions = {
     commit('EDIT_CLEAR_SOCKET_RECORD');
     commit('EDIT_SET_DOC_TYPES');
     commit('EDIT_SET_CHAT_TYPE');
+    commit('EDIT_SET_EDIT_TYPE');
   },
 };
 

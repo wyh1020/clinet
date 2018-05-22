@@ -13,8 +13,8 @@
     </div>
     <table v-bind:style="{ height: height + 'px', overflow: 'auto' }">
       <div v-show="chatType" v-for="(data, index) in socketRecord" v-bind:key='index'>
-        <div v-if="data.username === username" style="margin: 15px"><span class="alert alert-success" style="padding: 5px"><b>{{data.username}}</b>: {{data.message}}1111</span></div>
-        <div v-if="data.username !== username" style="margin: 15px"><span class="alert alert-warning" style="padding: 5px"><b>{{data.username}}</b>: {{data.message}}2222</span></div>
+        <div v-if="data.username === username" style="margin: 15px"><span class="alert alert-success" style="padding: 5px"><b>{{data.username}}</b>: {{data.message}}</span></div>
+        <div v-if="data.username !== username" style="margin: 15px"><span class="alert alert-warning" style="padding: 5px"><b>{{data.username}}</b>: {{data.message}}</span></div>
       </div>
     </table>
   </div>
@@ -43,8 +43,6 @@
       },
       socketRecord: {
         get() {
-          // console.log(this.$store.state.Edit.chatType)
-          console.log(this.$store.state.Edit.socketRecord)
           return this.$store.state.Edit.socketRecord
         }
       },
