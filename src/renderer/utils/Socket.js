@@ -14,6 +14,7 @@ export function connect(obj, data) {
       obj.$store.commit('EDIT_SET_CHAT_TYPE', true);
       obj.$store.commit('SET_NOTICE', `${r.message}`)
       obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.message, type: 'info', time: r.time, room: r.room, create_room_time: r.create_room_time });
+      console.log(r);
       createRoomTime = r.create_room_time
     })
   } else {
@@ -22,10 +23,11 @@ export function connect(obj, data) {
 }
 
 export function join(obj, filename, username) {
-  channel = socket.channel(`room:${username}`, { username: username })
+  channel = socket.channel(`room:${username}`, { username: username, create_room_time: createRoomTime })
   channel.join()
     .receive('ok', () => {
       obj.$store.commit('SET_NOTICE', '加入房间成功')
+      console.log({ body: username, username: username, create_room_time: createRoomTime });
       channel.push('加入房间', { body: username, username: username, create_room_time: createRoomTime })
       obj.$store.commit('EDIT_SET_CHAT_TYPE', true);
     })
