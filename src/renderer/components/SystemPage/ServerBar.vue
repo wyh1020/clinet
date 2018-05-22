@@ -234,7 +234,9 @@
         } else if (value === 'regiest') {
           this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
           const reg = [/^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g,
-            /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&*]+$)(?![\d!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]+$$/, /^[0-9]{1,2}$/, /^1[0-9]{10}$/]
+            /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/,
+            /^[0-9]{1,2}$/,
+            /^1[0-9]{10}$/]
           let a = 1;
           let b = 1;
           let c = 1;
@@ -250,7 +252,7 @@
             b = 1
           } else {
             b = 0
-            this.$store.commit('SET_NOTICE', '密码错误 只能由数字字母和@#$%^&组成');
+            this.$store.commit('SET_NOTICE', '密码错误 只能由数字和字母且长度在6到16位之间组成');
           }
           if (reg[2].test(age)) {
             c = 1
