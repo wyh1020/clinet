@@ -11,6 +11,7 @@ export function connect(obj, data) {
     channel2.join();
     channel2.on('邀请加入', (r) => {
       obj.$store.commit('EDIT_SET_CHAT_TYPE', true);
+      obj.$store.commit('SET_NOTICE', `${r.message}`)
       obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.message, type: 'info', time: r.time, room: r.room });
     })
   } else {
