@@ -11,10 +11,13 @@
         </tr>
       </table>
     </div>
-    <table v-bind:style="{ height: height + 'px', overflow: 'auto' }">
-      <div v-show="chatType" v-for="(data, index) in socketRecord" v-bind:key='index'>
-        <div v-if="data.username === username" style="margin: 15px"><span class="alert alert-success" style="padding: 5px"><b>{{data.username}}</b>: {{data.message}}</span></div>
-        <div v-if="data.username !== username" style="margin: 15px"><span class="alert alert-warning" style="padding: 5px"><b>{{data.username}}</b>: {{data.message}}</span></div>
+    <table id='aaa' v-show="chatType">
+      <button v-on:click="getheight">123</button>
+      <div v-bind:style="{ height: height + 'px', overflow: 'auto' }" >
+        <div v-for="(data, index) in socketRecord" v-bind:key='index'>
+          <div v-if="data.username === username" style="margin: 15px"><span class="alert alert-success" style="padding: 5px"><b>{{data.username}}</b>: {{data.message}}</span></div>
+          <div v-if="data.username !== username" style="margin: 15px"><span class="alert alert-warning" style="padding: 5px"><b>{{data.username}}</b>: {{data.message}}</span></div>
+        </div>
       </div>
     </table>
   </div>
@@ -97,6 +100,9 @@
       }
     },
     methods: {
+      getheight: function () {
+        // document.getElementById('aaa').scrollIntoView(true)
+      },
       loadFile: function (data, index) {
         this.$store.commit('EDIT_SET_FILES_INDEX', index)
         if (data.endsWith('.cda')) {

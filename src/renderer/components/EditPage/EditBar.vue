@@ -2,7 +2,7 @@
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="alert alert-warning" id="edit-bar-prompt" role="alert" style="width: 100%; position: fixed; bottom: 40px">
-        <span v-bind:key='index' v-for="(data, index) in hint" v-bind:style="isShowStyle">{{data}}</span>
+        <span v-on:click='inviteUser(hint)'>{{hint}}</span>
       </div>
     </nav>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom">
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-  import { message } from '../../utils/Socket'
+  import { message, join } from '../../utils/Socket'
   export default {
     // mounted: function () {
     //   this.$nextTick(() => {
@@ -79,6 +79,11 @@
       }
     },
     methods: {
+      inviteUser(data) {
+        if (data.includes('邀请您进入')) {
+          join(this, this.$store.state.Edit.fileName, this.$store.state.System.user.username)
+        }
+      },
       show() {
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
       },

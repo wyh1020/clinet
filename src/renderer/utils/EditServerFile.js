@@ -95,9 +95,11 @@ export function saveEdit(obj, data) {
 export function getDocTypes(obj) {
   console.log(obj)
   obj.$store.commit('SET_NOTICE', '远程docType未查询')
+  // obj.$store.commit('EDIT_SET_DOC_TYPES', '')
 }
 
-export function getHelps(obj) {
+export function getHelpTypes(obj) {
   console.log(obj)
   obj.$store.commit('SET_NOTICE', '远程帮助未查询')
+  // obj.$store.commit('EDIT_SET_HELP_TYPES', '')
 }

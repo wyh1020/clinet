@@ -123,7 +123,10 @@
     </table>
     <table v-if="type === '在线交流'">
       <tr>
-        <th class="table-danger"> 在线交流</th>
+        <th class="table-danger"> 当前在线用户：</th>
+      </tr>
+      <tr>
+        <td class="table-danger" v-for="(data, index) in chatUsers" v-bind:key='index'> {{data}}</td>
       </tr>
     </table>
     <table v-if="type === 'HIS接口'">
@@ -143,6 +146,11 @@
       type: {
         get() {
           return this.$store.state.Edit.helpType
+        }
+      },
+      chatUsers: {
+        get() {
+          return this.$store.state.Edit.chatUsers
         }
       }
     },
