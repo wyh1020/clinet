@@ -19,7 +19,7 @@ export function connect(obj, data) {
 }
 
 export function join(obj, filename, username) {
-  channel = socket.channel(`room:${filename}`, { username: username })
+  channel = socket.channel(`room:${username}`, { username: username })
   channel.join()
     .receive('ok', () => {
       obj.$store.commit('SET_NOTICE', '加入房间成功')
