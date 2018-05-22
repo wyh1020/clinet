@@ -36,7 +36,7 @@
           <a class="nav-link text-light" href="#">去除</a>
         </li> -->
         <li class="nav-item" id="edit-leftbar-cache" v-on:click="saveDoc()" v-if="this.$store.state.Edit.leftPanel == 'doc'">
-          <a class="nav-link text-light" href="#" v-if="fileName !== '' || rightPanel === 'server'">缓存</a>
+          <a class="nav-link text-light" href="#" v-if="fileName !== '' || this.$store.state.Edit.rightPanel === 'server'">缓存</a>
         <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save()" v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#">保存</a>
         </li>
