@@ -64,7 +64,7 @@ export function saveEdit(obj, data) {
   const content = data[3]
   const username = data[4]
   const doctype = data[6]
-  const mouldtype = '模板'
+  const mouldtype = data[7]
   // let url = ''
   // if (data[5] === 1) {
   const url = `http://${data[0]}:${data[1]}/edit/cda`
@@ -100,6 +100,7 @@ export function getDocTypes(obj, data) {
   const server = data[0]
   const port = data[1]
   const username = data[2]
+  console.log(`http://${server}:${port}/edit/mouldlist?username=${username}`)
   axios({
     method: 'get',
     url: `http://${server}:${port}/edit/mouldlist?username=${username}`,
@@ -117,7 +118,6 @@ export function getDocTypes(obj, data) {
     obj.$store.commit('SET_NOTICE', '模板列表查询失败')
   })
   obj.$store.commit('SET_NOTICE', '远程docType未查询')
-  // obj.$store.commit('EDIT_SET_DOC_TYPES', '')
 }
 // getDocContent
 export function getDocContent(obj, data) {
@@ -137,8 +137,9 @@ export function getDocContent(obj, data) {
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
-      console.log(res.data.result);
-      // obj.$store.commit('EDIT_SET_DOC_TYPES', res.data.resule)
+      obj.$store.commit('SET_NOTICE', '模板内容查询成功')
+      const con = res.data.result.split(',')
+      obj.$store.commit('EDIT_LOAD_DOC', con)
       obj.$store.commit('SET_NOTICE', '模板内容查询成功')
     } else {
       obj.$store.commit('SET_NOTICE', '模板内容查询失败')

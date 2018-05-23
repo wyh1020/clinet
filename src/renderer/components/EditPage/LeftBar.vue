@@ -16,17 +16,6 @@
           <div class="dropdown-menu" id="edit-leftbar-sel" aria-labelledby="edit-leftbar-choice">
             <a v-for="(data, index) in docTypes" v-bind:key='index' class="dropdown-item" href="#" v-on:click="newDoc(data)"  v-bind:id="'edit-leftbar-'+data">{{data}}</a>
             <div class="dropdown-divider"></div>
-            <!-- <a class="dropdown-item" href="#" v-on:click="newDoc('病案首页（卫统四CSV）')" id="edit-leftbar-wt4">病案首页（卫统四CSV）</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="newDoc('入院申请')" id="eidt-leftbar-admissionApplication">入院申请</a>
-            <a class="dropdown-item" href="#" v-on:click="newDoc('首次病程')" id="eidt-leftbar-firstDisease">首次病程</a>
-            <a class="dropdown-item" href="#" v-on:click="newDoc('病程记录')" id="eidt-leftbar-diseaseRecord">病程记录</a>
-            <a class="dropdown-item" href="#" v-on:click="newDoc('病案首页')" id="eidt-leftbar-medicalHome">病案首页</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="newDoc('门诊病案')" id="eidt-leftbar-outpatientMedical">门诊病案</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click="newDoc('健康体检')" id="eidt-leftbar-healthExamination">健康体检</a>
-            <div class="dropdown-divider"></div> -->
           </div>
         </li>
         <li class="nav-item" id="edit-leftbar-newdoc" v-on:click="show()">
@@ -35,11 +24,24 @@
         <!-- <li class="nav-item" id="edit-leftbar-del" v-on:click="save(0)">
           <a class="nav-link text-light" href="#">去除</a>
         </li> -->
+        <li class="nav-item dropdown" v-if="this.$store.state.Edit.leftPanel == 'table'">
+          <a class="nav-link dropdown-toggle text-light" href="#" id="edit-leftbar-choice" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+            {{saveType}}
+          </a>
+          <div class="dropdown-menu">
+            <a v-for="(data, index) in saveTypes" v-bind:key='index' class="dropdown-item" href="#" v-on:click="save(data)">{{data}}</a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </li>
         <li class="nav-item" id="edit-leftbar-cache" v-on:click="saveDoc()" v-if="this.$store.state.Edit.leftPanel == 'doc'">
           <a class="nav-link text-light" href="#" v-if="fileName !== '' || this.$store.state.Edit.rightPanel === 'server'">缓存</a>
-        <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save()" v-if="this.$store.state.Edit.leftPanel == 'table'">
-          <a class="nav-link text-light" href="#">保存</a>
         </li>
+        <!-- <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save()" v-if="this.$store.state.Edit.leftPanel == 'table'">
+          <a class="nav-link text-light" href="#">保存病案</a>
+        </li> -->
+        <!-- <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save()" v-if="this.$store.state.Edit.leftPanel == 'table'">
+          <a class="nav-link text-light" href="#">保存模板</a>
+        </li> -->
         <!-- <li class="nav-item" id="edit-leftbar-save" v-on:click="save(2)" v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#">另存</a>
         </li> -->
@@ -59,7 +61,7 @@
 
 <script>
   import saveFile from '../../utils/SaveFile'
-  import { saveEdit } from '../../utils/EditServerFile'
+  import { saveEdit, getDocContent } from '../../utils/EditServerFile'
   import { getStat } from '../../utils/StatServerFile'
   import { getLibrary } from '../../utils/LibraryServerFile';
   // import { message } from '../../utils/Socket'
@@ -68,7 +70,9 @@
       return {
         // name: this.$route.name,
         leftItem: '',
-        docType: '自定义文档'
+        docType: '自定义文档',
+        saveTypes: ['保存病案', '保存模板'],
+        saveType: '保存病案',
       };
     },
     computed: {
@@ -94,6 +98,7 @@
         document.getElementById('edit-editbar-input').focus()
       },
       newDoc: function (n) {
+        console.log(n)
         // this.$store.commit('EDIT_SET_CHAT_TYPE', true);
         this.$store.commit('EDIT_SET_DOC_INDEX', [0, true])
         this.$store.commit('EDIT_SET_FILE_INDEX', this.$store.state.Edit.file.length)
@@ -103,12 +108,13 @@
           this.$store.commit('EDIT_SET_DOC_TYPE', n)
         } else { n = this.$store.state.Edit.docType }
         this.$store.commit('SET_NOTICE', n);
-
-        if (global.hitbmodel[n] !== undefined) {
+        if (this.$store.state.System.user.login) {
+          getDocContent(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user.username, n])
+        } else if (global.hitbmodel[n] !== undefined) {
+          console.log(global.hitbmodel[n])
           this.$store.commit('EDIT_LOAD_DOC', global.hitbmodel[n])
           this.$store.commit('EDIT_ADD_DOC', '');
         } else { this.$store.commit('EDIT_SET_DOC'); }
-
         // if (fileName.includes('@')) {
         //   saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [''], this.$store.state.System.user.username, 2])
         // }
@@ -177,7 +183,7 @@
           this.$store.commit('SET_NOTICE', '请先打开一个文件，然后选择编辑一个文档，或者新建一个文档！')
         }
       },
-      save: function () {
+      save: function (data) {
         const fileName = this.$store.state.Edit.fileName
         console.log(fileName);
         let doc = this.$store.state.Edit.doc
@@ -186,8 +192,11 @@
         let x = ''
         let p = ''
         if (fileName.includes('@')) {
-          console.log(this.$store.state.Edit.docType);
-          saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1, this.$store.state.Edit.docType])
+          if (data === '保存模板') {
+            saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1, this.$store.state.Edit.docType, '模板'])
+          } else if (data === '保存病案') {
+            saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1, this.$store.state.Edit.docType, '病案'])
+          }
         } else {
           if (this.$store.state.Edit.lastNav === '/stat') {
             x = this.$store.state.Stat.fileName

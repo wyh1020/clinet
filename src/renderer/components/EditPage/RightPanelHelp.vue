@@ -141,7 +141,7 @@
 <script>
   import RightPanelDoc from './RightPanelDoc';
   import RightPanelCdh from './RightPanelCdh';
-  import { join } from '../../utils/Socket'
+  import { invite } from '../../utils/Socket'
   export default {
     components: { RightPanelDoc, RightPanelCdh },
     computed: {
@@ -159,7 +159,7 @@
     methods: {
       invite(data) {
         console.log(data)
-        join(this, this.$store.state.System.user.username, data)
+        invite(this, data, this.$store.state.System.user.username)
       }
     },
   };
