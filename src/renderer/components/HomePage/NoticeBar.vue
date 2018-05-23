@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import { join } from '../../utils/Socket'
+  // import { join } from '../../utils/Socket'
   export default {
     computed: {
       notice: {
@@ -17,7 +17,7 @@
     methods: {
       inviteUser(notice) {
         if (notice.includes('邀请您进入')) {
-          join(this, this.$store.state.Edit.fileName, this.$store.state.System.user.username)
+          join(this, this.$store.state.Edit.fileName, this.$store.state.Edit.socketRecord[this.$store.state.Edit.socketRecord.length - 1].room)
         }
       }
     }

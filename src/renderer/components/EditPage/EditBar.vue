@@ -19,10 +19,10 @@
       placeholder="请输入……" aria-label="Username" aria-describedby="basic-addon1" v-model="item"
       v-on:click="show()"
       v-on:input="change" v-on:keydown.enter="enter" v-on:keyup.ctrl.delete="del()" v-on:keyup.ctrl.enter="addItem()"
-      v-on:keyup.up="up()" v-on:keyup.down="down()" 
-      v-on:keydown.ctrl.up="itemUp()" v-on:keydown.ctrl.down="itemDown()"      
+      v-on:keyup.up="up()" v-on:keyup.down="down()"
+      v-on:keydown.ctrl.up="itemUp()" v-on:keydown.ctrl.down="itemDown()"
       v-on:keyup.space="space()" v-on:keyup.left="space()" v-on:keyup.right="space()"
-      v-on:keyup.ctrl.0="hintUp()" v-on:keyup.ctrl.110="hintDown()" 
+      v-on:keyup.ctrl.0="hintUp()" v-on:keyup.ctrl.110="hintDown()"
       v-on:keyup.ctrl.97="hintSet(1)" v-on:keyup.ctrl.98="hintSet(2)"
       v-on:keyup.ctrl.99="hintSet(3)" v-on:keyup.ctrl.100="hintSet(4)" v-on:keyup.ctrl.101="hintSet(5)"
       v-on:keyup.ctrl.102="hintSet(6)" v-on:keyup.ctrl.103="hintSet(7)" v-on:keyup.ctrl.104="hintSet(8)"
@@ -81,7 +81,7 @@
     methods: {
       inviteUser(data) {
         if (data.includes('邀请您进入')) {
-          join(this, this.$store.state.Edit.fileName, this.$store.state.System.user.username)
+          join(this, this.$store.state.Edit.fileName, this.$store.state.Edit.socketRecord[this.$store.state.Edit.socketRecord.length - 1].room)
         }
       },
       show() {
