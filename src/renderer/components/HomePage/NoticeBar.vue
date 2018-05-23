@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  // import { join } from '../../utils/Socket'
+  import { join } from '../../utils/Socket'
   export default {
     computed: {
       notice: {
