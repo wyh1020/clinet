@@ -122,11 +122,12 @@
       </tr>
     </table>
     <table v-if="type === '在线交流'">
-      <tr>
-        <th class="table-danger"> 当前在线用户：</th>
+      <tr class="table-danger">
+        <th class="table-danger" colspan="2"> 当前在线用户：</th>
       </tr>
-      <tr>
-        <td class="table-danger" v-for="(data, index) in chatUsers" v-bind:key='index'> {{data}}</td>
+      <tr v-for="(data, index) in chatUsers" v-bind:key='index'>
+        <td class="table-danger"> {{data}}</td>
+        <td class="table-danger" v-on:click="invite(data)"><a href="#">邀请</a></td>
       </tr>
     </table>
     <table v-if="type === 'HIS接口'">
@@ -140,6 +141,7 @@
 <script>
   import RightPanelDoc from './RightPanelDoc';
   import RightPanelCdh from './RightPanelCdh';
+  import { join } from '../../utils/Socket'
   export default {
     components: { RightPanelDoc, RightPanelCdh },
     computed: {
@@ -155,6 +157,10 @@
       }
     },
     methods: {
+      invite(data) {
+        console.log(data)
+        join(this, this.$store.state.System.user.username, data)
+      }
     },
   };
 </script>
