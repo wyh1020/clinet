@@ -51,15 +51,15 @@ describe('Edit', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-    // 2.1.4.2、点击下拉菜单 输入框提示 edit-rightbar-inputPrompt
-      .click('#edit-rightbar-inputPrompt')
-      // .waitUntilTextExists('#edit-bar-prompt', '输入框提示')
+    // 2.1.4.2、点击下拉菜单 输入提示 edit-rightbar-输入提示
+      .click('#edit-rightbar-输入提示')
+      // .waitUntilTextExists('#edit-bar-prompt', '输入提示')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         // console.log(editText)
         expect(editText).to.be.an('string');
       })
-    // 2.1.4.3、点击下拉菜单 病案参考 edit-rightbar-medicalRefer
+    // 2.1.4.3、点击下拉菜单 病案参考 edit-rightbar-病案参考
       .click('#edit-rightbar-choice')
       .hasFocus('[aria-labelledby="edit-rightbar-choice"]')
       .getText('#edit-editbar-input')
@@ -71,14 +71,14 @@ describe('Edit', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      .click('#edit-rightbar-medicalRefer')
+      .click('#edit-rightbar-病案参考')
       // .waitUntilTextExists('#edit-bar-prompt', '病案参考')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         // console.log(editText)
         expect(editText).to.be.an('string');
       })
-    // 2.1.4.4、点击下拉菜单 病案历史 edit-rightbar-medicalHistory
+    // 2.1.4.4、点击下拉菜单 病案历史 edit-rightbar-病案历史
       .click('#edit-rightbar-choice')
       .hasFocus('[aria-labelledby="edit-rightbar-choice"]')
       .getText('#edit-editbar-input')
@@ -90,14 +90,14 @@ describe('Edit', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      .click('#edit-rightbar-medicalHistory')
+      .click('#edit-rightbar-病案历史')
       // .waitUntilTextExists('#edit-bar-prompt', '病案历史')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         // console.log(editText)
         expect(editText).to.be.an('string');
       })
-    // 2.1.4.5、点击下拉菜单 在线交流 edit-rightbar-onlineSay
+    // 2.1.4.5、点击下拉菜单 在线交流 edit-rightbar-在线交流
       .click('#edit-rightbar-choice')
       .hasFocus('[aria-labelledby="edit-rightbar-choice"]')
       .getText('#edit-editbar-input')
@@ -109,14 +109,14 @@ describe('Edit', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      .click('#edit-rightbar-onlineSay')
+      .click('#edit-rightbar-在线交流')
       // .waitUntilTextExists('#edit-bar-prompt', '在线交流')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         // console.log(editText)
         expect(editText).to.be.an('string');
       })
-    // 2.1.4.6、点击下拉菜单 DRG分析 edit-rightbar-drgStat
+    // 2.1.4.6、点击下拉菜单 DRG分析 edit-rightbar-DRG分析
       .click('#edit-rightbar-choice')
       .hasFocus('[aria-labelledby="edit-rightbar-choice"]')
       .getText('#edit-editbar-input')
@@ -128,14 +128,14 @@ describe('Edit', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      .click('#edit-rightbar-drgStat')
+      .click('#edit-rightbar-DRG分析')
       // .waitUntilTextExists('#edit-bar-prompt', 'drg分析')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         // console.log(editText)
         expect(editText).to.be.an('string');
       })
-    // 2.1.4.7、点击下拉菜单 HIS接口 edit-rightbar-hisInterface
+    // 2.1.4.7、点击下拉菜单 HIS接口 edit-rightbar-HIS接口
       .click('#edit-rightbar-choice')
       .hasFocus('[aria-labelledby="edit-rightbar-choice"]')
       .getText('#edit-editbar-input')
@@ -147,7 +147,7 @@ describe('Edit', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-      .click('#edit-rightbar-hisInterface')
+      .click('#edit-rightbar-HIS接口')
       // .waitUntilTextExists('#edit-bar-prompt', 'HIS接口')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
