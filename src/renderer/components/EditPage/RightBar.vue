@@ -11,7 +11,7 @@
             {{helpType}}
           </a>
           <div class="dropdown-menu" id="edit-rightbar-sel" aria-labelledby="edit-rightbar-choice">
-            <a v-for="(data, index) in helpTypes" v-bind:key='index' class="dropdown-item" href="#" v-on:click='help(data)' id="edit-rightbar-editorHelp">{{data}}</a>
+            <a v-for="(data, index) in helpTypes" v-bind:key='index' class="dropdown-item" href="#" v-on:click='help(data)' v-bind:id="'edit-rightbar-'+data">{{data}}</a>
             <div class="dropdown-divider"></div>
             <!-- <a class="dropdown-item" href="#" v-on:click='help("输入框提示")' id="edit-rightbar-inputPrompt">输入框提示</a>
             <a class="dropdown-item" href="#" v-on:click='help("病案参考")' id="edit-rightbar-medicalRefer">病案参考</a>
