@@ -221,8 +221,12 @@
           const user = this.userLogin
           if (reg.test(user.username)) {
             this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
-            sLogin(this, [this.server, this.port, user])
-            connect(this, [this.server, this.port, user.username]);
+            connect(this, [this.server, this.port, user.username])
+            if (this.$store.state.System.otherLogin === false) {
+              this.$store.commit('SET_NOTICE', '您的账号已在其他地点登录,请先退出后再次尝试登录')
+            } else {
+              sLogin(this, [this.server, this.port, user])
+            }
           } else if (Array.from(user.username.split(' ')).length === 12) {
             const key = Object.keys(global.hitbdata.blockchain)[0]
             const server = global.hitbdata.blockchain[key][0];

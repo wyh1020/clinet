@@ -70,10 +70,14 @@ const state = {
   checkDataPage: 0,
   // 文件上传信息
   upLoadFile: [],
-  loadTable: 0
+  loadTable: 0,
+  otherLogin: false
 };
 
 const mutations = {
+  SYSTEM_SET_OTHER_LOGIN(state, m) {
+    state.otherLogin = m
+  },
   SYSTEM_SET_TOOLBAR(state, toolbar) {
     console.log(toolbar)
     state.toolbar = toolbar;
@@ -372,6 +376,7 @@ const mutations = {
 
 const actions = {
   someAsyncTask({ commit }) {
+    commit('SYSTEM_SET_OTHER_LOGIN');
     commit('SYSTEM_SET_TOOLBAR');
     commit('SYSTEM_GET_FILES');
     commit('SYSTEM_LOAD_FILE');

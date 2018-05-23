@@ -7,23 +7,26 @@ let createRoomTime = ''
 let username = ''
 // 连接(obj, [url, port, username])
 export function connect(obj, data) {
-  if (data[0] !== '' && data[1] !== '' && data[2] !== '') {
-    socket = new Socket(`ws://${data[0]}:8001/socket`, { params: { token: 'a token', username: data[2] } });
-    username = data[2]
-    socket.connect();
-    channel2 = socket.channel('online:list', {})
-    channel2.join();
-    channel2.on('邀请加入', (r) => {
-      if (r.invite === username) {
-        obj.$store.commit('EDIT_SET_CHAT_TYPE', true);
-        obj.$store.commit('SET_NOTICE', `${r.message}`)
-        obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.message, type: 'info', time: r.time, room: r.room, create_room_time: r.create_room_time });
-        createRoomTime = r.create_room_time
-      }
+  // if (data[0] !== '' && data[1] !== '' && data[2] !== '') {
+  socket = new Socket(`ws://${data[0]}:8001/socket`, { params: { token: 'a token', username: data[2] } });
+  username = data[2]
+  socket.connect();
+  channel2 = socket.channel('online:list', { username: username })
+  channel2.join()
+    .receive('ok', () => {
+      obj.$store.commit('SYSTEM_SET_OTHER_LOGIN', true)
     })
-  } else {
-    obj.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
-  }
+    .receive('error', () => {
+      obj.$store.commit('SYSTEM_SET_OTHER_LOGIN', false)
+    })
+  channel2.on('邀请加入', (r) => {
+    if (r.invite === username) {
+      obj.$store.commit('EDIT_SET_CHAT_TYPE', true);
+      obj.$store.commit('SET_NOTICE', `${r.message}`)
+      obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.message, type: 'info', time: r.time, room: r.room, create_room_time: r.create_room_time });
+      createRoomTime = r.create_room_time
+    }
+  })
 }
 
 export function join(obj, filename, username) {
