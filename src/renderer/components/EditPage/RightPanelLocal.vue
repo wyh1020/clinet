@@ -15,6 +15,8 @@
       <button v-on:click="getheight">123</button>
       <div v-bind:style="{ height: height + 'px', overflow: 'auto' }" >
         <div v-for="(data, index) in socketRecord" v-bind:key='index'>
+          <div style="width: 200px; margin: 0 auto"><span style="padding: 5px">{{data.time}}</span></div>
+          <div v-if="data.message.includes('邀请您进入')" style="margin: 15px"><span class="alert alert-danger" style="padding: 5px">{{data.message}}</span></div>
           <div v-if="data.username === username" style="margin: 15px"><span class="alert alert-success" style="padding: 5px"><b>{{data.username}}</b>: {{data.message}}</span></div>
           <div v-if="data.username !== username" style="margin: 15px"><span class="alert alert-warning" style="padding: 5px"><b>{{data.username}}</b>: {{data.message}}</span></div>
         </div>
@@ -36,6 +38,7 @@
     computed: {
       username: {
         get() {
+          console.log(this.$store.state.Edit.socketRecord)
           return this.$store.state.System.user.username
         }
       },
