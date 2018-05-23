@@ -58,7 +58,8 @@ export function sRegister(obj, data) {
           obj.$store.commit('SET_NOTICE', '用户创建成功')
           obj.$store.commit('SYSTEM_SET_TOOLBAR', 'getUsers')
         } else {
-          obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '用户创建失败,用户名重复', false])
+          obj.$store.commit('SET_NOTICE', '用户创建失败,用户名重复')
+          // obj.$store.commit('SYSTEM_REGISTER_USER', [user, '用户创建失败,用户名重复', false])
         }
       } else {
         obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '连接失败', false])
@@ -76,7 +77,9 @@ export function sRegister(obj, data) {
     } else {
       info = '请输入正确的手机号码'
     }
-    obj.$store.commit('SYSTEM_REGISTER_USER', [user, info, false])
+    console.log(info);
+    // obj.$store.commit('SET_NOTICE', info)
+    // obj.$store.commit('SYSTEM_REGISTER_USER', [user, info, false])
   }
 }
 // 登录

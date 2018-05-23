@@ -233,6 +233,7 @@
           this.$store.commit('SYSTEM_SET_TOOLBAR', 'createUsers')
         } else if (value === 'regiest') {
           this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
+          // 邮箱,密码,年龄.电话
           const reg = [/^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g,
             /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/,
             /^[0-9]{1,2}$/,
@@ -269,7 +270,6 @@
           if (a * b * c * d === 1) {
             sRegister(this, [this.server, this.port, this.registerInfo])
           }
-          console.log('aaa')
         } else if (value === 'update') {
           this.$store.commit('SYSTEM_SET_TOOLBAR', 'upUsers')
         } else if (value === 'updataUser') {
