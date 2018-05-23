@@ -8,18 +8,18 @@ let username = ''
 // 连接(obj, [url, port, username])
 export function connect(obj, data) {
   if (data[0] !== '' && data[1] !== '' && data[2] !== '') {
-    socket = new Socket(`ws://${data[0]}:8000/socket`, { params: { token: 'a token', username: data[2] } });
+    socket = new Socket(`ws://${data[0]}:8001/socket`, { params: { token: 'a token', username: data[2] } });
     username = data[2]
     socket.connect();
     channel2 = socket.channel('online:list', {})
     channel2.join();
     channel2.on('邀请加入', (r) => {
-      obj.$store.commit('EDIT_SET_CHAT_TYPE', true);
-      obj.$store.commit('SET_NOTICE', `${r.message}`)
-      console.log(r);
-      console.log(username);
-      obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.message, type: 'info', time: r.time, room: r.room, create_room_time: r.create_room_time });
-      createRoomTime = r.create_room_time
+      if (r.invite === username) {
+        obj.$store.commit('EDIT_SET_CHAT_TYPE', true);
+        obj.$store.commit('SET_NOTICE', `${r.message}`)
+        obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.message, type: 'info', time: r.time, room: r.room, create_room_time: r.create_room_time });
+        createRoomTime = r.create_room_time
+      }
     })
   } else {
     obj.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
