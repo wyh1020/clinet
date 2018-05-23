@@ -36,7 +36,7 @@
           <a class="nav-link text-light" href="#">去除</a>
         </li> -->
         <li class="nav-item" id="edit-leftbar-cache" v-on:click="saveDoc()" v-if="this.$store.state.Edit.leftPanel == 'doc'">
-          <a class="nav-link text-light" href="#" v-if="fileName !== ''">缓存</a>
+          <a class="nav-link text-light" href="#" v-if="fileName !== '' || this.$store.state.Edit.rightPanel === 'server'">缓存</a>
         <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save()" v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#">保存</a>
         </li>
@@ -94,7 +94,7 @@
         document.getElementById('edit-editbar-input').focus()
       },
       newDoc: function (n) {
-        this.$store.commit('EDIT_SET_CHAT_TYPE', true);
+        // this.$store.commit('EDIT_SET_CHAT_TYPE', true);
         this.$store.commit('EDIT_SET_DOC_INDEX', [0, true])
         this.$store.commit('EDIT_SET_FILE_INDEX', this.$store.state.Edit.file.length)
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')

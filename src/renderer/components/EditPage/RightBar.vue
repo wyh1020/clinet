@@ -11,9 +11,9 @@
             {{helpType}}
           </a>
           <div class="dropdown-menu" id="edit-rightbar-sel" aria-labelledby="edit-rightbar-choice">
-            <a class="dropdown-item" href="#" v-on:click='help("编辑器使用帮助")' id="edit-rightbar-editorHelp">编辑器使用帮助</a>
+            <a v-for="(data, index) in helpTypes" v-bind:key='index' class="dropdown-item" href="#" v-on:click='help(data)' id="edit-rightbar-editorHelp">{{data}}</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click='help("输入框提示")' id="edit-rightbar-inputPrompt">输入框提示</a>
+            <!-- <a class="dropdown-item" href="#" v-on:click='help("输入框提示")' id="edit-rightbar-inputPrompt">输入框提示</a>
             <a class="dropdown-item" href="#" v-on:click='help("病案参考")' id="edit-rightbar-medicalRefer">病案参考</a>
             <a class="dropdown-item" href="#" v-on:click='help("病案历史")' id="edit-rightbar-medicalHistory">病案历史</a>
             <div class="dropdown-divider"></div>
@@ -21,7 +21,7 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" v-on:click='help("drg分析")' id="edit-rightbar-drgStat">DRG分析</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click='help("HIS接口")' id="edit-rightbar-hisInterface">HIS接口</a>
+            <a class="dropdown-item" href="#" v-on:click='help("HIS接口")' id="edit-rightbar-hisInterface">HIS接口</a> -->
           </div>
         </li>
         <li class="nav-item active" v-on:click='help(null)' id="edit-rightbar-help">
@@ -60,6 +60,13 @@
         rightItem: '',
         helpType: '编辑器使用帮助'
       };
+    },
+    computed: {
+      helpTypes: {
+        get() {
+          return this.$store.state.Edit.helpTypes
+        }
+      },
     },
     methods: {
       help: function (n) {
