@@ -62,11 +62,11 @@ describe('EditRemoteFile', function () {
       .waitUntilTextExists('#edit-editbar-input', '')
     // 2.6 点击 右侧工具栏 远程文件 按钮
       .click('#edit-rightbar-server')
-      // .getText('#edit-rightpanellocal-table')
-      // .then(function (editText) {
-      //   console.log(editText);
-      //   expect(editText).to.not.equal('');
-      // })
+      .getText('#edit-rightpanellocal-table')
+      .then(function (editText) {
+        console.log(editText);
+        expect(editText).to.not.equal('');
+      })
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         expect(editText).to.be.an('string');
@@ -157,4 +157,3 @@ describe('EditRemoteFile', function () {
       // })
   });
 });
-
