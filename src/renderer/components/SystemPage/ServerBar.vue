@@ -234,40 +234,15 @@
         } else if (value === 'regiest') {
           this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
           // 邮箱,密码,年龄.电话
-          const reg = [/^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g,
-            /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/,
-            /^[0-9]{1,2}$/,
-            /^1[0-9]{10}$/]
+          const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
           let a = 1;
-          let b = 1;
-          let c = 1;
-          let d = 1;
-          const age = parseInt(this.registerInfo.age, 10)
-          if (reg[0].test(this.registerInfo.email)) {
+          if (reg.test(this.registerInfo.email)) {
             a = 1
           } else {
             a = 0
             this.$store.commit('SET_NOTICE', '用户名或邮箱输入错误');
           }
-          if (reg[1].test(this.registerInfo.password)) {
-            b = 1
-          } else {
-            b = 0
-            this.$store.commit('SET_NOTICE', '密码错误 只能由数字和字母且长度在6到16位之间组成');
-          }
-          if (reg[2].test(age)) {
-            c = 1
-          } else {
-            c = 0
-            this.$store.commit('SET_NOTICE', '年龄输入错误');
-          }
-          if (reg[3].test(this.registerInfo.tel)) {
-            d = 1
-          } else {
-            d = 0
-            this.$store.commit('SET_NOTICE', '电话输入错误');
-          }
-          if (a * b * c * d === 1) {
+          if (a === 1) {
             sRegister(this, [this.server, this.port, this.registerInfo])
           }
         } else if (value === 'update') {
