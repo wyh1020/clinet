@@ -88,16 +88,16 @@ describe('Server', function () {
       .setValue('#server-password', '123456')
       .click('#server-login')
       .waitUntilTextExists('#notice-bar', '远程服务用户登录成功')
-      // 2.2.3、点击修改(server-user-change)
+      // 2.2.3、点击修改(server-user-change)，可对远程用户的基本信息进行修改
       .click('#server-user-change')
-      // 2.2.4、点击确认修改(server-user-ischange)
+      // 2.2.4、点击确认修改(server-user-ischange)，在确认修改信息无误后，确认修改
       .click('#server-user-ischange')
       .click('#server-user-setup')
       // 2.2.5、点击文件权限修改(server-user-changepower)
       .click('#server-user-changepower')
       // 2.2.6、点击机构设置(server-org-setup)，右侧弹出两个输入框，输入信息，点击添加机构按钮，按钮颜色状态发生改变
       .click('#server-org-setup')
-      // 2.2.7、点击新建机构设置(server-user-addorg)
+      // 2.2.7、点击新建机构设置(server-user-addorg)，填写完基本信息后，新增机构
       .click('#server-user-neworg')
       // .setValue('#InputOrgCode', '123456')
       // .setValue('#InputOrgName', '123456')
@@ -117,7 +117,7 @@ describe('Server', function () {
       // .waitUntilTextExists('#notice-bar', '机构创建成功')
       // 2.2.6、点击科室设置(server-org-setup)，右侧弹出两个输入框，输入信息，点击添加科室按钮，按钮颜色状态发生改变
       .click('#server-org-setup')
-      // 2.2.7、点击新建科室设置(server-user-adddep)
+      // 2.2.7、点击新建科室设置(server-user-adddep)，填写完基本信息后，新增科室
       // .click('#server-user-newdep')
       // .setValue('#InputOrgCode', '123456')
       // .setValue('#InputOrgName', '123456')

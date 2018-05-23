@@ -4,7 +4,7 @@
       <tr>
         <th id="stat-left-file-th" class="table-danger"> 数据分析文件</th>
       </tr>
-      <tr class="stat-left-file-tr" v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag === index}">
+      <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag === index}" v-bind:id="'stat-left-file-tr'+index">
         <td>{{data}}</td>
       </tr>
     </table>

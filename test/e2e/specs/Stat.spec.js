@@ -16,7 +16,7 @@ describe('Stat', function () {
     // 2.1、本地文件 leftPanel显示本地文件列表
       .click('#stat-local-doc')
     // 2.1.1 点击leftPanel列表 rightPanel数据表显示当前文件的前十条数据 chart显示当前数据图表 提示显示当前数据提示内容
-      .click('.stat-left-file-tr')
+      .click('#stat-left-file-tr0')
       .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')
       .getText('.stat-right-table-tr')
       .then(function (rightTable) {
@@ -219,10 +219,11 @@ describe('Stat', function () {
       //   expect(file).to.be.an('array');
       // })
     // 2.2.1 点击leftPanel列表 rightPanel数据表显示当前文件的前十条数据 chart显示当前数据图表 提示显示当前数据提示内容
-      // .click('.stat-left-file-tr')
-      // .click('.stat-left-file-tr')
-      // .click('.stat-left-file-tr')
-      // .click('.stat-left-file-tr')
+      // .click('#stat-left-file-tr5')
+      // .waitUntilWindowLoaded(1000)
+      // .click('#stat-left-file-tr0')
+      // .waitUntilWindowLoaded(1000)
+      // .click('#stat-left-file-tr0')
       // .getText('.stat-right-table-tr')
       // .then(function (righttable) {
       //   console.log(righttable);
