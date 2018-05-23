@@ -94,9 +94,6 @@ export function saveEdit(obj, data) {
 }
 
 export function getDocTypes(obj, data) {
-  // const server = '127.0.0.1'
-  // const port = '80'
-  // const username = 'test7@hitb.com'
   const server = data[0]
   const port = data[1]
   const username = data[2]
@@ -108,7 +105,8 @@ export function getDocTypes(obj, data) {
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
-      obj.$store.commit('EDIT_SET_DOC_TYPES', res.data.resule)
+      const results = res.data.resule.map(n => n.slice(0, -4))
+      obj.$store.commit('EDIT_SET_DOC_TYPES', results)
       obj.$store.commit('SET_NOTICE', '模板列表查询成功')
     } else {
       obj.$store.commit('SET_NOTICE', '模板列表查询失败')
@@ -121,15 +119,10 @@ export function getDocTypes(obj, data) {
 }
 // getDocContent
 export function getDocContent(obj, data) {
-  // console.log(data);
-  // const server = '127.0.0.1'
-  // const port = '80'
-  // const username = 'test7@hitb.com'
-  // const filename = '入院申请.cdh'
   const server = data[0]
   const port = data[1]
   const username = data[2]
-  const filename = data[3]
+  const filename = `${data[3]}.cdh`
   axios({
     method: 'get',
     url: `http://${server}:${port}/edit/mouldfile?username=${username}&name=${filename}`,
