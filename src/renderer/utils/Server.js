@@ -43,8 +43,8 @@ export function sRegister(obj, data) {
   // 取出user
   const user = data[2]
   const isEmail = regEmail.test(user.username)
-  const isTel = regTel.test(user.tel)
-  if (isEmail && isTel && user.password !== '') {
+  // const isTel = regTel.test(user.tel)
+  if (isEmail !== '') {
     axios({
       method: 'post',
       url: `http://${data[0]}:${data[1]}/servers/user/`,
@@ -58,28 +58,22 @@ export function sRegister(obj, data) {
           obj.$store.commit('SET_NOTICE', '用户创建成功')
           obj.$store.commit('SYSTEM_SET_TOOLBAR', 'getUsers')
         } else {
-          obj.$store.commit('SET_NOTICE', '用户创建失败,用户名重复')
-          // obj.$store.commit('SYSTEM_REGISTER_USER', [user, '用户创建失败,用户名重复', false])
+          obj.$store.commit('SET_NOTICE', '用户名重复')
+          // obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '用户创建失败,用户名重复', false])
         }
       } else {
-        obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '连接失败', false])
+        // obj.$store.commit('SYSTEM_REGISTER_USER', [res.data, '连接失败', false])
       }
     }).catch((err) => {
       console.log(err);
-      obj.$store.commit('SYSTEM_REGISTER_USER', [{}, '连接失败', false])
+      // obj.$store.commit('SYSTEM_REGISTER_USER', [{}, '连接失败', false])
     })
   } else {
     let info = ''
-    if (user.password === '') {
-      info = '密码未填写'
-    } else if (isEmail) {
+    if (isEmail) {
       info = '请输入正确的Email地址'
-    } else {
-      info = '请输入正确的手机号码'
     }
-    console.log(info);
-    // obj.$store.commit('SET_NOTICE', info)
-    // obj.$store.commit('SYSTEM_REGISTER_USER', [user, info, false])
+    obj.$store.commit('SYSTEM_REGISTER_USER', [user, info, false])
   }
 }
 // 登录
