@@ -81,7 +81,7 @@
   import NavBar from './HomePage/NavBar';
   import NoticeBar from './HomePage/NoticeBar';
   import { open } from '../utils/BlockAccount';
-  import { connect } from '../utils/Socket';
+  import { socketConnect } from '../utils/Socket';
   export default {
     name: 'login-page',
     components: { NavBar, NoticeBar },
@@ -120,8 +120,9 @@
         } else {
           const user = { username: name, password: pass }
           const server = global.hitbdata.server['远程测试服务器'][0];
-          // sLogin(this, [server[0], server[1], user]);
-          connect(this, [server[0], server[1], user.username]);
+          if (user.username !== '' && user.password !== '') {
+            socketConnect(this, [server[0], server[1], user.username]);
+          }
         }
         this.$store.commit('SET_NAVBAR', 'edit');
         this.$store.commit('HAS_DATA');

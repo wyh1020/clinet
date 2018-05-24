@@ -93,6 +93,7 @@ export function sLogin(obj, data) {
     responseType: 'json'
   }).then((res) => {
     if (res.data.login) {
+      console.log(res.data);
       obj.$store.commit('SYSTEM_SET_USER', ['用户登录成功', res.data])
       obj.$store.commit('SYSTEM_SET_SERVER', ['', data[0], data[1]])
       obj.$store.commit('SYSTEM_SET_CONNECT_INFO', true)

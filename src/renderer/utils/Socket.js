@@ -6,19 +6,25 @@ let channel2 = null
 let createRoomTime = ''
 let username = ''
 // 连接(obj, [url, port, username])
-export function connect(obj, data) {
+export function socketConnect(obj, data) {
   // if (data[0] !== '' && data[1] !== '' && data[2] !== '') {
-  socket = new Socket(`ws://${data[0]}:8000/socket`, { params: { token: 'a token', username: data[2] } });
+  socket = new Socket(`ws://${data[0]}:8001/socket`, { params: { token: 'a token', username: data[2] } });
   username = data[2]
   socket.connect();
-  channel2 = socket.channel('online:list', { username: username })
+  channel2 = socket.channel('online:list', { username: username, password: data[3] })
   channel2.join()
     .receive('ok', () => {
-      obj.$store.commit('SYSTEM_SET_OTHER_LOGIN', true)
+      obj.$store.commit('SET_NOTICE', '远程服务用户登录成功')
     })
-    .receive('error', () => {
-      obj.$store.commit('SYSTEM_SET_OTHER_LOGIN', false)
+    .receive('error', (err) => {
+      obj.$store.commit('SET_NOTICE', err.reason)
     })
+  channel2.push('用户信息', {})
+  channel2.on('用户信息', (res) => {
+    obj.$store.commit('SYSTEM_SET_USER', ['用户登录成功', res.user])
+    obj.$store.commit('SYSTEM_SET_SERVER', ['', data[0], data[1]])
+    obj.$store.commit('SYSTEM_SET_CONNECT_INFO', true)
+  })
   channel2.on('邀请加入', (r) => {
     if (r.invite === username) {
       obj.$store.commit('EDIT_SET_CHAT_TYPE', true);
