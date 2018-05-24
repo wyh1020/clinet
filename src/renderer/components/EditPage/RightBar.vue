@@ -48,7 +48,7 @@
 </template>
 
 <script>
-  import { getEditFiles, getEdit } from '../../utils/EditServerFile'
+  import { getEditFiles, getEdit, clinetHelp } from '../../utils/EditServerFile'
   import { getStat } from '../../utils/StatServerFile'
   import { getLibrary } from '../../utils/LibraryServerFile'
   import { sCompDrg } from '../../utils/Server'
@@ -71,20 +71,20 @@
     methods: {
       help: function (n) {
         if (n) {
-          this.$store.commit('SET_NOTICE', n);
-          this.helpType = n
-          this.$store.commit('EDIT_SET_HELP_TYPE', n);
-          this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
           if (n === 'drg分析') {
             if (this.$store.state.System.wt4Tables.length > 1) {
               sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables, 'BJ'], 'getLocalData')
             } else {
               this.$store.commit('SET_NOTICE', '请选择分析数据！');
             }
+          } else if (this.$store.state.System.user.login) {
+            clinetHelp(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user.username])
+          } else {
+            this.$store.commit('SET_NOTICE', n);
+            this.helpType = n
+            this.$store.commit('EDIT_SET_HELP_TYPE', n);
+            this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
           }
-          //  else if (n === '在线交流') {
-          //   // socketConnect(this, [this.$store.state.System.server, this.$store.state.System.port])
-          // }
         }
       },
       localData: function () {

@@ -89,51 +89,60 @@
       },
       change(e) {
         if (this.$store.state.Edit.editType === '病案编辑') {
+          if (e.target.value.includes('~')) {
+            this.$store.commit('EDIT_SET_MODEL_NAME', e.target.value.replace('~', ''));
+          } else {
           // const value = document.getElementById('edit-editbar-input').value
-          const value = e.target.value
-          this.$store.commit('EDIT_SET_BAR_VALUE', value);
-          let n = this.$store.state.Edit.docIndex
-          if (this.$store.state.Edit.selectedType !== 'col') {
-            const vs = value.split('，').filter(i => i !== '');
-            vs.forEach((element, index) => {
-              const v = element.split(' ').filter(i => i !== '');
-              if (v.length > 0) {
-                if (index > 0) {
-                  this.$store.commit('EDIT_UPDATE_DOC', [n, v, true]);
-                } else {
-                  this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
+            const value = e.target.value
+            this.$store.commit('EDIT_SET_BAR_VALUE', value);
+            let n = this.$store.state.Edit.docIndex
+            if (this.$store.state.Edit.selectedType !== 'col') {
+              const vs = value.split('，').filter(i => i !== '');
+              vs.forEach((element, index) => {
+                const v = element.split(' ').filter(i => i !== '');
+                if (v.length > 0) {
+                  if (index > 0) {
+                    this.$store.commit('EDIT_UPDATE_DOC', [n, v, true]);
+                  } else {
+                    this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
+                  }
+                  n += 1
                 }
-                n += 1
-              }
-            });
+              });
+            }
           }
         }
       },
       enter(e) {
         if (this.$store.state.Edit.editType === '病案编辑') {
-          let n = this.$store.state.Edit.docIndex
-          let value = e.target.value
-          if (this.$store.state.Edit.selectedType !== 'col') {
-            const vs = value.split('，').filter(i => i !== '');
-            vs.forEach((element, index) => {
-              const v = element.split(' ').filter(i => i !== '');
-              if (v.length > 0) {
-                if (index > 0) {
-                  this.$store.commit('EDIT_UPDATE_DOC', [n, v, true]);
-                } else {
-                  this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
-                }
-                this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
-                n += 1
-              }
-            });
+          if (e.target.value.includes('~')) {
+            this.$store.commit('EDIT_SET_MODEL_NAME', e.target.value.replace('~', ''));
+            this.$store.commit('EDIT_SET_BAR_VALUE', '');
           } else {
-            value = value.replace(/,/g, '，')
-            const cv = value.split(' ').filter(i => i !== '');
-            const col = this.$store.state.Edit.selectedCol[0]
-            this.$store.commit('EDIT_UPDATE_FILE', [col, cv[1]]);
+            let n = this.$store.state.Edit.docIndex
+            let value = e.target.value
+            if (this.$store.state.Edit.selectedType !== 'col') {
+              const vs = value.split('，').filter(i => i !== '');
+              vs.forEach((element, index) => {
+                const v = element.split(' ').filter(i => i !== '');
+                if (v.length > 0) {
+                  if (index > 0) {
+                    this.$store.commit('EDIT_UPDATE_DOC', [n, v, true]);
+                  } else {
+                    this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
+                  }
+                  this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
+                  n += 1
+                }
+              });
+            } else {
+              value = value.replace(/,/g, '，')
+              const cv = value.split(' ').filter(i => i !== '');
+              const col = this.$store.state.Edit.selectedCol[0]
+              this.$store.commit('EDIT_UPDATE_FILE', [col, cv[1]]);
+            }
+            this.$store.commit('SET_NOTICE', '编辑 -> 缓存 -> 选择文件 -> 保存');
           }
-          this.$store.commit('SET_NOTICE', '编辑 -> 缓存 -> 选择文件 -> 保存');
         } else {
           message(this, e.target.value, this.$store.state.System.user.username, 'message')
           this.$store.commit('EDIT_SET_BAR_VALUE', '');
