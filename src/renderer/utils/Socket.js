@@ -43,6 +43,9 @@ export function join(obj, filename, username) {
   channel.on('新消息', (r) => {
     obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.body, type: r.type, username: r.username, time: r.time, create_room_time: createRoomTime });
   })
+  channel.on('共享文档', (r) => {
+    obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.body, type: r.type, username: r.username, time: r.time, create_room_time: createRoomTime });
+  })
   channel.on('加入房间', (r) => {
     obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.body, type: 'info', username: r.username, time: r.time, create_room_time: createRoomTime });
   })

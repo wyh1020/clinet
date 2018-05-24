@@ -80,7 +80,6 @@
 <script>
   import NavBar from './HomePage/NavBar';
   import NoticeBar from './HomePage/NoticeBar';
-  import { sLogin } from '../utils/Server';
   import { open } from '../utils/BlockAccount';
   import { connect } from '../utils/Socket';
   export default {
@@ -121,7 +120,7 @@
         } else {
           const user = { username: name, password: pass }
           const server = global.hitbdata.server['远程测试服务器'][0];
-          sLogin(this, [server[0], server[1], user]);
+          // sLogin(this, [server[0], server[1], user]);
           connect(this, [server[0], server[1], user.username]);
         }
         this.$store.commit('SET_NAVBAR', 'edit');
