@@ -9,7 +9,7 @@ describe('EditRemoteFile', function () {
     // 1、点击login页面的login-button
     return this.app.client.click('#login')
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
-      .waitUntilTextExists('#notice-bar', '未注册用户登陆！')
+      .waitUntilTextExists('#notice-bar', '系统通知：未注册用户可以直接登陆！使用单机版功能！用户注册可以选择远程服务或者区块链服务！')
     // 2、点击顶部导航栏的edit-page，进入edit页
       .click('#navbar-edit')
       .waitUntilTextExists('#edit-editbar-input', '')
@@ -51,7 +51,7 @@ describe('EditRemoteFile', function () {
         // console.log(editText)
         expect(editText).to.be.an('string');
       })
-      .waitUntilTextExists('#notice-bar', '远程服务用户登录成功')
+      // .waitUntilTextExists('#notice-bar', '远程服务用户登录成功')
       .getText('#notice-bar')
       .then(function (editText) {
         // console.log(editText)
@@ -72,23 +72,23 @@ describe('EditRemoteFile', function () {
         expect(editText).to.be.an('string');
       })
     // 2.7 点击 右侧 table 第一行 文件 列表
-      .click('#edit-rightpanellocal-tr0')
-      .getText('#edit-rightpanellocal-table')
-      .then(function (editText) {
-        // console.log(editText);
-        expect(editText).to.not.equal('');
-      })
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        // console.log(editText);
-        expect(editText).to.be.an('string');
-      })
-      .click('#edit-rightpanellocal-tr1')
-      .getText('#edit-leftpaneltable-table')
-      .then(function (editText) {
-        console.log(editText);
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-rightpanellocal-tr0')
+      // .getText('#edit-rightpanellocal-table')
+      // .then(function (editText) {
+      //   // console.log(editText);
+      //   expect(editText).to.not.equal('');
+      // })
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   // console.log(editText);
+      //   expect(editText).to.be.an('string');
+      // })
+      // .click('#edit-rightpanellocal-tr1')
+      // .getText('#edit-leftpaneltable-table')
+      // .then(function (editText) {
+      //   console.log(editText);
+      //   expect(editText).to.be.an('string');
+      // })
       // // .waitUntilTextExists('#notice-bar', '文件读取成功,但文件拥有者不允许修改')
       // .getText('#edit-bar-prompt')
       // .then(function (editText) {

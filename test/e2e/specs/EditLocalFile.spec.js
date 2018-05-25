@@ -9,7 +9,7 @@ describe('EditLocalFile', function () {
     // 1、点击login页面的login-button
     return this.app.client.click('#login')
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
-      .waitUntilTextExists('#notice-bar', '未注册用户登陆！')
+      .waitUntilTextExists('#notice-bar', '系统通知：未注册用户可以直接登陆！使用单机版功能！用户注册可以选择远程服务或者区块链服务！')
     // 2、点击顶部导航栏的edit-page，进入edit页
       .click('#navbar-edit')
       .waitUntilTextExists('#edit-editbar-input', '')
@@ -358,12 +358,12 @@ describe('EditLocalFile', function () {
       //   expect(editText).to.be.an('string');
       // })
     // 2.3.2.1 点击保存按钮 edit-leftbar-preservation
-      .click('#edit-leftbar-preservation')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        // console.log(editText);
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-preservation')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   // console.log(editText);
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.3.3 点击左侧 第一行 td 编辑按钮 edit-leftpaneltable-edit0
       .click('#edit-leftpaneltable-edit0')
       .getText('#edit-bar-prompt')
@@ -388,12 +388,12 @@ describe('EditLocalFile', function () {
     // 2.3.3.1 点击右侧 本地按钮 左侧保存按钮
       .click('#edit-rightbar-local')
       .waitUntilTextExists('#edit-bar-prompt', '读取本地文件')
-      .click('#edit-leftbar-preservation')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        // console.log(editText);
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-leftbar-preservation')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   // console.log(editText);
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.3.4 点击左侧 第一行 td 参考按钮 edit-leftpaneltable-ref0
       .click('#edit-leftpaneltable-ref0')
       .getText('#edit-bar-prompt')
