@@ -61,7 +61,8 @@
         <form style="margin-top: 20px" v-on:submit.prevent>
           <div class="form-group">
             <label for="exampleInputEmail1">维度选择：{{data}}</label>
-            ><input type="text" class="form-control" placeholder="" v-model="xObj[data].svalue">
+            >
+            <input type="text" class="form-control" placeholder="" v-model="xObj[data].svalue">
             <input type="text" class="form-control" placeholder="" v-model="xObj[data].bvalue">
           </div>
         </form>
@@ -106,7 +107,6 @@
     computed: {
       xObj: {
         get() {
-          console.log(this.$store.state.Stat.xObj)
           return this.$store.state.Stat.xObj
         },
         set() {
@@ -199,6 +199,7 @@
       },
       flagTd: {
         get() {
+          console.log(this.$store.state.Stat.selectedCol)
           let f = []
           if (this.$store.state.Stat.tableType === 'compare') {
             f = this.$store.state.Stat.selectedCol
@@ -256,6 +257,7 @@
     },
     methods: {
       onClickTd: function (data, index) {
+        // console.log(index)
         this.$store.commit('STAT_SET_XOBJ', [data[index], 0]);
         const header = this.$store.state.Stat.serverTable.data[0]
         let cindex = 0
@@ -280,7 +282,8 @@
           switch (this.$store.state.Stat.tableType) {
             case 'local':
               if (value.includes(true)) {
-                if (data[0] === 'org' && data[1] === 'time') {
+                const a = this.$store.state.Stat.localTable[0]
+                if (a.includes(data[index])) {
                   this.$store.commit('STAT_SET_COL', index);
                 }
               } else {
@@ -426,22 +429,24 @@
           let tableType = ''
           let table = []
           const table1 = []
-          let header = []
+          // let header = []
           switch (this.$store.state.Stat.tableType) {
             case 'local':
               table = this.$store.state.Stat.localTable
-              header = table.shift()
+              // header = table.shift()
               tableType = 'local'
               break;
             case 'server':
               table = this.$store.state.Stat.serverTable.data
-              header = table.shift()
+              // header = table.shift()
               tableType = 'server'
               break;
             default:
               break;
           }
-          const index = header.indexOf(data)
+          const [a, ...b] = table
+          console.log(b);
+          const index = a.indexOf(data)
           if (index > -1) {
             table.map((x) => {
               if (x[index] < this.$store.state.Stat.xObj[data].bvalue && x[index] > this.$store.state.Stat.xObj[data].svalue) {
@@ -449,7 +454,7 @@
               }
               return table1
             })
-            table1.splice(0, 0, header)
+            table1.splice(0, 0, a)
             this.$store.commit('STAT_SET_TABLE', [tableType, table1]);
           }
         } else {
