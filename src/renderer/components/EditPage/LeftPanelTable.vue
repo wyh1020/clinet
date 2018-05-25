@@ -21,6 +21,7 @@
 <script>
   import { saveEdit } from '../../utils/EditServerFile'
   import saveFile from '../../utils/SaveFile';
+  import { join } from '../../utils/Socket'
   export default {
     computed: {
       lastNav: {
@@ -141,7 +142,10 @@
             r = data.split(',')
           }
           this.$store.commit('EDIT_LOAD_DOC', r)
-          if (this.$store.state.Edit.selectedType === 'row') {
+          if (this.$store.state.Edit.helpType === '在线交流') {
+            join(this, data, this.$store.state.System.user.username)
+            this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
+          } else if (this.$store.state.Edit.selectedType === 'row') {
             this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
             this.$store.commit('EDIT_SET_RIGHT_PANEL', 'left')
           }
