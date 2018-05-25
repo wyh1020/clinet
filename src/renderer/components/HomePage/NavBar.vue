@@ -120,7 +120,7 @@
             this.$router.push('/edit');
             if (this.$store.state.System.user.login) {
               getDocTypes(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user.username])
-              getHelpTypes(this)
+              getHelpTypes(this, [this.$store.state.System.server, this.$store.state.System.port])
             }
             break;
           case '数据分析-数据分析':

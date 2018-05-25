@@ -99,6 +99,7 @@ const mutations = {
       })
       state.localTable = table
     }
+    // console.log(state.localTables);
   },
   STAT_TABLE_PAGE(state, n) {
     if (state.tableType === 'server' && n === 0) {
@@ -182,6 +183,7 @@ const mutations = {
     state.fieldIndex = index;
   },
   STAT_SET_COL(state, index) {
+    console.log(index);
     const x = state.selectedCol.indexOf(index)
     if (x === -1) {
       state.selectedCol.push(index)

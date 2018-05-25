@@ -30,7 +30,8 @@ const state = {
   socketRecord: [],
   chatType: false,
   editType: '病案编辑',
-  chatUsers: []
+  chatUsers: [],
+  modelName: null
 };
 
 const mutations = {
@@ -238,10 +239,14 @@ const mutations = {
   EDIT_SET_HELP_TYPES(state, value) {
     state.helpTypes = value
   },
+  EDIT_SET_MODEL_NAME(state, value) {
+    state.modelName = value
+  },
 };
 
 const actions = {
   someAsyncTask({ commit }) {
+    commit('EDIT_SET_MODEL_NAME');
     commit('EDIT_SET_HELP_TYPES');
     commit('EDIT_SET_CHAT_USERS');
     commit('EDIT_LOAD_FILES');
