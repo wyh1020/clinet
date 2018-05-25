@@ -9,7 +9,7 @@ describe('Server', function () {
     // 1、点击login页面的login-button
     return this.app.client.click('#login')
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
-      .waitUntilTextExists('#notice-bar', '未注册用户登陆！')
+      .waitUntilTextExists('#notice-bar', '系统通知：未注册用户可以直接登陆！使用单机版功能！用户注册可以选择远程服务或者区块链服务！')
     // 2.1、点击本地文件导入
       .click('#navbar-system')
       .click('#navbar-system-local')
@@ -83,18 +83,18 @@ describe('Server', function () {
         expect(rightpanel).to.be.an('array');
       })
       // 2.2.2、点击用户设置(server-user-setup)，右侧显示用户基本信息
-      .click('#server-user-setup')
-      .setValue('#server-username', 'test@hitb.com.cn')
-      .setValue('#server-password', '123456')
-      .click('#server-login')
-      .waitUntilTextExists('#notice-bar', '远程服务用户登录成功')
+      // .click('#server-user-setup')
+      // .setValue('#server-username', 'test@test.com.cn')
+      // .setValue('#server-password', '123456')
+      // .click('#server-login')
+      // .waitUntilTextExists('#notice-bar', '远程服务用户登录成功')
       // 2.2.3、点击修改(server-user-change)，可对远程用户的基本信息进行修改
-      .click('#server-user-change')
+      // .click('#server-user-change')
       // 2.2.4、点击确认修改(server-user-ischange)，在确认修改信息无误后，确认修改
-      .click('#server-user-ischange')
+      // .click('#server-user-ischange')
       .click('#server-user-setup')
       // 2.2.5、点击文件权限修改(server-user-changepower)
-      .click('#server-user-changepower')
+      // .click('#server-user-changepower')
       // 2.2.6、点击机构设置(server-org-setup)，右侧弹出两个输入框，输入信息，点击添加机构按钮，按钮颜色状态发生改变
       .click('#server-org-setup')
       // 2.2.7、点击新建机构设置(server-user-addorg)，填写完基本信息后，新增机构

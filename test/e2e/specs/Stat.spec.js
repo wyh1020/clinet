@@ -9,7 +9,7 @@ describe('Stat', function () {
     // 1、点击login页面的login-button
     return this.app.client.click('#login')
     // 等待底部通知框出现'未注册用户登陆！'提示，进入Home页
-      .waitUntilTextExists('#notice-bar', '未注册用户登陆！')
+      .waitUntilTextExists('#notice-bar', '系统通知：未注册用户可以直接登陆！使用单机版功能！用户注册可以选择远程服务或者区块链服务！')
     // 2、点击顶部导航栏的stat-page，进入stat页
       .click('#navbar-stat')
       .waitUntilTextExists('#notice-bar', '数据分析-数据分析')
@@ -203,16 +203,16 @@ describe('Stat', function () {
     // 本地文件 如果leftPanel无数据分析文件 提示"暂无本地分析文件"
 
     // 2.2、远程文件 leftPanel显示远程文件列表
-      .click('#stat-remote-file')
-      .waitUntilTextExists('#notice-bar', '未登录用户,请在系统服务-用户设置内登录')
-      .click('#navbar-system')
-      .click('#navbar-system-server')
-      // .waitUntilTextExists('#notice-bar', '系统服务-远程服务器设置')
-      .click('#server-user-setup')
-      .click('#server-login')
-      .click('#navbar-stat')
-      .click('#stat-local-doc')
-      .click('#stat-remote-file')
+      // .click('#stat-remote-file')
+      // .waitUntilTextExists('#notice-bar', '未登录用户,请在系统服务-用户设置内登录')
+      // .click('#navbar-system')
+      // .click('#navbar-system-server')
+      // // .waitUntilTextExists('#notice-bar', '系统服务-远程服务器设置')
+      // .click('#server-user-setup')
+      // .click('#server-login')
+      // .click('#navbar-stat')
+      // .click('#stat-local-doc')
+      // .click('#stat-remote-file')
       // .waitUntilTextExists('.stat-left-file-tr', '医疗质量')
       // .getText('.stat-left-file-tr')
       // .then(function (file) {
