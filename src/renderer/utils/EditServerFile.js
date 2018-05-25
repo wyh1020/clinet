@@ -154,7 +154,10 @@ export function getHelpTypes(obj, data) {
     if (res.status === 200) {
       const b = res.data.result
       console.log(b)
-      obj.$store.commit('EDIT_SET_HELP_TYPES', b)
+      if (b) {
+        console.log('11')
+        obj.$store.commit('EDIT_SET_HELP_TYPES', b)
+      }
     } else {
       obj.$store.commit('SET_NOTICE', '远程帮助失败')
     }
@@ -176,6 +179,7 @@ export function clinetHelp(obj, data) {
     if (res.status === 200) {
       const b = res.data.result.split('\\n')
       console.log(b)
+      // obj.$store.commit('EDIT_SET_HELP_TYPES', b)
     } else {
       obj.$store.commit('SET_NOTICE', '远程帮助失败')
     }

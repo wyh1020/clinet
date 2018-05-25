@@ -12,7 +12,6 @@
       </table>
     </div>
     <table id='aaa' v-show="chatType">
-      <button v-on:click="getheight">123</button>
       <div v-bind:style="{ height: height + 'px', overflow: 'auto' }" >
         <div v-for="(data, index) in socketRecord" v-bind:key='index'>
           <div style="width: 200px; margin: 0 auto"><span style="padding: 5px">{{data.time}}</span></div>
@@ -31,7 +30,6 @@
   import { getLibrary } from '../../utils/LibraryServerFile'
   import { getStat } from '../../utils/StatServerFile';
   import { getEditFiles, getEdit } from '../../utils/EditServerFile'
-  import { join } from '../../utils/Socket'
   export default {
     created: function () {
       this.height = document.body.clientHeight - 120
@@ -132,9 +130,6 @@
               if (this.$store.state.Edit.serverType === 'file') {
                 getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType, data, this.$store.state.System.user.username])
               } else {
-                if (this.$store.state.Edit.helpType === '在线交流') {
-                  join(this, data, this.$store.state.System.user.username)
-                }
                 getEdit(this, [this.$store.state.System.server, this.$store.state.System.port, data])
               }
               break;

@@ -48,11 +48,10 @@
 </template>
 
 <script>
-  import { getEditFiles, getEdit, clinetHelp } from '../../utils/EditServerFile'
+  import { getEditFiles, getEdit, clinetHelp, getDocTypes, getHelpTypes } from '../../utils/EditServerFile'
   import { getStat } from '../../utils/StatServerFile'
   import { getLibrary } from '../../utils/LibraryServerFile'
   import { sCompDrg } from '../../utils/Server'
-  // import { socketConnect } from '../../utils/Socket'
   export default {
     data() {
       return {
@@ -77,17 +76,19 @@
             } else {
               this.$store.commit('SET_NOTICE', '请选择分析数据！');
             }
-          } else if (this.$store.state.System.user.login) {
-            clinetHelp(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user.username])
-          } else {
+          } else if (n === '编辑器使用帮助' || n === '在线交流') {
             this.$store.commit('SET_NOTICE', n);
             this.helpType = n
             this.$store.commit('EDIT_SET_HELP_TYPE', n);
             this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
+          } else if (this.$store.state.Edit.rightPanel === 'server') {
+            clinetHelp(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user.username])
           }
         }
       },
       localData: function () {
+        this.$store.commit('EDIT_SET_DOC_TYPES', ['自定义文档', '病案首页（卫统四CSV）', '入院申请', '首次病程', '病程记录', '病案首页', '门诊病案', '健康体检']);
+        this.$store.commit('EDIT_SET_DOC_TYPES', ['编辑器使用帮助', '输入提示', '病案参考', '病案历史', '在线交流', 'DRG分析', 'HIS接口'])
         this.$store.commit('EDIT_SET_CHAT_TYPE', false);
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
@@ -109,6 +110,9 @@
         this.$store.commit('EDIT_SET_HINT_TYPE', 'notice');
       },
       serverData: function () {
+        // this.$store.commit('EDIT_SET_DOC_TYPES',)
+        getHelpTypes(this, [this.$store.state.System.server, this.$store.state.System.port])
+        getDocTypes(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user.username])
         this.$store.commit('EDIT_SET_CHAT_TYPE', false);
         this.$store.commit('EDIT_SET_SERVER_TYPE', 'user');
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
