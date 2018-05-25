@@ -88,7 +88,7 @@
       },
       localData: function () {
         this.$store.commit('EDIT_SET_DOC_TYPES', ['自定义文档', '病案首页（卫统四CSV）', '入院申请', '首次病程', '病程记录', '病案首页', '门诊病案', '健康体检']);
-        this.$store.commit('EDIT_SET_DOC_TYPES', ['编辑器使用帮助', '输入提示', '病案参考', '病案历史', '在线交流', 'DRG分析', 'HIS接口'])
+        this.$store.commit('EDIT_SET_HELP_TYPES', ['编辑器使用帮助', '输入提示', '病案参考', '病案历史', '在线交流', 'DRG分析', 'HIS接口'])
         this.$store.commit('EDIT_SET_CHAT_TYPE', false);
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
