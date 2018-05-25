@@ -44,7 +44,6 @@ export function getEdit(obj, data) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
-    //
     if (res.status === 200) {
       obj.$store.commit('EDIT_LOAD_FILE', res.data)
       obj.$store.commit('EDIT_LOAD_FILE', res.data.cda)
@@ -97,7 +96,6 @@ export function getDocTypes(obj, data) {
   const server = data[0]
   const port = data[1]
   const username = data[2]
-  console.log(`http://${server}:${port}/edit/mouldlist?username=${username}`)
   axios({
     method: 'get',
     url: `http://${server}:${port}/edit/mouldlist?username=${username}`,
@@ -153,9 +151,7 @@ export function getHelpTypes(obj, data) {
   }).then((res) => {
     if (res.status === 200) {
       const b = res.data.result
-      console.log(b)
       if (b) {
-        console.log('11')
         obj.$store.commit('EDIT_SET_HELP_TYPES', b)
       }
     } else {
@@ -179,7 +175,6 @@ export function clinetHelp(obj, data) {
     if (res.status === 200) {
       const b = res.data.result.split('\\n')
       console.log(b)
-      // obj.$store.commit('EDIT_SET_HELP_TYPES', b)
     } else {
       obj.$store.commit('SET_NOTICE', '远程帮助失败')
     }
@@ -188,8 +183,3 @@ export function clinetHelp(obj, data) {
     obj.$store.commit('SET_NOTICE', '远程帮助失败')
   })
 }
-// export function getHelpTypes(obj) {
-//   console.log(obj)
-//   obj.$store.commit('SET_NOTICE', '远程帮助未查询')
-//   // obj.$store.commit('EDIT_SET_HELP_TYPES', '')
-// }

@@ -24,12 +24,24 @@
         <!-- <li class="nav-item" id="edit-leftbar-del" v-on:click="save(0)">
           <a class="nav-link text-light" href="#">去除</a>
         </li> -->
+        <li class="nav-item dropdown" v-if="this.$store.state.Edit.leftPanel == 'table'">
+          <a class="nav-link dropdown-toggle text-light" href="#" id="edit-leftbar-choice" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+            {{saveType}}
+          </a>
+          <div class="dropdown-menu">
+            <a v-for="(data, index) in saveTypes" v-bind:key='index' class="dropdown-item" href="#" v-on:click="save(data)">{{data}}</a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </li>
         <li class="nav-item" id="edit-leftbar-cache" v-on:click="saveDoc()" v-if="this.$store.state.Edit.leftPanel == 'doc'">
           <a class="nav-link text-light" href="#" v-if="fileName !== '' || this.$store.state.Edit.rightPanel === 'server'">缓存</a>
         </li>
-        <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save()" v-if="this.$store.state.Edit.leftPanel == 'table'">
-          <a class="nav-link text-light" href="#">保存</a>
-        </li>
+        <!-- <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save()" v-if="this.$store.state.Edit.leftPanel == 'table'">
+          <a class="nav-link text-light" href="#">保存病案</a>
+        </li> -->
+        <!-- <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save()" v-if="this.$store.state.Edit.leftPanel == 'table'">
+          <a class="nav-link text-light" href="#">保存模板</a>
+        </li> -->
         <!-- <li class="nav-item" id="edit-leftbar-save" v-on:click="save(2)" v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#">另存</a>
         </li> -->
@@ -60,10 +72,17 @@
         leftItem: '',
         docType: '自定义文档',
         saveTypes: ['保存病案', '保存模板'],
-        saveType: '保存病案',
+        // saveType: '',
       };
     },
     computed: {
+      saveType: {
+        get() {
+          const type = '保存病案'
+          return type
+        },
+        set() {}
+      },
       fileName: {
         get() {
           return this.$store.state.Edit.fileName
@@ -169,14 +188,13 @@
           this.$store.commit('SET_NOTICE', '请先打开一个文件，然后选择编辑一个文档，或者新建一个文档！')
         }
       },
-      save: function () {
+      save: function (data) {
         const fileName = this.$store.state.Edit.fileName
         let doc = this.$store.state.Edit.doc
         doc = doc.filter(x => x !== '')
         doc = doc.map(x => x.join(' '))
         let x = ''
         let p = ''
-        const data = '保存模板'
         if (this.$store.state.Edit.helpType === '在线交流') {
           message(this, this.$store.state.Edit.file[this.$store.state.Edit.fileIndex], this.$store.state.System.user.username, 'doc')
         } else if (fileName.includes('@')) {
@@ -191,11 +209,6 @@
             this.saveType = '保存病案'
             saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1, this.$store.state.Edit.docType, '病案'])
           }
-          // if (!this.$store.state.Edit.modelName) {
-          //   this.$store.commit('SET_NOTICE', '请输入模板名称！')
-          // } else {
-          //   saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1, this.$store.state.Edit.modelName, ''])
-          // }
         } else {
           if (data === '保存模板') {
             this.saveType = '保存模板'

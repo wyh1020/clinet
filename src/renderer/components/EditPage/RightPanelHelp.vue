@@ -159,7 +159,7 @@
     methods: {
       invite(data) {
         console.log(data)
-        invite(this, data, this.$store.state.System.user.username)
+        invite(this, this.$store.state.System.user.username, data)
       }
     },
   };
