@@ -143,7 +143,7 @@
           }
           this.$store.commit('EDIT_LOAD_DOC', r)
           if (this.$store.state.Edit.helpType === '在线交流') {
-            join(this, data, this.$store.state.System.user.username)
+            join(this, this.$store.state.Edit.fileName, this.$store.state.System.user.username)
             this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
           } else if (this.$store.state.Edit.selectedType === 'row') {
             this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
