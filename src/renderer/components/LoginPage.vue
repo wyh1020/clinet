@@ -9,11 +9,11 @@
               <h2>登陆系统</h2>
                 <form>
                   <div class="form-group">
-                    <label for="exampleInputEmail1" class="text-danger">用户名（远程服务用户是电子邮箱，区块链服务用户是12个单词组成的口令）</label>
+                    <label for="exampleInputEmail1" class="text-danger">用户名（电子邮箱）</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" v-model="loginName">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1" class="text-danger">用户密码（区块链服务用户没有密码，或者使用二级密码）</label>
+                    <label for="exampleInputPassword1" class="text-danger">用户密码</label>
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="" v-model="loginPassword">
                   </div>
                 </form>
@@ -57,11 +57,11 @@
               </ul>
             </p>
             <p>
-              本系统登陆分3种用户状态：
+              本系统登陆分2种用户状态：
               <ul>
                 <li>使用远程服务用户登陆：测试用户是 test@hitb.com.cn，密码是 123456</li>
-                <li>使用区块链服务用户登陆：测试用户是 someone manual strong movie roof episode eight spatial brown soldier soup motor</li>
-                <li>使用未注册用户登陆：前2种用户认证失败，则自动使用未注册用户登陆，可以使用单机版功能，可以在系统服务中再次使用远程服务账户登陆，或者在区块链服务中再次使用区块链服务账户登陆</li>
+                <li>使用未注册用户登陆：远程服务用户认证失败，则自动使用未注册用户登陆，可以使用单机版功能，可以在系统服务中再次使用远程服务账户登陆</li>
+                <li>远程服务用户注册/登陆后，自动注册/登陆区块链服务，可以将远程文件发布到区块链服务上。</li>
               </ul>
             </p>
           </div>
@@ -80,7 +80,6 @@
 <script>
   import NavBar from './HomePage/NavBar';
   import NoticeBar from './HomePage/NoticeBar';
-  import { open } from '../utils/BlockAccount';
   import { socketConnect } from '../utils/Socket';
   export default {
     name: 'login-page',
@@ -109,20 +108,9 @@
         this.$electron.shell.openExternal(link);
       },
       login() {
-        const name = this.loginName;
-        const pass = this.loginPassword;
-        // const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
-        if (Array.from(name.split(' ')).length === 12) {
-          const key = Object.keys(global.hitbdata.blockchain)[0]
-          const server = global.hitbdata.blockchain[key][0];
-          this.$store.commit('BLOCK_SET_SERVER', server)
-          open(this, [server[0], server[1], name]);
-        } else {
-          const user = { username: name, password: pass }
-          const server = global.hitbdata.server['远程测试服务器'][0];
-          if (user.username !== '' && user.password !== '') {
-            socketConnect(this, [server[0], server[1], user.username]);
-          }
+        const server = global.hitbdata.server['远程测试服务器'][0];
+        if (this.loginName && this.loginPassword) {
+          socketConnect(this, [server[0], server[1], this.loginName, this.loginPassword]);
         }
         this.$store.commit('SET_NAVBAR', 'edit');
         this.$store.commit('HAS_DATA');
