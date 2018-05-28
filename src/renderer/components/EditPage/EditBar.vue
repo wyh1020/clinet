@@ -98,17 +98,21 @@
             let n = this.$store.state.Edit.docIndex
             if (this.$store.state.Edit.selectedType !== 'col') {
               const vs = value.split('，').filter(i => i !== '');
-              vs.forEach((element, index) => {
-                const v = element.split(' ').filter(i => i !== '');
-                if (v.length > 0) {
-                  if (index > 0) {
-                    this.$store.commit('EDIT_UPDATE_DOC', [n, v, true]);
-                  } else {
-                    this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
+              if (vs.length > 0) {
+                vs.forEach((element, index) => {
+                  const v = element.split(' ').filter(i => i !== '');
+                  if (v.length > 0) {
+                    if (index > 0) {
+                      this.$store.commit('EDIT_UPDATE_DOC', [n, v, true]);
+                    } else {
+                      this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
+                    }
+                    n += 1
                   }
-                  n += 1
-                }
-              });
+                });
+              } else {
+                this.$store.commit('EDIT_DELETE_ITEM', n);
+              }
             }
           }
         }
@@ -123,9 +127,9 @@
             let value = e.target.value
             if (this.$store.state.Edit.selectedType !== 'col') {
               const vs = value.split('，').filter(i => i !== '');
-              vs.forEach((element, index) => {
-                const v = element.split(' ').filter(i => i !== '');
-                if (v.length > 0) {
+              if (vs.length > 0) {
+                vs.forEach((element, index) => {
+                  const v = element.split(' ').filter(i => i !== '');
                   if (index > 0) {
                     this.$store.commit('EDIT_UPDATE_DOC', [n, v, true]);
                   } else {
@@ -133,8 +137,10 @@
                   }
                   this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
                   n += 1
-                }
-              });
+                });
+              } else {
+                this.$store.commit('EDIT_DELETE_ITEM', n);
+              }
             } else {
               value = value.replace(/,/g, '，')
               const cv = value.split(' ').filter(i => i !== '');
