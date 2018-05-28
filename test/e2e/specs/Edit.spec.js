@@ -21,7 +21,7 @@ describe('Edit', function () {
     // --------------------- 不点击左侧自定义下拉 -----------------------------------
     // 2.1 直接点击编辑按钮
     // 2.1.1 直接点击保存按钮
-      // .click('#edit-leftbar-preservation')
+      // .click('#edit-leftbar-保存病案')
       // .getText('#edit-editbar-input')
       // .then(function (preservation) {
       //   expect(preservation).to.be.an('string');
@@ -187,7 +187,8 @@ describe('Edit', function () {
       })
     // 2.1.7 点击远程文件按钮
       .click('#edit-rightbar-server')
-      .waitUntilTextExists('#edit-bar-prompt', '未登录用户,请在系统服务-用户设置内登录')
+      // .waitUntilTextExists('#edit-bar-prompt', '未登录用户,请在系统服务-用户设置内登录')
+      .waitUntilTextExists('#edit-bar-prompt', '模板列表查询失败')
     // 2.1.8 点击前页按钮
       .click('#edit-rightbar-uppage')
       .getText('#edit-editbar-input')
@@ -229,7 +230,7 @@ describe('Edit', function () {
     // 2.2.3点击右侧 本地按钮 左侧保存按钮
       .click('#edit-rightbar-local')
       .waitUntilTextExists('#edit-bar-prompt', '读取本地文件')
-      // .click('#edit-leftbar-preservation')
+      // .click('#edit-leftbar-保存病案')
       // .getText('#edit-bar-prompt')
       // .then(function (editText) {
       //   // console.log(editText);
@@ -260,7 +261,7 @@ describe('Edit', function () {
     // 2.2.1.3点击右侧 本地按钮 左侧保存按钮
       .click('#edit-rightbar-local')
       .waitUntilTextExists('#edit-bar-prompt', '读取本地文件')
-      // .click('#edit-leftbar-preservation')
+      // .click('#edit-leftbar-保存病案')
       // .getText('#edit-bar-prompt')
       // .then(function (editText) {
       //   // console.log(editText);
@@ -293,7 +294,7 @@ describe('Edit', function () {
     // 2.2.1.1.3点击右侧 本地按钮 左侧保存按钮
       .click('#edit-rightbar-local')
       .waitUntilTextExists('#edit-bar-prompt', '读取本地文件')
-      // .click('#edit-leftbar-preservation')
+      // .click('#edit-leftbar-保存病案')
       // .getText('#edit-bar-prompt')
       // .then(function (editText) {
       //   // console.log(editText);
@@ -326,7 +327,7 @@ describe('Edit', function () {
     // 2.2.1.1.1.3点击右侧 本地按钮 左侧保存按钮
       .click('#edit-rightbar-local')
       .waitUntilTextExists('#edit-bar-prompt', '读取本地文件')
-      // .click('#edit-leftbar-preservation')
+      // .click('#edit-leftbar-保存病案')
       // .getText('#edit-bar-prompt')
       // .then(function (editText) {
       //   // console.log(editText);
@@ -359,7 +360,7 @@ describe('Edit', function () {
     // 2.2.1.1.1.1.1.3点击右侧 本地按钮 左侧保存按钮
       .click('#edit-rightbar-local')
       .waitUntilTextExists('#edit-bar-prompt', '读取本地文件')
-      // .click('#edit-leftbar-preservation')
+      // .click('#edit-leftbar-保存病案')
       // .getText('#edit-bar-prompt')
       // .then(function (editText) {
       //   // console.log(editText);
@@ -392,7 +393,7 @@ describe('Edit', function () {
     // 2.2.1.1.1.1.1.3点击右侧 本地按钮 左侧保存按钮
       .click('#edit-rightbar-local')
       .waitUntilTextExists('#edit-bar-prompt', '读取本地文件')
-      // .click('#edit-leftbar-preservation')
+      // .click('#edit-leftbar-保存病案')
       // .getText('#edit-bar-prompt')
       // .then(function (editText) {
       //   // console.log(editText);
@@ -425,7 +426,7 @@ describe('Edit', function () {
     // 2.2.1.1.1.1.1.1.3点击右侧 本地按钮 左侧保存按钮
       .click('#edit-rightbar-local')
       .waitUntilTextExists('#edit-bar-prompt', '读取本地文件')
-      // .click('#edit-leftbar-preservation')
+      // .click('#edit-leftbar-保存病案')
       // .getText('#edit-bar-prompt')
       // .then(function (editText) {
       //   // console.log(editText);
