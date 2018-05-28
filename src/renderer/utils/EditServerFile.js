@@ -103,7 +103,7 @@ export function getDocTypes(obj, data) {
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
-      const results = res.data.resule.map(n => n.slice(0, -4))
+      const results = res.data.result.map(n => n.slice(0, -4))
       obj.$store.commit('EDIT_SET_DOC_TYPES', results)
       obj.$store.commit('SET_NOTICE', '模板列表查询成功')
     } else {
