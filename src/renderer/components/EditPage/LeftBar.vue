@@ -29,7 +29,7 @@
             {{saveType}}
           </a>
           <div class="dropdown-menu">
-            <a v-for="(data, index) in saveTypes" v-bind:key='index' class="dropdown-item" href="#" v-on:click="save(data)">{{data}}</a>
+            <a v-for="(data, index) in saveTypes" v-bind:key='index' class="dropdown-item" href="#" v-on:click="save(data)" v-bind:id="'edit-leftbar-'+data">{{data}}</a>
             <div class="dropdown-divider"></div>
           </div>
         </li>

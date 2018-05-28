@@ -147,7 +147,8 @@ describe('EditLocalFile', function () {
       })
     // 2.1.6 点击远程文件按钮
       .click('#edit-rightbar-server')
-      .waitUntilTextExists('#edit-bar-prompt', '未登录用户,请在系统服务-用户设置内登录')
+      // .waitUntilTextExists('#edit-bar-prompt', '未登录用户,请在系统服务-用户设置内登录')
+      .waitUntilTextExists('#edit-bar-prompt', '模板列表查询失败')
     // 2.1.7 点击前页按钮
       .click('#edit-rightbar-uppage')
       .getText('#edit-editbar-input')
@@ -357,8 +358,8 @@ describe('EditLocalFile', function () {
       //   // console.log(editText);
       //   expect(editText).to.be.an('string');
       // })
-    // 2.3.2.1 点击保存按钮 edit-leftbar-preservation
-      // .click('#edit-leftbar-preservation')
+    // 2.3.2.1 点击保存按钮 edit-leftbar-保存病案
+      // .click('#edit-leftbar-保存病案')
       // .getText('#edit-bar-prompt')
       // .then(function (editText) {
       //   // console.log(editText);
@@ -388,7 +389,7 @@ describe('EditLocalFile', function () {
     // 2.3.3.1 点击右侧 本地按钮 左侧保存按钮
       .click('#edit-rightbar-local')
       .waitUntilTextExists('#edit-bar-prompt', '读取本地文件')
-      // .click('#edit-leftbar-preservation')
+      // .click('#edit-leftbar-保存病案')
       // .getText('#edit-bar-prompt')
       // .then(function (editText) {
       //   // console.log(editText);
