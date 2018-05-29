@@ -21,7 +21,7 @@ const state = {
   hintType: 'notice',
   hint: [],
   helpType: '编辑器使用帮助',
-  helpTypes: ['编辑器使用帮助', '输入提示', '病案参考', '病案历史', '在线交流', 'DRG分析', 'HIS接口'],
+  helpTypes: ['编辑器使用帮助', '输入框提示', '病案参考', '病案历史', '在线交流', 'DRG分析', 'HIS接口'],
   serverType: 'user',
   docType: '自定义文档',
   docTypes: ['自定义文档', '病案首页（卫统四CSV）', '入院申请', '首次病程', '病程记录', '病案首页', '门诊病案', '健康体检'],
@@ -31,7 +31,9 @@ const state = {
   chatType: false,
   editType: '病案编辑',
   chatUsers: [],
-  modelName: null
+  modelName: null,
+  rightPanels: [],
+  rightCdh: null,
 };
 
 const mutations = {
@@ -242,10 +244,25 @@ const mutations = {
   EDIT_SET_MODEL_NAME(state, value) {
     state.modelName = value
   },
+  EDIT_SET_RIGHT_PANELS(state, value) {
+    if (!state.rightPanels.includes(value)) {
+      state.rightPanels.push(value)
+    }
+  },
+  EDIT_DELETE_RIGHT_PANELS(state, value) {
+    const index = state.rightPanels.indexOf(value)
+    state.rightPanels.splice(index, 1)
+  },
+  EDIT_SET_RIGHT_CDH(state, value) {
+    state.rightCdh = value
+  },
 };
 
 const actions = {
   someAsyncTask({ commit }) {
+    commit('EDIT_SET_RIGHT_CDH');
+    commit('EDIT_DELETE_RIGHT_PANELS');
+    commit('EDIT_SET_RIGHT_PANELS');
     commit('EDIT_SET_MODEL_NAME');
     commit('EDIT_SET_HELP_TYPES');
     commit('EDIT_SET_CHAT_USERS');

@@ -1,9 +1,12 @@
 <template>
   <div id="edit-rightpanel">
     <right-bar></right-bar>
-    <right-panel-local v-if="rightPanel == 'local'"></right-panel-local>
+    <!-- <right-panel-local v-if="rightPanel == 'local'"></right-panel-local>
     <right-panel-local v-if="rightPanel == 'server'"></right-panel-local>
     <right-panel-help v-if="rightPanel == 'help'"></right-panel-help>
+    <left-panel-table v-if="rightPanel == 'left'"></left-panel-table> -->
+    <right-panel-local v-if="rightPanels.includes('本地文件') || rightPanels.includes('远程文件')"></right-panel-local>
+    <right-panel-help v-if="rightPanels.includes('编辑器使用帮助') || rightPanels.includes('病案历史')|| rightPanels.includes('输入框提示')|| rightPanels.includes('病案参考')|| rightPanels.includes('DRG分析')|| rightPanels.includes('在线交流')|| rightPanels.includes('HIS接口')"></right-panel-help>
     <left-panel-table v-if="rightPanel == 'left'"></left-panel-table>
   </div>
 </template>
@@ -17,10 +20,15 @@
     components: { RightBar, RightPanelLocal, RightPanelHelp, LeftPanelTable },
     data() {
       return {
-        flag: ''
+        flag: '',
       };
     },
     computed: {
+      rightPanels: {
+        get() {
+          return this.$store.state.Edit.rightPanels
+        }
+      },
       rightPanel: {
         get() {
           return this.$store.state.Edit.rightPanel
@@ -34,7 +42,7 @@
   * {
     padding: 0;
     margin: 0;
-    margin-bottom: 70px;
+    /* margin-bottom: 10px; */
   }
 
 </style>

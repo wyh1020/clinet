@@ -2,7 +2,9 @@
   <div style="overflow:auto;">
     <table id="edit-rightpanelCDH-table">
       <tr>
-        <th colspan="10" class="table-info" id="edit-rightpanellocal-title"> {{title}}</th>
+        <th colspan="10" class="table-info" id="edit-rightpanellocal-title"> {{title}}
+          <a href="#" v-on:click="close(title)" style="float: right">×</a>
+        </th>
       </tr>
       <tr class="edit-rightpanellocal-tr" v-for="(data, index) in xs" v-bind:key='index' v-bind:class="{'table-danger':flag == index}">
         <td>{{index}}</td>
@@ -30,7 +32,12 @@
       },
       xs: {
         get() {
-          const x = global.hitbdata.cdh
+          let x = global.hitbdata.cdh
+          if (this.$store.state.Edit.rightPanel === 'local') {
+            x = global.hitbdata.cdh
+          } else {
+            x = this.$store.state.Edit.rightCdh
+          }
           return x
         },
       },
@@ -54,6 +61,9 @@
         this.$store.commit('EDIT_UPDATE_DOC', [n, [index, item]]);
         this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
       },
+      close(data) {
+        this.$store.commit('EDIT_DELETE_RIGHT_PANELS', data);
+      }
     },
   };
 </script>

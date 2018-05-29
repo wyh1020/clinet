@@ -174,7 +174,8 @@ export function clinetHelp(obj, data) {
   }).then((res) => {
     if (res.status === 200) {
       const b = res.data.result.split('\\n')
-      console.log(b)
+      obj.$store.commit('EDIT_SET_RIGHT_CDH', b)
+      // console.log(b)
     } else {
       obj.$store.commit('SET_NOTICE', '远程帮助失败')
     }

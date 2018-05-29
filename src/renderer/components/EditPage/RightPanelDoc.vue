@@ -2,6 +2,7 @@
   <div id="edit-rightpaneldoc-doc">
     <div class="card">
       <div class="card-body" v-for="(section, key) of doc" v-bind:key='key'>
+        <a href="#" v-on:click="close('病案历史')" style="float: right">×</a>
         <!-- 个人信息 -->
         <div v-if="lastNav === '/stat'">
           <table>
@@ -113,6 +114,9 @@
         this.$store.commit('EDIT_UPDATE_DOC', [n, [key]]);
         this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
       },
+      close(data) {
+        this.$store.commit('EDIT_DELETE_RIGHT_PANELS', data);
+      }
     },
   };
 </script>

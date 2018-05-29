@@ -105,12 +105,11 @@
         document.getElementById('edit-editbar-input').focus()
       },
       newDoc: function (n) {
-        console.log(n)
         // this.$store.commit('EDIT_SET_CHAT_TYPE', true);
         this.$store.commit('EDIT_SET_DOC_INDEX', [0, true])
         this.$store.commit('EDIT_SET_FILE_INDEX', this.$store.state.Edit.file.length)
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
-        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'left')
+        // this.$store.commit('EDIT_SET_RIGHT_PANEL', 'left')
         if (n) {
           this.$store.commit('EDIT_SET_DOC_TYPE', n)
         } else { n = this.$store.state.Edit.docType }

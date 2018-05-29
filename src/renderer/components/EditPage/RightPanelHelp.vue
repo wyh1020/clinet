@@ -1,8 +1,12 @@
 <template>
   <div id="edit-rightpanelhelp">
-    <table v-if="type === '编辑器使用帮助'">
+    <!-- <table v-if="type === '编辑器使用帮助'"> -->
+    <table v-if="this.$store.state.Edit.rightPanels.includes('编辑器使用帮助')">
       <tr>
-        <th class="table-danger"> 编辑器使用帮助</th>
+        <th class="table-danger"> 编辑器使用帮助
+          <a href="#" v-on:click="close('编辑器使用帮助')" style="float: right">×</a>
+          <!-- <a href="#" v-on:click="close(title)" style="float: right">︽ </a> -->
+        </th>
       </tr>
       <tr>
         <td>
@@ -109,30 +113,44 @@
         </td>
       </tr>
     </table>
-    <table v-if="type === '病案历史'">
+    <!-- <table v-if="type === '病案历史'"> -->
+    <table v-if="this.$store.state.Edit.rightPanels.includes('病案历史')">
       <tr>
-        <th class="table-danger"> 病案历史</th>
+        <th class="table-danger"> 病案历史
+          <a href="#" v-on:click="close('病案历史')" style="float: right">×</a>
+        </th>
       </tr>
     </table>
-    <right-panel-cdh v-if="type === '输入框提示'"></right-panel-cdh>
-    <right-panel-doc v-if="type === '病案参考'"></right-panel-doc>
-    <table v-if="type === 'drg分析'">
+    <!-- <right-panel-cdh v-if="type === '输入框提示'"></right-panel-cdh> -->
+    <right-panel-cdh v-if="this.$store.state.Edit.rightPanels.includes('输入框提示')"></right-panel-cdh>
+    <!-- <right-panel-doc v-if="type === '病案参考'"></right-panel-doc> -->
+    <right-panel-doc v-if="this.$store.state.Edit.rightPanels.includes('病案参考')"></right-panel-doc>
+    <!-- <table v-if="type === 'DRG分析'"> -->
+    <table v-if="this.$store.state.Edit.rightPanels.includes('DRG分析')">
       <tr>
-        <th class="table-danger"> drg分析</th>
+        <th class="table-danger"> DRG分析
+          <a href="#" v-on:click="close('DRG分析')" style="float: right">×</a>
+        </th>
       </tr>
     </table>
-    <table v-if="type === '在线交流'">
+    <!-- <table v-if="type === '在线交流'"> -->
+    <table v-if="this.$store.state.Edit.rightPanels.includes('在线交流')">
       <tr class="table-danger">
-        <th class="table-danger" colspan="2"> 当前在线用户：</th>
+        <th class="table-danger" colspan="2"> 当前在线用户：
+          <a href="#" v-on:click="close('在线交流')" style="float: right">×</a>
+        </th>
       </tr>
       <tr v-for="(data, index) in chatUsers" v-bind:key='index'>
         <td class="table-danger"> {{data}}</td>
         <td class="table-danger" v-on:click="invite(data)"><a href="#">邀请</a></td>
       </tr>
     </table>
-    <table v-if="type === 'HIS接口'">
+    <!-- <table v-if="type === 'HIS接口'"> -->
+    <table v-if="this.$store.state.Edit.rightPanels.includes('HIS接口')">
       <tr>
-        <th class="table-danger"> HIS接口</th>
+        <th class="table-danger"> HIS接口
+          <a href="#" v-on:click="close('HIS接口')" style="float: right">×</a>
+        </th>
       </tr>
     </table>
   </div>
@@ -158,8 +176,10 @@
     },
     methods: {
       invite(data) {
-        console.log(data)
         invite(this, this.$store.state.System.user.username, data)
+      },
+      close(data) {
+        this.$store.commit('EDIT_DELETE_RIGHT_PANELS', data);
       }
     },
   };

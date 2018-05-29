@@ -1,9 +1,11 @@
 <template>
-  <div>
+  <div style="marginBottom: 10px">
     <div style="overflow:auto;">
       <table id="edit-rightpanellocal-table" v-show="this.$store.state.Edit.chatType === false">
         <tr>
-          <th colspan="10" class="table-info" id="edit-rightpanellocal-title"> {{title}}</th>
+          <th colspan="10" class="table-info" id="edit-rightpanellocal-title"> {{title}}
+            <a href="#" v-on:click="close(panelName)" style="float: right">×</a>
+          </th>
         </tr>
         <tr class="edit-rightpanellocal-tr" v-for="(data, index) in xs" v-bind:key='index' v-bind:id="'edit-rightpanellocal-tr'+index" v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
           <td>{{index + 1}}</td>
@@ -31,6 +33,11 @@
   import { getStat } from '../../utils/StatServerFile';
   import { getEditFiles, getEdit } from '../../utils/EditServerFile'
   export default {
+    data() {
+      return {
+        panelName: '',
+      };
+    },
     created: function () {
       this.height = document.body.clientHeight - 120
     },
@@ -54,8 +61,10 @@
       title: {
         get() {
           let x = '用户本地的文件列表'
+          this.panelName = '本地文件'
           if (this.$store.state.Edit.rightPanel === 'server') {
             x = '远程文件的用户列表'
+            this.panelName = '远程文件'
             if (!this.$store.state.System.user.login) {
               x = '远程文件的用户列表（用户未登陆服务器，请先登陆！）'
             }
@@ -148,6 +157,9 @@
           loadFile(this, data, x, 'edit')
         }
       },
+      close(data) {
+        this.$store.commit('EDIT_DELETE_RIGHT_PANELS', data);
+      }
     },
   };
 </script>

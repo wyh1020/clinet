@@ -19,7 +19,7 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" v-on:click='help("在线交流")' id="edit-rightbar-onlineSay">在线交流</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" v-on:click='help("drg分析")' id="edit-rightbar-drgStat">DRG分析</a>
+            <a class="dropdown-item" href="#" v-on:click='help("DRG分析")' id="edit-rightbar-drgStat">DRG分析</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" v-on:click='help("HIS接口")' id="edit-rightbar-hisInterface">HIS接口</a> -->
           </div>
@@ -70,7 +70,8 @@
     methods: {
       help: function (n) {
         if (n) {
-          if (n === 'drg分析') {
+          this.$store.commit('EDIT_SET_RIGHT_PANELS', n);
+          if (n === 'DRG分析') {
             if (this.$store.state.System.wt4Tables.length > 1) {
               sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables, 'BJ'], 'getLocalData')
             } else {
@@ -87,8 +88,9 @@
         }
       },
       localData: function () {
+        this.$store.commit('EDIT_SET_RIGHT_PANELS', '本地文件');
         this.$store.commit('EDIT_SET_DOC_TYPES', ['自定义文档', '病案首页（卫统四CSV）', '入院申请', '首次病程', '病程记录', '病案首页', '门诊病案', '健康体检']);
-        this.$store.commit('EDIT_SET_HELP_TYPES', ['编辑器使用帮助', '输入提示', '病案参考', '病案历史', '在线交流', 'DRG分析', 'HIS接口'])
+        this.$store.commit('EDIT_SET_HELP_TYPES', ['编辑器使用帮助', '输入框提示', '病案参考', '病案历史', '在线交流', 'DRG分析', 'HIS接口'])
         this.$store.commit('EDIT_SET_CHAT_TYPE', false);
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'local');
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
@@ -121,6 +123,7 @@
           this.$store.commit('EDIT_SERVER_FILES', []);
           this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
         } else {
+          this.$store.commit('EDIT_SET_RIGHT_PANELS', '远程文件');
           this.$store.commit('SET_NOTICE', '读取远程文件');
           getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType, this.$store.state.System.user.username])
           this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
