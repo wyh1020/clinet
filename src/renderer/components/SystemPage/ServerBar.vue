@@ -191,7 +191,7 @@
       getPersons: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getPersons');
         this.$store.commit('SYSTEM_GET_ORGPAGE', 'getPersonTable');
-        sGetUsers(this, [this.server, this.port]);
+        sGetUsers(this, [this.server, this.port, '1']);
         this.$store.commit('SET_NOTICE', '人员设置');
       },
       getServerFunctions: function () {

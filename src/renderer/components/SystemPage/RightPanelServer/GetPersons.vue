@@ -60,6 +60,7 @@
   </div>
 </template>
 <script>
+  import { sGetUsers } from '../../../utils/Server';
   export default {
     data() {
       return {
@@ -86,7 +87,6 @@
         this.$store.commit('SYSTEM_UPDATA_PERSON', b)
       },
       upUser: function (value) {
-        // this.upPerson = 'form'
         this.personInfo.name = this.persons.data[value].name
         this.personInfo.org = this.persons.data[value].org
         this.personInfo.age = this.persons.data[value].age
@@ -95,6 +95,10 @@
         this.id = this.persons.data[value].id
         this.$store.commit('SYSTEM_ID_PERSON', this.persons.data[value].id)
         this.$store.commit('SYSTEM_GET_ORGPAGE', 'getPerson');
+      },
+      serverPage: function (value) {
+        sGetUsers(this, [this.$store.state.System.server, this.$store.state.System.port, value])
+        console.log(value);
       }
     }
   };

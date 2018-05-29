@@ -111,7 +111,7 @@ export function sLogin(obj, data) {
 }
 // 获取用户列表
 export function sGetUsers(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/servers/user/`)
+  axios.get(`http://${data[0]}:${data[1]}/servers/user?page=${data[2]}`)
     .then((res) => {
       if (res.status === 200) {
         obj.$store.commit('SYSTEM_GET_USERS', res.data)
