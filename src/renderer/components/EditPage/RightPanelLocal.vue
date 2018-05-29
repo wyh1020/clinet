@@ -8,6 +8,9 @@
         <tr class="edit-rightpanellocal-tr" v-for="(data, index) in xs" v-bind:key='index' v-bind:id="'edit-rightpanellocal-tr'+index" v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
           <td>{{index + 1}}</td>
           <td>{{data}}</td>
+          <td v-if ="title === '远程文件的用户列表' && data.split('').includes('-')">
+            <a href="#">发布</a>
+          </td>
         </tr>
       </table>
     </div>

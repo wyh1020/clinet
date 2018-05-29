@@ -63,6 +63,9 @@
         <li class="nav-item active" v-if="this.$store.state.System.userPower === 1 && toolbar === 'getPersons' && orgPage === 'getPerson'" v-on:click="systemUsers('personUpdate')">
           <a class="nav-link text-light" href="#"> 人员修改 <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active" v-on:click='upHelp()'>
+          <a class="nav-link text-light" href="#"> 增加帮助功能 <span class="sr-only">(current)</span></a>
+        </li>
         <!-- <li class="nav-item active" v-on:click='getServerFunctions' id="server-remote-function-setup">
           <a class="nav-link text-light" href="#"> 远程服务功能设置 <span class="sr-only">(current)</span></a>
         </li> -->
@@ -76,7 +79,7 @@
 
 <script>
   import { sGetOrg, sGetProvince, sGetUsers, sRegister, sUpdateUser,
-    sCreateOrg, sUpdateOrg, sGetDepart, sCreateDepart, sUpdateDepart } from '../../utils/Server';
+    sCreateOrg, sUpdateOrg, sGetDepart, sCreateDepart, sUpdateDepart, sUpHelp } from '../../utils/Server';
   import { open } from '../../utils/BlockAccount'
   import loadFile from '../../utils/LoadFile';
   import { socketConnect } from '../../utils/Socket';
@@ -286,6 +289,9 @@
           sUpdateDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.depId, this.departmentInfo]);
           console.log('修改')
         }
+      },
+      upHelp: function () {
+        sUpHelp(this, [this.$store.state.System.server, this.$store.state.System.port])
       }
     },
   };
