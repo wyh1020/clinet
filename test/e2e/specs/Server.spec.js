@@ -83,10 +83,10 @@ describe('Server', function () {
         expect(rightpanel).to.be.an('array');
       })
       // 2.2.2、点击用户设置(server-user-setup)，右侧显示用户基本信息
-      // .click('#server-user-setup')
-      // .setValue('#server-username', 'test@test.com.cn')
-      // .setValue('#server-password', '123456')
-      // .click('#server-login')
+      .click('#server-user-setup')
+      .setValue('#server-username', 'test@test.com.cn')
+      .setValue('#server-password', '123456')
+      .click('#server-login')
       // .waitUntilTextExists('#notice-bar', '远程服务用户登录成功')
       // 2.2.3、点击修改(server-user-change)，可对远程用户的基本信息进行修改
       // .click('#server-user-change')
