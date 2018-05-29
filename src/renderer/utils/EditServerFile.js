@@ -127,6 +127,7 @@ export function getDocContent(obj, data) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
+    console.log(res);
     if (res.status === 200) {
       obj.$store.commit('SET_NOTICE', '模板内容查询成功')
       const con = res.data.result.split(',')

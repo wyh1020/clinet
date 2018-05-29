@@ -524,7 +524,7 @@ function fileInsert(obj, data) {
     console.log(res)
     if (res.status === 200) {
       obj.$store.commit('SYSTEM_UPLOAD_FILE', res)
-      obj.$store.commit('SET_NOTICE', `文件上传${res.data.result}条`)
+      obj.$store.commit('SET_NOTICE', `文件上传${res.data}条`)
     } else {
       obj.$store.commit('SYSTEM_PROVINCE', [])
     }
@@ -599,6 +599,19 @@ export function sSaveDefined(obj, data) {
     method: 'post',
     url: `http://${data[0]}:${data[1]}/stat/save_defined/`,
     data: qs.stringify({ username: 'hitb', key: ['fee_avg'] }),
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    responseType: 'json'
+  }).then((res) => {
+    console.log(res)
+  }).catch((err) => {
+    console.log(err)
+  })
+}
+// 增加帮组功能
+export function sUpHelp(obj, data) {
+  axios({
+    method: 'get',
+    url: `http://${data[0]}:${data[1]}/edit/helpinsert/`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
