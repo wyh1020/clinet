@@ -15,6 +15,9 @@
         <li class="nav-item active" v-on:click='blockChainInfo()' id="block-chain-info">
           <a class="nav-link text-light" href="#"> 区块链服务介绍 <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active" v-on:click='blockChainPeer()' id="block-chain-peer">
+          <a class="nav-link text-light" href="#"> 区块链节点列表 <span class="sr-only">(current)</span></a>
+        </li>
         <li class="nav-item active" v-on:click='blockChainFunction()' id="block-chain-function">
           <a class="nav-link text-light" href="#"> 区块链服务功能列表 <span class="sr-only">(current)</span></a>
         </li>
@@ -42,6 +45,9 @@
       blockChainInfo: function () {
         this.$store.commit('BLOCK_SET_TOOLBAR', 'blockChainInfo');
         this.$store.commit('SET_NOTICE', '区块链服务介绍');
+      },
+      blockChainPeer: function () {
+
       },
       blockChainFunction: function () {
         this.$store.commit('BLOCK_SET_TOOLBAR', 'blockChainFunction');

@@ -10,10 +10,13 @@
           <a class="nav-link text-light" href="#"> 返回 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" id="stat-local-doc" v-on:click='loadData()'>
-          <a class="nav-link text-light" href="#"> 本地文件 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 本地 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" id="stat-remote-file" v-on:click='serverData()'>
-          <a class="nav-link text-light" href="#"> 远程文件 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 远程 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" id="stat-block-file" v-on:click='blockData()'>
+          <a class="nav-link text-light" href="#"> 区块链 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" id="stat-prev-page" v-on:click='page(-1)'>
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
@@ -144,7 +147,9 @@
           getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], '', this.$store.state.System.user.username)
         }
       },
+      blockData: function () {
 
+      },
       page: function (n) {
         if (this.$store.state.Stat.tablePage === 1 && n === -1) {
           this.$store.commit('SET_NOTICE', '当前已是第一页')

@@ -7,10 +7,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active" v-on:click='loadData()' id="library-local-file">
-          <a class="nav-link text-light" href="#"> 本地文件 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 本地 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='serverData()' id="library-remote-file">
-          <a class="nav-link text-light" href="#"> 远程文件 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 远程 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active" v-on:click='blockData()' id="library-block-file">
+          <a class="nav-link text-light" href="#"> 区块链 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='page(-1)' id="library-up">
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
@@ -68,6 +71,9 @@
           this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
           getLibraryFiles(this, [this.$store.state.System.server, this.$store.state.System.port])
         }
+      },
+      blockData: function () {
+
       },
       page: function (n) {
         if (this.$store.state.Library.tablePage === 1 && n === -1) {
