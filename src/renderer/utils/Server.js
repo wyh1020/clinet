@@ -609,9 +609,10 @@ export function sSaveDefined(obj, data) {
 }
 // 增加帮组功能
 export function sUpHelp(obj, data) {
+  console.log(data);
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/edit/helpinsert/`,
+    url: `http://${data[0]}:${data[1]}/edit/helpinsert?name=${data[2]}&content=${data[3]}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {

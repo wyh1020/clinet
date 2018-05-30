@@ -291,7 +291,7 @@
         }
       },
       upHelp: function () {
-        sUpHelp(this, [this.$store.state.System.server, this.$store.state.System.port])
+        sUpHelp(this, [this.$store.state.System.server, this.$store.state.System.port, '编辑器帮助', ''])
       }
     },
   };
