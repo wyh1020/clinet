@@ -1,10 +1,10 @@
 import utils from '../utils';
 
-describe('Stat', function () {
+describe('StatLocalFile', function () {
   beforeEach(utils.beforeEach);
   afterEach(utils.afterEach);
 
-  it('Stat-基本测试', function () {
+  it('Stat-本地文件测试', function () {
     this.timeout(100000)
     // 1、点击login页面的login-button
     return this.app.client.click('#login')
@@ -13,19 +13,52 @@ describe('Stat', function () {
     // 2、点击顶部导航栏的stat-page，进入stat页
       .click('#navbar-stat')
       .waitUntilTextExists('#notice-bar', '数据分析-数据分析')
+    // 2.1、本地文件 leftPanel显示本地文件列表
+      .click('#stat-local-doc')
+    // 2.1.1 点击leftPanel列表 rightPanel数据表显示当前文件的前十条数据 chart显示当前数据图表 提示显示当前数据提示内容
+      .click('#stat-left-file-tr0')
+      .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')
+      .getText('.stat-right-table-tr')
+      .then(function (rightTable) {
+        // console.log(rightTable)
+        expect(rightTable).to.be.an('array');
+      })
+    // 2.1.1.1 点击rightPanel数据表的单条或多条数据高亮显示 rightPanel的chart及提示显示当前数据的图表及提示内容
+      .click('.stat-right-table-tr')
+      .waitUntilWindowLoaded(8000)
+      .click('.stat-right-table-td')
+      .waitUntilWindowLoaded(1000)
+      .getText('.stat-right-table-tr')
+      .then(function (rightTableTr) {
+        // console.log(rightTableTr)
+        expect(rightTableTr).to.be.an('array');
+      })
+    // 2.1.1.1.1 点击工具栏的加入对比 将rightPanel数据表中选中的数据加入到对比数据中
+      // .click('#stat-join-contrast')
+      // .waitUntilTextExists('#notice-bar', '加入成功')
+    // 2.1.1.1.2 点击工具栏的显示对比 将对比数据显示到rightPanel的数据表中
+      // .click('#stat-show-contrast')
+      // .waitUntilWindowLoaded(1000)
+      // .getText('.stat-right-table-tr')
+      // .then(function (rightTableTr) {
+      //   // console.log(rightTableTr)
+      //   expect(rightTableTr).to.be.an('string');
+      // })
+    // 2.1.1.1.3 点击工具栏的保存对比(stat-save-contrast)
+      // .click('#stat-save-contrast')
     // 2.1.1.1.4 点击工具栏的后一页 rightPanel显示当前数据的后十条数据并且当前行高亮显示 如果为最后一页则提示"当前已是最后一页"
       .click('#stat-next-page')
-      .waitUntilTextExists('#notice-bar', '当前已是尾页')
-      .getText('#notice-bar')
+      // .waitUntilWindowLoaded(1000)
+      .getText('.stat-right-table-tr')
       .then(function (rightTable) {
-        expect(rightTable).to.equal('系统通知：当前已是尾页');
+        expect(rightTable).to.be.an('array');
       })
     // 2.1.1.1.5 点击工具栏的前一页 rightPanel显示当前数据的前十条数据并且当前行高亮显示 如果为第一页则提示"当前已是第一页"
       .click('#stat-prev-page')
-      .waitUntilTextExists('#notice-bar', '当前已是第一页')
-      .getText('#notice-bar')
+      // .waitUntilWindowLoaded(1000)
+      .getText('.stat-right-table-tr')
       .then(function (rightTable) {
-        expect(rightTable).to.equal('系统通知：当前已是第一页');
+        expect(rightTable).to.be.an('array');
       })
     // 2.1.1.1.6 点击工具栏的编辑数据 将当前本地文件数据显示传到Edit的rightPanel中并高亮显示当前选中数据 leftPanel显示选中的第一条数据内容
       .click('#stat-edit-data')
@@ -40,7 +73,7 @@ describe('Stat', function () {
     // 2.1.1.1.7.1 点击柱状图 rightPanel左部chart数据展示为柱状图
       .click('#stat-left-chart')
       .click('#stat-left-chart-bar')
-      .waitUntilTextExists('#notice-bar', '柱状图')
+      // .waitUntilTextExists('#stat-left-bar', '柱状图')
       .hasFocus('[aria-labelledby="stat-left-chart"]')
       .then(function (rightTable) {
         // console.log(rightTable)
@@ -49,7 +82,7 @@ describe('Stat', function () {
     // 2.1.1.1.7.2 点击折线图 rightPanel左部chart数据展示为折线图
       .click('#stat-left-chart')
       .click('#stat-left-chart-discount')
-      .waitUntilTextExists('#notice-bar', '折线图')
+      // .waitUntilTextExists('#stat-left-bar', '折线图')
       .hasFocus('[aria-labelledby="stat-left-chart"]')
       .then(function (rightTable) {
         // console.log(rightTable)
@@ -58,7 +91,7 @@ describe('Stat', function () {
     // 2.1.1.1.7.3 点击散点图 rightPanel左部chart数据展示为散点图
       .click('#stat-left-chart')
       .click('#stat-left-chart-scatter-plot')
-      .waitUntilTextExists('#notice-bar', '散点图')
+      // .waitUntilTextExists('#stat-left-bar', '散点图')
       .hasFocus('[aria-labelledby="stat-left-chart"]')
       .then(function (rightTable) {
         // console.log(rightTable)
@@ -67,7 +100,7 @@ describe('Stat', function () {
     // 2.1.1.1.7.4 点击雷达图 rightPanel左部chart数据展示为雷达图
       .click('#stat-left-chart')
       .click('#stat-left-chart-radar-map')
-      .waitUntilTextExists('#notice-bar', '雷达图')
+      // .waitUntilTextExists('#stat-left-bar', '雷达图')
       .hasFocus('[aria-labelledby="stat-left-chart"]')
       .then(function (rightTable) {
         // console.log(rightTable)
@@ -76,7 +109,7 @@ describe('Stat', function () {
     // 2.1.1.1.7.5 点击饼图 rightPanel左部chart数据展示为饼图
       .click('#stat-left-chart')
       .click('#stat-left-chart-pie-map')
-      .waitUntilTextExists('#notice-bar', '饼图')
+      // .waitUntilTextExists('#stat-left-bar', '饼图')
       .hasFocus('[aria-labelledby="stat-left-chart"]')
       .then(function (rightTable) {
         // console.log(rightTable)
@@ -86,7 +119,7 @@ describe('Stat', function () {
     // 2.1.1.1.8.1 点击柱状图 rightPanel右部chart数据展示为柱状图
       .click('#stat-right-chart')
       .click('#stat-right-chart-bar')
-      .waitUntilTextExists('#notice-bar', '柱状图')
+      // .waitUntilTextExists('#stat-right-bar', '柱状图')
       .hasFocus('[aria-labelledby="stat-right-chart"]')
       .then(function (rightTable) {
         // console.log(rightTable)
@@ -95,7 +128,7 @@ describe('Stat', function () {
     // 2.1.1.1.8.2 点击折线图 rightPanel右部chart数据展示为折线图
       .click('#stat-right-chart')
       .click('#stat-right-chart-discount')
-      .waitUntilTextExists('#notice-bar', '折线图')
+      // .waitUntilTextExists('#stat-right-bar', '折线图')
       .hasFocus('[aria-labelledby="stat-right-chart"]')
       .then(function (rightTable) {
         // console.log(rightTable)
@@ -104,7 +137,7 @@ describe('Stat', function () {
     // 2.1.1.1.8.3 点击散点图 rightPanel右部chart数据展示为散点图
       .click('#stat-right-chart')
       .click('#stat-right-chart-scatter-plot')
-      .waitUntilTextExists('#notice-bar', '散点图')
+      // .waitUntilTextExists('#stat-right-bar', '散点图')
       .hasFocus('[aria-labelledby="stat-right-chart"]')
       .then(function (rightTable) {
         // console.log(rightTable)
@@ -113,7 +146,7 @@ describe('Stat', function () {
     // 2.1.1.1.8.4 点击雷达图 rightPanel右部chart数据展示为雷达图
       .click('#stat-right-chart')
       .click('#stat-right-chart-radar-map')
-      .waitUntilTextExists('#notice-bar', '雷达图')
+      // .waitUntilTextExists('#stat-right-bar', '雷达图')
       .hasFocus('[aria-labelledby="stat-right-chart"]')
       .then(function (rightTable) {
         // console.log(rightTable)
@@ -122,7 +155,7 @@ describe('Stat', function () {
     // 2.1.1.1.8.5 点击饼图 rightPanel左部chart数据展示为饼图
       .click('#stat-right-chart')
       .click('#stat-right-chart-pie-map')
-      .waitUntilTextExists('#notice-bar', '饼图')
+      // .waitUntilTextExists('#stat-right-bar', '饼图')
       .hasFocus('[aria-labelledby="stat-right-chart"]')
       .then(function (rightTable) {
         // console.log(rightTable)
@@ -132,16 +165,42 @@ describe('Stat', function () {
     // 2.1.1.1.9.1 点击时间 leftPanel显示可选时间维度
       .click('#stat-right-dimension')
       .click('#stat-td-tr0')
-      .waitUntilTextExists('#notice-bar', '请选择文件')
+      .getText('.stat-left-dimension-tr')
+      .then(function (time) {
+        expect(time).to.be.an('array');
+      })
+      .click('.stat-left-dimension-tr')
+      .getText('.stat-right-table-tr')
+      .then(function (time) {
+        expect(time).to.be.an('array');
+      })
     // 2.1.1.1.9.2 点击机构 leftPanel显示可选机构维度
       .click('#stat-right-dimension')
       .click('#stat-td-tr1')
-      .waitUntilTextExists('#notice-bar', '请选择文件')
+      .getText('.stat-left-dimension-tr')
+      .then(function (org) {
+        expect(org).to.be.an('array');
+      })
+      .click('.stat-left-dimension-tr')
+      .getText('.stat-right-table-tr')
+      .then(function (org) {
+        expect(org).to.be.an('array');
+      })
     // 2.1.1.1.9.3 点击病种 leftPanel显示可选病种维度
       // .click('#stat-right-dimension')
       // .click('##stat-td-tr2')
-      // .waitUntilTextExists('#notice-bar', '请选择文件')
+      // .getText('.stat-left-dimension-tr')
+      // .then(function (disease) {
+      //   console.log(disease);
+      //   expect(disease).to.be.an('array');
+      // })
+      // .click('.stat-left-dimension-tr')
+      // .getText('.stat-right-table-tr')
+      // .then(function (disease) {
+      //   expect(disease).to.be.an('array');
+      // })
     // 2.1.2 点击leftPanel列表 rightPanel数据表无数据提示"当前分析文件中无数据" chart显示当前图表无数据 提示显示无提示内容
     // 本地文件 如果leftPanel无数据分析文件 提示"暂无本地分析文件"
   })
 });
+
