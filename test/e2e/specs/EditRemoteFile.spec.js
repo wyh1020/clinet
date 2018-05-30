@@ -42,8 +42,8 @@ describe('EditRemoteFile', function () {
         // console.log(editText)
         expect(editText).to.be.an('string');
       })
-      // .setValue('#server-username', 'test@hitb.com.cn')
-      // .setValue('#server-password', '123456')
+      .setValue('#server-username', 'test@test.com.cn')
+      .setValue('#server-password', '123456')
     // 2.5 点击登录按钮
       .click('#server-login')
       .getText('#server-login')
@@ -61,16 +61,16 @@ describe('EditRemoteFile', function () {
       .click('#navbar-edit')
       .waitUntilTextExists('#edit-editbar-input', '')
     // 2.6 点击 右侧工具栏 远程文件 按钮
-      .click('#edit-rightbar-server')
-      .getText('#edit-rightpanellocal-table')
-      .then(function (editText) {
-        console.log(editText);
-        expect(editText).to.not.equal('');
-      })
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-rightbar-server')
+      // .getText('#edit-rightpanellocal-table')
+      // .then(function (editText) {
+      //   console.log(editText);
+      //   expect(editText).to.not.equal('');
+      // })
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.7 点击 右侧 table 第一行 文件 列表
       // .click('#edit-rightpanellocal-tr0')
       // .getText('#edit-rightpanellocal-table')
