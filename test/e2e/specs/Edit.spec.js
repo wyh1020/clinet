@@ -51,9 +51,9 @@ describe('Edit', function () {
       .then(function (editText) {
         expect(editText).to.be.an('string');
       })
-    // 2.1.4.2、点击下拉菜单 输入提示 edit-rightbar-输入提示
-      .click('#edit-rightbar-输入提示')
-      // .waitUntilTextExists('#edit-bar-prompt', '输入提示')
+    // 2.1.4.2、点击下拉菜单 输入框提示 edit-rightbar-输入框提示
+      .click('#edit-rightbar-输入框提示')
+      // .waitUntilTextExists('#edit-bar-prompt', '输入框提示')
       .getText('#edit-bar-prompt')
       .then(function (editText) {
         // console.log(editText)
