@@ -607,12 +607,26 @@ export function sSaveDefined(obj, data) {
     console.log(err)
   })
 }
-// 增加帮组功能
+// 增加帮助功能
 export function sUpHelp(obj, data) {
-  console.log(data);
   axios({
     method: 'get',
     url: `http://${data[0]}:${data[1]}/edit/helpinsert?name=${data[2]}&content=${data[3]}`,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    responseType: 'json'
+  }).then((res) => {
+    console.log(res)
+  }).catch((err) => {
+    console.log(err)
+  })
+}
+
+// 分享文件
+export function share(obj, data, type, fileName, username, content) {
+  axios({
+    method: 'post',
+    url: `http://${data[0]}:${data[1]}/servers/share`,
+    data: qs.stringify({ username: username, type: type, file_name: fileName, content: content }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
