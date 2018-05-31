@@ -252,7 +252,6 @@ const mutations = {
     }
   },
   EDIT_DELETE_RIGHT_PANELS(state, value) {
-    console.log(state.rightPanels)
     const index = state.rightPanels.indexOf(value)
     state.rightPanels.splice(index, 1)
   },

@@ -21,18 +21,15 @@
         <li class="nav-item" id="edit-leftbar-newdoc" v-on:click="show()">
           <a class="nav-link text-light" href="#" v-if="this.$store.state.Edit.leftPanel == 'table'">编辑</a>
         </li>
+        <li class="nav-item" id="edit-leftbar-newdoc" v-on:click="save('保存病案')">
+          <a class="nav-link text-light" href="#" v-if="this.$store.state.Edit.leftPanel == 'table'">保存</a>
+        </li>
+        <li class="nav-item" id="edit-leftbar-newdoc" v-on:click="save('保存模板')">
+          <a class="nav-link text-light" href="#" v-if="this.$store.state.Edit.leftPanel == 'table'">另存为模板</a>
+        </li>
         <!-- <li class="nav-item" id="edit-leftbar-del" v-on:click="save(0)">
           <a class="nav-link text-light" href="#">去除</a>
         </li> -->
-        <li class="nav-item dropdown" v-if="this.$store.state.Edit.leftPanel == 'table'">
-          <a class="nav-link dropdown-toggle text-light" href="#" id="edit-leftbar-choice" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-            {{saveType}}
-          </a>
-          <div class="dropdown-menu">
-            <a v-for="(data, index) in saveTypes" v-bind:key='index' class="dropdown-item" href="#" v-on:click="save(data)" v-bind:id="'edit-leftbar-'+data">{{data}}</a>
-            <div class="dropdown-divider"></div>
-          </div>
-        </li>
         <li class="nav-item" id="edit-leftbar-cache" v-on:click="saveDoc()" v-if="this.$store.state.Edit.leftPanel == 'doc'">
           <a class="nav-link text-light" href="#" v-if="fileName !== '' || this.$store.state.Edit.rightPanel === 'server'">缓存</a>
         </li>
