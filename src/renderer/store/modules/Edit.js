@@ -34,7 +34,8 @@ const state = {
   modelName: null,
   rightPanels: [],
   rightCdh: null,
-  rightFolds: []
+  rightFolds: [],
+  rightType: null
 };
 
 const mutations = {
@@ -266,10 +267,14 @@ const mutations = {
       state.rightFolds.push(value)
     }
   },
+  EDIT_SET_RIGHT_TYPE(state, value) {
+    state.rightType = value
+  },
 };
 
 const actions = {
   someAsyncTask({ commit }) {
+    commit('EDIT_SET_RIGHT_TYPE');
     commit('EDIT_SET_RIGHT_FOLDS');
     commit('EDIT_SET_RIGHT_CDH');
     commit('EDIT_DELETE_RIGHT_PANELS');

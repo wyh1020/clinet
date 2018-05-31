@@ -137,7 +137,7 @@
 
       },
       page: function (n) {
-        if (this.$store.state.Edit.rightPanel === 'left') {
+        if (this.$store.state.Edit.rightType === 'left') {
           let page = 0
           let countPage = 0
           switch (this.$store.state.Edit.lastNav) {
