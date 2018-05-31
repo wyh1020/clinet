@@ -1,5 +1,5 @@
 <template>
-  <div id="edit-leftpaneldoc-doc">
+  <div id="edit-leftpaneldoc-doc" v-bind:style="{ height: height + 'px', overflow: 'auto' }">
     <div class="card">
       <div class="card-body" v-for="(section, key) of doc" v-bind:key='key'>
         <!-- 个人信息 -->
@@ -65,6 +65,11 @@
 <script>
   import editDoc from '../../utils/EditDoc'
   export default {
+    data() {
+      return {
+        height: window.innerHeight - 120
+      };
+    },
     computed: {
       flag: {
         get() {

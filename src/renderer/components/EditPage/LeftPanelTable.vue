@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow:auto;">
+  <div v-bind:style="{ height: height + 'px', overflow: 'auto' }">
     <table v-if="!this.$store.state.Edit.rightFolds.includes('编辑病案')" id="edit-leftpaneltable-table">
       <tr>
         <th colspan="10" class="table-info"> {{fileName}}（共有{{fileLength}}条记录）
@@ -35,9 +35,15 @@
   import saveFile from '../../utils/SaveFile';
   import { join } from '../../utils/Socket'
   export default {
+    data() {
+      return {
+        height: window.innerHeight - 120
+      };
+    },
     computed: {
       lastNav: {
         get() {
+          console.log(this.height)
           return this.$store.state.Edit.lastNav
         }
       },
