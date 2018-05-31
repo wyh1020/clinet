@@ -1,8 +1,11 @@
 <template>
   <div style="overflow:auto;">
-    <table id="edit-leftpaneltable-table">
+    <table v-if="!this.$store.state.Edit.rightFolds.includes('编辑病案')" id="edit-leftpaneltable-table">
       <tr>
-        <th colspan="10" class="table-info"> {{fileName}}（共有{{fileLength}}条记录）</th>
+        <th colspan="10" class="table-info"> {{fileName}}（共有{{fileLength}}条记录）
+          <a href="#" v-on:click="close('编辑病案')" style="float: right">✖</a>
+          <a href="#" v-on:click="fold('编辑病案')" style="float: right; marginRight: 3px">↗</a>
+        </th>
       </tr>
       <tr class="edit-leftpaneltable-tr" v-for="(data, index) in file" v-bind:key='index' v-bind:class="{'table-warning':flag === index}">
         <td> {{index + 1}} </td>
@@ -14,6 +17,15 @@
         <td v-on:click="uploadDoc(data)" v-if="!fileName.includes('@')" v-bind:id="'edit-leftpaneltable-upl'+index"><a href="#">上传</a></td>
         <td v-on:click="downloadDoc(data)" v-if="fileName.includes('@')" v-bind:id="'edit-leftpaneltable-dow'+index"><a href="#">下载</a></td>
       </tr>
+    </table>
+    <table v-if="this.$store.state.Edit.rightFolds.includes('编辑病案')">
+      <tr>
+        <th colspan="10" class="table-info"> {{fileName}}（共有{{fileLength}}条记录）
+          <a href="#" v-on:click="close('编辑病案')" style="float: right">✖</a>
+          <a href="#" v-on:click="fold('编辑病案')" style="float: right; marginRight: 5px">↙</a>
+        </th>
+      </tr>
+      <tr  style="textAlign: center"><a href="#" v-on:click="fold('编辑病案')">...</a></tr>
     </table>
   </div>
 </template>
@@ -117,6 +129,7 @@
       },
       loadDoc: function (data, index, type) {
         if (type === 'edit') {
+          this.$store.commit('EDIT_SET_RIGHT_PANELS', '编辑病案');
           this.$store.commit('EDIT_SET_FILE_INDEX', index)
           let r = []
           if (this.$store.state.Edit.fileType === 'csv') {
@@ -147,8 +160,9 @@
             this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
           } else if (this.$store.state.Edit.selectedType === 'row') {
             this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
-            this.$store.commit('EDIT_SET_RIGHT_PANEL', 'left')
+            // this.$store.commit('EDIT_SET_RIGHT_PANEL', 'left')
           }
+          this.$store.commit('EDIT_SET_RIGHT_PANEL', 'left')
           this.$store.commit('EDIT_SET_DOC_INDEX', [0, true]);
           document.getElementById('edit-editbar-input').focus()
         } else {
@@ -158,6 +172,12 @@
           this.$store.commit('EDIT_SET_HELP_TYPE', '病案参考');
         }
       },
+      close(data) {
+        this.$store.commit('EDIT_DELETE_RIGHT_PANELS', data);
+      },
+      fold(data) {
+        this.$store.commit('EDIT_SET_RIGHT_FOLDS', data);
+      }
     },
   };
 </script>

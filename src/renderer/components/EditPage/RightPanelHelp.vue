@@ -1,11 +1,11 @@
 <template>
   <div id="edit-rightpanelhelp">
     <!-- <table v-if="type === '编辑器使用帮助'"> -->
-    <table v-if="this.$store.state.Edit.rightPanels.includes('编辑器使用帮助')">
+    <table v-if="this.$store.state.Edit.rightPanels.includes('编辑器使用帮助') && !this.$store.state.Edit.rightFolds.includes('编辑器使用帮助')">
       <tr>
         <th class="table-danger"> 编辑器使用帮助
-          <a href="#" v-on:click="close('编辑器使用帮助')" style="float: right">×</a>
-          <!-- <a href="#" v-on:click="close(title)" style="float: right">︽ </a> -->
+          <a href="#" v-on:click="close('编辑器使用帮助')" style="float: right">✖</a>
+          <a href="#" v-on:click="fold('编辑器使用帮助')" style="float: right; marginRight: 3px">↗</a>
         </th>
       </tr>
       <tr>
@@ -113,11 +113,20 @@
         </td>
       </tr>
     </table>
+    <table v-if="this.$store.state.Edit.rightPanels.includes('编辑器使用帮助') && this.$store.state.Edit.rightFolds.includes('编辑器使用帮助')">
+      <tr>
+        <th class="table-danger"> 编辑器使用帮助
+          <a href="#" v-on:click="close('编辑器使用帮助')" style="float: right">✖</a>
+          <a href="#" v-on:click="fold('编辑器使用帮助')" style="float: right; marginRight: 5px">↙</a>
+        </th>
+      </tr>
+      <tr  style="textAlign: center"><a href="#" v-on:click="fold('编辑器使用帮助')">...</a></tr>
+    </table>
     <!-- <table v-if="type === '病案历史'"> -->
     <table v-if="this.$store.state.Edit.rightPanels.includes('病案历史')">
       <tr>
         <th class="table-danger"> 病案历史
-          <a href="#" v-on:click="close('病案历史')" style="float: right">×</a>
+          <a href="#" v-on:click="close('病案历史')" style="float: right">✖</a>
         </th>
       </tr>
     </table>
@@ -129,7 +138,7 @@
     <table v-if="this.$store.state.Edit.rightPanels.includes('DRG分析')">
       <tr>
         <th class="table-danger"> DRG分析
-          <a href="#" v-on:click="close('DRG分析')" style="float: right">×</a>
+          <a href="#" v-on:click="close('DRG分析')" style="float: right">✖</a>
         </th>
       </tr>
     </table>
@@ -137,7 +146,7 @@
     <table v-if="this.$store.state.Edit.rightPanels.includes('在线交流')">
       <tr class="table-danger">
         <th class="table-danger" colspan="2"> 当前在线用户：
-          <a href="#" v-on:click="close('在线交流')" style="float: right">×</a>
+          <a href="#" v-on:click="close('在线交流')" style="float: right">✖</a>
         </th>
       </tr>
       <tr v-for="(data, index) in chatUsers" v-bind:key='index'>
@@ -149,7 +158,7 @@
     <table v-if="this.$store.state.Edit.rightPanels.includes('HIS接口')">
       <tr>
         <th class="table-danger"> HIS接口
-          <a href="#" v-on:click="close('HIS接口')" style="float: right">×</a>
+          <a href="#" v-on:click="close('HIS接口')" style="float: right">✖</a>
         </th>
       </tr>
     </table>
@@ -180,6 +189,9 @@
       },
       close(data) {
         this.$store.commit('EDIT_DELETE_RIGHT_PANELS', data);
+      },
+      fold(data) {
+        this.$store.commit('EDIT_SET_RIGHT_FOLDS', data);
       }
     },
   };

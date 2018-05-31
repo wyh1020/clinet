@@ -4,7 +4,7 @@
       <table id="edit-rightpanellocal-table" v-show="this.$store.state.Edit.chatType === false">
         <tr>
           <th colspan="10" class="table-info" id="edit-rightpanellocal-title"> {{title}}
-            <a href="#" v-on:click="close(panelName)" style="float: right">×</a>
+            <a href="#" v-on:click="close(panelName)" style="float: right">✖</a>
           </th>
         </tr>
         <tr class="edit-rightpanellocal-tr" v-for="(data, index) in xs" v-bind:key='index' v-bind:id="'edit-rightpanellocal-tr'+index" v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">

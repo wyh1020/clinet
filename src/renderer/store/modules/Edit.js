@@ -21,7 +21,7 @@ const state = {
   hintType: 'notice',
   hint: [],
   helpType: '编辑器使用帮助',
-  helpTypes: ['编辑器使用帮助', '输入框提示', '病案参考', '病案历史', '在线交流', 'DRG分析', 'HIS接口'],
+  helpTypes: ['输入框提示', '病案参考', '病案历史', '在线交流', 'DRG分析', 'HIS接口'],
   serverType: 'user',
   docType: '自定义文档',
   docTypes: ['自定义文档', '病案首页（卫统四CSV）', '入院申请', '首次病程', '病程记录', '病案首页', '门诊病案', '健康体检'],
@@ -34,6 +34,7 @@ const state = {
   modelName: null,
   rightPanels: [],
   rightCdh: null,
+  rightFolds: []
 };
 
 const mutations = {
@@ -250,16 +251,26 @@ const mutations = {
     }
   },
   EDIT_DELETE_RIGHT_PANELS(state, value) {
+    console.log(state.rightPanels)
     const index = state.rightPanels.indexOf(value)
     state.rightPanels.splice(index, 1)
   },
   EDIT_SET_RIGHT_CDH(state, value) {
     state.rightCdh = value
   },
+  EDIT_SET_RIGHT_FOLDS(state, value) {
+    const index = state.rightFolds.indexOf(value)
+    if (index > -1) {
+      state.rightFolds.splice(index, 1)
+    } else {
+      state.rightFolds.push(value)
+    }
+  },
 };
 
 const actions = {
   someAsyncTask({ commit }) {
+    commit('EDIT_SET_RIGHT_FOLDS');
     commit('EDIT_SET_RIGHT_CDH');
     commit('EDIT_DELETE_RIGHT_PANELS');
     commit('EDIT_SET_RIGHT_PANELS');

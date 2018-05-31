@@ -1,9 +1,10 @@
 <template>
   <div style="overflow:auto;">
-    <table id="edit-rightpanelCDH-table">
+    <table v-if="!this.$store.state.Edit.rightFolds.includes('输入框提示')">
       <tr>
         <th colspan="10" class="table-info" id="edit-rightpanellocal-title"> {{title}}
-          <a href="#" v-on:click="close(title)" style="float: right">×</a>
+          <a href="#" v-on:click="close(title)" style="float: right">✖</a>
+          <a v-if="xs" href="#" v-on:click="fold('输入框提示')" style="float: right; marginRight: 3px">↗</a>
         </th>
       </tr>
       <tr class="edit-rightpanellocal-tr" v-for="(data, index) in xs" v-bind:key='index' v-bind:class="{'table-danger':flag == index}">
@@ -16,6 +17,15 @@
           </ol>
         </td>
       </tr>
+    </table>
+    <table v-if="this.$store.state.Edit.rightFolds.includes('输入框提示')">
+      <tr>
+        <th colspan="10" class="table-info" id="edit-rightpanellocal-title"> {{title}}
+          <a href="#" v-on:click="close(title)" style="float: right">✖</a>
+          <a href="#" v-on:click="fold('输入框提示')" style="float: right; marginRight: 5px">↙</a>
+        </th>
+      </tr>
+      <tr  style="textAlign: center"><a href="#" v-on:click="fold('输入框提示')">...</a></tr>
     </table>
   </div>
 </template>
@@ -63,6 +73,9 @@
       },
       close(data) {
         this.$store.commit('EDIT_DELETE_RIGHT_PANELS', data);
+      },
+      fold(data) {
+        this.$store.commit('EDIT_SET_RIGHT_FOLDS', data);
       }
     },
   };

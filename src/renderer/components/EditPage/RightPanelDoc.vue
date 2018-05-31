@@ -1,8 +1,10 @@
 <template>
   <div id="edit-rightpaneldoc-doc">
     <div class="card">
+      <div>
+        <a href="#" v-on:click="close('病案历史')" style="float: right; marginRight: 5px">✖</a>
+      </div>
       <div class="card-body" v-for="(section, key) of doc" v-bind:key='key'>
-        <a href="#" v-on:click="close('病案历史')" style="float: right">×</a>
         <!-- 个人信息 -->
         <div v-if="lastNav === '/stat'">
           <table>
