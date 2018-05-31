@@ -71,10 +71,14 @@ const state = {
   // 文件上传信息
   upLoadFile: [],
   loadTable: 0,
-  otherLogin: false
+  otherLogin: false,
+  shareFileName: ''
 };
 
 const mutations = {
+  SYSTEM_GET_SHARE_FILE_NAME(state, m) {
+    state.shareFileName = m
+  },
   SYSTEM_SET_OTHER_LOGIN(state, m) {
     state.otherLogin = m
   },
@@ -421,6 +425,7 @@ const actions = {
     commit('SYSTEM_GET_CHECKDATA');
     commit('SYSTEM_GET_CHECKDATA_PAGE');
     commit('SYSTEM_SET_SERVER_LOAD_TABLE');
+    commit('SYSTEM_GET_SHARE_FILE_NAME');
   },
 };
 

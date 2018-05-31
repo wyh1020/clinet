@@ -12,7 +12,7 @@ export function bcBlockchain(obj, data) {
     .then((res) => {
       if (res.status === 200) {
         console.log(res.data);
-        // obj.$store.commit('BLOCK_SET_BLOCKBLOCK', res.data)
+        obj.$store.commit('BLOCK_SET_BLOCKBLOCK', res.data.blocks)
         // obj.$store.commit('BLOCK_SET_PEERS', res.data.data.blocks)
       }
     })

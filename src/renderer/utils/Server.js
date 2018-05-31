@@ -623,6 +623,9 @@ export function sUpHelp(obj, data) {
 
 // 分享文件
 export function share(obj, data, type, fileName, username, content) {
+  console.log(type);
+  console.log(fileName);
+  console.log(username);
   axios({
     method: 'post',
     url: `http://${data[0]}:${data[1]}/servers/share`,
@@ -630,7 +633,10 @@ export function share(obj, data, type, fileName, username, content) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
-    console.log(res)
+    if (res.status === 200) {
+      obj.$store.commit('SET_NOTICE', '文件分享完毕!')
+    }
+    // console.log(res)
   }).catch((err) => {
     console.log(err)
   })

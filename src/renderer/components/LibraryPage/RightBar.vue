@@ -15,6 +15,9 @@
         <li class="nav-item active" v-on:click='blockData()' id="library-block-file">
           <a class="nav-link text-light" href="#"> 区块链 <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active" v-on:click='blockShare()' id="library-block-file">
+          <a class="nav-link text-light" href="#"> 分享 <span class="sr-only">(current)</span></a>
+        </li>
         <li class="nav-item active" v-on:click='page(-1)' id="library-up">
           <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
         </li>
@@ -47,6 +50,7 @@
 
 <script>
   import { getLibraryFiles, getLibrary, getList } from '../../utils/LibraryServerFile';
+  import { share } from '../../utils/Server';
   import loadFile from '../../utils/LoadFile';
   export default {
     data() {
@@ -166,6 +170,10 @@
             break;
           default:
         }
+      },
+      blockShare: function () {
+        console.log(this.$store.state.System.user);
+        share(this, [this.$store.state.System.server, this.$store.state.System.port], 'library', this.$store.state.System.shareFileName, this.$store.state.System.user.username, '')
       }
     },
   };

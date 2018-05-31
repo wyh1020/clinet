@@ -34,7 +34,7 @@
     },
     methods: {
       loadFile: function (data, index) {
-        // this.flag = index;
+        this.$store.commit('SYSTEM_GET_SHARE_FILE_NAME', this.$store.state.Library.files[index]);
         this.$store.commit('LIBRARY_GET_ROW', 0);
         this.$store.commit('LIBRARY_SET_FILE_INDEX', index);
         if (this.$store.state.Library.tableType === 'server') {

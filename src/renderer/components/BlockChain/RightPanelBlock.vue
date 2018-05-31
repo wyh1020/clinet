@@ -20,7 +20,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(value, index) in blockBlock.blocks"  v-bind:key='index' v-bind:class="{'table-danger': hightLight === index}" v-on:click="block(index)">
+          <tr v-for="(value, index) in blockBlock"  v-bind:key='index' v-bind:class="{'table-danger': hightLight === index}" v-on:click="block(index)">
             <td>{{value.index}}</td>
             <td>{{value.data}}</td>
             <td>{{value.hash}}</td>
@@ -99,7 +99,7 @@
       },
       block: function (value) {
         this.hightLight = value;
-        this.$store.commit('BLOCK_GET_BLOCK_INFO', this.blockBlock.blocks[value])
+        this.$store.commit('BLOCK_GET_BLOCK_INFO', this.blockBlock[value])
       },
       blockChainPage: function (value) {
         const ip = this.$store.state.System.server
