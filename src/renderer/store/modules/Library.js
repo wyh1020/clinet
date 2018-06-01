@@ -16,7 +16,7 @@ const state = {
   dimensionTime: [],
   dimensionVersion: [],
   field: '',
-  fieldIndex: null,
+  fieldIndex: [],
   tableHeader: [],
   fileIndex: null,
   tableType: 'local',
@@ -150,7 +150,11 @@ const mutations = {
     state.field = field;
   },
   LIBRARY_GET_FIELD_INDEX(state, index) {
-    state.fieldIndex = index;
+    if (state.fieldIndex.includes(index)) {
+      state.fieldIndex.splice(state.fieldIndex.findIndex(v => v === index), 1)
+    } else {
+      state.fieldIndex = [...state.fieldIndex, index]
+    }
   },
   LIBRARY_SET_FILE_INDEX(state, index) {
     state.fileIndex = index;

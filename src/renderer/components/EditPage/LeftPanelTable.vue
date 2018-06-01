@@ -15,7 +15,7 @@
         <td v-on:click="loadDoc(data, index, 'edit')" v-bind:id="'edit-leftpaneltable-edit'+index"><a href="#">编辑</a></td>
         <td v-on:click="loadDoc(data, index, 'show')" v-bind:id="'edit-leftpaneltable-ref'+index"><a href="#">参考</a></td>
         <td v-on:click="uploadDoc(data)" v-if="!fileName.includes('@')" v-bind:id="'edit-leftpaneltable-upl'+index"><a href="#">上传</a></td>
-        <td v-on:click="downloadDoc(data)" v-if="fileName.includes('@')" v-bind:id="'edit-leftpaneltable-dow'+index"><a href="#">下载</a></td>
+        <td v-on:click="downloadDoc(data, index)" v-if="fileName.includes('@')" v-bind:id="'edit-leftpaneltable-dow'+index"><a href="#">下载</a></td>
       </tr>
     </table>
     <table v-if="this.$store.state.Edit.rightFolds.includes('编辑病案')">
@@ -130,7 +130,9 @@
       downloadDoc: function (data, index) {
         const index1 = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex].indexOf('-')
         const filename = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex].substr(index1 + 1)
-        saveFile(this, filename, data);
+        console.log(filename);
+        console.log([...this.$store.state.Edit.downFile, data]);
+        saveFile(this, this.$store.state.Edit.loadFileName, [...this.$store.state.Edit.downFile, data]);
         this.$store.commit('EDIT_SET_FILE_INDEX', index)
       },
       loadDoc: function (data, index, type) {
