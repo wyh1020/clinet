@@ -152,7 +152,14 @@
         }
       },
       blockData: function () {
-
+        if (!this.$store.state.System.user.login) {
+          this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
+        } else {
+          this.$store.commit('SET_NOTICE', '区块链文件');
+          this.$store.commit('STAT_SET_TABLE_TYPE', 'block');
+          this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
+          getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port, 'block'], '', this.$store.state.System.user.username)
+        }
       },
       page: function (n) {
         if (this.$store.state.Stat.tablePage === 1 && n === -1) {
