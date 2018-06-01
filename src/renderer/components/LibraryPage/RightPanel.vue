@@ -2,8 +2,13 @@
   <div>
     <right-bar></right-bar>
     <div v-bind:style="{ height: height + 'px', overflow: 'auto' }">
-      <table>
+      <table v-if ="this.$store.state.Library.tableType === 'local'">
         <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger':rowHeight == index && index !== 0}" class="library-rightpanel">
+          <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
+        </tr>
+      </table>
+      <table v-if ="this.$store.state.Library.tableType === 'server'">
+        <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger': fieldIndex.includes(index) && index !== 0}" class="library-rightpanel">
           <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
         </tr>
       </table>
@@ -62,13 +67,20 @@
         get() {
           return this.$store.state.Library.rowHeight
         }
+      },
+      fieldIndex: {
+        get() {
+          return this.$store.state.Library.fieldIndex
+        }
       }
     },
     methods: {
       onClick: function (data, index) {
         this.$store.commit('LIBRARY_GET_ROW', index);
         this.$store.commit('LIBRARY_GET_FIELD', data);
-        this.$store.commit('LIBRARY_GET_FIELD_INDEX', index);
+        if (this.$store.state.Library.tableType === 'server') {
+          this.$store.commit('LIBRARY_GET_FIELD_INDEX', index);
+        }
       },
       serverPage: function (data) {
         const page = parseInt(data, 10)

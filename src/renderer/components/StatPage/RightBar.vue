@@ -15,6 +15,9 @@
         <li class="nav-item active" id="stat-remote-file" v-on:click='serverData()'>
           <a class="nav-link text-light" href="#"> 远程 <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active" v-if ="this.$store.state.Stat.tableType === 'server'" v-on:click='blockShare()'>
+          <a class="nav-link text-light" href="#"> 分享 <span class="sr-only">(current)</span></a>
+        </li>
         <li class="nav-item active" id="stat-block-file" v-on:click='blockData()'>
           <a class="nav-link text-light" href="#"> 区块链 <span class="sr-only">(current)</span></a>
         </li>
@@ -90,6 +93,7 @@
 </template>
 
 <script>
+  import { share } from '../../utils/Server';
   import chartLine from '../../utils/ChartLine';
   import chartScatter from '../../utils/ChartScatter';
   import chartRadar from '../../utils/ChartRadar';
@@ -421,6 +425,12 @@
       backTable: function () {
         this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
       },
+      blockShare: function () {
+        const filename = this.$store.state.Stat.serverTable.tableName
+        let array = []
+        array = this.$store.state.Stat.selectedRow.map(n => this.$store.state.Stat.serverTable.data[n])
+        share(this, [this.$store.state.System.server, this.$store.state.System.port], 'stat', filename, this.$store.state.System.user.username, array)
+      }
     },
   };
 </script>

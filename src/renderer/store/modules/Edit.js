@@ -35,10 +35,15 @@ const state = {
   rightPanels: [],
   rightCdh: null,
   rightFolds: [],
-  rightType: null
+  rightType: null,
+  loadFileName: '',
+  downFile: []
 };
 
 const mutations = {
+  EDIT_LOAD_FILE_DOWN(state, m) {
+    state.downFile = m
+  },
   EDIT_UPDATE_DOC(state, m) {
     if (m[2]) {
       state.doc.splice(m[0], 0, m[1])
@@ -269,6 +274,9 @@ const mutations = {
   EDIT_SET_RIGHT_TYPE(state, value) {
     state.rightType = value
   },
+  EDIT_SET_LOAD_FILENAME(state, value) {
+    state.loadFileName = value
+  }
 };
 
 const actions = {
@@ -325,6 +333,8 @@ const actions = {
     commit('EDIT_SET_DOC_TYPES');
     commit('EDIT_SET_CHAT_TYPE');
     commit('EDIT_SET_EDIT_TYPE');
+    commit('EDIT_SET_LOAD_FILENAME');
+    commit('EDIT_LOAD_FILE_DOWN');
   },
 };
 

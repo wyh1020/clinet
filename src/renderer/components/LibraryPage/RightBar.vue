@@ -15,7 +15,7 @@
         <li class="nav-item active" v-on:click='blockData()' id="library-block-file">
           <a class="nav-link text-light" href="#"> 区块链 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" v-on:click='blockShare()' id="library-block-file">
+        <li class="nav-item active" v-if ="this.$store.state.Library.tableType === 'server'" v-on:click='blockShare()' id="library-block-file">
           <a class="nav-link text-light" href="#"> 分享 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='page(-1)' id="library-up">
@@ -172,8 +172,9 @@
         }
       },
       blockShare: function () {
-        console.log(this.$store.state.System.user);
-        share(this, [this.$store.state.System.server, this.$store.state.System.port], 'library', this.$store.state.System.shareFileName, this.$store.state.System.user.username, '')
+        let array = []
+        array = this.$store.state.Library.fieldIndex.map(n => this.$store.state.Library.serverTable.data[n])
+        share(this, [this.$store.state.System.server, this.$store.state.System.port], 'library', this.$store.state.System.shareFileName, this.$store.state.System.user.username, array)
       }
     },
   };

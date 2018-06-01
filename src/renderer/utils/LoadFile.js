@@ -122,8 +122,9 @@ export default function loadFile(obj, x, p, e = null) {
         const fReadline = readline.createInterface({ input: fRead });
         const f = [];
         fReadline.on('close', () => {
-          // console.log(f);
+          console.log(f);
           obj.$store.commit('EDIT_LOAD_FILE', f);
+          obj.$store.commit('EDIT_LOAD_FILE_DOWN', f);
           obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
           obj.$store.commit('EDIT_SET_FILE_TYPE', 'cda')
           obj.$store.commit('SET_NOTICE', 'CDA文件读取成功！');

@@ -11,7 +11,7 @@
           <td>{{index + 1}}</td>
           <td>{{data}}</td>
           <td v-if ="title === '远程文件的用户列表' && data.split('').includes('-')">
-            <a href="#">发布</a>
+            <a href="#" v-on:click="blockShare(data)">发布</a>
           </td>
         </tr>
       </table>
@@ -157,11 +157,15 @@
               break;
           }
         } else {
+          this.$store.commit('EDIT_SET_LOAD_FILENAME', data);
           loadFile(this, data, x, 'edit')
         }
       },
       close(data) {
         this.$store.commit('EDIT_DELETE_RIGHT_PANELS', data);
+      },
+      blockShare(data) {
+        console.log(data);
       }
     },
   };
