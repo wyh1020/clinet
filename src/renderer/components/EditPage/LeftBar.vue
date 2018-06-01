@@ -107,6 +107,7 @@
         this.$store.commit('EDIT_SET_FILE_INDEX', this.$store.state.Edit.file.length)
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
         this.$store.commit('EDIT_SET_RIGHT_TYPE', 'left')
+        this.$store.commit('EDIT_SET_RIGHT_PANELS', '编辑病案')
         if (n) {
           this.$store.commit('EDIT_SET_DOC_TYPE', n)
         } else { n = this.$store.state.Edit.docType }

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-bind:style="{ height: height + 'px', overflow: 'hidden' }">
     <router-view></router-view>
   </div>
 </template>
@@ -7,12 +7,17 @@
 <script>
   export default {
     name: 'clinet',
+    data() {
+      return {
+        height: window.innerHeight - 80
+      };
+    },
   };
 </script>
 
 <style>
   * {
-    font-size: medium
+    font-size: medium;
   }
 
   body {

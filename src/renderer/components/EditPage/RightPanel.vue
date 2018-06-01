@@ -1,5 +1,5 @@
 <template>
-  <div id="edit-rightpanel">
+  <div id="edit-rightpanel" v-bind:style="{ height: height + 'px', overflow: 'auto' }">
     <right-bar></right-bar>
     <!-- <right-panel-local v-if="rightPanel == 'local'"></right-panel-local>
     <right-panel-local v-if="rightPanel == 'server'"></right-panel-local>
@@ -21,11 +21,13 @@
     data() {
       return {
         flag: '',
+        height: window.innerHeight - 80
       };
     },
     computed: {
       rightPanels: {
         get() {
+          console.log(this.$store.state.Edit.rightPanels)
           return this.$store.state.Edit.rightPanels
         }
       },
@@ -36,6 +38,7 @@
       },
       rightType: {
         get() {
+          console.log(this.$store.state.Edit.rightType)
           return this.$store.state.Edit.rightType
         }
       }
