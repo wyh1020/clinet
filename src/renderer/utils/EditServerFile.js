@@ -1,11 +1,12 @@
 const axios = require('axios');
 const qs = require('qs');
+// this, [url, port, type, username, serverType]
 export function getEditFiles(obj, data) {
   let url = ''
   if (data[2] === 'user') {
-    url = `http://${data[0]}:${data[1]}/edit/cda_user/`
+    url = `http://${data[0]}:${data[1]}/edit/cda_user?server_type=${data[4]}`
   } else {
-    url = `http://${data[0]}:${data[1]}/edit/cda_file?username=${data[3]}`
+    url = `http://${data[0]}:${data[1]}/edit/cda_file?username=${data[3]}&server_type=${data[4]}`
   }
   // const url = `http://${data[0]}:${data[1]}/edit/cda_file`
   axios({
@@ -30,7 +31,7 @@ export function getEditFiles(obj, data) {
     obj.$store.commit('EDIT_SERVER_FILES', [])
   })
 }
-
+// this, [url, port, filename, serverType]
 export function getEdit(obj, data) {
   // 去除文件名中的.csv
   const file = data[2].split('-')
@@ -40,7 +41,7 @@ export function getEdit(obj, data) {
   }
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/edit/cda?filename=${file[1]}&username=${file[0]}${url}`,
+    url: `http://${data[0]}:${data[1]}/edit/cda?filename=${file[1]}&username=${file[0]}${url}&server_type=${data[4]}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {

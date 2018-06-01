@@ -6,12 +6,13 @@ const ChartBar = require('./ChartBar');
 const ChartLine = require('./ChartLine');
 const ChartPie = require('./ChartPie');
 const ChartData = require('./ChartData');
-export function getStatFiles(obj, data, filename, username) {
+// this, [url, port], filename, username, serverType
+export function getStatFiles(obj, data, filename, username, serverType = 'server') {
   let url = ''
   if (filename !== '') {
-    url = `http://${data[0]}:${data[1]}/stat/stat_file?name=${filename}&username=${username}`
+    url = `http://${data[0]}:${data[1]}/stat/stat_file?name=${filename}&username=${username}&server_type=${serverType}`
   } else {
-    url = `http://${data[0]}:${data[1]}/stat/stat_file?username=${username}`
+    url = `http://${data[0]}:${data[1]}/stat/stat_file?username=${username}&server_type=${serverType}`
   }
   axios({
     method: 'get',
@@ -33,7 +34,7 @@ export function getStatFiles(obj, data, filename, username) {
   })
 }
 
-export function getList(obj, url, tableName, type, username) {
+export function getList(obj, url, tableName, type, username, serverType) {
   switch (type) {
     case '机构':
       type = 'org'
@@ -52,7 +53,7 @@ export function getList(obj, url, tableName, type, username) {
   file = tableName.split('.csv')[0]
   axios({
     method: 'get',
-    url: `http://${url[0]}:${url[1]}/stat/stat_client?type=${type}&username=${username}&page_type=${file}`,
+    url: `http://${url[0]}:${url[1]}/stat/stat_client?type=${type}&username=${username}&page_type=${file}&server_type=${serverType}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -67,7 +68,7 @@ export function getList(obj, url, tableName, type, username) {
   })
 }
 
-export function getStat(obj, data, opt, tableType) {
+export function getStat(obj, data, opt, tableType, serverType) {
   let file = opt.tableName
   const tableName = file
   // 去除文件名中的.csv
@@ -102,7 +103,7 @@ export function getStat(obj, data, opt, tableType) {
   }
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/stat/stat_client?page=${opt.page}&page_type=${pageType}&tool_type=${toolType}&rows=20&username=${opt.username}${url}`,
+    url: `http://${data[0]}:${data[1]}/stat/stat_client?page=${opt.page}&server_type=${serverType}&page_type=${pageType}&tool_type=${toolType}&rows=20&username=${opt.username}${url}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -182,10 +183,10 @@ export function saveStat(obj, compare, data) {
 }
 
 // 获取从stat得到的wt4数据
-export function getStatWt4(obj, data, org, time, drg) {
+export function getStatWt4(obj, data, org, time, drg, serverType) {
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/library/stat_wt4?org=${org}&time=${time}&drg=${drg}`,
+    url: `http://${data[0]}:${data[1]}/library/stat_wt4?org=${org}&time=${time}&drg=${drg}&server_type=${serverType}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {

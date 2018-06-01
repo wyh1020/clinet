@@ -1,9 +1,10 @@
 const axios = require('axios');
 // const qs = require('qs');
+// this, [url, port, serverType]
 export function getLibraryFiles(obj, data) {
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/library/rule_file/`,
+    url: `http://${data[0]}:${data[1]}/library/rule_file?server_type=${data[2]}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -18,7 +19,7 @@ export function getLibraryFiles(obj, data) {
     obj.$store.commit('LIBRARY_SERVER_FILES', [])
   })
 }
-
+// this, [url, port, tableName, pageNum, serverType]
 export function getLibrary(obj, data) {
   // 去除文件名中的.csv
   const tableName = data[2]
@@ -30,7 +31,7 @@ export function getLibrary(obj, data) {
   }
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/library/rule_client?rows=30&tab_type=${type}&page=${pageNum}${url}`,
+    url: `http://${data[0]}:${data[1]}/library/rule_client?rows=30&tab_type=${type}&page=${pageNum}&server_type=${data[5]}${url}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -49,14 +50,14 @@ export function getLibrary(obj, data) {
     obj.$store.commit('LIBRARY_SET_SERVER_TABLE', {})
   })
 }
-
-export function getList(obj, url, tableName, type, username) {
+// this, url, tableName, type, username, serverType
+export function getList(obj, url, tableName, type, username, serverType = 'server') {
   let file = tableName
   // 去除文件名中的.csv
   file = tableName.split('.csv')[0]
   axios({
     method: 'get',
-    url: `http://${url[0]}:${url[1]}/library/rule_client?tab_type=${file}&type=${type}&username=${username}`,
+    url: `http://${url[0]}:${url[1]}/library/rule_client?tab_type=${file}&server_type=${serverType}&type=${type}&username=${username}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
