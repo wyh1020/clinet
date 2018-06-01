@@ -31,6 +31,7 @@
 </template>
 
 <script>
+  import { share } from '../../utils/Server';
   import loadFile from '../../utils/LoadFile';
   import { getLibrary } from '../../utils/LibraryServerFile'
   import { getStat } from '../../utils/StatServerFile';
@@ -165,7 +166,7 @@
         this.$store.commit('EDIT_DELETE_RIGHT_PANELS', data);
       },
       blockShare(data) {
-        console.log(data);
+        share(this, [this.$store.state.System.server, this.$store.state.System.port], 'edit', data, this.$store.state.System.user.username, '')
       }
     },
   };
