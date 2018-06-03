@@ -2,6 +2,9 @@ const axios = require('axios');
 // const qs = require('qs');
 // this, [url, port, serverType]
 export function getLibraryFiles(obj, data) {
+  if (data[2] === undefined) {
+    data[2] = 'server'
+  }
   axios({
     method: 'get',
     url: `http://${data[0]}:${data[1]}/library/rule_file?server_type=${data[2]}`,
@@ -21,6 +24,9 @@ export function getLibraryFiles(obj, data) {
 }
 // this, [url, port, tableName, pageNum, serverType]
 export function getLibrary(obj, data) {
+  if (data[5] === undefined) {
+    data[5] = 'server'
+  }
   // 去除文件名中的.csv
   const tableName = data[2]
   const type = data[2].split('.csv')[0]

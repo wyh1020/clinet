@@ -2,6 +2,9 @@ const axios = require('axios');
 const qs = require('qs');
 // this, [url, port, type, username, serverType]
 export function getEditFiles(obj, data) {
+  if (data[4] === undefined) {
+    data[4] = 'server'
+  }
   let url = ''
   if (data[2] === 'user') {
     url = `http://${data[0]}:${data[1]}/edit/cda_user?server_type=${data[4]}`
@@ -33,6 +36,9 @@ export function getEditFiles(obj, data) {
 }
 // this, [url, port, filename, serverType]
 export function getEdit(obj, data) {
+  if (data[4] === undefined) {
+    data[4] = 'server'
+  }
   // 去除文件名中的.csv
   const file = data[2].split('-')
   let url = ''

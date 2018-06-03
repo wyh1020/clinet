@@ -34,7 +34,7 @@ export function getStatFiles(obj, data, filename, username, serverType = 'server
   })
 }
 
-export function getList(obj, url, tableName, type, username, serverType) {
+export function getList(obj, url, tableName, type, username, serverType = 'server') {
   switch (type) {
     case '机构':
       type = 'org'
@@ -68,7 +68,7 @@ export function getList(obj, url, tableName, type, username, serverType) {
   })
 }
 
-export function getStat(obj, data, opt, tableType, serverType) {
+export function getStat(obj, data, opt, tableType, serverType = 'server') {
   let file = opt.tableName
   const tableName = file
   // 去除文件名中的.csv
@@ -183,7 +183,7 @@ export function saveStat(obj, compare, data) {
 }
 
 // 获取从stat得到的wt4数据
-export function getStatWt4(obj, data, org, time, drg, serverType) {
+export function getStatWt4(obj, data, org, time, drg, serverType = 'server') {
   axios({
     method: 'get',
     url: `http://${data[0]}:${data[1]}/library/stat_wt4?org=${org}&time=${time}&drg=${drg}&server_type=${serverType}`,
