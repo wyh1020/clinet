@@ -146,7 +146,8 @@
           this.$store.commit('SET_NOTICE', '选择远程文件')
           this.$store.commit('STAT_SET_CHART_IS_SHOW', 'menu');
           this.$store.commit('STAT_SET_TABLE_PAGE', 1)
-          this.$store.commit('STAT_SET_TABLE_TYPE', 'server');
+          this.$store.commit('STAT_SET_TABLE_TYPE', 'server')
+          this.$store.commit('STAT_SET_BAR_TYPE', 'server')
           this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
           getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], '', this.$store.state.System.user.username)
         }
@@ -157,8 +158,11 @@
         } else {
           this.$store.commit('SET_NOTICE', '区块链文件');
           this.$store.commit('STAT_SET_TABLE_TYPE', 'block');
+          this.$store.commit('STAT_SET_BAR_TYPE', 'block');
+          this.$store.commit('STAT_SET_CHART_IS_SHOW', 'menu');
+          this.$store.commit('STAT_SET_TABLE_PAGE', 1)
           this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
-          getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port, 'block'], '', this.$store.state.System.user.username)
+          getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], '', this.$store.state.System.user.username, 'block')
         }
       },
       page: function (n) {

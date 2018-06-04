@@ -51,7 +51,8 @@ const state = {
   caseTable: { page: 1, countPage: 0, data: [], pageList: [], tableName: '' },
   caseSelectedRow: [],
   caseSelectedCol: [],
-  xObj: {}
+  xObj: {},
+  barType: ''
 };
 
 const mutations = {
@@ -238,7 +239,7 @@ const mutations = {
   },
   STAT_SET_TABLE_TYPE(state, data) {
     if (data !== 'compare') {
-      if (data === 'server' || data === 'case') {
+      if (data === 'server' || data === 'case' ||　data === 'block') {
         state.isServer = true
       } else {
         state.isServer = false
@@ -387,6 +388,9 @@ const mutations = {
       state.xObj[value[0]] = { bvalue: '', svalue: '' }
     }
   },
+  STAT_SET_BAR_TYPE(state, value) {
+    state.barType = value;
+  },
 };
 
 const actions = {
@@ -426,6 +430,7 @@ const actions = {
     commit('STAT_SET_CASE_FLAG');
     commit('STAT_SET_TABLE');
     commit('STAT_SET_XOBJ');
+    commit('STAT_SET_BAR_TYPE');
   },
 };
 export default {

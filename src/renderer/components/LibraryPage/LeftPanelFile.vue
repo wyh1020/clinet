@@ -34,12 +34,16 @@
     },
     methods: {
       loadFile: function (data, index) {
+        console.log(this.$store.state.Library.tableType);
         this.$store.commit('SYSTEM_GET_SHARE_FILE_NAME', this.$store.state.Library.files[index]);
         this.$store.commit('LIBRARY_GET_ROW', 0);
         this.$store.commit('LIBRARY_SET_FILE_INDEX', index);
         if (this.$store.state.Library.tableType === 'server') {
           this.$store.commit('LIBRARY_SET_TABLE_PAGE', 1);
           getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, data, 1], 'library')
+        } else if (this.$store.state.Library.tableType === 'block') {
+          this.$store.commit('LIBRARY_SET_TABLE_PAGE', 1);
+          getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, data, 1, '', '', 'block'], 'library')
         } else {
           loadFile(this, data, 'library')
           this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'local');

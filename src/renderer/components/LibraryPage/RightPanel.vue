@@ -7,7 +7,7 @@
           <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
         </tr>
       </table>
-      <table v-if ="this.$store.state.Library.tableType === 'server'">
+      <table v-if ="this.$store.state.Library.tableType === 'server' || this.$store.state.Library.tableType === 'block'">
         <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger': fieldIndex.includes(index) && index !== 0}" class="library-rightpanel">
           <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
         </tr>
@@ -53,6 +53,10 @@
               break;
             }
             case 'server': {
+              table = this.$store.state.Library.serverTable.data
+              break;
+            }
+            case 'block': {
               table = this.$store.state.Library.serverTable.data
               break;
             }
