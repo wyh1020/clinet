@@ -12,9 +12,9 @@
         <li class="nav-item active" v-on:click='getUsers()' id="server-user-setup">
           <a class="nav-link text-light" href="#"> 用户设置 <span class="sr-only">(current)</span></a>
         </li>
-        <li v-if="toolbar === 'getUsers' && user.login === false">
+        <!-- <li v-if="toolbar === 'getUsers' && user.login === false">
           <a class="nav-link text-light" href="#" v-on:click="loginUser()" id="server-login">登录</a>
-        </li>
+        </li> -->
         <li v-if="toolbar === 'getUsers' && user.login === false">
           <a class="nav-link text-light" href="#" v-on:click="insertUserPage()">新建</a>
         </li>
@@ -80,9 +80,9 @@
 <script>
   import { sGetOrg, sGetProvince, sGetUsers, sRegister, sUpdateUser,
     sCreateOrg, sUpdateOrg, sGetDepart, sCreateDepart, sUpdateDepart, sUpHelp } from '../../utils/Server';
-  import { open } from '../../utils/BlockAccount'
+  // import { open } from '../../utils/BlockAccount'
   import loadFile from '../../utils/LoadFile';
-  import { socketConnect } from '../../utils/Socket';
+  // import { socketConnect } from '../../utils/Socket';
   export default {
     data() {
       return {
@@ -218,19 +218,19 @@
           }
         }
       },
-      loginUser: function () {
-        const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
-        const user = this.userLogin
-        if (reg.test(user.username)) {
-          this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
-          socketConnect(this, [this.server, this.port, user.username, user.password])
-        } else if (Array.from(user.username.split(' ')).length === 12) {
-          const key = Object.keys(global.hitbdata.blockchain)[0]
-          const server = global.hitbdata.blockchain[key][0];
-          this.$store.commit('BLOCK_SET_SERVER', server)
-          open(this, [server[0], server[1], user.username]);
-        }
-      },
+      // loginUser: function () {
+      //   const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
+      //   const user = this.userLogin
+      //   if (reg.test(user.username)) {
+      //     this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
+      //     socketConnect(this, [this.server, this.port, user.username, user.password])
+      //   } else if (Array.from(user.username.split(' ')).length === 12) {
+      //     const key = Object.keys(global.hitbdata.blockchain)[0]
+      //     const server = global.hitbdata.blockchain[key][0];
+      //     this.$store.commit('BLOCK_SET_SERVER', server)
+      //     open(this, [server[0], server[1], user.username]);
+      //   }
+      // },
       insertUserPage: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'createUsers')
       },

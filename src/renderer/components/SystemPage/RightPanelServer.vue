@@ -14,15 +14,16 @@
         <div v-if="this.$store.state.System.user.login == false && this.$store.state.Block.account.address === ''">
           <div v-if="this.toolbar === 'getUsers'">
             <form>
-                <div class="form-group">
-                  <label class="">用户名（远程服务用户是电子邮箱，区块链服务用户是12个单词组成的口令）</label>
-                  <input type="text" class="form-control" placeholder="用户名(邮箱)" v-model="emailorname" id="server-username" @input="userLogins()">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">用户密码（区块链服务用户没有密码，或者使用二级密码）</label>
-                  <input type="password" class="form-control" placeholder="密码" v-model="loginpassword" id="server-password" @input="userLogins()">
-                </div>
-              </form>
+              <div class="form-group">
+                <label class="">用户名（远程服务用户是电子邮箱，区块链服务用户是12个单词组成的口令）</label>
+                <input type="text" class="form-control" placeholder="用户名(邮箱)" v-model="emailorname" id="server-username" @input="userLogins()">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">用户密码（区块链服务用户没有密码，或者使用二级密码）</label>
+                <input type="password" class="form-control" placeholder="密码" v-model="loginpassword" id="server-password" @input="userLogins()">
+              </div>
+            </form>
+            <button type="button" class="btn btn-outline-primary" v-on:click="sysytemlogin()">登录(可使用用户账号登录和区块链账号登录)</button>
           </div>
           <div v-if="this.toolbar === 'createUsers'">
             <div>
@@ -122,6 +123,7 @@
   import CreateDepartments from './RightPanelServer/CreateDepartments';
   import GetPersons from './RightPanelServer/GetPersons';
   import { sConnect } from '../../utils/Server'
+  import { socketConnect } from '../../utils/Socket';
   export default {
     components: { GetUsers, GetOrgs, CreateOrgs, CreateDepartments, GetPersons },
     data() {
@@ -187,7 +189,23 @@
     methods: {
       userLogins: function () {
         const b = { username: this.emailorname, password: this.loginpassword }
+        console.log(b);
         this.$store.commit('SYSTEM_LOGIN_USER', b)
+      },
+      sysytemlogin: function () {
+        // console.log('登录个毛线');
+        const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
+        const user = this.$store.state.System.userLogin
+        console.log(user);
+        if (reg.test(user.username)) {
+          this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
+          socketConnect(this, [this.server, this.port, user.username, user.password])
+        } else if (Array.from(user.username.split(' ')).length === 12) {
+          const key = Object.keys(global.hitbdata.blockchain)[0]
+          const server = global.hitbdata.blockchain[key][0];
+          this.$store.commit('BLOCK_SET_SERVER', server)
+          open(this, [server[0], server[1], user.username]);
+        }
       },
       connect: function (data, index) {
         this.flag = index
