@@ -36,8 +36,16 @@ export default function saveFile(obj, x, p) {
       base: x
     });
     // const data = obj.$store.state.Edit.file.map(x => `${x},\n`).toString()
-    // const data = obj.$store.state.Edit.file.join('\n')
-    const data = p.join(',\n')
+    let data = []
+    const a = typeof p
+    if (a === 'string') {
+      data = obj.$store.state.Edit.file.join(',\n')
+    } else {
+      data = p.join(',\n')
+    }
+    // // const data = p.join(',\n')
+    // console.log(obj.$store.state.Edit.file);
+    // console.log(p);
     fs.writeFile(fileName, data, (err) => {
       if (!err) {
         obj.$store.commit('SET_NOTICE', `文件成功保存到《${fileName}》！`)
