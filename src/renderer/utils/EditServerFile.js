@@ -182,8 +182,15 @@ export function clinetHelp(obj, data) {
   }).then((res) => {
     if (res.status === 200) {
       const b = res.data.result.split('\\n')
-      obj.$store.commit('EDIT_SET_RIGHT_CDH', b)
-      // console.log(b)
+      const obj1 = {}
+      b.map((n) => {
+        const index = n.indexOf(' ')
+        const c = n.slice(0, index)
+        const a = [n.slice(index + 1)]
+        obj1[c] = a
+        return obj1
+      })
+      obj.$store.commit('EDIT_SET_RIGHT_CDH', obj1)
     } else {
       obj.$store.commit('SET_NOTICE', '远程帮助失败')
     }

@@ -9,7 +9,7 @@
     name: 'clinet',
     data() {
       return {
-        height: window.innerHeight - 80
+        height: window.innerHeight
       };
     },
   };

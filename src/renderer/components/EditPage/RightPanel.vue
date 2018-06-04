@@ -21,7 +21,7 @@
     data() {
       return {
         flag: '',
-        height: window.innerHeight - 80
+        height: window.innerHeight - 100
       };
     },
     computed: {
@@ -38,7 +38,6 @@
       },
       rightType: {
         get() {
-          console.log(this.$store.state.Edit.rightType)
           return this.$store.state.Edit.rightType
         }
       }
