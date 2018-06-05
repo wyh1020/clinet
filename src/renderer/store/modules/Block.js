@@ -26,7 +26,8 @@ const state = {
   blockPage: 0,
   blockChain: {},
   blockBlock: { data: { blocks: [] } },
-  publicKeys: []
+  publicKeys: [],
+  blockShare: []
 };
 
 const mutations = {
@@ -130,6 +131,9 @@ const mutations = {
   BLOCK_GET_PUBLICKEYS(state, value) {
     state.publicKeys = value
   },
+  BLOCK_GET_SHARE(state, value) {
+    state.blockShare = value
+  },
 };
 
 const actions = {
@@ -155,6 +159,7 @@ const actions = {
     commit('BLOCK_SET_BLOCKCHAIN');
     commit('BLOCK_SET_BLOCKBLOCK');
     commit('BLOCK_GET_PUBLICKEYS');
+    commit('BLOCK_GET_SHARE');
   },
 };
 

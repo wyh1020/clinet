@@ -57,6 +57,7 @@
             <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-服务器节点设置')" id="navbar-block-server">区块链服务介绍</a>
             <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-账户设置')" id="navbar-block-account">账户设置</a>
             <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-区块查询')" id="navbar-block-block">区块查询</a>
+            <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-共享查询')" id="navbar-block-block">共享查询</a>
             <div class="dropdown-divider"></div>
             <!-- <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-DRG分组服务')" id="navbar-block-compdrg">DRG分组服务</a>
             <a class="dropdown-item" href="#" v-on:click="onClick('区块链服务-DRG分析计算')" id="navbar-block-statdrg">DRG分析计算</a> -->
@@ -161,6 +162,10 @@
           case '区块链服务-区块查询':
             this.$router.push('/blockChain');
             // this.$store.commit('BLOCK_SET_TOOLBAR', 'blockList');
+            break;
+          case '区块链服务-共享查询':
+            this.$router.push('/blockChain');
+            this.$store.commit('BLOCK_SET_TOOLBAR', 'blockShare');
             break;
           case '区块链服务-DRG分组服务':
             this.$router.push('/blockChain');
