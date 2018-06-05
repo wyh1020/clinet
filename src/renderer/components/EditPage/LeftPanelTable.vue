@@ -175,6 +175,7 @@
           this.$store.commit('EDIT_SET_DOC_INDEX', [0, true]);
           document.getElementById('edit-editbar-input').focus()
         } else {
+          this.$store.commit('EDIT_SET_RIGHT_PANELS', '病案参考');
           this.$store.commit('EDIT_SET_FILE_INDEX', index)
           this.$store.commit('EDIT_LOAD_DOC_SHOW', data.split(','))
           this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
