@@ -2,6 +2,7 @@ const axios = require('axios');
 // const qs = require('qs');
 // this, [url, port, serverType]
 export function getLibraryFiles(obj, data) {
+  console.log(data);
   if (data[2] === undefined) {
     data[2] = 'server'
   }
@@ -13,7 +14,7 @@ export function getLibraryFiles(obj, data) {
   }).then((res) => {
     if (res.status === 200) {
       obj.$store.commit('LIBRARY_SERVER_FILES', res.data)
-      obj.$store.commit('LIBRARY_SET_TABLE_TYPE', 'server');
+      // obj.$store.commit('LIBRARY_SET_TABLE_TYPE', 'server');
     } else {
       obj.$store.commit('LIBRARY_SERVER_FILES', [])
     }
@@ -22,8 +23,9 @@ export function getLibraryFiles(obj, data) {
     obj.$store.commit('LIBRARY_SERVER_FILES', [])
   })
 }
-// this, [url, port, tableName, pageNum, serverType]
+// this, [url, port, tableName, pageNum, dimensionType, dimensionServer,  serverType]
 export function getLibrary(obj, data) {
+  console.log(data);
   if (data[5] === undefined) {
     data[5] = 'server'
   }
@@ -37,11 +39,12 @@ export function getLibrary(obj, data) {
   }
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/library/rule_client?rows=30&tab_type=${type}&page=${pageNum}&server_type=${data[5]}${url}`,
+    url: `http://${data[0]}:${data[1]}/library/rule_client?rows=30&tab_type=${type}&page=${pageNum}&server_type=${data[6]}${url}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
+      console.log(res);
       const opt = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: res.data.library, pageList: res.data.page_list, tableName: tableName };
       obj.$store.commit('LIBRARY_SET_SERVER_TABLE', opt);
       obj.$store.commit('LIBRARY_SET_COUNT_PAGE', res.data.count);

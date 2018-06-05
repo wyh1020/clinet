@@ -7,7 +7,11 @@ const ChartLine = require('./ChartLine');
 const ChartPie = require('./ChartPie');
 const ChartData = require('./ChartData');
 // this, [url, port], filename, username, serverType
-export function getStatFiles(obj, data, filename, username, serverType = 'server') {
+export function getStatFiles(obj, data, filename, username, serverType) {
+  console.log(serverType);
+  if (!getStatFiles) {
+    serverType = 'server'
+  }
   let url = ''
   if (filename !== '') {
     url = `http://${data[0]}:${data[1]}/stat/stat_file?name=${filename}&username=${username}&server_type=${serverType}`
@@ -24,7 +28,7 @@ export function getStatFiles(obj, data, filename, username, serverType = 'server
       // 菜单层级
       obj.$store.commit('STAT_SET_SERVER_MENU', [res.data.menu, res.data.data])
       // obj.$store.commit('STAT_SERVER_FILES', res.data)
-      obj.$store.commit('STAT_SET_TABLE_TYPE', 'server');
+      obj.$store.commit('STAT_SET_TABLE_TYPE', 'block');
     } else {
       obj.$store.commit('STAT_SERVER_FILES', [])
     }
