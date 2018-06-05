@@ -7,9 +7,9 @@
             <a href="#" v-on:click="close(panelName)" style="float: right">✖</a>
           </th>
         </tr>
-        <tr class="edit-rightpanellocal-tr" v-for="(data, index) in xs" v-bind:key='index' v-bind:id="'edit-rightpanellocal-tr'+index" v-on:click="loadFile(data, index)" v-bind:class="{'table-danger':flag == index}">
-          <td>{{index + 1}}</td>
-          <td>{{data}}</td>
+        <tr class="edit-rightpanellocal-tr" v-for="(data, index) in xs" v-bind:key='index' v-bind:id="'edit-rightpanellocal-tr'+index" v-bind:class="{'table-danger':flag == index}">
+          <td v-on:click="loadFile(data, index)">{{index + 1}}</td>
+          <td v-on:click="loadFile(data, index)">{{data}}</td>
           <td v-if ="title === '远程文件的用户列表' && data.split('').includes('-')">
             <a href="#" v-on:click="blockShare(data)">发布</a>
           </td>
@@ -166,7 +166,11 @@
         this.$store.commit('EDIT_DELETE_RIGHT_PANELS', data);
       },
       blockShare(data) {
-        share(this, [this.$store.state.System.server, this.$store.state.System.port], 'edit', data, this.$store.state.System.user.username, '')
+        if (data.split('-')[0] === this.$store.state.System.user.username) {
+          share(this, [this.$store.state.System.server, this.$store.state.System.port], 'edit', data, this.$store.state.System.user.username, '')
+        } else {
+          this.$store.commit('SET_NOTICE', '用户权限不够，不能够发布他人文件');
+        }
       }
     },
   };
