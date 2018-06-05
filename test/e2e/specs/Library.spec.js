@@ -30,10 +30,10 @@ describe('Library', function () {
       })
     // 2.1.4、点击工具栏的编辑数据(remote-file)，进入编辑页面，编辑页面右侧显示当前数据，左侧显示第四行高亮的内容（传入id到编辑页面用于返回）
       .click('#library-edit')
-      .getText('#edit-editbar-input')
-      .then(function (editText) {
-        expect(editText).to.equal('');
-      })
+      // .getText('#edit-editbar-input')
+      // .then(function (editText) {
+      //   expect(editText).to.equal('');
+      // })
       .click('#edit-leftbar-back')
       // .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')
     // 2.1.5、点击维度选择(library-drop)，显示维度下拉选项

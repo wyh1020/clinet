@@ -23,7 +23,7 @@
                 <input type="password" class="form-control" placeholder="密码" v-model="loginpassword" id="server-password" @input="userLogins()">
               </div>
             </form>
-            <button type="button" class="btn btn-outline-primary" v-on:click="sysytemlogin()">登录(可使用用户账号登录和区块链账号登录)</button>
+            <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemlogin()">登录(可使用用户账号登录和区块链账号登录)</button>
           </div>
           <div v-if="this.toolbar === 'createUsers'">
             <div>
