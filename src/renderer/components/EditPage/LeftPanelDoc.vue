@@ -25,7 +25,7 @@
           <!-- 未定义-主诉-病史-体格检查 -->
           <table v-if="['未定义', '主诉', '病史', '现病史', '既往史', '家族史', '个人史', '月经史', '婚育史', '家庭史', '遗传史', '体格检查'].includes(key)">
             <tr class="table-warning"><td>{{key}}</td></tr>
-            <tr><td>
+            <tr v-if="section.length > 0"><td>
               <ol class="breadcrumb" >
                 <li class="breadcrumb-item" v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-on:click="changeIndex(item)">
                   <b>{{ item[1] }}</b>
@@ -33,6 +33,14 @@
                 </li>
                 <hr>
               </ol>      
+            </td></tr>
+            <tr v-if="section.length === 0"><td>
+              <ol class="breadcrumb" >
+                <li class="breadcrumb-item" v-on:click="changeIndex(item)">
+                  <b>空</b>
+                </li>
+                <hr>
+              </ol>       
             </td></tr>
           </table>
           <!-- 医嘱 -->
@@ -87,7 +95,6 @@
         get() {
           const doc = this.$store.state.Edit.doc
           const doc1 = editDoc(doc)
-          console.log(doc1)
           return doc1
         }
       },

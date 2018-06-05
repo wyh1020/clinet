@@ -157,7 +157,13 @@
             default:
               break;
           }
+          if (this.$store.state.Edit.rightPanels.includes('编辑病案')) {
+            this.$store.commit('EDIT_DELETE_RIGHT_PANELS', '编辑病案');
+          }
         } else {
+          if (this.$store.state.Edit.rightPanels.includes('编辑病案')) {
+            this.$store.commit('EDIT_DELETE_RIGHT_PANELS', '编辑病案');
+          }
           this.$store.commit('EDIT_SET_LOAD_FILENAME', data);
           loadFile(this, data, x, 'edit')
         }
