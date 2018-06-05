@@ -29,24 +29,24 @@ describe('LibraryBlockFile', function () {
     //     expect(leftlist).to.be.an('array');
     //   })
     // 2.1.6.1、点击左侧列表(library-leftlist)，读取数据文件内容，右侧表中显示所选区块链文件内容
-      // .click('.library-leftlist')
-      // .getHTML('.library-rightpanel')
-      // .then(function (rightpanel) {
-      //   expect(rightpanel).to.be.an('array');
-      // })
+    // .click('.library-leftlist')
+    // .getHTML('.library-rightpanel')
+    // .then(function (rightpanel) {
+    //   expect(rightpanel).to.be.an('array');
+    // })
     // 2.1.7.1.1、点击表中一行（例：第四行），当前行高亮显示
     // 2.1.7.2、点击工具栏的后一页(library-down)，右侧表中显示下一页内容第四行高亮并提示：翻页成功！table底部页数加一，提示翻页成功，若加一后页数大于当前总页数，提示：当前已经是最后一页！
-      // .click('#library-down')
-      // .getHTML('.library-rightpanel')
-      // .then(function (rightpanel) {
-      //   expect(rightpanel).to.be.an('array');
-      // })
+    // .click('#library-down')
+    // .getHTML('.library-rightpanel')
+    // .then(function (rightpanel) {
+    //   expect(rightpanel).to.be.an('array');
+    // })
     // 2.1.7.3、点击工具栏的前一页(library-up)，右侧表中显示上一页内容第四行高亮并提示：翻页成功！table底部页数减一，提示翻页成功，若减一后页数小于0，提示：当前已经是第一页！
-      // .click('#library-up')
-      // .getHTML('.library-rightpanel')
-      // .then(function (rightpanel) {
-      //   expect(rightpanel).to.be.an('array');
-      // })
+    // .click('#library-up')
+    // .getHTML('.library-rightpanel')
+    // .then(function (rightpanel) {
+    //   expect(rightpanel).to.be.an('array');
+    // })
     // 2.1.7.4、点击工具栏的编辑数据(remote-file)，进入编辑页面，编辑页面右侧显示当前数据，左侧显示第四行高亮的内容（传入id到编辑页面用于返回）
     //   .click('#library-edit')
     //   .getText('#edit-editbar-input')
@@ -54,22 +54,22 @@ describe('LibraryBlockFile', function () {
     //     expect(editText).to.equal('');
     //   })
     //   .click('#edit-leftbar-back')
-      // .waitUntilTextExists('#notice-bar', '选择的不是CSV文件，不能导入！')
+    // .waitUntilTextExists('#notice-bar', '选择的不是CSV文件，不能导入！')
     // 2.1.8、点击维度选择(library-dropdown)，显示维度下拉选项
     // 2.1.8.1、工具栏的维度选择-机构(library-org)，左侧列表显示当前数据内所有机构，提示：机构维度选择成功，若机构列无内容，提示：无机构维度！
-      // .click('#library-dropdown')
-      // .click('#library-dropdown-org')
-      // .waitUntilTextExists('#notice-bar', '维度选择')
-      // .getText('#library-dropdown-org')
-      // .then(function (org) {
-      //   expect(org).to.equal('');
-      // })
+    // .click('#library-dropdown')
+    // .click('#library-dropdown-org')
+    // .waitUntilTextExists('#notice-bar', '维度选择')
+    // .getText('#library-dropdown-org')
+    // .then(function (org) {
+    //   expect(org).to.equal('');
+    // })
     // 2.1.8.1.1、点击左侧列表(library-leftlist)，右侧表中显示所选机构的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
-      // .click('.library-leftlist')
-      // .getText('.library-rightpanel')
-      // .then(function (leftlist) {
-      //   expect(leftlist).to.be.an('array');
-      // })
+    // .click('.library-leftlist')
+    // .getText('.library-rightpanel')
+    // .then(function (leftlist) {
+    //   expect(leftlist).to.be.an('array');
+    // })
     // 2.1.8.2、工具栏的维度选择-时间(library-time)，左侧列表显示当前数据内所有时间，提示：时间维度选择成功，若时间列无内容，提示：无时间维度！
     //   .click('#library-dropdown')
     //   .click('#library-dropdown-time')
