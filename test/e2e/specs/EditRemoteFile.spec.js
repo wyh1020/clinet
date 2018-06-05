@@ -54,23 +54,24 @@ describe('EditRemoteFile', function () {
       // .waitUntilTextExists('#notice-bar', '远程服务用户登录成功')
       .getText('#notice-bar')
       .then(function (editText) {
-        // console.log(editText)
+        console.log(editText)
         expect(editText).to.be.an('string');
       })
     // 2.6 点击 导航栏中 edit下拉 按钮
       .click('#navbar-edit')
       .waitUntilTextExists('#edit-editbar-input', '')
     // 2.6 点击 右侧工具栏 远程文件 按钮
-      // .click('#edit-rightbar-server')
+      .click('#edit-rightbar-server')
       // .getText('#edit-rightpanellocal-table')
       // .then(function (editText) {
       //   console.log(editText);
       //   expect(editText).to.not.equal('');
       // })
-      // .getText('#edit-bar-prompt')
-      // .then(function (editText) {
-      //   expect(editText).to.be.an('string');
-      // })
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        console.log(editText);
+        expect(editText).to.be.an('string');
+      })
     // 2.7 点击 右侧 table 第一行 文件 列表
       // .click('#edit-rightpanellocal-tr0')
       // .getText('#edit-rightpanellocal-table')
