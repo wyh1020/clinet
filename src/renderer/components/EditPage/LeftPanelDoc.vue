@@ -14,10 +14,12 @@
         </div>
         <div v-if="lastNav === '/edit'">
           <table v-if="key === '个人信息'">
-            <tr class="table-warning"><td>{{key}}</td><td></td></tr>
-            <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-on:click="changeIndex(item)">
-              <td><b>{{ item[1] }}</b></td>
-              <td>{{ item[2] }}{{ item[3] }}{{ item[4] }}{{ item[5] }}{{ item[6] }}{{ item[7] }}{{ item[8] }}</td>
+            <tr class="table-warning"><td colspan="4">{{key}}</td></tr>
+            <tr rowspan="2" v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-on:click="changeIndex(item)">
+              <td rowspan="2" v-if="index % 2 === 0"><b>{{ item[1] }}</b></td>
+              <td rowspan="2" v-if="index % 2 === 0">{{ item[2] }}{{ item[3] }}{{ item[4] }}{{ item[5] }}{{ item[6] }}{{ item[7] }}{{ item[8] }}</td>
+              <td v-if="index % 2 !== 0"><b>{{ item[1] }}</b></td>
+              <td v-if="index % 2 !== 0">{{ item[2] }}{{ item[3] }}{{ item[4] }}{{ item[5] }}{{ item[6] }}{{ item[7] }}{{ item[8] }}</td>
             </tr>
           </table>
           <!-- 未定义-主诉-病史-体格检查 -->
@@ -85,6 +87,7 @@
         get() {
           const doc = this.$store.state.Edit.doc
           const doc1 = editDoc(doc)
+          console.log(doc1)
           return doc1
         }
       },
