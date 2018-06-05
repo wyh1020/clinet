@@ -75,6 +75,7 @@
       help: function (n) {
         if (n) {
           this.$store.commit('EDIT_SET_RIGHT_PANELS', n);
+          this.$store.commit('SET_NOTICE', n);
           if (n === 'DRG分析') {
             if (this.$store.state.System.wt4Tables.length > 1) {
               sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables, 'BJ'], 'getLocalData')
@@ -88,6 +89,14 @@
             this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
           } else if (this.$store.state.Edit.rightPanel === 'server') {
             clinetHelp(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user.username])
+          } else if (this.$store.state.Edit.rightPanel === '输入框提示') {
+            if (this.$store.state.Edit.rightPanel === 'server') {
+              if (!this.$store.state.Edit.rightCdh) {
+                this.$store.commit('SET_NOTICE', '输入提示无内容！');
+              } else if (!global.hitbdata.cdh) {
+                this.$store.commit('SET_NOTICE', '输入提示无内容！');
+              }
+            }
           }
         }
       },

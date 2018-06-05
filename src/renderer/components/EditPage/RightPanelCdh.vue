@@ -43,13 +43,10 @@
       xs: {
         get() {
           let x = global.hitbdata.cdh
-          console.log('ddd')
-          console.log(this.$store.state.Edit.rightPanel)
-          if (this.$store.state.Edit.rightPanel === 'local') {
-            x = global.hitbdata.cdh
-            console.log(x)
-          } else {
+          if (this.$store.state.Edit.rightPanel === 'server') {
             x = this.$store.state.Edit.rightCdh
+          } else {
+            x = global.hitbdata.cdh
           }
           return x
         },
