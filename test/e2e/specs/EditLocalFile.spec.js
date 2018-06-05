@@ -372,13 +372,13 @@ describe('EditLocalFile', function () {
         // console.log(editText);
         expect(editText).to.be.an('string');
       })
-      .click('#edit-editbar-input')
-      .keys('\uE015')
-      .getValue('#edit-editbar-input', '姓名 这是个名字输入')
-      .getText('#edit-bar-prompt')
-      .then(function (editText) {
-        expect(editText).to.be.an('string');
-      })
+      // .click('#edit-editbar-input')
+      // .keys('\uE015')
+      // .getValue('#edit-editbar-input', '姓名 这是个名字输入')
+      // .getText('#edit-bar-prompt')
+      // .then(function (editText) {
+      //   expect(editText).to.be.an('string');
+      // })
     // 2.3.3 点击缓存 edit-leftbar-cache
       // .click('#edit-leftbar-cache')
       // .getText('#edit-bar-prompt')
