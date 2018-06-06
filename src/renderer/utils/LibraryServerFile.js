@@ -25,7 +25,6 @@ export function getLibraryFiles(obj, data) {
 }
 // this, [url, port, tableName, pageNum, dimensionType, dimensionServer,  serverType]
 export function getLibrary(obj, data) {
-  console.log(data);
   if (data[5] === undefined) {
     data[5] = 'server'
   }
@@ -44,8 +43,8 @@ export function getLibrary(obj, data) {
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
-      console.log(res);
-      const opt = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: res.data.library, pageList: res.data.page_list, tableName: tableName };
+      obj.$store.commit('LIBRARY_SET_SERVER_TABLE_TITLE', type);
+      const opt = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: res.data.library.splice(1), pageList: res.data.page_list, tableName: tableName };
       obj.$store.commit('LIBRARY_SET_SERVER_TABLE', opt);
       obj.$store.commit('LIBRARY_SET_COUNT_PAGE', res.data.count);
       obj.$store.commit('SET_NOTICE', `当前${obj.$store.state.Library.serverTable.page}页,共${obj.$store.state.Library.serverTable.countPage}页`);
