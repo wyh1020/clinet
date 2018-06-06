@@ -160,3 +160,17 @@ export function blockInfo(obj, data) {
       console.log(err);
     });
 }
+// 获取共享查询
+export function blockShare(obj, data) {
+  axios.get(`http://${data[0]}:${data[1]}/servers/get_share`)
+    .then((res) => {
+      console.log(res)
+      if (res.status === 200) {
+        obj.$store.commit('BLOCK_GET_SHARE', res.data)
+        obj.$store.commit('SET_NOTICE', '获取共享内容查询成功')
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
