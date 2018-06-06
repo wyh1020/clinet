@@ -26,7 +26,7 @@
       v-on:keyup.ctrl.97="hintSet(1)" v-on:keyup.ctrl.98="hintSet(2)"
       v-on:keyup.ctrl.99="hintSet(3)" v-on:keyup.ctrl.100="hintSet(4)" v-on:keyup.ctrl.101="hintSet(5)"
       v-on:keyup.ctrl.102="hintSet(6)" v-on:keyup.ctrl.103="hintSet(7)" v-on:keyup.ctrl.104="hintSet(8)"
-      v-on:keyup.ctrl.105="hintSet(9)" v-on:keyup.ctrl.space="changeEditType()">
+      v-on:keyup.ctrl.105="hintSet(9)" v-on:keyup.ctrl.space="changeEditType()" v-on:keyup.shift.46="empty()">
     </nav>
   </div>
 </template>
@@ -133,7 +133,6 @@
                   if (index > 0) {
                     this.$store.commit('EDIT_UPDATE_DOC', [n, v, true]);
                   } else {
-                    console.log(n, v)
                     this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
                   }
                   this.$store.commit('EDIT_SET_DOC_INDEX', [1]);
@@ -248,6 +247,9 @@
         } else {
           this.$store.commit('EDIT_SET_EDIT_TYPE', '在线交流');
         }
+      },
+      empty() {
+        this.$store.commit('EDIT_SET_BAR_VALUE', '');
       }
     },
   };
