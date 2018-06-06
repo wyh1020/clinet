@@ -21,9 +21,9 @@
         <li v-if="toolbar === 'getUsers' && user.login === true" id = "server-user-change">
           <a class="nav-link text-light" href="#" v-on:click="updateUserPage()">修改</a>
         </li>
-        <li v-if="toolbar === 'createUsers'">
+        <!-- <li v-if="toolbar === 'createUsers'">
           <a class="nav-link text-light" href="#" v-on:click="insertUser()">注册</a>
-        </li>
+        </li> -->
         <li v-if="toolbar === 'upUsers'" id = "server-user-ischange">
           <a class="nav-link text-light" href="#" v-on:click="updateUser()">确认修改</a>
         </li>
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-  import { sGetOrg, sGetProvince, sGetUsers, sRegister, sUpdateUser,
+  import { sGetOrg, sGetProvince, sGetUsers, sUpdateUser,
     sCreateOrg, sUpdateOrg, sGetDepart, sCreateDepart, sUpdateDepart, sUpHelp } from '../../utils/Server';
   // import { open } from '../../utils/BlockAccount'
   import loadFile from '../../utils/LoadFile';
@@ -234,21 +234,21 @@
       insertUserPage: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'createUsers')
       },
-      insertUser: function () {
-        this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
-        // 邮箱,密码,年龄.电话
-        const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
-        let a = 1;
-        if (reg.test(this.registerInfo.email)) {
-          a = 1
-        } else {
-          a = 0
-          this.$store.commit('SET_NOTICE', '用户名或邮箱输入错误');
-        }
-        if (a === 1) {
-          sRegister(this, [this.server, this.port, this.registerInfo])
-        }
-      },
+      // insertUser: function () {
+      //   this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
+      //   // 邮箱,密码,年龄.电话
+      //   const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
+      //   let a = 1;
+      //   if (reg.test(this.registerInfo.email)) {
+      //     a = 1
+      //   } else {
+      //     a = 0
+      //     this.$store.commit('SET_NOTICE', '用户名或邮箱输入错误');
+      //   }
+      //   if (a === 1) {
+      //     sRegister(this, [this.server, this.port, this.registerInfo])
+      //   }
+      // },
       updateUserPage: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'upUsers')
       },
