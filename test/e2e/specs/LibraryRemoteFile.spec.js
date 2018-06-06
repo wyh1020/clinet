@@ -20,6 +20,8 @@ describe('LibraryRemoteFile', function () {
       .click('#navbar-system')
       .click('#navbar-system-server')
       .click('#server-user-setup')
+      .setValue('#server-username', 'test@test.com.cn')
+      .setValue('#server-password', '123456')
       .click('#server-login')
       .click('#navbar-library')
       .click('#library-local-file')
@@ -29,24 +31,24 @@ describe('LibraryRemoteFile', function () {
         expect(leftlist).to.be.an('array');
       })
     // 2.1.6.1、点击左侧列表(library-leftlist)，读取数据文件内容，右侧表中显示所选远程文件内容
-      // .click('.library-leftlist')
-      // .getHTML('.library-rightpanel')
-      // .then(function (rightpanel) {
-      //   expect(rightpanel).to.be.an('array');
-      // })
+      .click('.library-leftlist')
+      .getHTML('.library-rightpanel')
+      .then(function (rightpanel) {
+        expect(rightpanel).to.be.an('array');
+      })
     // 2.1.7.1.1、点击表中一行（例：第四行），当前行高亮显示
     // 2.1.7.2、点击工具栏的后一页(library-down)，右侧表中显示下一页内容第四行高亮并提示：翻页成功！table底部页数加一，提示翻页成功，若加一后页数大于当前总页数，提示：当前已经是最后一页！
-      // .click('#library-down')
-      // .getHTML('.library-rightpanel')
-      // .then(function (rightpanel) {
-      //   expect(rightpanel).to.be.an('array');
-      // })
+      .click('#library-down')
+      .getHTML('.library-rightpanel')
+      .then(function (rightpanel) {
+        expect(rightpanel).to.be.an('array');
+      })
     // 2.1.7.3、点击工具栏的前一页(library-up)，右侧表中显示上一页内容第四行高亮并提示：翻页成功！table底部页数减一，提示翻页成功，若减一后页数小于0，提示：当前已经是第一页！
-      // .click('#library-up')
-      // .getHTML('.library-rightpanel')
-      // .then(function (rightpanel) {
-      //   expect(rightpanel).to.be.an('array');
-      // })
+      .click('#library-up')
+      .getHTML('.library-rightpanel')
+      .then(function (rightpanel) {
+        expect(rightpanel).to.be.an('array');
+      })
     // 2.1.7.4、点击工具栏的编辑数据(remote-file)，进入编辑页面，编辑页面右侧显示当前数据，左侧显示第四行高亮的内容（传入id到编辑页面用于返回）
       .click('#library-edit')
       .getText('#edit-editbar-input')

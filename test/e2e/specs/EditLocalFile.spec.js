@@ -309,12 +309,12 @@ describe('EditLocalFile', function () {
       })
     // ++++++++++++++++++点击用户本地文件单行+++++++++++++++++++++++++++++
     // 2.3.1 选择本地文件 点击单行,左侧出现该文件中的病历
-      // .click('#edit-rightpanellocal-tr0')
-      // .getText('#edit-bar-prompt')
-      // .then(function (editText) {
-      //   // console.log(editText);
-      //   expect(editText).to.be.an('string');
-      // })
+      .click('#edit-rightpanellocal-tr0')
+      .getText('#edit-bar-prompt')
+      .then(function (editText) {
+        // console.log(editText);
+        expect(editText).to.be.an('string');
+      })
     // 2.3.2 点击左侧 第一行 td 删除按钮 edit-leftpaneltable-del0
       .click('#edit-leftpaneltable-del0')
       .getText('#edit-bar-prompt')
