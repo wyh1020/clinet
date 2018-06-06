@@ -623,7 +623,10 @@ export function sUpHelp(obj, data) {
 
 // 分享文件
 export function share(obj, data, type, fileName, username, content) {
-  content = content.join('","')
+  console.log(content);
+  if (type !== 'edit') {
+    content = content.join('","')
+  }
   axios({
     method: 'post',
     url: `http://${data[0]}:${data[1]}/servers/share`,
