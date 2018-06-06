@@ -24,6 +24,7 @@
               </div>
             </form>
             <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemlogin()">登录(可使用用户账号登录和区块链账号登录)</button>
+            <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemRegisters()">注册</button>
           </div>
           <div v-if="this.toolbar === 'createUsers'">
             <div>
@@ -53,6 +54,7 @@
                   <input type="text" class="form-control" id="InputPersonname" placeholder="Personname" v-model="personname" @input="register()">
                 </div>
               </form>
+              <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemRegister()">确认注册</button>
             </div>
           </div>
         </div>
@@ -122,7 +124,7 @@
   import CreateOrgs from './RightPanelServer/CreateOrgs';
   import CreateDepartments from './RightPanelServer/CreateDepartments';
   import GetPersons from './RightPanelServer/GetPersons';
-  import { sConnect } from '../../utils/Server'
+  import { sConnect, sRegister } from '../../utils/Server'
   import { socketConnect } from '../../utils/Socket';
   export default {
     components: { GetUsers, GetOrgs, CreateOrgs, CreateDepartments, GetPersons },
@@ -205,6 +207,24 @@
           const server = global.hitbdata.blockchain[key][0];
           this.$store.commit('BLOCK_SET_SERVER', server)
           open(this, [server[0], server[1], user.username]);
+        }
+      },
+      sysytemRegisters: function () {
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'createUsers')
+      },
+      sysytemRegister: function () {
+        this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
+        // 邮箱,密码,年龄.电话
+        const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
+        let a = 1;
+        if (reg.test(this.$store.state.System.registerInfo.email)) {
+          a = 1
+        } else {
+          a = 0
+          this.$store.commit('SET_NOTICE', '用户名或邮箱输入错误');
+        }
+        if (a === 1) {
+          sRegister(this, [this.server, this.port, this.$store.state.System.registerInfo])
         }
       },
       connect: function (data, index) {
