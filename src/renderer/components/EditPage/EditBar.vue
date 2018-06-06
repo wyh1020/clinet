@@ -133,6 +133,7 @@
                   if (index > 0) {
                     this.$store.commit('EDIT_UPDATE_DOC', [n, v, true]);
                   } else {
+                    console.log(n, v)
                     this.$store.commit('EDIT_UPDATE_DOC', [n, v]);
                   }
                   this.$store.commit('EDIT_SET_DOC_INDEX', [1]);

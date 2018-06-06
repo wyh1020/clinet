@@ -2,6 +2,7 @@
   <div id="edit-leftpaneldoc-doc" v-bind:style="{ height: height + 'px', overflow: 'auto' }">
     <div class="card">
       <div class="card-body" v-for="(section, key) of doc" v-bind:key='key'>
+        <tr v-if="key === '标题'"><td>标题： {{key}}</td></tr>
         <!-- 个人信息 -->
         <div v-if="lastNav === '/stat' || lastNav === '/library' || lastNav === '/system'">
           <table>
