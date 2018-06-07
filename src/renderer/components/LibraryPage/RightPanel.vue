@@ -2,16 +2,17 @@
   <div>
     <right-bar></right-bar>
     <div v-bind:style="{ height: height + 'px', overflow: 'auto' }">
-      <table v-if ="this.$store.state.Library.tableType === 'local'">
+      <!-- <table v-if ="this.$store.state.Library.tableType === 'local'">
         <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger':rowHeight == index && index !== 0}" class="library-rightpanel">
           <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
         </tr>
-      </table>
-      <table v-if ="this.$store.state.Library.tableType === 'server' || this.$store.state.Library.tableType === 'block'">
+        v-if ="this.$store.state.Library.tableType === 'server' || this.$store.state.Library.tableType === 'block'"
+      </table> -->
+      <table>
         <tr>
           <td v-for="(field, index) in this.$store.state.Library.title" v-bind:key='index'>{{field}}</td>
         </tr>
-        <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger': fieldIndex.includes(index)}" class="library-rightpanel">
+        <tr v-for="(data, index) in xs" v-bind:key='index' v-on:click="onClick(data, index)" v-bind:class="{'table-danger': rowHeight == index}" class="library-rightpanel">
           <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
         </tr>
       </table>

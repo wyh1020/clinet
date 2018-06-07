@@ -9,7 +9,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for ="(item, index) in blockShare" v-bind:key ="index">
+        <tr v-for ="(item, index) in blockShare" v-bind:key ="index" v-on:click="share(item, index)" v-bind:class="{'table-danger':height == index}">
           <td>{{item.key}}</td>
           <td>{{item.val}}</td>
           <td>{{item.last}}</td>
@@ -20,8 +20,13 @@
 </template>
 
 <script>
-  import { blockShare } from '../../utils/BlockBlock'
+  // import { blockShare } from '../../utils/BlockBlock'
   export default {
+    data() {
+      return {
+        height: null
+      }
+    },
     computed: {
       blockShare: {
         get() {
@@ -29,11 +34,11 @@
         }
       }
     },
-    created: function () {
-      console.log(this.$store.state.System.server);
-      blockShare(this, [this.$store.state.System.server, this.$store.state.System.port])
-    },
     methods: {
+      share: function (value, index) {
+        this.height = index
+        this.$store.commit('BLOCK_SET_INSERT', value);
+      }
     },
   };
 </script>

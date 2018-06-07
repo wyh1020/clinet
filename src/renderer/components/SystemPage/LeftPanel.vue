@@ -183,6 +183,8 @@
             this.drgCompute(data)
             break;
           case 'getIndex':
+            // console.log(data);
+            this.$store.commit('SYSTEM_SET_INDEX_TABLE', data);
             sGetTarget(this, [this.$store.state.System.server, this.$store.state.System.port], data);
             break;
           default:

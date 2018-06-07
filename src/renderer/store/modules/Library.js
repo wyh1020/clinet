@@ -60,7 +60,7 @@ const mutations = {
       }
       state.localTables[i] = f
     }
-    state.localTable = state.localTables[state.tablePage]
+    state.localTable = state.localTables[state.tablePage].slice(1)
   },
   LIBRARY_SERVER_FILES(state, opt) {
     state.files = opt.data;
@@ -78,7 +78,7 @@ const mutations = {
     } else if (state.tablePage < 1) {
       state.tablePage = 1
     }
-    state.localTable = state.localTables[state.tablePage]
+    state.localTable = state.localTables[state.tablePage].slice(1)
   },
   LIBRARY_SET_TABLE_PAGE(state, page) {
     state.tablePage = page;
@@ -145,7 +145,7 @@ const mutations = {
       state.localTables[i] = f
     }
     state.tablePage = 1
-    state.localTable = state.localTables[state.tablePage]
+    state.localTable = state.localTables[state.tablePage].slice(1)
   },
   LIBRARY_GET_FIELD(state, field) {
     state.field = field;
@@ -179,7 +179,7 @@ const mutations = {
       }
       state.localTables[i] = f
     }
-    state.localTable = state.localTables[state.tablePage]
+    state.localTable = state.localTables[state.tablePage].slice(1)
   },
   LIBRARY_GET_ROW(state, data) {
     state.rowHeight = data
@@ -190,12 +190,29 @@ const mutations = {
   LIBRARY_SET_SERVER_TABLE_TITLE(state, n) {
     // state.countPage = n
     let title = []
-    switch (n) {
+    switch (n.split('.csv')[0]) {
+      case 'test_mdc':
+      case 'test_adrg':
+        title = ['ID', '编码', '名称', 'MDC', '机构', '版本', '年份', 'plat']
+        break;
+      case 'test_drg':
+        title = ['ID', '编码', '名称', 'MDC', 'ADRG', '机构', '版本', '年份', 'plat']
+        break;
+      case 'test_icd10':
+      case 'test_icd9':
+        title = ['ID', '编码', '名称', 'p_type', '版本', '年份', 'plat', 'dissect', 'property', 'option', 'codes']
+        break;
+      case 'test_department':
+        title = ['编码', '内部编码', '内部名称', '主治医生', '副主治医生', '所属机构', 'sickroom_range', '床位数', '科室数', '是否启用']
+        break;
+      case 'test_org':
+        title = ['名称', '等级', '类型', '科室数', '医师数', '主任', '医院编码']
+        break;
       case 'mdc':
         title = ['编码', 'ICD10_a', 'ICD10_aa', 'ICD9_a', 'ICD9_a', '名称', '版本', '年份']
         break;
       case 'adrg':
-        title = ['编码', 'drgs_1', 'icd10_a', 'icd10_aa', 'icd10_acc', 'icd10_b', 'icd10_bb', 'icd10_bcc', 'icd9_a', 'icd9_aa', 'icd9_acc', 'icd9_bb']
+        title = ['编码', 'drgs_1', 'icd10_a', 'icd10_aa', 'icd10_acc', 'icd10_b', 'icd10_bb', 'icd10_bcc', 'icd9_a', 'icd9_aa', 'icd9_acc', 'icd9_b', 'icd9_bb', 'icd9_bcc', '名称', '版本', '年份']
         break;
       case 'drg':
         title = ['ADRG', '编码', '名称', '版本', '年份']

@@ -174,3 +174,16 @@ export function blockShare(obj, data) {
       console.log(err);
     });
 }
+export function insertBlockShare(obj, data) {
+  axios.get(`http://${data[0]}:${data[1]}/servers/insert_share?table=${data[2].key}&time=${data[2].last}`)
+    .then((res) => {
+      console.log(res)
+      if (res.status === 200) {
+        // obj.$store.commit('BLOCK_GET_SHARE', res.data)
+        obj.$store.commit('SET_NOTICE', '导入成功')
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}

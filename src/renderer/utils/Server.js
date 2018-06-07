@@ -504,6 +504,7 @@ export function sGetTarget(obj, data, type) {
     responseType: 'json'
   }).then((res) => {
     if (type === 'list') {
+      console.log(res)
       obj.$store.commit('SYSTEM_GET_TARGET_LIST', res.data.list)
     } else {
       obj.$store.commit('SYSTEM_GET_TARGET', res.data)

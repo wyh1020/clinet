@@ -72,7 +72,9 @@ const state = {
   upLoadFile: [],
   loadTable: 0,
   otherLogin: false,
-  shareFileName: ''
+  shareFileName: '',
+  targetArray: [],
+  indexTable: ''
 };
 
 const mutations = {
@@ -280,6 +282,14 @@ const mutations = {
   // 获取计算列表
   SYSTEM_GET_TARGET_LIST(state, field) {
     state.targetList = field
+    const array = []
+    field.forEach((x) => {
+      const obj = { }
+      obj[x] = []
+      array.push(obj)
+      // return obj
+    })
+    state.targetArray = array
   },
   // 或计算数据
   SYSTEM_GET_SERVER_STAT(state, field) {
@@ -375,7 +385,10 @@ const mutations = {
   },
   SYSTEM_SET_SERVER_LOAD_TABLE(state, value) {
     state.loadTable = value
-  }
+  },
+  SYSTEM_SET_INDEX_TABLE(state, value) {
+    state.indexTable = value
+  },
 };
 
 const actions = {
@@ -426,6 +439,7 @@ const actions = {
     commit('SYSTEM_GET_CHECKDATA_PAGE');
     commit('SYSTEM_SET_SERVER_LOAD_TABLE');
     commit('SYSTEM_GET_SHARE_FILE_NAME');
+    commit('SYSTEM_SET_INDEX_TABLE');
   },
 };
 

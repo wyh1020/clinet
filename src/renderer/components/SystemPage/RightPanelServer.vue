@@ -22,9 +22,15 @@
                 <label for="exampleInputPassword1">用户密码（区块链服务用户没有密码，或者使用二级密码）</label>
                 <input type="password" class="form-control" placeholder="密码" v-model="loginpassword" id="server-password" @input="userLogins()">
               </div>
+              <div class="form-group" v-if="this.secondPassword">
+                <label for="exampleInputPassword1">确认密码</label>
+                <input type="password" class="form-control" placeholder="密码" v-model="confirmPassword" id="server-password" @input="userLogins()">
+              </div>
             </form>
-            <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemlogin()">登录(可使用用户账号登录和区块链账号登录)</button>
-            <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemRegisters()">注册</button>
+            <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemlogin()"  v-if="!this.secondPassword">登录(可使用用户账号登录和区块链账号登录)</button>
+            <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemRegisters()"  v-if="!this.secondPassword">注册</button>
+            <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemRegister()"  v-if="this.secondPassword">确认注册</button>
+            <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemReturn()"  v-if="this.secondPassword">返回</button>
           </div>
           <div v-if="this.toolbar === 'createUsers'">
             <div>
@@ -139,8 +145,11 @@
         personname: '',
         emailorname: 'test@hitb.com.cn',
         loginpassword: '123456',
+        confirmPassword: '',
         userInfo: 'info',
         upUserInfo: { org: this.$store.state.System.user.org, password: '' },
+        secondPassword: false
+
       }
     },
     created: function () {
@@ -210,21 +219,29 @@
         }
       },
       sysytemRegisters: function () {
-        this.$store.commit('SYSTEM_SET_TOOLBAR', 'createUsers')
+        this.secondPassword = true
+        // this.$store.commit('SYSTEM_SET_TOOLBAR', 'createUsers')
+      },
+      sysytemReturn: function () {
+        this.secondPassword = false
       },
       sysytemRegister: function () {
         this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
         // 邮箱,密码,年龄.电话
         const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
         let a = 1;
-        if (reg.test(this.$store.state.System.registerInfo.email)) {
+        if (reg.test(this.emailorname)) {
           a = 1
         } else {
           a = 0
           this.$store.commit('SET_NOTICE', '用户名或邮箱输入错误');
         }
         if (a === 1) {
-          sRegister(this, [this.server, this.port, this.$store.state.System.registerInfo])
+          if (this.loginpassword === this.confirmPassword) {
+            const user = { username: this.emailorname, password: this.loginpassword, org: '测试医院1', age: '26', tel: '15611756970', email: this.emailorname, name: 'test', type: 2 }
+            sRegister(this, [this.server, this.port, user])
+            this.secondPassword = false
+          }
         }
       },
       connect: function (data, index) {
