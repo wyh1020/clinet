@@ -178,20 +178,6 @@
         const fileIndex = this.$store.state.Edit.fileIndex
         if (fileIndex >= 0) {
           let doc = this.$store.state.Edit.doc
-          // let isTitle = false
-          // doc.map((x) => {
-          //   if (x[0].includes('标题')) {
-          //     isTitle = true
-          //   }
-          //   return isTitle
-          // })
-          // if (!isTitle) {
-          //   if (this.$store.state.Edit.modelName) {
-          //     this.$store.commit('EDIT_UPDATE_DOC', [0, ['标题', this.$store.state.Edit.modelName]]);
-          //   } else {
-          //     this.$store.commit('EDIT_UPDATE_DOC', [0, ['标题', doc[0][0]]]);
-          //   }
-          // }
           doc = doc.filter(x => x !== '')
           doc = doc.map(x => x.join(' '))
           this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
