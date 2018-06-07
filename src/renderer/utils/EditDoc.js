@@ -18,18 +18,14 @@ function editDoc(x) {
   let n = 0
   obj[key] = []
 
-  const funx = function (obj, x) {
-    key = x[1]
-    if (!obj[key]) {
-      obj[key] = []
-    }
-  }
-
   x.forEach((x) => {
     x = [n].concat(x)
     n += 1
     if (sections.includes(x[1])) {
-      funx(obj, x)
+      key = x
+      if (!obj[key]) {
+        obj[key] = []
+      }
     } else {
       obj[key].push(x)
     }
