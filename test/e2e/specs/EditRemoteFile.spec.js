@@ -49,7 +49,7 @@ describe('EditRemoteFile', function () {
       .getText('#server-login')
       .then(function (editText) {
         // console.log(editText)
-        expect(editText).to.be.an('string');
+        expect(editText).to.be.an('array');
       })
       // .waitUntilTextExists('#notice-bar', '远程服务用户登录成功')
       .getText('#notice-bar')
