@@ -164,6 +164,7 @@
           }
           this.$store.commit('EDIT_LOAD_DOC', r)
           if (this.$store.state.Edit.helpType === '在线交流') {
+            // this.$store.commit('EDIT_SET_CHAT_TYPE', true)
             join(this, this.$store.state.Edit.fileName, this.$store.state.System.user.username)
             this.$store.commit('EDIT_SET_LEFT_PANEL', 'doc')
           } else if (this.$store.state.Edit.selectedType === 'row') {
