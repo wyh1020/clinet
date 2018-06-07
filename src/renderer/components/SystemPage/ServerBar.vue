@@ -15,9 +15,9 @@
         <!-- <li v-if="toolbar === 'getUsers' && user.login === false">
           <a class="nav-link text-light" href="#" v-on:click="loginUser()" id="server-login">登录</a>
         </li> -->
-        <li v-if="toolbar === 'getUsers' && user.login === false">
+        <!-- <li v-if="toolbar === 'getUsers' && user.login === false">
           <a class="nav-link text-light" href="#" v-on:click="insertUserPage()">新建</a>
-        </li>
+        </li> -->
         <li v-if="toolbar === 'getUsers' && user.login === true" id = "server-user-change">
           <a class="nav-link text-light" href="#" v-on:click="updateUserPage()">修改</a>
         </li>
@@ -231,9 +231,9 @@
       //     open(this, [server[0], server[1], user.username]);
       //   }
       // },
-      insertUserPage: function () {
-        this.$store.commit('SYSTEM_SET_TOOLBAR', 'createUsers')
-      },
+      // insertUserPage: function () {
+      //   this.$store.commit('SYSTEM_SET_TOOLBAR', 'createUsers')
+      // },
       // insertUser: function () {
       //   this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
       //   // 邮箱,密码,年龄.电话

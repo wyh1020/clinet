@@ -24,6 +24,7 @@ const state = {
   dimensionSearch: { time: 0, version: 0, org: 0 },
   rowHeight: null,
   dimensionServer: '',
+  title: []
 };
 
 const mutations = {
@@ -186,6 +187,50 @@ const mutations = {
   LIBRARY_SET_COUNT_PAGE(state, n) {
     state.countPage = n
   },
+  LIBRARY_SET_SERVER_TABLE_TITLE(state, n) {
+    // state.countPage = n
+    let title = []
+    switch (n) {
+      case 'mdc':
+        title = ['编码', 'ICD10_a', 'ICD10_aa', 'ICD9_a', 'ICD9_a', '名称', '版本', '年份']
+        break;
+      case 'adrg':
+        title = ['编码', 'drgs_1', 'icd10_a', 'icd10_aa', 'icd10_acc', 'icd10_b', 'icd10_bb', 'icd10_bcc', 'icd9_a', 'icd9_aa', 'icd9_acc', 'icd9_bb']
+        break;
+      case 'drg':
+        title = ['ADRG', '编码', '名称', '版本', '年份']
+        break;
+      case 'icd9':
+        title = ['ADRG', '编码', 'codes', 'dissect', '名称', '选择', 'p_type', 'property', '版本', '年份']
+        break;
+      case 'icd10':
+        title = ['ADRG', 'cc', '编码', 'codes', 'dissect', 'mcc', '名称', '版本', '年份']
+        break;
+      case '基本信息':
+      case '街道乡镇代码':
+      case '民族':
+      case '区县编码':
+      case '手术血型':
+      case '科别代码':
+      case '病理诊断编码':
+      case '出入院编码':
+      case '肿瘤编码':
+      case '医保诊断依据':
+        title = ['编码', '名称', '类型', '年份']
+        break;
+      case '中药':
+        title = ['序号', '用量', '功效', '适应症', '归经', '名称', '别名', '注意事项', '性味', '毒性', '分类']
+        break;
+      case '中成药':
+        title = ['药品分类代码', '限医疗机构等级', '药品编号', '药品类型', '药品名称', '其他名称', '医疗', '其他限制', '其他规格', '药品分类', '人员限制']
+        break;
+      case '西药':
+        title = ['中文名称', '英文名称', '剂型', '报销限制内容', '一级分类', '二级分类', '三级分类']
+        break;
+      default:
+    }
+    state.title = title
+  }
 };
 
 const actions = {
@@ -205,6 +250,7 @@ const actions = {
     commit('LIBRARY_SET_TABLE_PAGE');
     commit('LIBRARY_SET_SERVER_DIMENSION');
     commit('LIBRARY_SET_COUNT_PAGE');
+    commit('LIBRARY_SET_SERVER_TABLE_TITLE');
   },
 };
 
