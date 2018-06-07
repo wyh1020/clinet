@@ -43,8 +43,7 @@ export function getLibrary(obj, data) {
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
-      obj.$store.commit('LIBRARY_SET_SERVER_TABLE_TITLE', type);
-      const opt = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: res.data.library.splice(1), pageList: res.data.page_list, tableName: tableName };
+      const opt = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: res.data.library.slice(1), pageList: res.data.page_list, tableName: tableName };
       obj.$store.commit('LIBRARY_SET_SERVER_TABLE', opt);
       obj.$store.commit('LIBRARY_SET_COUNT_PAGE', res.data.count);
       obj.$store.commit('SET_NOTICE', `当前${obj.$store.state.Library.serverTable.page}页,共${obj.$store.state.Library.serverTable.countPage}页`);
