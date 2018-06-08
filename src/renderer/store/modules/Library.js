@@ -171,15 +171,18 @@ const mutations = {
     const a = state.tableSel.filter(n => n.includes(data));
     const page = Math.ceil(a.length / 35)
     state.countPage = page
-    for (let i = 1; i < page; i += 1) {
+    for (let i = 0; i < page; i += 1) {
       const f = []
       f.push(state.tableHeader[0])
-      for (let j = 1; j <= 35; j += 1) {
-        f.push(a[(i) * j])
+      for (let j = 0; j <= 35; j += 1) {
+        f.push(a[(i + 1) * j])
       }
-      state.localTables[i] = f
+      // console.log(f);
+      state.localTables[i + 1] = f
     }
-    state.localTable = state.localTables[state.tablePage].slice(1)
+    if (state.localTables[state.tablePage]) {
+      state.localTable = state.localTables[state.tablePage].slice(1)
+    }
   },
   LIBRARY_GET_ROW(state, data) {
     state.rowHeight = data
