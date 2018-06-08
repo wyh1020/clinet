@@ -93,7 +93,7 @@
       serverPage: function (data) {
         const page = parseInt(data, 10)
         this.$store.commit('LIBRARY_SET_TABLE_PAGE', page);
-        getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, page, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
+        getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.serverTable.tableNam, page, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer, 'library', 'block')
       }
     },
   };

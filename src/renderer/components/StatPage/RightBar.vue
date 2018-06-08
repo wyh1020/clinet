@@ -397,7 +397,7 @@
             })
             compareFile.push(f)
           })
-          saveStat(this, compareFile, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user])
+          saveStat(this, compareFile, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.user)
         }
       },
       statSearch: function () {

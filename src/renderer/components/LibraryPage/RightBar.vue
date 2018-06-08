@@ -73,7 +73,7 @@
           this.$store.commit('SET_NOTICE', '远程文件');
           this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'server');
           this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
-          getLibraryFiles(this, [this.$store.state.System.server, this.$store.state.System.port])
+          getLibraryFiles(this, [this.$store.state.System.server, this.$store.state.System.port], 'server')
         }
       },
       blockData: function () {
@@ -83,7 +83,7 @@
           this.$store.commit('SET_NOTICE', '区块链文件');
           this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'block');
           this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
-          getLibraryFiles(this, [this.$store.state.System.server, this.$store.state.System.port, 'block'])
+          getLibraryFiles(this, [this.$store.state.System.server, this.$store.state.System.port], 'block')
         }
       },
       page: function (n) {
@@ -95,7 +95,7 @@
           switch (this.$store.state.Library.tableType) {
             case 'server':
               this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
-              getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, this.$store.state.Library.tablePage, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer])
+              getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.serverTable.tableNam, this.$store.state.Library.tablePage, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer, 'library', 'block')
               break;
             case 'local':
               this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
@@ -153,7 +153,7 @@
             if (this.$store.state.Library.serverTable.data.length > 0) {
               if (x === 'all') {
                 this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
-                getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, this.$store.state.Library.serverTable.page, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer], 'library')
+                getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.serverTable.tableNam, this.$store.state.Library.tablePage, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer, 'library', 'block')
               } else {
                 getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.serverTable.tableName, x, this.$store.state.System.user.username)
               }
@@ -173,7 +173,7 @@
             this.$store.commit('LIBRARY_GET_SEARCH_TABLE', this.library)
             break;
           case 'server':
-            getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Library.serverTable.tableName, 1, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer], 'library')
+            getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.serverTable.tableNam, 1, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer, 'library', 'block')
             break;
           default:
         }

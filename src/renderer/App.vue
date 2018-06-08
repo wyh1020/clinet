@@ -19,6 +19,8 @@
   background:
     radial-gradient(
       ellipse at top left,
+      /* rgb(225, 253, 253) 50%,
+      rgba(130, 224, 224, 0.9) 100% */
       rgb(151, 221, 224) 40%,
       rgba(130, 224, 224, 0.9) 100%
     );

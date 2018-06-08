@@ -13,7 +13,7 @@ export default function chartLine(id, opt = null) {
       type: 'line'
     }]
   }
-  const myChart = echarts.init(document.getElementById(id), 'light');
+  const myChart = echarts.init(document.getElementById(id));
   if (opt) {
     // 取得表头并删除前两位
     const th = Object.keys(opt[0])
@@ -62,7 +62,7 @@ export default function chartLine(id, opt = null) {
     })
     // 显示图
     option = {
-      backgroundColor: '#fff',
+      // backgroundColor: '#fff',
       tooltip: { trigger: 'axis' },
       legend: { data: chartKeys, type: 'scroll', width: '80%' },
       toolbox: {
@@ -71,7 +71,7 @@ export default function chartLine(id, opt = null) {
         x: 'right',
         y: 'top',
         color: ['#1e90ff', '#22bb22', '#4b0082', '#d2691e'],
-        backgroundColor: 'rgba(0,0,0,0)',
+        // backgroundColor: 'rgba(0,0,0,0)',
         borderColor: '#ccc',
         borderWidth: 0,
         padding: 5,

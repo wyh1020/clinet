@@ -42,10 +42,10 @@
         this.$store.commit('LIBRARY_SET_FILE_INDEX', index);
         if (this.$store.state.Library.tableType === 'server') {
           this.$store.commit('LIBRARY_SET_TABLE_PAGE', 1);
-          getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, data, 1], 'library')
+          getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port], data, 1, null, null, 'library', 'server')
         } else if (this.$store.state.Library.tableType === 'block') {
           this.$store.commit('LIBRARY_SET_TABLE_PAGE', 1);
-          getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, data, 1, '', '', 'block'], 'library')
+          getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port], data, 1, null, null, 'library', 'block')
         } else {
           loadFile(this, data, 'library')
           this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'local');

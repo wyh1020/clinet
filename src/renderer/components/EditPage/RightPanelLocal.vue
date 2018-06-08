@@ -148,7 +148,7 @@
               break;
             case '/library':
               this.$store.commit('LIBRARY_SET_TABLE_PAGE', 1);
-              getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port, data, 1], 'edit')
+              getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port], data, 1, null, null, 'edit')
               break;
             case '/stat':
               this.$store.commit('STAT_SET_TABLE_PAGE', 1)

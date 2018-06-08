@@ -13,7 +13,7 @@ export default function chartBar(id, opt = null) {
       type: 'bar'
     }]
   }
-  const myChart = echarts.init(document.getElementById(id), 'light');
+  const myChart = echarts.init(document.getElementById(id));
   if (opt) {
     // console.log(opt)
     // 取得表头并删除前两位
@@ -63,7 +63,7 @@ export default function chartBar(id, opt = null) {
     })
     // 显示图
     option = {
-      backgroundColor: '#fff',
+      // backgroundColor: '#fff',
       tooltip: {
         trigger: 'axis',
         axisPointer: {

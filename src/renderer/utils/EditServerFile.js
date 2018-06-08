@@ -1,15 +1,12 @@
 const axios = require('axios');
 const qs = require('qs');
 // this, [url, port, type, username, serverType]
-export function getEditFiles(obj, data) {
-  if (data[4] === undefined) {
-    data[4] = 'server'
-  }
+export function getEditFiles(obj, data, type, username, serverType = 'server') {
   let url = ''
-  if (data[2] === 'user') {
-    url = `http://${data[0]}:${data[1]}/edit/cda_user?server_type=${data[4]}`
+  if (type === 'user') {
+    url = `http://${data[0]}:${data[1]}/edit/cda_user?server_type=${serverType}`
   } else {
-    url = `http://${data[0]}:${data[1]}/edit/cda_file?username=${data[3]}&server_type=${data[4]}`
+    url = `http://${data[0]}:${data[1]}/edit/cda_file?username=${username}&server_type=${serverType}`
   }
   // const url = `http://${data[0]}:${data[1]}/edit/cda_file`
   axios({
@@ -20,7 +17,7 @@ export function getEditFiles(obj, data) {
   }).then((res) => {
     if (res.status === 200) {
       obj.$store.commit('EDIT_SERVER_FILES', res.data.cda)
-      if (data[2] === 'user') {
+      if (type === 'user') {
         obj.$store.commit('EDIT_SET_SERVER_TYPE', 'file');
       } else {
         obj.$store.commit('EDIT_SET_SERVER_TYPE', 'show');

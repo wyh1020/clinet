@@ -1,14 +1,10 @@
 const axios = require('axios');
 // const qs = require('qs');
 // this, [url, port, serverType]
-export function getLibraryFiles(obj, data) {
-  console.log(data);
-  if (data[2] === undefined) {
-    data[2] = 'server'
-  }
+export function getLibraryFiles(obj, data, serverType = 'server') {
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/library/rule_file?server_type=${data[2]}`,
+    url: `http://${data[0]}:${data[1]}/library/rule_file?server_type=${serverType}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -23,22 +19,17 @@ export function getLibraryFiles(obj, data) {
     obj.$store.commit('LIBRARY_SERVER_FILES', [])
   })
 }
-// this, [url, port, tableName, pageNum, dimensionType, dimensionServer,  serverType]
-export function getLibrary(obj, data) {
-  if (data[5] === undefined) {
-    data[5] = 'server'
-  }
+
+export function getLibrary(obj, data, tableName, pageNum, dimensionType, dimensionServer, type1, serverType = 'server') {
   // 去除文件名中的.csv
-  const tableName = data[2]
-  const type = data[2].split('.csv')[0]
-  const pageNum = data[3]
+  const type = tableName.split('.csv')[0]
   let url = ''
-  if (data[4] !== '') {
-    url = `&${data[4]}=${data[5]}`
+  if (dimensionType !== '') {
+    url = `&${dimensionType}=${dimensionServer}`
   }
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/library/rule_client?rows=30&tab_type=${type}&page=${pageNum}&server_type=${data[6]}${url}`,
+    url: `http://${data[0]}:${data[1]}/library/rule_client?rows=30&tab_type=${type}&page=${pageNum}&server_type=${serverType}${url}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {

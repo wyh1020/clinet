@@ -207,10 +207,9 @@
         // console.log('登录个毛线');
         const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
         const user = this.$store.state.System.userLogin
-        console.log(user);
         if (reg.test(user.username)) {
           this.$store.commit('SYSTEM_SET_SERVER', this.$store.state.System.file[1].split(','))
-          socketConnect(this, [this.server, this.port, user.username, user.password])
+          socketConnect(this, [this.server, this.port], { username: user.username, password: user.password });
         } else if (Array.from(user.username.split(' ')).length === 12) {
           const key = Object.keys(global.hitbdata.blockchain)[0]
           const server = global.hitbdata.blockchain[key][0];

@@ -8,10 +8,6 @@ const ChartPie = require('./ChartPie');
 const ChartData = require('./ChartData');
 // this, [url, port], filename, username, serverType
 export function getStatFiles(obj, data, filename, username, serverType = 'server') {
-  // console.log(serverType);
-  // if (!getStatFiles) {
-  //   serverType = 'server'
-  // }
   let url = ''
   if (filename !== '') {
     url = `http://${data[0]}:${data[1]}/stat/stat_file?name=${filename}&username=${username}&server_type=${serverType}`
@@ -38,7 +34,7 @@ export function getStatFiles(obj, data, filename, username, serverType = 'server
   })
 }
 
-export function getList(obj, url, tableName, type, username, serverType = 'server') {
+export function getList(obj, data, tableName, type, username, serverType = 'server') {
   switch (type) {
     case '机构':
       type = 'org'
@@ -57,7 +53,7 @@ export function getList(obj, url, tableName, type, username, serverType = 'serve
   file = tableName.split('.csv')[0]
   axios({
     method: 'get',
-    url: `http://${url[0]}:${url[1]}/stat/stat_client?type=${type}&username=${username}&page_type=${file}&server_type=${serverType}`,
+    url: `http://${data[0]}:${data[1]}/stat/stat_client?type=${type}&username=${username}&page_type=${file}&server_type=${serverType}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -163,11 +159,11 @@ export function getStat(obj, data, opt, tableType, serverType = 'server') {
 }
 
 // 保存对比
-export function saveStat(obj, compare, data) {
+export function saveStat(obj, compare, data, user = { username: '' }) {
   axios({
     method: 'post',
     url: `http://${data[0]}:${data[1]}/stat/stat_create/`,
-    data: qs.stringify({ data: JSON.stringify(compare), username: data[2].username }),
+    data: qs.stringify({ data: JSON.stringify(compare), username: user.username }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
