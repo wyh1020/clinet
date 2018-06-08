@@ -83,7 +83,7 @@
     padding: 0;
   }
   #navbarSupportedContent {
-    background: #2b579a;
+    background-image: linear-gradient(to right , #4772fe, #7997fa);
   }
   .nav-link {
     color:#ffffff;

@@ -207,7 +207,7 @@
     padding: 0;
   }
   .navbar {
-    background: #2b579a;
+    background-image: linear-gradient(to right , #4772fe, #7997fa);
   }
   #navbarDropdown {
     color:#ffffff;

@@ -453,7 +453,9 @@
     padding: 0;
   }
   #navbarSupportedContent {
-    background: #2b579a;
+    /* background: radial-gradient(to bottom, #4772fe 0%, #7997fa 0%); */
+    background-image: linear-gradient(to right , #4772fe, #7997fa);
+    /* background: #2f5ed4; */
     color:#ffffff;
   }
   .nav-link {
