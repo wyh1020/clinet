@@ -47,7 +47,7 @@ export function getLibrary(obj, data) {
       obj.$store.commit('LIBRARY_SET_SERVER_TABLE', opt);
       obj.$store.commit('LIBRARY_SET_COUNT_PAGE', res.data.count);
       obj.$store.commit('SET_NOTICE', `当前${obj.$store.state.Library.serverTable.page}页,共${obj.$store.state.Library.serverTable.countPage}页`);
-      obj.$store.commit('EDIT_LOAD_FILE', res.data.library.filter(x => x !== undefined).map(x => x.join(',')))
+      // obj.$store.commit('EDIT_LOAD_FILE', res.data.library.filter(x => x !== undefined).map(x => x.join(',')))
       // .map(x => x.join(','))
     } else {
       obj.$store.commit('LIBRARY_SET_SERVER_TABLE', {})
