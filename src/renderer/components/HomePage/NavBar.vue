@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <a class="navbar-brand" href="#" v-on:click="onClick('首页')" id="navbar-home">&nbsp;&nbsp;&nbsp;&nbsp;HITB-Clinet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -64,7 +64,7 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{currentTime}}</a>
+          <a class="nav-link" href="#"  id="navbar-currentTime">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{currentTime}}</a>
         </li>
       </ul>
     </div>
@@ -206,4 +206,32 @@
     margin: 0;
     padding: 0;
   }
+  .navbar {
+    background: #2b579a;
+  }
+  #navbarDropdown {
+    color:#ffffff;
+  }
+  #navbarDropdown:hover {
+    color:#d4cbcb;
+  }
+  #navbar-system {
+    color:#ffffff;
+  }
+  #navbar-system:hover {
+    color:#d4cbcb;
+  }
+  #navbar-block {
+    color:#ffffff;
+  }
+  #navbar-block:hover {
+    color:#d4cbcb;
+  }
+  #navbar-currentTime {
+    color:#ffffff;
+  }
+  #navbar-currentTime:hover {
+    color:#d4cbcb;
+  }
+
 </style>

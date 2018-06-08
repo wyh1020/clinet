@@ -244,4 +244,10 @@
     margin: 0;
     padding: 0;
   }
+  #edit-rightbar-nav {
+    background: #2b579a;
+  }
+  .nav-link {
+    color:#ffffff;
+  }
 </style>

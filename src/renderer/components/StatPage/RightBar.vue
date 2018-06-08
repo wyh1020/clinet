@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-primary sticky-top">
+  <nav class="navbar navbar-expand-lg sticky-top">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -452,5 +452,11 @@
     margin: 0;
     padding: 0;
   }
-
+  #navbarSupportedContent {
+    background: #2b579a;
+    color:#ffffff;
+  }
+  .nav-link {
+    color:#ffffff;
+  }
 </style>

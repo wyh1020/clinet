@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom">
+  <nav class="navbar navbar-expand-lg fixed-bottom">
     <a v-on:click='inviteUser(notice)' id="notice-bar" class="navbar-brand" href="#">系统通知：{{notice}}</a>
   </nav>
 </template>
@@ -29,5 +29,11 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+  }
+  .navbar {
+    background: #2b579a;
+  }
+  #notice-bar {
+    color:#ffffff;
   }
 </style>

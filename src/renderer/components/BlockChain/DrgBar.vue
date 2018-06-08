@@ -69,5 +69,11 @@
     margin: 0;
     padding: 0;
   }
+  #navbarSupportedContent {
+    background: #2b579a;
+  }
+  .nav-link {
+    color:#ffffff;
+  }
 
 </style>
