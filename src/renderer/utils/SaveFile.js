@@ -39,10 +39,11 @@ export default function saveFile(obj, x, p) {
     let data = []
     const a = typeof p
     if (a === 'string') {
-      data = obj.$store.state.Edit.file.join(',\n')
+      data = obj.$store.state.Edit.file.join('\n')
     } else {
-      data = p.join(',\n')
+      data = p.join('\n')
     }
+    console.log(data);
     // // const data = p.join(',\n')
     // console.log(obj.$store.state.Edit.file);
     // console.log(p);
