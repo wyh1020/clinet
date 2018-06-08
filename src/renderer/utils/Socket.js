@@ -65,7 +65,6 @@ export function join(obj, filename, username) {
     obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.body, type: 'info', username: r.username, time: r.time, create_room_time: createRoomTime });
   })
   channel.on('ping', (r) => {
-    console.log(r);
     obj.$store.commit('EDIT_SET_CHAT_USERS', r.users);
   })
 }
