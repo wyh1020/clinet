@@ -131,22 +131,24 @@
         this.$store.commit('EDIT_SET_CHAT_TYPE', false);
         this.$store.commit('EDIT_SET_SERVER_TYPE', 'user');
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
+        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
         if (!this.$store.state.System.user.login) {
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
           this.$store.commit('EDIT_SERVER_FILES', []);
-          this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
+          // this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
         } else {
           this.$store.commit('EDIT_SET_RIGHT_PANELS', '远程文件');
           this.$store.commit('SET_NOTICE', '读取远程文件');
           getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.serverType, this.$store.state.System.user.username, 'server')
-          this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
+          // this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
         }
       },
       blockData: function () {
         this.$store.commit('EDIT_SET_RIGHT_PANELS', '区块链文件');
         this.$store.commit('SET_NOTICE', '读取区块链文件');
         getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.serverType, this.$store.state.System.user.username, 'block')
-        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
+        // this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
+        this.$store.commit('EDIT_SET_RIGHT_PANEL', 'block');
       },
       page: function (n) {
         if (this.$store.state.Edit.rightType === 'left') {
