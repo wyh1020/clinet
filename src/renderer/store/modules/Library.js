@@ -171,18 +171,15 @@ const mutations = {
     const a = state.tableSel.filter(n => n.includes(data));
     const page = Math.ceil(a.length / 35)
     state.countPage = page
-    for (let i = 0; i < page; i += 1) {
+    for (let i = 1; i < page; i += 1) {
       const f = []
       f.push(state.tableHeader[0])
-      for (let j = 0; j <= 35; j += 1) {
-        f.push(a[(i + 1) * j])
+      for (let j = 1; j <= 35; j += 1) {
+        f.push(a[(i) * j])
       }
-      // console.log(f);
-      state.localTables[i + 1] = f
+      state.localTables[i] = f
     }
-    if (state.localTables[state.tablePage]) {
-      state.localTable = state.localTables[state.tablePage].slice(1)
-    }
+    state.localTable = state.localTables[state.tablePage].slice(1)
   },
   LIBRARY_GET_ROW(state, data) {
     state.rowHeight = data
@@ -245,7 +242,7 @@ const mutations = {
         title = ['药品分类代码', '限医疗机构等级', '药品编号', '药品类型', '药品名称', '其他名称', '医疗', '其他限制', '其他规格', '药品分类', '人员限制']
         break;
       case '西药':
-        title = ['中文名称', '英文名称', '剂型', '报销限制内容', '一级分类', '二级分类', '三级分类']
+        title = ['剂型', '英文名称', '三级分类', '报销限制内容', '一级分类', '二级分类', '中文名称']
         break;
       default:
     }

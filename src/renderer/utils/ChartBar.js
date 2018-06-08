@@ -1,5 +1,6 @@
 const echarts = require('echarts');
 export default function chartBar(id, opt = null) {
+  // console.log(opt);
   let option = {
     xAxis: {
       type: 'category',
@@ -23,8 +24,10 @@ export default function chartBar(id, opt = null) {
     if (th.includes('drg2') || th.includes('病种')) {
       th.splice(0, 3)
       drg2 = true
-    } else {
+    } else if (th.includes('org') || th.includes('time') || th.includes('机构') || th.includes('时间')) {
       th.splice(0, 2)
+      drg2 = false
+    } else {
       drg2 = false
     }
     // 定义xaxis
@@ -51,8 +54,10 @@ export default function chartBar(id, opt = null) {
         name = `${v.org} ${v.time}`
       } else if (keys.includes('year_time')) {
         name = `${v.year_time}`
-      } else {
+      } else if (keys.includes('机构') && keys.includes('时间')) {
         name = `${v.机构} ${v.时间}`
+      } else {
+        name = ''
       }
       const data = []
       th.forEach((y) => {
