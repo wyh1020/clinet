@@ -62,7 +62,7 @@
             this.$store.commit('SYSTEM_SET_LOCAL_PAGE', 1);
             // 保存分组数据类型
             this.$store.commit('SYSTEM_SET_COMPUTE_DATA', 'getServerData');
-            sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, 1, 'stat'])
+            sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port], 1, 'stat')
             // this.$store.commit('STAT_SET_SERVER_TABLE', this.$store.state.System.wt4);
           } else {
             this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');

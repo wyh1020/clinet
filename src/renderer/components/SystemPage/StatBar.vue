@@ -56,7 +56,7 @@
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
         } else {
           this.$store.commit('SYSTEM_SET_TOOLBAR', 'serverData');
-          sGetWt4(this, [this.server, this.port, 1])
+          sGetWt4(this, [this.server, this.port], 1)
         }
       },
       // 获取分析指标

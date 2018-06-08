@@ -121,7 +121,7 @@
       },
       wt4Page: function (value) {
         this.page = value
-        sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port, this.page])
+        sGetWt4(this, [this.$store.state.System.server, this.$store.state.System.port], this.page)
       },
       getStat: function (value, value1) {
         // if (value === 'index') {

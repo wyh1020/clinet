@@ -113,7 +113,7 @@
         } else { n = this.$store.state.Edit.docType }
         this.$store.commit('SET_NOTICE', n);
         if (this.$store.state.Edit.rightPanel === 'server') {
-          getDocContent(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user.username, n])
+          getDocContent(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.user.username, n)
         } else if (global.hitbmodel[n] !== undefined) {
           this.$store.commit('EDIT_LOAD_DOC', global.hitbmodel[n])
           this.$store.commit('EDIT_ADD_DOC', '');
@@ -200,11 +200,11 @@
             if (!this.$store.state.Edit.modelName) {
               this.$store.commit('SET_NOTICE', '请输入模板名称！')
             } else {
-              saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1, this.$store.state.Edit.modelName, '模板'])
+              saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1, this.$store.state.Edit.docType, '模板')
             }
           } else if (data === '保存病案') {
             this.saveType = '保存病案'
-            saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1, this.$store.state.Edit.docType, '病案'])
+            saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1, this.$store.state.Edit.docType, '病案')
           }
         } else {
           if (data === '保存模板') {

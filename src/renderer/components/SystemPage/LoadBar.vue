@@ -168,7 +168,7 @@
           f = this.$store.state.System.checkDataAll
           fileName = `${this.serverTable}.csv`
         }
-        sUploadDoc(this, [server[0], server[1], fileName, f])
+        sUploadDoc(this, [server[0], server[1]], fileName, f)
       }
     },
   };

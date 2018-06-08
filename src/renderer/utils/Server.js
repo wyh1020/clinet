@@ -1,6 +1,5 @@
 const axios = require('axios');
 const qs = require('qs');
-const AschJS = require('asch-js');
 // 正则表达式
 const regEmail = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
 const regTel = /^1[34578]\d{9}$/
@@ -12,7 +11,7 @@ const ChartPie = require('./ChartPie');
 const ChartData = require('./ChartData');
 
 //  测试连接服务器
-export function sConnect(obj, data) {
+export function sConnect(obj, data, index) {
   axios({
     method: 'get',
     url: `http://${data[0]}:${data[1]}/servers/connect/`,
@@ -21,34 +20,33 @@ export function sConnect(obj, data) {
   }).then((res) => {
     if (res.status === 200) {
       if (res.data.success) {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接成功'])
+        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [index, '连接成功'])
         obj.$store.commit('SET_NOTICE', '连接成功')
       } else {
-        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
+        obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [index, '连接失败'])
         obj.$store.commit('SET_NOTICE', '连接失败')
       }
     } else {
-      obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
+      obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [index, '连接失败'])
       obj.$store.commit('SET_NOTICE', '连接失败')
     }
   }).catch((err) => {
     console.log(err)
-    obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [data[2], '连接失败'])
+    obj.$store.commit('SYSTEM_SET_SERVER_STATUS', [index, '连接失败'])
     obj.$store.commit('SET_NOTICE', '连接失败')
   })
 }
 // ------------用户管理
 // 注册
-export function sRegister(obj, data) {
+export function sRegister(obj, data, user) {
   // 取出user
-  const user = data[2]
   const isEmail = regEmail.test(user.username)
   // const isTel = regTel.test(user.tel)
   if (isEmail !== '') {
     axios({
       method: 'post',
       url: `http://${data[0]}:${data[1]}/servers/user/`,
-      data: qs.stringify({ user: data[2] }),
+      data: qs.stringify({ user: user }),
       headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
       responseType: 'json'
     }).then((res) => {
@@ -76,47 +74,12 @@ export function sRegister(obj, data) {
     obj.$store.commit('SYSTEM_REGISTER_USER', [user, info, false])
   }
 }
-// 登录
-export function sLogin(obj, data) {
-  // console.log(data)
-  const secret = 'someone manual strong movie roof episode eight spatial brown soldier soup motor';
-  const keys = AschJS.crypto.getKeys(secret)
-  const publicKey = keys.publicKey
-  const privateKey = keys.privateKey
-  const address = AschJS.crypto.getAddress(publicKey)
-  const user = { username: data[2].username, password: data[2].password, address: address, privateKey: privateKey, publicKey: publicKey, secret: secret }
-  axios({
-    method: 'post',
-    url: `http://${data[0]}:${data[1]}/servers/login/`,
-    data: qs.stringify({ user: user }),
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-    responseType: 'json'
-  }).then((res) => {
-    if (res.data.login) {
-      console.log(res.data);
-      obj.$store.commit('SYSTEM_SET_USER', ['用户登录成功', res.data])
-      obj.$store.commit('SYSTEM_SET_SERVER', ['', data[0], data[1]])
-      obj.$store.commit('SYSTEM_SET_CONNECT_INFO', true)
-      obj.$store.commit('SET_NOTICE', '远程服务用户登录成功')
-    } else {
-      obj.$store.commit('SYSTEM_SET_USER', ['用户登录失败', { username: '', org: '', type: 2, login: false }])
-      obj.$store.commit('SYSTEM_SET_SERVER', ['', '', ''])
-      obj.$store.commit('SYSTEM_SET_CONNECT_INFO', false)
-      obj.$store.commit('SET_NOTICE', '用户名或密码错误,使用未注册用户登陆！');
-    }
-  }).catch((err) => {
-    console.log(err)
-    obj.$store.commit('SET_NOTICE', '连接错误,使用未注册用户登陆！');
-  })
-}
 // 获取用户列表
-export function sGetUsers(obj, data) {
-  axios.get(`http://${data[0]}:${data[1]}/servers/user?page=${data[2]}`)
+export function sGetUsers(obj, data, page) {
+  axios.get(`http://${data[0]}:${data[1]}/servers/user?page=${page}`)
     .then((res) => {
       if (res.status === 200) {
         obj.$store.commit('SYSTEM_GET_USERS', res.data)
-      } else {
-        // obj.$store.commit('SYSTEM_SET_USERS', [data[2], '连接失败'])
       }
     })
     .catch((err) => {
@@ -124,11 +87,11 @@ export function sGetUsers(obj, data) {
     });
 }
 // 更新用户信息
-export function sUpdateUser(obj, data) {
+export function sUpdateUser(obj, data, id, user) {
   axios({
     method: 'post',
     url: `http://${data[0]}:${data[1]}/servers/user_update/`,
-    data: qs.stringify({ id: data[2], user: data[3] }),
+    data: qs.stringify({ id: id, user: user }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -144,10 +107,7 @@ export function sUpdateUser(obj, data) {
 }
 // ------------机构管理
 // 获取机构信息多条
-export function sGetOrg(obj, data) {
-  const userOrg = data[2].org
-  const userType = data[2].type
-  const page = data[3]
+export function sGetOrg(obj, data, userOrg, userType, page) {
   let url = ''
   // 根据用户权限判断取值
   if (userType === 1) {
@@ -169,8 +129,7 @@ export function sGetOrg(obj, data) {
     });
 }
 // 新建机构
-export function sCreateOrg(obj, data) {
-  const org = data[2]
+export function sCreateOrg(obj, data, org) {
   // 正则判断
   const isEmail = regEmail.test(org.email)
   const isTel = regTel.test(org.tel)
@@ -208,11 +167,11 @@ export function sCreateOrg(obj, data) {
   }
 }
 // 更新机构信息
-export function sUpdateOrg(obj, data) {
+export function sUpdateOrg(obj, data, id, org) {
   axios({
     method: 'post',
     url: `http://${data[0]}:${data[1]}/servers/org_update`,
-    data: qs.stringify({ id: data[2], org: data[3] }),
+    data: qs.stringify({ id: id, org: org }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -233,10 +192,9 @@ export function sUpdateOrg(obj, data) {
   })
 }
 // 获取科室列表([url,port,user])
-export function sGetDepart(obj, data) {
-  const userOrg = data[2].org
-  const userType = data[2].type
-  const page = data[3]
+export function sGetDepart(obj, data, org, page) {
+  const userOrg = org.org
+  const userType = org.type
   let url = ''
   // 根据用户权限判断取值
   if (userType === 1) {
@@ -258,9 +216,7 @@ export function sGetDepart(obj, data) {
     });
 }
 // 新建科室([url,port,user,obj])
-export function sCreateDepart(obj, data) {
-  const user = data[2]
-  const department = data[3]
+export function sCreateDepart(obj, data, user, department) {
   axios({
     method: 'post',
     url: `http://${data[0]}:${data[1]}/servers/customize_department/`,
@@ -289,11 +245,11 @@ export function sCreateDepart(obj, data) {
   })
 }
 // 更新科室信息
-export function sUpdateDepart(obj, data) {
+export function sUpdateDepart(obj, data, id, customizeDepartment) {
   axios({
     method: 'post',
     url: `http://${data[0]}:${data[1]}/servers/customize_department_update/`,
-    data: qs.stringify({ id: data[2], customize_department: data[3] }),
+    data: qs.stringify({ id: id, customize_department: customizeDepartment }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -319,14 +275,14 @@ export function sUpdateDepart(obj, data) {
 }
 // ------------病案
 // 病案查询
-export function sGetWt4(obj, data) {
+export function sGetWt4(obj, data, page, type) {
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/library/wt4?page=${data[2]}`,
+    url: `http://${data[0]}:${data[1]}/library/wt4?page=${page}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
-    if (data[3] === 'stat') {
+    if (type === 'stat') {
       if (res.status === 200) {
         const keys = Object.keys(res.data.data[0])
         const newWt4 = []
@@ -403,9 +359,7 @@ export function sGetWt4(obj, data) {
   })
 }
 // 分组规则查询
-export function sGetCompRule(obj, data) {
-  const table = data[2]
-  const rule = data[3]
+export function sGetCompRule(obj, data, table, rule) {
   let code = ''
   switch (table) {
     case 'mdc':
@@ -437,11 +391,9 @@ export function sGetCompRule(obj, data) {
   })
 }
 // 单条分组
-export function sCompDrg(obj, data, type = '') {
-  const dataWt4 = data[2]
+export function sCompDrg(obj, data, dataWt4, version, type = '') {
   let diagsCode = dataWt4.diags_code
   let opersCode = dataWt4.opers_code
-  const version = data[3]
   let url = ''
   switch (version) {
     case 'BJ':
@@ -554,11 +506,10 @@ function fileUploadDoc(obj, data, res) {
   })
 }
 // 上传病案
-export function sUploadDoc(obj, data) {
-  console.log(data)
-  if (data[3] && data[2]) {
-    const content = data[3].join('\n')
-    const objFile = new File([content], data[2]);
+export function sUploadDoc(obj, data, fileName, f) {
+  if (fileName && f) {
+    const content = f.join('\n')
+    const objFile = new File([content], fileName);
     const xhr = new XMLHttpRequest();
     const fd = new FormData();
     fd.append('file', objFile);
@@ -575,7 +526,6 @@ export function sUploadDoc(obj, data) {
     xhr.send(fd);
   }
 }
-
 // 获取省份
 export function sGetProvince(obj, data) {
   axios({
@@ -609,10 +559,10 @@ export function sSaveDefined(obj, data) {
   })
 }
 // 增加帮助功能
-export function sUpHelp(obj, data) {
+export function sUpHelp(obj, data, name, content) {
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/edit/helpinsert?name=${data[2]}&content=${data[3]}`,
+    url: `http://${data[0]}:${data[1]}/edit/helpinsert?name=${name}&content=${content}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -624,7 +574,6 @@ export function sUpHelp(obj, data) {
 
 // 分享文件
 export function share(obj, data, type, fileName, username, content) {
-  console.log(content);
   if (type !== 'edit') {
     content = content.join('","')
   }

@@ -78,7 +78,7 @@
           this.$store.commit('SET_NOTICE', n);
           if (n === 'DRG分析') {
             if (this.$store.state.System.wt4Tables.length > 1) {
-              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables, 'BJ'], 'getLocalData')
+              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.wt4Tables, 'BJ', 'getLocalData')
             } else {
               this.$store.commit('SET_NOTICE', '请选择分析数据！');
             }
@@ -88,7 +88,7 @@
             this.$store.commit('EDIT_SET_HELP_TYPE', n);
             this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
           } else if (this.$store.state.Edit.rightPanel === 'server') {
-            clinetHelp(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user.username])
+            clinetHelp(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.user.username)
           } else if (this.$store.state.Edit.rightPanel === '输入框提示') {
             if (this.$store.state.Edit.rightPanel === 'server') {
               if (!this.$store.state.Edit.rightCdh) {
@@ -127,7 +127,7 @@
       serverData: function () {
         // this.$store.commit('EDIT_SET_DOC_TYPES',)
         getHelpTypes(this, [this.$store.state.System.server, this.$store.state.System.port])
-        getDocTypes(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user.username])
+        getDocTypes(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.user.username)
         this.$store.commit('EDIT_SET_CHAT_TYPE', false);
         this.$store.commit('EDIT_SET_SERVER_TYPE', 'user');
         this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');

@@ -195,12 +195,12 @@
         switch (this.$store.state.System.computeData) {
           case 'getLocalData':
             this.xsLocal.forEach((n, index) => {
-              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4Tables[index], value], 'getLocalData')
+              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.wt4Tables[index], value, 'getLocalData')
             })
             break;
           case 'getServerData':
             this.xsServer.forEach((n, index) => {
-              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.wt4.data[index], value])
+              sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.wt4.data[index], value)
             })
             break;
           default:

@@ -186,7 +186,7 @@
         if (!this.$store.state.System.user.login) {
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
         } else {
-          sGetOrg(this, [this.server, this.port, this.$store.state.System.user, this.$store.state.System.pageInfo.org]);
+          sGetOrg(this, [this.server, this.port], this.$store.state.System.user, this.$store.state.System.pageInfo.org);
           this.$store.commit('SET_NOTICE', '机构设置');
         }
         //
@@ -194,7 +194,7 @@
       getPersons: function () {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'getPersons');
         this.$store.commit('SYSTEM_GET_ORGPAGE', 'getPersonTable');
-        sGetUsers(this, [this.server, this.port, '1']);
+        sGetUsers(this, [this.server, this.port], '1');
         this.$store.commit('SET_NOTICE', '人员设置');
       },
       getServerFunctions: function () {
@@ -211,7 +211,7 @@
               break;
             case '科室信息':
               this.$store.commit('SYSTEM_GET_ORGPAGE', 'getDepartment');
-              sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.$store.state.System.pageInfo.department])
+              sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.user, this.$store.state.System.pageInfo.department)
               this.$store.commit('SET_NOTICE', '科室信息');
               break;
             default:
@@ -253,13 +253,13 @@
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'upUsers')
       },
       updateUser: function () {
-        sUpdateUser(this, [this.server, this.port, this.$store.state.System.user.id, this.upUserInfo])
+        sUpdateUser(this, [this.server, this.port], this.$store.state.System.user.id, this.upUserInfo)
       },
       docUser: function () {
-        sUpdateUser(this, [this.server, this.port, this.$store.state.System.user.id, { is_show: !this.$store.state.System.user.is_show }])
+        sUpdateUser(this, [this.server, this.port], this.$store.state.System.user.id, { is_show: !this.$store.state.System.user.is_show })
       },
       updatePerson: function () {
-        sUpdateUser(this, [this.$store.state.System.server, this.$store.state.System.port, this.personId, this.personUpdate])
+        sUpdateUser(this, [this.$store.state.System.server], this.$store.state.System.port, this.personId, this.personUpdate)
       },
       insertOrgPage: function () {
         this.$store.commit('SYSTEM_SET_ORG_NAME', 'insert');
@@ -282,24 +282,24 @@
           this.$store.commit('SET_NOTICE', '电话输入错误');
         }
         if (a * b === 1) {
-          sCreateOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.orgInfo])
+          sCreateOrg(this, [this.$store.state.System.server, this.$store.state.System.port], this.orgInfo)
         }
       },
       updateOrg: function () {
-        sUpdateOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.orgId, this.orgInfo])
+        sUpdateOrg(this, [this.$store.state.System.server, this.$store.state.System.port], this.orgId, this.orgInfo)
       },
       insertDepPage: function () {
         this.$store.commit('SYSTEM_SET_ORG_NAME', 'insertDep');
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'createDepartments')
       },
       insertDep: function () {
-        sCreateDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, this.departmentInfo]);
+        sCreateDepart(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.user, this.departmentInfo);
       },
       updateDep: function () {
-        sUpdateDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.depId, this.departmentInfo]);
+        sUpdateDepart(this, [this.$store.state.System.server, this.$store.state.System.port], this.depId, this.departmentInfo);
       },
       upHelp: function () {
-        sUpHelp(this, [this.$store.state.System.server, this.$store.state.System.port, '编辑器帮助', ''])
+        sUpHelp(this, [this.$store.state.System.server, this.$store.state.System.port], '编辑器帮助', '')
       }
     },
   };

@@ -97,8 +97,7 @@
         this.$store.commit('SYSTEM_GET_ORGPAGE', 'getPerson');
       },
       serverPage: function (value) {
-        sGetUsers(this, [this.$store.state.System.server, this.$store.state.System.port, value])
-        console.log(value);
+        sGetUsers(this, [this.$store.state.System.server, this.$store.state.System.port], value)
       }
     }
   };

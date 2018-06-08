@@ -144,7 +144,7 @@
                 // getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType, data, this.$store.state.System.user.username])
                 getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.serverType, this.$store.state.System.user.username, 'server')
               } else {
-                getEdit(this, [this.$store.state.System.server, this.$store.state.System.port, data])
+                getEdit(this, [this.$store.state.System.server, this.$store.state.System.port], data)
               }
               break;
             case '/library':

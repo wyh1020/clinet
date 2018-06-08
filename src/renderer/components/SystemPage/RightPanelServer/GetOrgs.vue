@@ -162,10 +162,10 @@
         this.$store.commit('SYSTEM_GET_PAGEINFO', value)
         switch (this.orgPageType) {
           case 'getDepartment':
-            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, value])
+            sGetDepart(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.user, value)
             break;
           case 'getOrg':
-            sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.System.user, value])
+            sGetOrg(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.user, value)
             break;
           default:
         }

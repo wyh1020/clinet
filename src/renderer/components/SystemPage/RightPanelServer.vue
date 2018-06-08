@@ -238,7 +238,7 @@
         if (a === 1) {
           if (this.loginpassword === this.confirmPassword) {
             const user = { username: this.emailorname, password: this.loginpassword, org: '测试医院1', age: '26', tel: '15611756970', email: this.emailorname, name: 'test', type: 2 }
-            sRegister(this, [this.server, this.port, user])
+            sRegister(this, [this.server, this.port], user)
             this.secondPassword = false
           }
         }
@@ -247,7 +247,7 @@
         this.flag = index
         this.$store.commit('SYSTEM_SET_SERVER', data)
         if (this.toolbar === 'getServers' && index !== 0) {
-          sConnect(this, [data[1], data[2], index])
+          sConnect(this, [data[1], data[2]], index)
         }
       },
       register: function () {

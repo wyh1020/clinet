@@ -27,10 +27,10 @@ export default {
     ruleClick: function (key, value) {
       switch (this.$store.state.System.comprule[value].table) {
         case 'mdc':
-          sGetCompRule(this, [this.$store.state.System.server, this.$store.state.System.port, 'adrg', this.$store.state.System.comprule[value]])
+          sGetCompRule(this, [this.$store.state.System.server, this.$store.state.System.port], 'adrg', this.$store.state.System.comprule[value])
           break;
         case 'adrg':
-          sGetCompRule(this, [this.$store.state.System.server, this.$store.state.System.port, 'drg', this.$store.state.System.comprule[value]])
+          sGetCompRule(this, [this.$store.state.System.server, this.$store.state.System.port], 'drg', this.$store.state.System.comprule[value])
           break;
         case 'drg':
           break;

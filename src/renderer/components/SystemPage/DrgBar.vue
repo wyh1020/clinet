@@ -110,7 +110,7 @@
           this.$store.commit('SYSTEM_SET_LOCAL_PAGE', 1);
           // 保存分组数据类型
           this.$store.commit('SYSTEM_SET_COMPUTE_DATA', 'getServerData');
-          sGetWt4(this, [this.server, this.port, 1])
+          sGetWt4(this, [this.server, this.port], 1)
         } else {
           this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
         }
@@ -125,12 +125,12 @@
           switch (this.toolbar) {
             case 'getLocalData':
               this.xsLocal.forEach((n, index) => {
-                sCompDrg(this, [this.server, this.port, this.$store.state.System.wt4Tables[index], 'BJ'], 'getLocalData')
+                sCompDrg(this, [this.server, this.port], this.$store.state.System.wt4Tables[index], 'BJ', 'getLocalData')
               })
               break;
             case 'getServerData':
               this.xsServer.forEach((n, index) => {
-                sCompDrg(this, [this.server, this.port, this.$store.state.System.wt4.data[index], 'BJ'])
+                sCompDrg(this, [this.server, this.port], this.$store.state.System.wt4.data[index], 'BJ')
               })
               break;
             default:
@@ -148,7 +148,7 @@
         if (this.$store.state.System.connectInfo) {
           this.$store.commit('SET_NOTICE', '查看DRG分组规则');
           this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgRule');
-          sGetCompRule(this, [this.server, this.port, 'mdc', {}])
+          sGetCompRule(this, [this.server, this.port], 'mdc', {})
         } else {
           this.$store.commit('SET_NOTICE', '服务器连接未设置,请在系统服务内连接');
         }
@@ -158,7 +158,7 @@
         if (this.$store.state.System.computeData === 'getServerData') {
           if (value === 'up' && this.localPage - 1 > 0) {
             this.$store.commit('SYSTEM_SET_LOCAL_PAGE', value);
-            sGetWt4(this, [this.server, this.port, this.localPage])
+            sGetWt4(this, [this.server, this.port], this.localPage)
             this.$store.commit('SET_NOTICE', `当前页数${this.localPage}`);
           } else if (value === 'up' && this.localPage === 1) {
             this.$store.commit('SET_NOTICE', '已经是第一页');
@@ -166,7 +166,7 @@
             this.$store.commit('SET_NOTICE', '已经是最后一页');
           } else if (value === 'down' && this.localPage + 1 < this.$store.state.System.wt4TablePage) {
             this.$store.commit('SYSTEM_SET_LOCAL_PAGE', value);
-            sGetWt4(this, [this.server, this.port, this.localPage])
+            sGetWt4(this, [this.server, this.port], this.localPage)
             this.$store.commit('SET_NOTICE', `当前页数${this.localPage}`);
           }
         } else if (this.$store.state.System.computeData === 'getLocalData') {

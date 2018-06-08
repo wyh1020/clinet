@@ -1,6 +1,5 @@
 const axios = require('axios');
 const qs = require('qs');
-// this, [url, port, type, username, serverType]
 export function getEditFiles(obj, data, type, username, serverType = 'server') {
   let url = ''
   if (type === 'user') {
@@ -8,7 +7,6 @@ export function getEditFiles(obj, data, type, username, serverType = 'server') {
   } else {
     url = `http://${data[0]}:${data[1]}/edit/cda_file?username=${username}&server_type=${serverType}`
   }
-  // const url = `http://${data[0]}:${data[1]}/edit/cda_file`
   axios({
     method: 'get',
     url: url,
@@ -32,19 +30,16 @@ export function getEditFiles(obj, data, type, username, serverType = 'server') {
   })
 }
 // this, [url, port, filename, serverType]
-export function getEdit(obj, data) {
-  if (data[4] === undefined) {
-    data[4] = 'server'
-  }
+export function getEdit(obj, data, filename, serverType = 'server', type = '') {
   // 去除文件名中的.csv
-  const file = data[2].split('-')
+  const file = filename.split('-')
   let url = ''
-  if (data[5] === 'upload') {
+  if (type === 'upload') {
     url = '&type=create'
   }
   axios({
     method: 'get',
-    url: `http://${data[0]}:${data[1]}/edit/cda?filename=${file[1]}&username=${file[0]}${url}&server_type=${data[4]}`,
+    url: `http://${data[0]}:${data[1]}/edit/cda?filename=${file[1]}&username=${file[0]}${url}&server_type=${serverType}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -62,22 +57,13 @@ export function getEdit(obj, data) {
   })
 }
 
-export function saveEdit(obj, data) {
-  const fileName = data[2]
-  const content = data[3]
-  const username = data[4]
-  const doctype = data[6]
-  const mouldtype = data[7]
-  // let url = ''
-  // if (data[5] === 1) {
+export function saveEdit(obj, data, fileName, content, username, doctype, mouldtype) {
+  content = content[0]
   const url = `http://${data[0]}:${data[1]}/edit/cda`
-  // } else {
-  //   url = `http://${data[0]}:${data[1]}/edit/create_cda`
-  // }
   axios({
     method: 'post',
     url: url,
-    data: qs.stringify({ file_name: fileName, content: content[0], username: username, doctype: doctype, mouldtype: mouldtype }),
+    data: qs.stringify({ file_name: fileName, content: content, username: username, doctype: doctype, mouldtype: mouldtype }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -96,13 +82,10 @@ export function saveEdit(obj, data) {
   })
 }
 
-export function getDocTypes(obj, data) {
-  const server = data[0]
-  const port = data[1]
-  const username = data[2]
+export function getDocTypes(obj, data, username) {
   axios({
     method: 'get',
-    url: `http://${server}:${port}/edit/mouldlist?username=${username}`,
+    url: `http://${data[0]}:${data[1]}/edit/mouldlist?username=${username}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -119,15 +102,12 @@ export function getDocTypes(obj, data) {
   })
   obj.$store.commit('SET_NOTICE', '远程docType未查询')
 }
-// getDocContent
-export function getDocContent(obj, data) {
-  const server = data[0]
-  const port = data[1]
-  const username = data[2]
-  const filename = `${data[3]}.cdh`
+
+export function getDocContent(obj, data, username, filename) {
+  filename = `${filename}.cdh`
   axios({
     method: 'get',
-    url: `http://${server}:${port}/edit/mouldfile?username=${username}&name=${filename}`,
+    url: `http://${data[0]}:${data[1]}/edit/mouldfile?username=${username}&name=${filename}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -145,12 +125,11 @@ export function getDocContent(obj, data) {
     obj.$store.commit('SET_NOTICE', '模板内容查询失败')
   })
 }
+
 export function getHelpTypes(obj, data) {
-  const server = data[0]
-  const port = data[1]
   axios({
     method: 'get',
-    url: `http://${server}:${port}/edit/helplist`,
+    url: `http://${data[0]}:${data[1]}/edit/helplist`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
@@ -167,13 +146,11 @@ export function getHelpTypes(obj, data) {
     obj.$store.commit('SET_NOTICE', '远程帮助失败')
   })
 }
-export function clinetHelp(obj, data) {
-  const server = data[0]
-  const port = data[1]
-  const name = data[2]
+
+export function clinetHelp(obj, data, name) {
   axios({
     method: 'get',
-    url: `http://${server}:${port}/edit/helpfile?name=${name}`,
+    url: `http://${data[0]}:${data[1]}/edit/helpfile?name=${name}`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {

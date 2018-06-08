@@ -181,7 +181,7 @@
       // 服务器分页
       wt4Page: function (value) {
         this.page = value
-        sGetWt4(this, [this.server, this.port, this.page])
+        sGetWt4(this, [this.server, this.port], this.page)
         this.$store.commit('SYSTEM_SET_LOCAL_PAGE', this.page);
         this.$store.commit('SET_NOTICE', `当前页数${this.page}`);
       },
@@ -200,7 +200,7 @@
       // drg规则
       drgRule: function (value) {
         this.$store.commit('SYSTEM_SET_TOOLBAR', 'drgRule');
-        sGetCompRule(this, [this.server, this.port, 'drg', { code: value }])
+        sGetCompRule(this, [this.server, this.port], 'drg', { code: value })
       }
     },
   };
