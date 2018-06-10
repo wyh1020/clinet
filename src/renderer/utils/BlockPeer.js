@@ -59,31 +59,3 @@ export function peersGetIp(obj, data) {
       console.log(err);
     });
 }
-
-// 查找dapp peer
-// export function peerList(obj, data) {
-//   Request
-//     .get(`${data[0]}:${data[1]}/peer/list`)
-//     .set('magic', '594fe0f3')
-//     .set('version', '')
-//     .end((req, res) => {
-//       console.log('查找dapp peer')
-//       if (res) {
-//         console.log(res.body)
-//       }
-//     })
-// }
-
-// export function peerBlocks(obj, data) {
-//   Request
-//     .get(`${data[0]}:${data[1]}/peer/blocks/common`)
-//     .set('magic', '594fe0f3')
-//     .set('version', '')
-//     .end((req, res) => {
-//       console.log('查找common block')
-//       if (res) {
-//         console.log(res.body)
-//       }
-//     })
-// }
-
