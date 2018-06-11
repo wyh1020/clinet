@@ -9,58 +9,52 @@
         <li class="nav-item active" v-if="this.$store.state.Stat.tableType === 'case'" v-on:click='backTable()'>
           <a class="nav-link text-light" href="#"> 返回 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active" id="stat-local-doc" v-on:click='loadData()'>
-          <a class="nav-link text-light" href="#"> 本地 <span class="sr-only">(current)</span></a>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-light" href="#" id="stat-file-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            文件
+          </a>
+          <div class="dropdown-menu" aria-labelledby="stat-dropdown">
+            <a class="nav-link" href="#" title="显示本地文件" v-on:click='loadData()'> 本地 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" title="显示远程文件" v-on:click='serverData()'> 远程 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" title="显示区块链文件" v-on:click='blockData()'> 区块链 <span class="sr-only">(current)</span></a>
+          </div>
+        </li>
+        <!-- <li class="nav-item active" id="stat-local-doc" v-on:click='loadData()'>
+          <a class="nav-link text-light" href="#" title="显示本地文件"> 本地 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" id="stat-remote-file" v-on:click='serverData()'>
-          <a class="nav-link text-light" href="#"> 远程 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active" v-if ="this.$store.state.Stat.tableType === 'server'" v-on:click='blockShare()'>
-          <a class="nav-link text-light" href="#"> 分享 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#" title="显示远程文件"> 远程 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" id="stat-block-file" v-on:click='blockData()'>
-          <a class="nav-link text-light" href="#"> 区块链 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#" title="显示区块链文件"> 区块链 <span class="sr-only">(current)</span></a>
+        </li> -->
+        <li class="nav-item active" v-if ="this.$store.state.Stat.tableType === 'server'" v-on:click='blockShare()'>
+          <a class="nav-link text-light" href="#" title="分享选中记录"> 分享 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" id="stat-prev-page" v-on:click='page(-1)'>
-          <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#" title="向前翻页"> 前页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" id="stat-next-page" v-on:click='page(1)'>
-          <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#" title="向后翻页"> 后页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" id="stat-edit-data" v-on:click='edit()'>
-          <a class="nav-link text-light" href="#"> 编辑数据 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active" id="stat-join-contrast" v-on:click='compare()'>
-          <a class="nav-link text-light" href="#"> 加入对比 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active" id="stat-show-contrast" v-on:click='showCompare()'>
-          <a class="nav-link text-light" href="#"> 显示对比 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active" id="stat-save-contrast" v-on:click='saveCompare()'>
-          <a class="nav-link text-light" href="#"> 保存对比 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#" title="跳转到编辑来编辑该文件"> 编辑数据 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-light" href="#" id="stat-left-chart" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle text-light" href="#" id="stat-left-chart" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="选择分析图表左图类型">
             左图选择
           </a>
           <div class="dropdown-menu" aria-labelledby="stat-left-chart">
-            <a id="stat-left-chart-bar" class="nav-link" href="#" v-on:click='showChart("chartLeft", "柱状图")'> 柱状图 <span class="sr-only">(current)</span></a>
-            <a id="stat-left-chart-discount" class="nav-link" href="#" v-on:click='showChart("chartLeft", "折线图")'> 折线图 <span class="sr-only">(current)</span></a>
-            <a id="stat-left-chart-radar-map" class="nav-link" href="#" v-on:click='showChart("chartLeft", "雷达图")'> 雷达图 <span class="sr-only">(current)</span></a>
-            <a id="stat-left-chart-scatter-plot" class="nav-link" href="#" v-on:click='showChart("chartLeft", "散点图")'> 散点图 <span class="sr-only">(current)</span></a>
-            <a id="stat-left-chart-pie-map" class="nav-link" href="#" v-on:click='showChart("chartLeft", "饼图")'> 饼图 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#"  v-for="chart in charts" v-on:click='showChart("chartLeft", chart)' > {{chart}} <span class="sr-only">(current)</span></a>
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-light" href="#" id="stat-right-chart" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle text-light" href="#" id="stat-right-chart" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  title="选择分析图表右图类型">
             右图选择
           </a>
           <div class="dropdown-menu" aria-labelledby="stat-right-chart">
-            <a id="stat-right-chart-bar" class="nav-link" href="#" v-on:click='showChart("chartRight", "柱状图")'> 柱状图 <span class="sr-only">(current)</span></a>
-            <a id="stat-right-chart-discount" class="nav-link" href="#" v-on:click='showChart("chartRight", "折线图")'> 折线图 <span class="sr-only">(current)</span></a>
-            <a id="stat-right-chart-radar-map" class="nav-link" href="#" v-on:click='showChart("chartRight", "雷达图")'> 雷达图 <span class="sr-only">(current)</span></a>
-            <a id="stat-right-chart-scatter-plot" class="nav-link" href="#" v-on:click='showChart("chartRight", "散点图")'> 散点图 <span class="sr-only">(current)</span></a>
-            <a id="stat-right-chart-pie-map" class="nav-link" href="#" v-on:click='showChart("chartRight", "饼图")'> 饼图 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#"  v-for="chart in charts" v-on:click='showChart("chartRight", chart)' > {{chart}} <span class="sr-only">(current)</span></a>
           </div>
         </li>
         <li v-if="this.$store.state.Stat.tableType !== 'compare'" class="nav-item dropdown">
@@ -75,17 +69,31 @@
             <a v-for="(data, index) in dimensionSel" v-bind:key='index' class="nav-link" href="#" v-on:click='selX(index)' v-bind:id="'stat-td-tr'+index" > {{data}} <span class="sr-only">(current)</span></a>
           </div>
         </li>
+        <!-- 加入对比 -->
+        <li class="nav-item active" id="stat-left-page" v-on:click='compare()' v-if="this.$store.state.Stat.selectedRow.length > 0 || this.$store.state.Stat.selectedCol > 0"  title="当前选中记录加入到对比中">
+          <a class="nav-link  text-light" href="#"> 加入对比 <span class="sr-only"></span></a>
+        </li>
+        <!-- 加入对比 -->
+        <!-- 显示对比 -->
+        <li class="nav-item active" id="stat-show-contrast" v-on:click='showCompare()' v-if="this.$store.state.Stat.compareTable.length > 0"  title="显示当前已加入对比的内容">
+          <a class="nav-link text-light" href="#"> 显示对比 <span class="sr-only">(current)</span></a>
+        </li>
+        <!-- 显示对比 -->
+        <!-- 保存对比 -->
+        <li class="nav-item active" id="stat-save-contrast" v-on:click='saveCompare()'  v-if="this.$store.state.Stat.compareTable.length > 0">
+          <a class="nav-link text-light" href="#"  title="将目前对比内容保存为文件"> 保存对比 <span class="sr-only">(current)</span></a>
+        </li>
+        <!-- 保存对比 -->
         <li class="nav-item active" id="stat-left-page" v-on:click='title(-10)' v-if="this.$store.state.Stat.haveRight">
-          <a class="nav-link text-light" href="#"> 左页 <span class="sr-only"></span></a>
+          <a class="nav-link" href="#"> 左页 <span class="sr-only"></span></a>
         </li>
         <li class="nav-item active" id="stat-right-page" v-on:click='title(10)' v-if="this.$store.state.Stat.haveRight">
-          <a class="nav-link text-light" href="#"> 右页 <span class="sr-only"></span></a>
+          <a class="nav-link" href="#"> 右页 <span class="sr-only"></span></a>
         </li>
-        <!-- <li class="nav-item active" id="stat-edit-data" v-on:click='edit()'>
-          <a class="nav-link text-light" href="#"> 详情 <span class="sr-only">(current)</span></a>
-        </li> -->
       </ul>
       <form class="form-inline my-2 my-lg-0" v-on:submit.prevent>
+        <a v-if="this.$store.state.Stat.tableType == 'compare'">当前文件:对比</a>
+        <a v-else>当前文件:{{this.$store.state.Stat.fileName}}</a>
         <input id="stat-right-search" class="mr-sm-2 form-control" type="search" placeholder="Search" aria-label="Search" v-on:keyup.13="statSearch()" v-model="stat">
       </form>
     </div>
@@ -128,7 +136,12 @@
         get() {
           return this.$store.state.Stat.selectedCol
         }
-      }
+      },
+      charts: {
+        get() {
+          return ['柱状图', '折线图', '雷达图', '散点图', '饼图']
+        }
+      },
     },
     methods: {
       loadData: function () {
@@ -457,7 +470,7 @@
     /* background: #2f5ed4; */
     color:#ffffff;
   }
-  .nav-item active {
+  .nav-item {
     color:#ffffff;
   }
 </style>

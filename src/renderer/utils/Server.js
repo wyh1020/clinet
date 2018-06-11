@@ -591,4 +591,7 @@ export function share(obj, data, type, fileName, username, content) {
   }).catch((err) => {
     console.log(err)
   })
+  if (type === 'stat') {
+    obj.$store.commit('STAT_SET_TABLE_TYPE', 'server')
+  }
 }

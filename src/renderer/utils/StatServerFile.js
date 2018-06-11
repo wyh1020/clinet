@@ -32,6 +32,7 @@ export function getStatFiles(obj, data, filename, username, serverType = 'server
     console.log(err);
     obj.$store.commit('STAT_SERVER_FILES', [])
   })
+  obj.$store.commit('STAT_SET_TABLE_TYPE', serverType)
 }
 
 export function getList(obj, data, tableName, type, username, serverType = 'server') {
@@ -66,6 +67,7 @@ export function getList(obj, data, tableName, type, username, serverType = 'serv
     console.log(err);
     obj.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', type, []])
   })
+  obj.$store.commit('STAT_SET_TABLE_TYPE', serverType)
 }
 
 export function getStat(obj, data, opt, tableType, serverType = 'server') {
@@ -156,6 +158,7 @@ export function getStat(obj, data, opt, tableType, serverType = 'server') {
   }).catch((err) => {
     console.log(err);
   })
+  obj.$store.commit('STAT_SET_TABLE_TYPE', serverType)
 }
 
 // 保存对比
@@ -198,4 +201,5 @@ export function getStatWt4(obj, data, org, time, drg, serverType = 'server') {
     console.log(err)
     obj.$store.commit('SET_NOTICE', '保存对比失败!');
   })
+  obj.$store.commit('STAT_SET_TABLE_TYPE', serverType)
 }

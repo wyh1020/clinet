@@ -184,7 +184,6 @@ const mutations = {
     state.fieldIndex = index;
   },
   STAT_SET_COL(state, index) {
-    console.log(index);
     const x = state.selectedCol.indexOf(index)
     if (x === -1) {
       state.selectedCol.push(index)
@@ -223,7 +222,6 @@ const mutations = {
     })
   },
   STAT_SET_SERVER_TABLE(state, opt) {
-    console.log(opt);
     // state.tableSel = opt.tableSel
     // state.dimensionOrg = opt.dimensionOrg
     // state.dimensionTime = opt.dimensionTime

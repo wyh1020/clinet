@@ -199,7 +199,6 @@
       },
       flagTd: {
         get() {
-          console.log(this.$store.state.Stat.selectedCol)
           let f = []
           if (this.$store.state.Stat.tableType === 'compare') {
             f = this.$store.state.Stat.selectedCol

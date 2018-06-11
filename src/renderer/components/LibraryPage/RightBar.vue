@@ -6,26 +6,37 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" v-on:click='loadData()' id="library-local-file">
-          <a class="nav-link text-light" href="#"> 本地 <span class="sr-only">(current)</span></a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-light" href="#" id="library-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            文件
+          </a>
+          <div class="dropdown-menu" aria-labelledby="library-dropdown">
+            <a class="nav-link" href="#" title="显示本地文件" v-on:click='loadData()'> 本地 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" title="显示远程文件" v-on:click='serverData()'> 远程 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" title="显示区块链文件" v-on:click='blockData()'> 区块链 <span class="sr-only">(current)</span></a>
+          </div>
+        </li>
+        <!-- <li class="nav-item active" v-on:click='loadData()' id="library-local-file">
+          <a class="nav-link text-light" href="#" title="显示本地文件"> 本地 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='serverData()' id="library-remote-file">
-          <a class="nav-link text-light" href="#"> 远程 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#" title="显示远程文件"> 远程 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='blockData()' id="library-block-file">
-          <a class="nav-link text-light" href="#"> 区块链 <span class="sr-only">(current)</span></a>
-        </li>
+          <a class="nav-link text-light" href="#" title="显示区块链文件"> 区块链 <span class="sr-only">(current)</span></a>
+        </li> -->
+
         <li class="nav-item active" v-if ="this.$store.state.Library.tableType === 'server'" v-on:click='blockShare()' id="library-block-file">
-          <a class="nav-link text-light" href="#"> 分享 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#" title="分享选中记录"> 分享 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='page(-1)' id="library-up">
-          <a class="nav-link text-light" href="#"> 前页 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#" title="向前翻页"> 前页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='page(1)' id="library-down">
-          <a class="nav-link text-light" href="#"> 后页 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#" title="向后翻页"> 后页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='edit()' id="library-edit">
-          <a class="nav-link text-light" href="#"> 编辑数据 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#" title="跳转到编辑来编辑该文件"> 编辑数据 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="library-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -196,8 +207,11 @@
   #navbarSupportedContent {
     background-image: linear-gradient(to right , #4772fe, #7997fa);
   }
-  .nav-link {
+  .nav-item {
     color:#ffffff;
+  }
+  .nav-link {
+    color:#000000;
   }
 
 </style>
