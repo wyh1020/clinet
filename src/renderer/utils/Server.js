@@ -107,10 +107,10 @@ export function sUpdateUser(obj, data, id, user) {
 }
 // ------------机构管理
 // 获取机构信息多条
-export function sGetOrg(obj, data, userOrg, userType, page) {
+export function sGetOrg(obj, data, userOrg, page) {
   let url = ''
   // 根据用户权限判断取值
-  if (userType === 1) {
+  if (userOrg.type === 1) {
     url = `http://${data[0]}:${data[1]}/servers/org?page=${page}`
   } else {
     url = `http://${data[0]}:${data[1]}/servers/org?name=${userOrg}&page=${page}`
