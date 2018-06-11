@@ -43,7 +43,6 @@
     computed: {
       lastNav: {
         get() {
-          console.log(this.height)
           return this.$store.state.Edit.lastNav
         }
       },

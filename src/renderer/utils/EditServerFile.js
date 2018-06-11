@@ -173,3 +173,15 @@ export function clinetHelp(obj, data, name) {
     obj.$store.commit('SET_NOTICE', '远程帮助失败')
   })
 }
+
+
+export function getCaseHistory(obj, data) {
+  let value = null
+  data.filter((x) => {
+    if (x[0] === '姓名') {
+      value = x[1]
+    }
+    return value
+  })
+  console.log(value)
+}
