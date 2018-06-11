@@ -82,7 +82,6 @@ export default function chartBar(id, opt = null) {
         x: 'right',
         y: 'top',
         color: ['#1e90ff', '#22bb22', '#4b0082', '#d2691e'],
-        backgroundColor: 'rgba(0,0,0,0)',
         borderColor: '#ccc',
         borderWidth: 0,
         padding: 5,

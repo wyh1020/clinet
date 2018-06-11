@@ -1,6 +1,6 @@
 const echarts = require('echarts');
 export default function chartPie(id, opt = null) {
-  const myChart = echarts.init(document.getElementById(id), 'light');
+  const myChart = echarts.init(document.getElementById(id));
   let option = {
     xAxis: {
       type: 'category',
@@ -49,7 +49,6 @@ export default function chartPie(id, opt = null) {
     // 基于准备好的dom，初始化echarts实例
     // 指定图表的配置项和数据
     option = {
-      backgroundColor: '#fff',
       tooltip: { trigger: 'item', formatter: '{a} <br/>{b} : {c} ({d}%)' },
       legend: {
         type: 'scroll',
@@ -64,7 +63,6 @@ export default function chartPie(id, opt = null) {
         x: 'right',
         y: 'top',
         color: ['#1e90ff', '#22bb22', '#4b0082', '#d2691e'],
-        backgroundColor: 'rgba(0,0,0,0)',
         borderColor: '#ccc',
         borderWidth: 0,
         padding: 5,

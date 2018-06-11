@@ -71,7 +71,6 @@ export default function chartRadar(id, opt = null) {
     // 基于准备好的dom，初始化echarts实例
     // 指定图表的配置项和数据
     option = {
-      backgroundColor: '#fff',
       tooltip: {},
       legend: {
         type: 'scroll',

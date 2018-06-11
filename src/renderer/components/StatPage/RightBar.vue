@@ -445,7 +445,6 @@
     },
   };
 </script>
-
 <style scoped>
   * {
     box-sizing: border-box;
@@ -458,7 +457,7 @@
     /* background: #2f5ed4; */
     color:#ffffff;
   }
-  .nav-link {
+  .nav-item active {
     color:#ffffff;
   }
 </style>
