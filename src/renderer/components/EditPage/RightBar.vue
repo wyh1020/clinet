@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  import { getEditFiles, getEdit, clinetHelp, getDocTypes, getHelpTypes } from '../../utils/EditServerFile'
+  import { getEditFiles, getEdit, clinetHelp, getDocTypes, getHelpTypes, getCaseHistory } from '../../utils/EditServerFile'
   import { getStat } from '../../utils/StatServerFile'
   import { getLibrary } from '../../utils/LibraryServerFile'
   import { sCompDrg } from '../../utils/Server'
@@ -97,6 +97,8 @@
                 this.$store.commit('SET_NOTICE', '输入提示无内容！');
               }
             }
+          } else if (n === '病案历史') {
+            getCaseHistory(this, this.$store.state.Edit.doc)
           }
         }
       },
