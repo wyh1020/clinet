@@ -175,13 +175,32 @@ export function clinetHelp(obj, data, name) {
 }
 
 
-export function getCaseHistory(obj, data) {
-  let value = null
-  data.filter((x) => {
-    if (x[0] === '姓名') {
-      value = x[1]
+export function getCaseHistory(obj, data, name, username) {
+  const objs = {}
+  name.forEach((n) => {
+    if (['姓名', '年龄', '性别', '婚姻', '民族', '出生地', '职业'].includes(n[0])) {
+      console.log(n[1])
+      if (n[1]) {
+        objs[n[0]] = n[1]
+      } else {
+        objs[n[0]] = '--'
+      }
+     }
+   })
+  axios({
+    method: 'post',
+    url: `http://${data[0]}:${data[1]}/edit/patientlist`,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    data: qs.stringify({ name: objs, username: username }),
+    responseType: 'json'
+  }).then((res) => {
+    if (res.status === 200) {
+      console.log(res)
+    } else {
+      obj.$store.commit('SET_NOTICE', '病案历史查询成功')
     }
-    return value
+  }).catch((err) => {
+    console.log(err);
+    obj.$store.commit('SET_NOTICE', '病案历史查询失败')
   })
-  console.log(value)
-}
+ }

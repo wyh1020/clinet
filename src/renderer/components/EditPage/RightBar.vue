@@ -98,7 +98,7 @@
               }
             }
           } else if (n === '病案历史') {
-            getCaseHistory(this, this.$store.state.Edit.doc)
+            getCaseHistory(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.doc, this.$store.state.System.user.username)
           }
         }
       },
