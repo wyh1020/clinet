@@ -155,9 +155,9 @@
         }
       },
       addItem() {
-        if (this.$store.state.Edit.fileType === 'cda') {
-          this.$store.commit('EDIT_ADD_ITEM');
-        }
+        // if (this.$store.state.Edit.fileType === 'cda') {
+        this.$store.commit('EDIT_ADD_ITEM');
+        // }
       },
       up() {
         this.$store.commit('EDIT_SET_DOC_INDEX', [-1]);
