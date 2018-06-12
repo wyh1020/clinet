@@ -188,6 +188,7 @@
           case '已登录':
             this.$store.commit('SET_NOTICE', '已登录');
             this.$router.push('/');
+            this.$store.commit('SYSTEM_SET_USER', ['更新用户信息成功', { username: '', org: '', type: 2, login: false }]);
             break;
           default:
             this.$store.commit('SET_NAVBAR', '登陆页');

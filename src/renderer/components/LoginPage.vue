@@ -6,7 +6,7 @@
         <main>
           <div class="left-side">
             <div class="jumbotron">
-              <h2>登陆系统</h2>
+              <h2>登录系统</h2>
                 <form>
                   <div class="form-group">
                     <label for="exampleInputEmail1" class="text-danger">用户名（电子邮箱）</label>
@@ -17,7 +17,7 @@
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="" v-model="loginPassword">
                   </div>
                 </form>
-              <button id="login" class="btn btn-outline-primary" v-on:click="login">登陆（用户认证失败，则自动使用未注册用户登陆）</button>
+              <button id="login" class="btn btn-outline-primary" v-on:click="login">登录（用户认证失败，则自动使用未注册用户登录）</button>
             </div>
           </div>
         </main>
@@ -57,11 +57,11 @@
               </ul>
             </p>
             <p>
-              本系统登陆分2种用户状态：
+              本系统登录分2种用户状态：
               <ul>
-                <li>使用远程服务用户登陆：测试用户是 test@hitb.com.cn，密码是 123456</li>
-                <li>使用未注册用户登陆：远程服务用户认证失败，则自动使用未注册用户登陆，可以使用单机版功能，可以在系统服务中再次使用远程服务账户登陆</li>
-                <li>远程服务用户注册/登陆后，自动注册/登陆区块链服务，可以将远程文件发布到区块链服务上。</li>
+                <li>使用远程服务用户登录：测试用户是 test@hitb.com.cn，密码是 123456</li>
+                <li>使用未注册用户登录：远程服务用户认证失败，则自动使用未注册用户登录，可以使用单机版功能，可以在系统服务中再次使用远程服务账户登录</li>
+                <li>远程服务用户注册/登录后，自动注册/登录区块链服务，可以将远程文件发布到区块链服务上。</li>
               </ul>
             </p>
           </div>
@@ -109,6 +109,8 @@
       },
       login() {
         const server = global.hitbdata.server['远程测试服务器'][0];
+        console.log(this.loginName)
+        console.log(this.loginPassword)
         if (this.loginName && this.loginPassword) {
           socketConnect(this, [server[0], server[1]], { username: this.loginName, password: this.loginPassword });
         }
