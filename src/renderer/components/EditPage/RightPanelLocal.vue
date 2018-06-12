@@ -72,6 +72,8 @@
             if (!this.$store.state.System.user.login) {
               x = '远程文件的用户列表（用户未登陆服务器，请先登陆！）'
             }
+          } else if (this.$store.state.Edit.rightPanel === 'block') {
+            x = '区块链文件的用户列表'
           }
           switch (this.$store.state.Edit.lastNav) {
             case '/stat':
@@ -136,13 +138,13 @@
           default:
             break
         }
-        if (this.$store.state.Edit.rightPanel === 'server') {
+        if (this.$store.state.Edit.rightPanel === 'server' || this.$store.state.Edit.rightPanel === 'block') {
           this.$store.commit('EDIT_SET_LEFT_PANEL', 'table');
           switch (this.$store.state.Edit.lastNav) {
             case '/edit':
               if (this.$store.state.Edit.serverType === 'file') {
                 // getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.serverType, data, this.$store.state.System.user.username])
-                getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.serverType, this.$store.state.System.user.username, 'server')
+                getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.serverType, this.$store.state.System.user.username, this.$store.state.Edit.rightPanel)
               } else {
                 getEdit(this, [this.$store.state.System.server, this.$store.state.System.port], data)
               }

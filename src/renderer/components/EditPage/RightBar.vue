@@ -148,6 +148,7 @@
       blockData: function () {
         this.$store.commit('EDIT_SET_RIGHT_PANELS', '区块链文件');
         this.$store.commit('SET_NOTICE', '读取区块链文件');
+        this.$store.commit('EDIT_SET_SERVER_TYPE', 'user');
         getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.serverType, this.$store.state.System.user.username, 'block')
         // this.$store.commit('EDIT_SET_RIGHT_PANEL', 'server');
         this.$store.commit('EDIT_SET_RIGHT_PANEL', 'block');
@@ -219,8 +220,8 @@
             this.$store.commit('EDIT_SET_FILES_INDEX', index);
           }
           this.rightItem = ''
-        } else if (this.$store.state.Edit.rightPanel === 'server' && this.$store.state.Edit.serverType === 'file') {
-          getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.serverType, this.$store.state.System.user.username, 'block')
+        } else if ((this.$store.state.Edit.rightPanel === 'block' || this.$store.state.Edit.rightPanel === 'server') && this.$store.state.Edit.serverType === 'file') {
+          getEditFiles(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.serverType, this.$store.state.System.user.username, this.$store.state.Edit.rightPanel)
           if (this.$store.state.Edit.files === []) {
             this.$store.commit('SET_NOTICE', '未查找到，请输入完整用户名！')
           }
