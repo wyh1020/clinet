@@ -43,7 +43,6 @@ export default function saveFile(obj, x, p) {
     } else {
       data = p.join('\n')
     }
-    console.log(data);
     // // const data = p.join(',\n')
     // console.log(obj.$store.state.Edit.file);
     // console.log(p);

@@ -21,8 +21,11 @@
         <li class="nav-item" id="edit-leftbar-newdoc" v-on:click="show()">
           <a class="nav-link text-light" href="#" v-if="this.$store.state.Edit.leftPanel == 'table'">编辑</a>
         </li>
+        <li class="nav-item" id="edit-leftbar-cache" v-on:click="saveDoc()">
+          <a class="nav-link text-light" href="#">缓存</a>
+        </li>
         <li class="nav-item" id="edit-leftbar-newdoc" v-on:click="save('保存病案')">
-          <a class="nav-link text-light" href="#" v-if="this.$store.state.Edit.leftPanel == 'table'">保存</a>
+          <a class="nav-link text-light" href="#">保存</a>
         </li>
         <li class="nav-item" id="edit-leftbar-newdoc" v-on:click="save('保存模板')">
           <a class="nav-link text-light" href="#" v-if="this.$store.state.Edit.leftPanel == 'table' && this.$store.state.Edit.rightPanel == 'server'">另存为模板</a>
@@ -30,9 +33,6 @@
         <!-- <li class="nav-item" id="edit-leftbar-del" v-on:click="save(0)">
           <a class="nav-link text-light" href="#">去除</a>
         </li> -->
-        <li class="nav-item" id="edit-leftbar-cache" v-on:click="saveDoc()" v-if="this.$store.state.Edit.leftPanel == 'doc'">
-          <a class="nav-link text-light" href="#" v-if="fileName !== '' || this.$store.state.Edit.rightPanel === 'server'">缓存</a>
-        </li>
         <!-- <li class="nav-item" id="edit-leftbar-preservation" v-on:click="save()" v-if="this.$store.state.Edit.leftPanel == 'table'">
           <a class="nav-link text-light" href="#">保存病案</a>
         </li> -->
