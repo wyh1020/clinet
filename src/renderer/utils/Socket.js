@@ -41,15 +41,18 @@ export function socketConnect(obj, data, user) {
 }
 
 export function join(obj, filename, username) {
+  if (roomOwner === '') {
+    roomOwner = username
+  }
   channel = socket.channel(`room:${roomOwner}`, { username: username, create_room_time: createRoomTime })
   channel.join()
     .receive('ok', () => {
-      obj.$store.commit('SET_NOTICE', '加入房间成功')
+      obj.$store.commit('SET_NOTICE', `加入-${username}-房间成功`)
       channel.push('加入房间', { body: username, username: username, create_room_time: createRoomTime })
       obj.$store.commit('EDIT_SET_CHAT_TYPE', true);
     })
     .receive('error', () => {
-      obj.$store.commit('SET_NOTICE', '加入房间失败')
+      obj.$store.commit('SET_NOTICE', `加入-${username}-房间失败`)
     })
   channel.on('新消息', (r) => {
     obj.$store.commit('EDIT_SET_SOCKET_RECORD', { message: r.body, type: r.type, username: r.username, time: r.time, create_room_time: createRoomTime });
