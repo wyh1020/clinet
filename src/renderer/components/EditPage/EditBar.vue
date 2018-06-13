@@ -142,6 +142,9 @@
               } else {
                 this.$store.commit('EDIT_DELETE_ITEM', n);
               }
+              if (this.$store.state.Edit.helpType === '在线交流') {
+                message(this, e.target.value, this.$store.state.System.user.username, 'doc')
+              }
             } else {
               value = value.replace(/,/g, '，')
               const cv = value.split(' ').filter(i => i !== '');

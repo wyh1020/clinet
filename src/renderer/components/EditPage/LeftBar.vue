@@ -61,7 +61,6 @@
   import { saveEdit, getDocContent } from '../../utils/EditServerFile'
   import { getStat } from '../../utils/StatServerFile'
   import { getLibrary } from '../../utils/LibraryServerFile';
-  import { message } from '../../utils/Socket'
   export default {
     data() {
       return {
@@ -192,9 +191,7 @@
         doc = doc.map(x => x.join(' '))
         let x = ''
         let p = ''
-        if (this.$store.state.Edit.helpType === '在线交流') {
-          message(this, this.$store.state.Edit.file[this.$store.state.Edit.fileIndex], this.$store.state.System.user.username, 'doc')
-        } else if (fileName.includes('@')) {
+        if (fileName.includes('@')) {
           if (data === '保存模板') {
             this.saveType = '保存模板'
             if (!this.$store.state.Edit.modelName) {
