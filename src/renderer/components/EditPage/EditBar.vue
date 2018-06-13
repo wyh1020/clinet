@@ -118,6 +118,7 @@
         }
       },
       enter(e) {
+        console.log(this.$store.state.Edit.helpType)
         if (this.$store.state.Edit.editType === '病案编辑') {
           if (e.target.value.includes('~')) {
             this.$store.commit('EDIT_SET_MODEL_NAME', e.target.value.replace('~', ''));
@@ -240,7 +241,6 @@
         this.item = this.$store.state.Edit.editBarValue;
       },
       changeEditType(type) {
-        console.log(type);
         if (type) {
           this.$store.commit('EDIT_SET_EDIT_TYPE', type);
         } else if (this.$store.state.Edit.editType === '在线交流') {

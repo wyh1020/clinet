@@ -185,8 +185,8 @@ export function getCaseHistory(obj, data, name, username) {
       } else {
         objs[n[0]] = '--'
       }
-     }
-   })
+    }
+  })
   axios({
     method: 'post',
     url: `http://${data[0]}:${data[1]}/edit/patientlist`,
@@ -203,4 +203,4 @@ export function getCaseHistory(obj, data, name, username) {
     console.log(err);
     obj.$store.commit('SET_NOTICE', '病案历史查询失败')
   })
- }
+}
