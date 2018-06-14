@@ -166,7 +166,14 @@
           strDate = `0${strDate}`
         }
         const currentdate = `${date.getFullYear()}-${month}-${strDate} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-        this.$store.commit('EDIT_SET_UPDATE_HEADER', ['修改时间', currentdate]);
+        const obj = {}
+        obj['创建时间'] = ''
+        obj['修改时间'] = currentdate
+        obj['缓存时间'] = ''
+        obj['保存时间'] = ''
+        obj['标题'] = ''
+        obj['病人'] = ''
+        this.$store.commit('EDIT_SET_DOC_HEADER', obj);
       },
       addItem() {
         // if (this.$store.state.Edit.fileType === 'cda') {

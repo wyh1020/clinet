@@ -286,10 +286,6 @@ const mutations = {
   EDIT_SET_DOC_HEADER(state, value) {
     state.docHeader = value
   },
-  EDIT_SET_UPDATE_HEADER(state, value) {
-    state.docHeader[value[0]] = value[1]
-    console.log(state.docHeader)
-  },
   EDIT_SET_DOC_STATE(state) {
     const obj1 = state.docHeader
     obj1['修改时间'] = obj1['修改时间'].replace(/-/g, '/')
