@@ -46,7 +46,7 @@ export function getEdit(obj, data, filename, serverType = 'server', type = '') {
     console.log(res);
     if (res.status === 200) {
       // obj.$store.commit('EDIT_LOAD_FILE', res.data)
-      console.log(res.data.cda.id);
+      obj.$store.commit('EDIT_SERVER_ID', res.data.cda.id)
       obj.$store.commit('EDIT_LOAD_FILE', [res.data.cda.content])
       obj.$store.commit('SET_NOTICE', res.data.info);
       obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
@@ -59,13 +59,13 @@ export function getEdit(obj, data, filename, serverType = 'server', type = '') {
   })
 }
 
-export function saveEdit(obj, data, fileName, content, username, doctype, mouldtype) {
+export function saveEdit(obj, data, fileName, content, id, username, doctype, mouldtype) {
   content = content[0]
   const url = `http://${data[0]}:${data[1]}/edit/cda`
   axios({
     method: 'post',
     url: url,
-    data: qs.stringify({ file_name: fileName, content: content, username: username, doctype: doctype, mouldtype: mouldtype }),
+    data: qs.stringify({ id: id, file_name: fileName, content: content, username: username, doctype: doctype, mouldtype: mouldtype }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {

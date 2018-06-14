@@ -37,7 +37,8 @@ const state = {
   rightFolds: [],
   rightType: null,
   loadFileName: '',
-  downFile: []
+  downFile: [],
+  serverId: null
 };
 
 const mutations = {
@@ -70,6 +71,9 @@ const mutations = {
   },
   EDIT_ADD_DOC(state, message) {
     state.file.push(message);
+  },
+  EDIT_SERVER_ID(state, id) {
+    state.serverId = id
   },
   EDIT_ADD_FILE(state, message) {
     state.files.push(message);
@@ -281,6 +285,7 @@ const mutations = {
 
 const actions = {
   someAsyncTask({ commit }) {
+    commit('EDIT_SERVER_ID');
     commit('EDIT_SET_RIGHT_TYPE');
     commit('EDIT_SET_RIGHT_FOLDS');
     commit('EDIT_SET_RIGHT_CDH');
