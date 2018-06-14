@@ -207,7 +207,7 @@ export function getCaseHistory(obj, data, name, username) {
   })
 }
 
-export function editDocState(doc) {
+export function editDocState(obj, doc) {
   const value = doc[0][0].split(';')
   const header = value.map((x) => {
     const a = x.split(':')
@@ -218,7 +218,6 @@ export function editDocState(doc) {
     }
     return a
   })
-  let docState = null
   // 未缓存 修改时间》缓存时间
   // 未保存 缓存时间》保存时间
   // 已保存 保存时间》缓存时间
@@ -228,28 +227,14 @@ export function editDocState(doc) {
     keys.push(x[0])
     values.push(x[1])
   })
-  const obj = {}
+  const obj1 = {}
   keys.forEach((x, key) => {
     if (values[key]) {
-      obj[x] = values[key].replace(/　/g, ' ')
+      obj1[x] = values[key].replace(/　/g, ' ')
     } else {
-      obj[x] = ''
+      obj1[x] = ''
     }
   })
-  obj['修改时间'] = obj['修改时间'].replace(/-/g, '/')
-  obj['修改时间'] = new Date(Date.parse(obj['修改时间']))
-  obj['缓存时间'] = obj['缓存时间'].replace(/-/g, '/')
-  obj['缓存时间'] = new Date(Date.parse(obj['缓存时间']))
-  obj['保存时间'] = obj['保存时间'].replace(/-/g, '/')
-  obj['保存时间'] = new Date(Date.parse(obj['保存时间']))
-  if (obj['修改时间'] > obj['缓存时间']) {
-    docState = '未缓存'
-  } else if (obj['缓存时间'] > obj['保存时间']) {
-    docState = '未保存'
-  } else if (obj['保存时间'] > obj['缓存时间']) {
-    docState = '已保存'
-  } else {
-    docState = '正在编辑...'
-  }
-  return docState
+  obj.$store.commit('EDIT_SET_DOC_HEADER', obj1)
+  console.log(obj1)
 }

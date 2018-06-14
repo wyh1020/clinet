@@ -79,7 +79,6 @@
     data() {
       return {
         height: window.innerHeight - 120,
-        docState: null
       };
     },
     created: function () {
@@ -107,6 +106,11 @@
         get() {
           return this.$store.state.Edit.lastNav
         }
+      },
+      docState: {
+        get() {
+          return this.$store.state.Edit.docState
+        }
       }
     },
     methods: {
@@ -120,7 +124,8 @@
       },
       getDocState: function () {
         const doc = this.$store.state.Edit.doc
-        this.docState = editDocState(doc)
+        editDocState(this, doc)
+        this.$store.commit('EDIT_SET_DOC_STATE')
       }
     },
   };

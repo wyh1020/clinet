@@ -124,6 +124,17 @@
         this.docType = n
         this.saveDoc()
         document.getElementById('edit-editbar-input').focus()
+        const date = new Date();
+        let month = date.getMonth() + 1;
+        let strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+          month = `0${month}`;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = `0${strDate}`
+        }
+        const currentdate = `${date.getFullYear()}-${month}-${strDate} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+        this.$store.commit('EDIT_SET_UPDATE_HEADER', ['新建时间', currentdate]);
       },
       page: function (n) {
         let page = 0
@@ -183,6 +194,17 @@
         } else {
           this.$store.commit('SET_NOTICE', '请先打开一个文件，然后选择编辑一个文档，或者新建一个文档！')
         }
+        const date = new Date();
+        let month = date.getMonth() + 1;
+        let strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+          month = `0${month}`;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = `0${strDate}`
+        }
+        const currentdate = `${date.getFullYear()}-${month}-${strDate} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+        this.$store.commit('EDIT_SET_UPDATE_HEADER', ['缓存时间', currentdate]);
       },
       save: function (data) {
         const fileName = this.$store.state.Edit.fileName
@@ -217,6 +239,17 @@
           p = this.$store.state.Edit.lastNav
           saveFile(this, x, p)
         }
+        const date = new Date();
+        let month = date.getMonth() + 1;
+        let strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+          month = `0${month}`;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = `0${strDate}`
+        }
+        const currentdate = `${date.getFullYear()}-${month}-${strDate} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+        this.$store.commit('EDIT_SET_UPDATE_HEADER', ['保存时间', currentdate]);
       },
       leftEnter(e) {
         const doc = this.$store.state.Edit.doc

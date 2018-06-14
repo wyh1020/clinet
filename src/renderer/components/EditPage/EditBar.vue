@@ -156,6 +156,17 @@
           message(this, e.target.value, this.$store.state.System.user.username, 'message')
           this.$store.commit('EDIT_SET_BAR_VALUE', '');
         }
+        const date = new Date();
+        let month = date.getMonth() + 1;
+        let strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+          month = `0${month}`;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = `0${strDate}`
+        }
+        const currentdate = `${date.getFullYear()}-${month}-${strDate} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+        this.$store.commit('EDIT_SET_UPDATE_HEADER', ['修改时间', currentdate]);
       },
       addItem() {
         // if (this.$store.state.Edit.fileType === 'cda') {
