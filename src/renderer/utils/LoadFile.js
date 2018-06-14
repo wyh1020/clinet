@@ -117,11 +117,17 @@ export default function loadFile(obj, x, p, e = null) {
       if (stat.isDirectory()) {
         obj.$store.commit('SET_NOTICE', '目录不能导入，请选择文件！');
       } else if (stat.size < 1000 * 5000) {
+        // console.log(stat);
         obj.$store.commit('SET_NOTICE', '正在读取文件，请等待！');
         const fRead = fs.createReadStream(file);
         const fReadline = readline.createInterface({ input: fRead });
         const f = [];
         fReadline.on('close', () => {
+          const fileInfo = {};
+          f[0].split(',')[0].split(';').forEach((v) => {
+            fileInfo[v.split(':')[0]] = v.split(':')[1]
+          })
+          console.log(fileInfo);
           obj.$store.commit('EDIT_LOAD_FILE', f);
           obj.$store.commit('EDIT_LOAD_FILE_DOWN', f);
           obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')

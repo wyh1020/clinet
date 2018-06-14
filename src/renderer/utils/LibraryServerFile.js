@@ -34,6 +34,8 @@ export function getLibrary(obj, data, tableName, pageNum, dimensionType, dimensi
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
+      const library = res.data.library
+      console.log(library);
       const opt = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: res.data.library.slice(1), pageList: res.data.page_list, tableName: tableName };
       obj.$store.commit('LIBRARY_SET_SERVER_TABLE', opt);
       obj.$store.commit('LIBRARY_SET_COUNT_PAGE', res.data.count);

@@ -201,7 +201,7 @@
             }
           } else if (data === '保存病案') {
             this.saveType = '保存病案'
-            saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1, this.$store.state.Edit.docType, '病案')
+            saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.Edit.serverId, this.$store.state.System.user.username, 1, this.$store.state.Edit.docType, '病案')
           }
         } else {
           if (data === '保存模板') {
