@@ -204,3 +204,50 @@ export function getCaseHistory(obj, data, name, username) {
     obj.$store.commit('SET_NOTICE', '病案历史查询失败')
   })
 }
+
+export function editDocState(doc) {
+  const value = doc[0][0].split(';')
+  const header = value.map((x) => {
+    const a = x.split(':')
+    if (a[0].includes('时间')) {
+      const b = `${a[1]}:${a[2]}:${a[3]}`
+      a[1] = b
+      a.splice(2, 2)
+    }
+    return a
+  })
+  let docState = null
+  // 未缓存 修改时间》缓存时间
+  // 未保存 缓存时间》保存时间
+  // 已保存 保存时间》缓存时间
+  const keys = []
+  const values = []
+  header.forEach((x) => {
+    keys.push(x[0])
+    values.push(x[1])
+  })
+  const obj = {}
+  keys.forEach((x, key) => {
+    if (values[key]) {
+      obj[x] = values[key].replace(/　/g, ' ')
+    } else {
+      obj[x] = ''
+    }
+  })
+  obj['修改时间'] = obj['修改时间'].replace(/-/g, '/')
+  obj['修改时间'] = new Date(Date.parse(obj['修改时间']))
+  obj['缓存时间'] = obj['缓存时间'].replace(/-/g, '/')
+  obj['缓存时间'] = new Date(Date.parse(obj['缓存时间']))
+  obj['保存时间'] = obj['保存时间'].replace(/-/g, '/')
+  obj['保存时间'] = new Date(Date.parse(obj['保存时间']))
+  if (obj['修改时间'] > obj['缓存时间']) {
+    docState = '未缓存'
+  } else if (obj['缓存时间'] > obj['保存时间']) {
+    docState = '未保存'
+  } else if (obj['保存时间'] > obj['缓存时间']) {
+    docState = '已保存'
+  } else {
+    docState = '正在编辑...'
+  }
+  return docState
+}

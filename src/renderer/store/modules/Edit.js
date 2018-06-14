@@ -37,7 +37,8 @@ const state = {
   rightFolds: [],
   rightType: null,
   loadFileName: '',
-  downFile: []
+  downFile: [],
+  docHeader: null
 };
 
 const mutations = {
@@ -276,11 +277,15 @@ const mutations = {
   },
   EDIT_SET_LOAD_FILENAME(state, value) {
     state.loadFileName = value
+  },
+  EDIT_SET_DOC_HEADER(state, value) {
+    state.docHeader = value
   }
 };
 
 const actions = {
   someAsyncTask({ commit }) {
+    commit('EDIT_SET_DOC_HEADER');
     commit('EDIT_SET_RIGHT_TYPE');
     commit('EDIT_SET_RIGHT_FOLDS');
     commit('EDIT_SET_RIGHT_CDH');

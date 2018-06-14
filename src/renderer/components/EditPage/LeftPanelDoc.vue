@@ -3,6 +3,7 @@
     <div class="card">
       <div class="card-body" v-for="(section, key) of doc" v-bind:key='key'>
         <!-- 个人信息 -->
+        <table><tr class="table-warning">当前病案状态：{{docState}}</tr></table>
         <div v-if="lastNav === '/stat' || lastNav === '/library' || lastNav === '/system'">
           <table>
             <tr class="table-warning"><td>{{key}}</td><td></td></tr>
@@ -13,7 +14,7 @@
           </table>
         </div>
         <div v-if="lastNav === '/edit'">
-          <table v-if="key.split(',')[1] === '标题'">
+          <table v-if="key === '标题'">
             <tr class="table-warning" v-bind:class="{'table-danger':flag == key.split(',')[0]}" v-on:click="changeIndex(key, true)"><td>{{key.split(',')[1]}}</td></tr>
             <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-on:click="changeIndex(item)">
               <td ><b>{{ item[1] }}</b></td>
@@ -73,11 +74,16 @@
 
 <script>
   import editDoc from '../../utils/EditDoc'
+  import { editDocState } from '../../utils/EditServerFile'
   export default {
     data() {
       return {
-        height: window.innerHeight - 120
+        height: window.innerHeight - 120,
+        docState: null
       };
+    },
+    created: function () {
+      this.getDocState()
     },
     computed: {
       flag: {
@@ -108,11 +114,14 @@
         if (isSect) { v = v.split(',') }
         const value = v.concat()
         const index = value.shift(0)
-        // console.log(index)
         this.$store.commit('EDIT_SET_BAR_VALUE', value)
         this.$store.commit('EDIT_SET_DOC_INDEX', [parseInt(index, 10), 'set']);
         document.getElementById('edit-editbar-input').focus()
       },
+      getDocState: function () {
+        const doc = this.$store.state.Edit.doc
+        this.docState = editDocState(doc)
+      }
     },
   };
 </script>
