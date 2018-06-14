@@ -44,7 +44,7 @@ export function getEdit(obj, data, filename, serverType = 'server', type = '') {
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
-      obj.$store.commit('EDIT_LOAD_FILE', res.data)
+      // obj.$store.commit('EDIT_LOAD_FILE', res.data)
       obj.$store.commit('EDIT_LOAD_FILE', res.data.cda)
       obj.$store.commit('SET_NOTICE', res.data.info);
       obj.$store.commit('EDIT_SET_LEFT_PANEL', 'table')
