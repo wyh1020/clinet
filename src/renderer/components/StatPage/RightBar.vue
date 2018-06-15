@@ -14,10 +14,10 @@
           <a class="nav-link dropdown-toggle text-light" href="#" id="stat-file-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             文件
           </a>
-          <div class="dropdown-menu" aria-labelledby="stat-dropdown">
-            <a class="nav-link" href="#" title="显示本地文件" v-on:click='loadData()'> 本地 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" title="显示远程文件" v-on:click='serverData()'> 远程 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" title="显示区块链文件" v-on:click='blockData()'> 区块链 <span class="sr-only">(current)</span></a>
+          <div class="dropdown-menu" aria-labelledby="stat-file-dropdown">
+            <a class="nav-link" href="#" title="显示本地文件" id="stat-local-file" v-on:click='loadData()'> 本地 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" title="显示远程文件" id="stat-remote-file" v-on:click='serverData()'> 远程 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" title="显示区块链文件" id="stat-block-file" v-on:click='blockData()'> 区块链 <span class="sr-only">(current)</span></a>
           </div>
         </li>
         <!-- <li class="nav-item active" id="stat-local-doc" v-on:click='loadData()'>
@@ -46,7 +46,7 @@
             左图选择
           </a>
           <div class="dropdown-menu" aria-labelledby="stat-left-chart">
-            <a class="nav-link" href="#"  v-for="chart in charts" v-on:click='showChart("chartLeft", chart)' > {{chart}} <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" v-for="chart in charts" v-bind:key='chart' v-on:click='showChart("chartLeft", chart)' v-bind:id="'stat-left-chart-'+chart"> {{chart}} <span class="sr-only">(current)</span></a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -54,7 +54,7 @@
             右图选择
           </a>
           <div class="dropdown-menu" aria-labelledby="stat-right-chart">
-            <a class="nav-link" href="#"  v-for="chart in charts" v-on:click='showChart("chartRight", chart)' > {{chart}} <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#"  v-for="chart in charts" v-bind:key='chart' v-on:click='showChart("chartRight", chart)' v-bind:id="'stat-right-chart-'+chart"> {{chart}} <span class="sr-only">(current)</span></a>
           </div>
         </li>
         <li v-if="this.$store.state.Stat.tableType !== 'compare'" class="nav-item dropdown">

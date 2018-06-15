@@ -39,7 +39,7 @@ describe('Stat', function () {
     // 2.1.1.1.7 点击工具栏的左图选择 下拉框显示可选图形
     // 2.1.1.1.7.1 点击柱状图 rightPanel左部chart数据展示为柱状图
       .click('#stat-left-chart')
-      .click('#stat-left-chart-bar')
+      .click('#stat-left-chart-柱状图')
       .waitUntilTextExists('#notice-bar', '柱状图')
       .hasFocus('[aria-labelledby="stat-left-chart"]')
       .then(function (rightTable) {
@@ -48,7 +48,7 @@ describe('Stat', function () {
       })
     // 2.1.1.1.7.2 点击折线图 rightPanel左部chart数据展示为折线图
       .click('#stat-left-chart')
-      .click('#stat-left-chart-discount')
+      .click('#stat-left-chart-折线图')
       .waitUntilTextExists('#notice-bar', '折线图')
       .hasFocus('[aria-labelledby="stat-left-chart"]')
       .then(function (rightTable) {
@@ -57,7 +57,7 @@ describe('Stat', function () {
       })
     // 2.1.1.1.7.3 点击散点图 rightPanel左部chart数据展示为散点图
       .click('#stat-left-chart')
-      .click('#stat-left-chart-scatter-plot')
+      .click('#stat-left-chart-散点图')
       .waitUntilTextExists('#notice-bar', '散点图')
       .hasFocus('[aria-labelledby="stat-left-chart"]')
       .then(function (rightTable) {
@@ -66,7 +66,7 @@ describe('Stat', function () {
       })
     // 2.1.1.1.7.4 点击雷达图 rightPanel左部chart数据展示为雷达图
       .click('#stat-left-chart')
-      .click('#stat-left-chart-radar-map')
+      .click('#stat-left-chart-雷达图')
       .waitUntilTextExists('#notice-bar', '雷达图')
       .hasFocus('[aria-labelledby="stat-left-chart"]')
       .then(function (rightTable) {
@@ -75,7 +75,7 @@ describe('Stat', function () {
       })
     // 2.1.1.1.7.5 点击饼图 rightPanel左部chart数据展示为饼图
       .click('#stat-left-chart')
-      .click('#stat-left-chart-pie-map')
+      .click('#stat-left-chart-饼图')
       .waitUntilTextExists('#notice-bar', '饼图')
       .hasFocus('[aria-labelledby="stat-left-chart"]')
       .then(function (rightTable) {
@@ -85,7 +85,7 @@ describe('Stat', function () {
     // 2.1.1.1.8 点击工具栏的右图选择 下拉框显示可选图形
     // 2.1.1.1.8.1 点击柱状图 rightPanel右部chart数据展示为柱状图
       .click('#stat-right-chart')
-      .click('#stat-right-chart-bar')
+      .click('#stat-right-chart-柱状图')
       .waitUntilTextExists('#notice-bar', '柱状图')
       .hasFocus('[aria-labelledby="stat-right-chart"]')
       .then(function (rightTable) {
@@ -94,7 +94,7 @@ describe('Stat', function () {
       })
     // 2.1.1.1.8.2 点击折线图 rightPanel右部chart数据展示为折线图
       .click('#stat-right-chart')
-      .click('#stat-right-chart-discount')
+      .click('#stat-right-chart-折线图')
       .waitUntilTextExists('#notice-bar', '折线图')
       .hasFocus('[aria-labelledby="stat-right-chart"]')
       .then(function (rightTable) {
@@ -103,7 +103,7 @@ describe('Stat', function () {
       })
     // 2.1.1.1.8.3 点击散点图 rightPanel右部chart数据展示为散点图
       .click('#stat-right-chart')
-      .click('#stat-right-chart-scatter-plot')
+      .click('#stat-right-chart-散点图')
       .waitUntilTextExists('#notice-bar', '散点图')
       .hasFocus('[aria-labelledby="stat-right-chart"]')
       .then(function (rightTable) {
@@ -112,7 +112,7 @@ describe('Stat', function () {
       })
     // 2.1.1.1.8.4 点击雷达图 rightPanel右部chart数据展示为雷达图
       .click('#stat-right-chart')
-      .click('#stat-right-chart-radar-map')
+      .click('#stat-right-chart-雷达图')
       .waitUntilTextExists('#notice-bar', '雷达图')
       .hasFocus('[aria-labelledby="stat-right-chart"]')
       .then(function (rightTable) {
@@ -121,7 +121,7 @@ describe('Stat', function () {
       })
     // 2.1.1.1.8.5 点击饼图 rightPanel左部chart数据展示为饼图
       .click('#stat-right-chart')
-      .click('#stat-right-chart-pie-map')
+      .click('#stat-right-chart-饼图')
       .waitUntilTextExists('#notice-bar', '饼图')
       .hasFocus('[aria-labelledby="stat-right-chart"]')
       .then(function (rightTable) {
