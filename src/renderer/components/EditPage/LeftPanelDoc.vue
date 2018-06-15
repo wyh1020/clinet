@@ -31,7 +31,7 @@
             </tr>
           </table>
           <!-- 未定义-主诉-病史-体格检查 -->
-          <table v-if="['主诉', '病史', '现病史', '既往史', '家族史', '个人史', '月经史', '婚育史', '家庭史', '遗传史', '体格检查'].includes(key.split(',')[1])">
+          <table v-else-if="['主诉', '病史', '现病史', '既往史', '家族史', '个人史', '月经史', '婚育史', '家庭史', '遗传史', '体格检查'].includes(key.split(',')[1])">
             <tr class="table-warning" v-bind:class="{'table-danger':flag == key.split(',')[0]}" v-on:click="changeIndex(key, true)"><td>{{key.split(',')[1]}}</td></tr>
             <tr><td>
               <ol class="breadcrumb" >
@@ -44,7 +44,7 @@
             </td></tr>
           </table>
           <!-- 医嘱 -->
-          <table v-if="key.split(',')[1] === '医嘱'">
+          <table v-else-if="key.split(',')[1] === '医嘱'">
             <tr class="table-warning" v-bind:class="{'table-danger':flag == key.split(',')[0]}" v-on:click="changeIndex(key, true)"><td>{{key.split(',')[1]}}</td></tr>
             <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}">
               <td v-on:click="changeIndex(item)"><b>{{ item[1] }}</b>
@@ -54,10 +54,10 @@
             </tr>
           </table>
           <!-- 检查/检验结果 -->
-          <table v-if="key.split(',')[1] === '检验结果'">
+          <table v-else-if="key.split(',')[1] === '检验结果'">
           </table>  
           <!-- 签名-日期 -->
-          <table v-if="key.split(',')[1] === '签名'">
+          <table v-else-if="key.split(',')[1] === '签名'">
             <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}">
               <td class="text-right" v-bind:class="{'table-info':index == 0}" v-on:click="changeIndex(item)">
                 <b>{{ item[1] }}</b>
@@ -65,6 +65,19 @@
                 {{ item[5] }}  {{ item[6] }}  {{ item[7] }}  {{ item[8] }}
               </td>
             </tr>
+          </table>
+          <!-- 其他 sections -->
+          <table v-else>
+            <tr class="table-warning" v-bind:class="{'table-danger':flag == key.split(',')[0]}" v-on:click="changeIndex(key, true)"><td>{{key.split(',')[1]}}</td></tr>
+            <tr><td>
+              <ol class="breadcrumb" >
+                <li class="breadcrumb-item" v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}" v-on:click="changeIndex(item)">
+                  <b>{{ item[1] }}</b>
+                  ：{{ item[2] }} {{ item[3] }} {{ item[4] }} {{ item[5] }} {{ item[6] }} {{ item[7] }} {{ item[8] }}
+                </li>
+                <hr>
+              </ol>      
+            </td></tr>
           </table>
         </div>
       </div>
