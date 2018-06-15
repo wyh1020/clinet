@@ -62,10 +62,11 @@ export function getEdit(obj, data, filename, serverType = 'server', type = '') {
 export function saveEdit(obj, data, fileName, content, id, username, doctype, mouldtype) {
   content = content[0]
   const url = `http://${data[0]}:${data[1]}/edit/cda`
+  const header = obj.$store.state.Edit.docHeader
   axios({
     method: 'post',
     url: url,
-    data: qs.stringify({ id: id, file_name: fileName, content: content, username: username, doctype: doctype, mouldtype: mouldtype }),
+    data: qs.stringify({ id: id, file_name: fileName, content: content, username: username, doctype: doctype, mouldtype: mouldtype, header: header }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
