@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import { saveEdit } from '../../utils/EditServerFile'
+  import { saveEdit, editDocState } from '../../utils/EditServerFile'
   import saveFile from '../../utils/SaveFile';
   import { join } from '../../utils/Socket'
   export default {
@@ -186,6 +186,9 @@
           this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
           this.$store.commit('EDIT_SET_HELP_TYPE', '病案参考');
         }
+        const doc = this.$store.state.Edit.doc
+        editDocState(this, doc)
+        this.$store.commit('EDIT_SET_DOC_STATE')
       },
       close(data) {
         this.$store.commit('EDIT_DELETE_RIGHT_PANELS', data);

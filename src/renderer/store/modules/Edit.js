@@ -38,7 +38,7 @@ const state = {
   rightType: null,
   loadFileName: '',
   downFile: [],
-  docHeader: null,
+  docHeader: { 创建时间: null, 修改时间: null, 缓存时间: null, 保存时间: null, 标题: null, 病人: null },
   serverId: null,
   docState: null
 };
@@ -283,22 +283,34 @@ const mutations = {
   EDIT_SET_LOAD_FILENAME(state, value) {
     state.loadFileName = value
   },
+  EDIT_UPDATE_DOC_HEADER(state, value) {
+    state.docHeader[value[0]] = value[1]
+    console.log(state.docHeader)
+  },
   EDIT_SET_DOC_HEADER(state, value) {
     state.docHeader = value
+    console.log(state.docHeader)
   },
   EDIT_SET_DOC_STATE(state) {
     const obj1 = state.docHeader
-    obj1['修改时间'] = obj1['修改时间'].replace(/-/g, '/')
-    obj1['修改时间'] = new Date(Date.parse(obj1['修改时间']))
-    obj1['缓存时间'] = obj1['缓存时间'].replace(/-/g, '/')
-    obj1['缓存时间'] = new Date(Date.parse(obj1['缓存时间']))
-    obj1['保存时间'] = obj1['保存时间'].replace(/-/g, '/')
-    obj1['保存时间'] = new Date(Date.parse(obj1['保存时间']))
-    if (obj1['修改时间'] > obj1['缓存时间']) {
+    let a = obj1['修改时间']
+    let b = obj1['缓存时间']
+    let c = obj1['保存时间']
+    if (a && a.includes('-')) {
+      a = a.replace(/-/g, '/')
+      a = new Date(Date.parse(a))
+    } else if (b && b.includes('-')) {
+      b = b.replace(/-/g, '/')
+      b = new Date(Date.parse(b))
+    } else if (c && c.includes('-')) {
+      c = c.replace(/-/g, '/')
+      c = new Date(Date.parse(c))
+    }
+    if (a > b) {
       state.docState = '未缓存'
-    } else if (obj1['缓存时间'] > obj1['保存时间']) {
+    } else if (b > c) {
       state.docState = '未保存'
-    } else if (obj1['保存时间'] > obj1['缓存时间']) {
+    } else if (c > b) {
       state.docState = '已保存'
     } else {
       state.docState = '正在编辑...'
@@ -308,6 +320,7 @@ const mutations = {
 
 const actions = {
   someAsyncTask({ commit }) {
+    commit('EDIT_UPDATE_DOC_HEADER');
     commit('EDIT_SET_DOC_STATE');
     commit('EDIT_SET_DOC_HEADER');
     commit('EDIT_SERVER_ID');

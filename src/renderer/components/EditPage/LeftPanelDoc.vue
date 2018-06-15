@@ -1,9 +1,9 @@
 <template>
   <div id="edit-leftpaneldoc-doc" v-bind:style="{ height: height + 'px', overflow: 'auto' }">
     <div class="card">
+      <table><tr class="table-warning">当前病案状态：{{docState}}</tr></table>
       <div class="card-body" v-for="(section, key) of doc" v-bind:key='key'>
         <!-- 个人信息 -->
-        <table><tr class="table-warning">当前病案状态：{{docState}}</tr></table>
         <div v-if="lastNav === '/stat' || lastNav === '/library' || lastNav === '/system'">
           <table>
             <tr class="table-warning"><td>{{key}}</td><td></td></tr>
@@ -74,16 +74,15 @@
 
 <script>
   import editDoc from '../../utils/EditDoc'
-  import { editDocState } from '../../utils/EditServerFile'
   export default {
     data() {
       return {
         height: window.innerHeight - 120,
       };
     },
-    created: function () {
-      this.getDocState()
-    },
+    // created: function () {
+    //   this.getDocState()
+    // },
     computed: {
       flag: {
         get() {
@@ -122,11 +121,11 @@
         this.$store.commit('EDIT_SET_DOC_INDEX', [parseInt(index, 10), 'set']);
         document.getElementById('edit-editbar-input').focus()
       },
-      getDocState: function () {
-        const doc = this.$store.state.Edit.doc
-        editDocState(this, doc)
-        this.$store.commit('EDIT_SET_DOC_STATE')
-      }
+      // getDocState: function () {
+      //   const doc = this.$store.state.Edit.doc
+      //   editDocState(this, doc)
+      //   this.$store.commit('EDIT_SET_DOC_STATE')
+      // }
     },
   };
 </script>

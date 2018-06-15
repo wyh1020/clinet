@@ -230,12 +230,12 @@ export function editDocState(obj, doc) {
   })
   const obj1 = {}
   keys.forEach((x, key) => {
-    if (values[key]) {
+    if (values[key] && values.includes('　')) {
       obj1[x] = values[key].replace(/　/g, ' ')
     } else {
       obj1[x] = ''
     }
   })
-  obj.$store.commit('EDIT_SET_DOC_HEADER', obj1)
+  // obj.$store.commit('EDIT_SET_DOC_HEADER', obj1)
   console.log(obj1)
 }

@@ -120,10 +120,6 @@
         // if (fileName.includes('@')) {
         //   saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port, this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [''], this.$store.state.System.user.username, 2])
         // }
-
-        this.docType = n
-        this.saveDoc()
-        document.getElementById('edit-editbar-input').focus()
         const date = new Date();
         let month = date.getMonth() + 1;
         let strDate = date.getDate();
@@ -134,14 +130,11 @@
           strDate = `0${strDate}`
         }
         const currentdate = `${date.getFullYear()}-${month}-${strDate} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-        const obj = {}
-        obj['创建时间'] = currentdate
-        obj['修改时间'] = ''
-        obj['缓存时间'] = ''
-        obj['保存时间'] = ''
-        obj['标题'] = ''
-        obj['病人'] = ''
-        this.$store.commit('EDIT_SET_DOC_HEADER', obj);
+        this.$store.commit('EDIT_UPDATE_DOC_HEADER', ['创建时间', currentdate]);
+        this.$store.commit('EDIT_SET_DOC_STATE');
+        this.docType = n
+        this.saveDoc()
+        document.getElementById('edit-editbar-input').focus()
       },
       page: function (n) {
         let page = 0
@@ -211,14 +204,8 @@
           strDate = `0${strDate}`
         }
         const currentdate = `${date.getFullYear()}-${month}-${strDate} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-        const obj = {}
-        obj['创建时间'] = ''
-        obj['修改时间'] = ''
-        obj['缓存时间'] = currentdate
-        obj['保存时间'] = ''
-        obj['标题'] = ''
-        obj['病人'] = ''
-        this.$store.commit('EDIT_SET_DOC_HEADER', obj);
+        this.$store.commit('EDIT_UPDATE_DOC_HEADER', ['缓存时间', currentdate]);
+        this.$store.commit('EDIT_SET_DOC_STATE');
       },
       save: function (data) {
         const fileName = this.$store.state.Edit.fileName
@@ -263,14 +250,8 @@
           strDate = `0${strDate}`
         }
         const currentdate = `${date.getFullYear()}-${month}-${strDate} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-        const obj = {}
-        obj['创建时间'] = ''
-        obj['修改时间'] = ''
-        obj['缓存时间'] = ''
-        obj['保存时间'] = currentdate
-        obj['标题'] = ''
-        obj['病人'] = ''
-        this.$store.commit('EDIT_SET_DOC_HEADER', obj);
+        this.$store.commit('EDIT_UPDATE_DOC_HEADER', ['保存时间', currentdate]);
+        this.$store.commit('EDIT_SET_DOC_STATE');
       },
       leftEnter(e) {
         const doc = this.$store.state.Edit.doc
