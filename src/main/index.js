@@ -41,7 +41,7 @@ function createWindow() {
   });
 
   globalShortcut.register('F8', () => {
-    mainWindow.toggleDevTools();
+    mainWindow.openDevTools({ mode: 'bottom' });
   });
 
   mainWindow.maximize();
