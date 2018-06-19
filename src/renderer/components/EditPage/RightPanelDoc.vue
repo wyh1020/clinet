@@ -33,7 +33,7 @@
                   ：{{ item[2] }} {{ item[3] }} {{ item[4] }} {{ item[5] }} {{ item[6] }} {{ item[7] }} {{ item[8] }}
                 </li>
                 <hr>
-              </ol>      
+              </ol>
             </td></tr>
           </table>
           <!-- 医嘱 -->
@@ -48,7 +48,7 @@
           </table>
           <!-- 检查/检验结果 -->
           <table v-if="key.split(',')[1] === '检验结果'">
-          </table>  
+          </table>
           <!-- 签名-日期 -->
           <table v-if="key.split(',')[1] === '签名'">
             <tr class="table-warning" v-on:dblclick="addSection(key.split(',')[1])"><td>{{key.split(',')[1]}}</td></tr>

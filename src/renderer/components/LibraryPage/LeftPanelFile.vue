@@ -34,9 +34,7 @@
     },
     methods: {
       loadFile: function (data, index) {
-        console.log(data);
         this.$store.commit('LIBRARY_SET_SERVER_TABLE_TITLE', data);
-        // console.log(this.$store.state.Library.tableType);
         this.$store.commit('SYSTEM_GET_SHARE_FILE_NAME', this.$store.state.Library.files[index]);
         this.$store.commit('LIBRARY_GET_ROW', 0);
         this.$store.commit('LIBRARY_SET_FILE_INDEX', index);

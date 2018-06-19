@@ -31,7 +31,6 @@
     computed: {
       toolbar: {
         get() {
-          // console.log(this.$store.state.Home.navbar)
           return this.$store.state.Home.navbar
         }
       }
