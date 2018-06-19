@@ -250,7 +250,7 @@
       //   }
       // },
       updateUserPage: function () {
-        this.$store.commit('SYSTEM_SET_TOOLBAR', 'upUsers')
+        this.$store.commit('SYSTEM_SET_TOOLBAR', 'createUsers')
       },
       updateUser: function () {
         sUpdateUser(this, [this.server, this.port], this.$store.state.System.user.id, this.upUserInfo)
