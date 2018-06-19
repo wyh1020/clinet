@@ -64,14 +64,12 @@
         const ip = this.$store.state.System.server
         const port = 4000
         const user = global.hitbdata.blockchain_user
-        // console.log(ip)
         // getTransactions(this, [ip, port, user])
         transactionsUnconfirmedAll(this, [ip, port, user])
         this.$store.commit('BLOCK_SET_TOOLBAR', 'transRecord');
         this.$store.commit('SET_NOTICE', '账户交易记录');
       },
       login: function () {
-        // console.log('sssssssssss');
         const ip = this.$store.state.System.server
         const port = 4000
         // const user = global.hitbdata.blockchain_user

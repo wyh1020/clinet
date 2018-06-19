@@ -125,7 +125,6 @@
       },
       publicKeys: {
         get() {
-          console.log(this.$store.state.Block.publicKeys);
           return this.$store.state.Block.publicKeys
         }
       }

@@ -48,7 +48,6 @@
     computed: {
       username: {
         get() {
-          console.log(this.$store.state.Edit.socketRecord)
           return this.$store.state.System.user.username
         }
       },

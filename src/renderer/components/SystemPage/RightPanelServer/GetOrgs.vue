@@ -147,7 +147,6 @@
             orgkey.forEach((n) => {
               this.OrgInfo[n] = this.$store.state.System.orgs.data[index][n]
             })
-            console.log(this.$store.state.System.orgs.data[index].id)
             this.$store.commit('SYSTEM_GET_ORG_INFO', this.OrgInfo)
             this.$store.commit('SYSTEM_GET_ORG_ID', this.$store.state.System.orgs.data[index].id)
             this.$store.commit('SYSTEM_SET_TOOLBAR', 'createOrgs');
