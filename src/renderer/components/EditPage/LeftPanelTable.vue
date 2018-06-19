@@ -128,7 +128,8 @@
           this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
         } else {
           this.$store.commit('EDIT_SET_FILE_INDEX', index)
-          saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [data], this.$store.state.System.user.username, 1, this.$store.state.Edit.docType, '病案')
+          // obj, data, fileName, content, id, username, doctype, mouldtype
+          saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [data], '', this.$store.state.System.user.username, 1, this.$store.state.Edit.docType, '病案')
         }
       },
       downloadDoc: function (data, index) {
