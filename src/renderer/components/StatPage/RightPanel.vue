@@ -77,7 +77,7 @@
         </tr>
       </table>
     </div>
-    <nav aria-label="Page navigation example" v-if="this.$store.state.Stat.tableType === 'server'">
+    <nav aria-label="Page navigation example" v-if="this.$store.state.Stat.tableType === 'server' || this.$store.state.Stat.tableType === 'block'">
       <ul class="pagination">
         <li class="page-item" v-for= "(value, index) in page.pageList" v-bind:key="index" v-bind:class="{'disabled':value.page == page.page}" v-on:click="serverPage(value.page)"><a class="page-link" href="#">
           {{value.num}}
@@ -137,6 +137,10 @@
               break;
             }
             case 'server': {
+              table = this.$store.state.Stat.serverTable.data
+              break;
+            }
+            case 'block': {
               table = this.$store.state.Stat.serverTable.data
               break;
             }

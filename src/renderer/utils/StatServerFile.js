@@ -110,8 +110,9 @@ export function getStat(obj, data, opt, tableType, serverType = 'server') {
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
+      console.log(res.data);
       const stat = res.data.stat
-      stat.splice(0, 1)
+      // stat.splice(0, 1)
       obj.$store.commit('SET_NOTICE', `当前${opt.page}页,共${res.data.count}页`)
       const resObj = { page: parseInt(res.data.page, 10), countPage: res.data.count, data: stat, pageList: res.data.page_list, tableName: tableName, tableSel: res.data.num, dimensionOrg: res.data.org_num, dimensionTime: res.data.time_num, dimensionDrg: res.data.drg_num }
       obj.$store.commit('STAT_SET_COUNT_PAGE', res.data.count)
