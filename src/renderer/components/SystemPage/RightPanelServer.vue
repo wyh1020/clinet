@@ -32,6 +32,24 @@
             <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemRegister()"  v-if="this.secondPassword">确认注册</button>
             <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemReturn()"  v-if="this.secondPassword">返回</button>
           </div>
+        </div>
+        <!-- 未登录 -->
+        <!-- 已登录 -->
+        <div v-else>
+          <!-- <div v-if="this.toolbar === 'upUsers'">
+              <form>
+                <div class="form-group">
+                  <label>新密码</label>
+                  <input type="password" class="form-control" placeholder="新密码" v-model="upUserInfo.password" @input="updateUser()">
+                  <small class="form-text text-muted">请输入新的密码</small>
+                </div>
+                <div class="form-group">
+                  <label>机构</label>
+                  <input type="text" class="form-control" placeholder="新机构" v-model="upUserInfo.org" @input="updateUser()">
+                  <small class="form-text text-muted">请输入新的机构</small>
+                </div>
+              </form>
+          </div> -->
           <div v-if="this.toolbar === 'createUsers'">
             <div>
               <form>
@@ -40,7 +58,7 @@
                   <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" v-model="email" @input="register()">
                 </div>
                 <div class="form-group">
-                  <label for="InputPassword">用户密码</label>
+                  <label for="InputPassword">新用户密码</label>
                   <input type="password" class="form-control" id="InputPassword" placeholder="Password" v-model="password" @input="register()">
                 </div>
                 <div class="form-group">
@@ -60,26 +78,8 @@
                   <input type="text" class="form-control" id="InputPersonname" placeholder="Personname" v-model="personname" @input="register()">
                 </div>
               </form>
-              <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemRegister()">确认注册</button>
+              <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemUpdate()">确认修改</button>
             </div>
-          </div>
-        </div>
-        <!-- 未登录 -->
-        <!-- 已登录 -->
-        <div v-else>
-          <div v-if="this.toolbar === 'upUsers'">
-              <form>
-                <div class="form-group">
-                  <label>新密码</label>
-                  <input type="password" class="form-control" placeholder="新密码" v-model="upUserInfo.password" @input="updateUser()">
-                  <small class="form-text text-muted">请输入新的密码</small>
-                </div>
-                <div class="form-group">
-                  <label>机构</label>
-                  <input type="text" class="form-control" placeholder="新机构" v-model="upUserInfo.org" @input="updateUser()">
-                  <small class="form-text text-muted">请输入新的机构</small>
-                </div>
-              </form>
           </div>
           <div v-if="this.toolbar === 'getUsers'">
             <div v-if="this.userInfo === 'info'">
@@ -130,7 +130,7 @@
   import CreateOrgs from './RightPanelServer/CreateOrgs';
   import CreateDepartments from './RightPanelServer/CreateDepartments';
   import GetPersons from './RightPanelServer/GetPersons';
-  import { sConnect, sRegister } from '../../utils/Server'
+  import { sConnect, sRegister, sUpdateUser } from '../../utils/Server'
   import { socketConnect } from '../../utils/Socket';
   export default {
     components: { GetUsers, GetOrgs, CreateOrgs, CreateDepartments, GetPersons },
@@ -142,6 +142,7 @@
         org: '',
         age: '',
         tel: '',
+        textPower: '',
         personname: '',
         emailorname: 'test@hitb.com.cn',
         loginpassword: '123456',
@@ -204,7 +205,7 @@
         this.$store.commit('SYSTEM_LOGIN_USER', b)
       },
       sysytemlogin: function () {
-        // console.log('登录个毛线');
+        console.log('登录个毛线');
         const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
         const user = this.$store.state.System.userLogin
         if (reg.test(user.username)) {
@@ -242,6 +243,10 @@
             this.secondPassword = false
           }
         }
+      },
+      sysytemUpdate: function () {
+        console.log(this.$store.state.System.user.id);
+        sUpdateUser(this, [this.server, this.port], this.$store.state.System.user.id, this.$store.state.System.registerInfo)
       },
       connect: function (data, index) {
         this.flag = index
