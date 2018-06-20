@@ -71,7 +71,7 @@
           chartLine('chartRight', null)
           this.$store.commit('STAT_SET_CHART_IS_SHOW', 'chart');
         } else if (this.$store.state.Stat.isServer) {
-          this.$store.commit('STAT_SET_TABLE_TYPE', 'server')
+          // this.$store.commit('STAT_SET_TABLE_TYPE', 'server')
           if (data.endsWith('.csv')) {
             this.$store.commit('STAT_SET_CHART_IS_SHOW', 'chart');
             getStat(this, [this.$store.state.System.server, this.$store.state.System.port], { tableName: data, page: 1, username: this.$store.state.System.user.username, type: this.$store.state.Stat.dimensionType, value: this.$store.state.Stat.dimensionServer }, 'stat')
@@ -80,7 +80,7 @@
               this.$store.commit('STAT_SET_SERVER_MENU', ['三级菜单', []]);
             }
             this.$store.commit('STAT_SET_CHART_IS_SHOW', 'menu');
-            getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], data, this.$store.state.System.user.username)
+            getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], data, this.$store.state.System.user.username, this.$store.state.Stat.tableType)
           }
         } else {
           // 图表

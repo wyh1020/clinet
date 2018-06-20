@@ -110,7 +110,6 @@ export function getStat(obj, data, opt, tableType, serverType = 'server') {
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
-      console.log(res.data);
       const stat = res.data.stat
       // stat.splice(0, 1)
       obj.$store.commit('SET_NOTICE', `当前${opt.page}页,共${res.data.count}页`)

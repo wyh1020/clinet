@@ -162,7 +162,7 @@
           this.$store.commit('STAT_SET_TABLE_TYPE', 'server')
           this.$store.commit('STAT_SET_BAR_TYPE', 'server')
           this.$store.commit('STAT_SET_LEFT_PANEL', ['file', null]);
-          getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], '', this.$store.state.System.user.username)
+          getStatFiles(this, [this.$store.state.System.server, this.$store.state.System.port], '', this.$store.state.System.user.usernamee, this.$store.state.Stat.tableType)
         }
       },
       blockData: function () {
