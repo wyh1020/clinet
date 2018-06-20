@@ -8,6 +8,7 @@ const ChartPie = require('./ChartPie');
 const ChartData = require('./ChartData');
 // this, [url, port], filename, username, serverType
 export function getStatFiles(obj, data, filename, username, serverType = 'server') {
+  obj.$store.commit('STAT_SET_TABLE_TYPE', serverType)
   let url = ''
   if (filename !== '') {
     url = `http://${data[0]}:${data[1]}/stat/stat_file?name=${filename}&username=${username}&server_type=${serverType}`
@@ -31,10 +32,10 @@ export function getStatFiles(obj, data, filename, username, serverType = 'server
     console.log(err);
     obj.$store.commit('STAT_SERVER_FILES', [])
   })
-  obj.$store.commit('STAT_SET_TABLE_TYPE', serverType)
 }
 
 export function getList(obj, data, tableName, type, username, serverType = 'server') {
+  obj.$store.commit('STAT_SET_TABLE_TYPE', serverType)
   switch (type) {
     case '机构':
       type = 'org'
@@ -66,10 +67,10 @@ export function getList(obj, data, tableName, type, username, serverType = 'serv
     console.log(err);
     obj.$store.commit('STAT_SET_LEFT_PANEL', ['dimension', type, []])
   })
-  obj.$store.commit('STAT_SET_TABLE_TYPE', serverType)
 }
 
 export function getStat(obj, data, opt, tableType, serverType = 'server') {
+  obj.$store.commit('STAT_SET_TABLE_TYPE', serverType)
   let file = opt.tableName
   const tableName = file
   // 去除文件名中的.csv
@@ -159,7 +160,6 @@ export function getStat(obj, data, opt, tableType, serverType = 'server') {
   }).catch((err) => {
     console.log(err);
   })
-  obj.$store.commit('STAT_SET_TABLE_TYPE', serverType)
 }
 
 // 保存对比

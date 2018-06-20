@@ -326,7 +326,9 @@ const mutations = {
     switch (type) {
       case '一级菜单':
         state.serverMenu.first = opt2
-        state.serverMenu.first.push('病案数据.csv')
+        if (state.tableType === 'server') {
+          state.serverMenu.first.push('病案数据.csv')
+        }
         break;
       case '二级菜单':
         state.serverMenu.second = opt2
