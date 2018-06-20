@@ -263,7 +263,7 @@
         let cindex = 0
         let oindex = 0
         let tindex = 0
-        if (this.$store.state.Stat.tableType === 'server') {
+        if (this.$store.state.Stat.tableType === 'server' || this.$store.state.Stat.tableType === 'block') {
           cindex = header.indexOf('病历数')
           oindex = header.indexOf('机构')
           tindex = header.indexOf('时间')
@@ -279,46 +279,38 @@
             }
             return isType
           })
-          switch (this.$store.state.Stat.tableType) {
-            case 'local':
-              if (value.includes(true)) {
-                const a = this.$store.state.Stat.localTable[0]
-                if (a.includes(data[index])) {
-                  this.$store.commit('STAT_SET_COL', index);
-                }
+          if (this.$store.state.Stat.tableType === 'local') {
+            if (value.includes(true)) {
+              const a = this.$store.state.Stat.localTable[0]
+              if (a.includes(data[index])) {
+                this.$store.commit('STAT_SET_COL', index);
+              }
+            } else {
+              this.$store.commit('SET_NOTICE', '无数据,无法选中当前列!');
+            }
+          } else if (this.$store.state.Stat.tableType === 'server' || this.$store.state.Stat.tableType === 'block') {
+            if ((data[0] === '机构' && data[1] === '时间') || data[0] === 'year_time') {
+              this.$store.commit('STAT_SET_COL', index);
+            }
+            if (index === cindex && data !== this.$store.state.Stat.serverTable.data[0]) {
+              this.$store.commit('STAT_SET_TABLE_TYPE', 'case');
+              this.$store.commit('SET_NOTICE', '查看病历数');
+              let org = ''
+              if (data[oindex] === '全部机构') {
+                org = ''
               } else {
-                this.$store.commit('SET_NOTICE', '无数据,无法选中当前列!');
+                org = data[oindex]
               }
-              break;
-            case 'server':
-              if ((data[0] === '机构' && data[1] === '时间') || data[0] === 'year_time') {
-                this.$store.commit('STAT_SET_COL', index);
-              }
-              if (index === cindex && data !== this.$store.state.Stat.serverTable.data[0]) {
-                this.$store.commit('STAT_SET_TABLE_TYPE', 'case');
-                this.$store.commit('SET_NOTICE', '查看病历数');
-                let org = ''
-                if (data[oindex] === '全部机构') {
-                  org = ''
-                } else {
-                  org = data[oindex]
-                }
-                const time = data[tindex]
-                const drg = ''
-                getStatWt4(this, [this.$store.state.System.server, this.$store.state.System.port], org, time, drg)
-              }
-              break;
-            case 'case':
-              if (data[0] === '病案ID' && data[1] === '主要诊断') {
-                this.$store.commit('STAT_SET_CASE_COL', index);
-              }
-              break;
-            case 'compare':
-              if (data[0] === 'id') {
-                this.$store.commit('STAT_SET_COL', index);
-              }
-              break;
-            default:
+              const time = data[tindex]
+              const drg = ''
+              getStatWt4(this, [this.$store.state.System.server, this.$store.state.System.port], org, time, drg)
+            }
+          } else if (this.$store.state.Stat.tableType === 'case') {
+            if (data[0] === '病案ID' && data[1] === '主要诊断') {
+              this.$store.commit('STAT_SET_CASE_COL', index);
+            }
+          } else if (data[0] === 'id') {
+            this.$store.commit('STAT_SET_COL', index);
           }
         }
       },
@@ -333,15 +325,23 @@
         const id = 'chartLeft'
         const type = this.$store.state.Stat.chartLeft
         let table = []
-        if (this.$store.state.Stat.tableType === 'local') {
-          table = this.$store.state.Stat.localTable
-        } else if (this.$store.state.Stat.tableType === 'server') {
-          table = this.$store.state.Stat.serverTable.data
-        } else if (this.$store.state.Stat.tableType === 'case') {
-          this.$store.commit('STAT_SET_CASE_ROW', index);
-          table = this.$store.state.Stat.caseTable.data
-        } else {
-          table = this.$store.state.Stat.compareTable
+        switch (this.$store.state.Stat.tableType) {
+          case 'local':
+            table = this.$store.state.Stat.localTable
+            break;
+          case 'server':
+            table = this.$store.state.Stat.serverTable.data
+            break;
+          case 'block':
+            table = this.$store.state.Stat.serverTable.data
+            break;
+          case 'case':
+            this.$store.commit('STAT_SET_CASE_ROW', index);
+            table = this.$store.state.Stat.caseTable.data
+            break;
+          default:
+            table = this.$store.state.Stat.compareTable
+            break;
         }
         chartData(this, table, this.flag, this.flagTd)
         let chartdata = []
@@ -431,13 +431,15 @@
           switch (this.$store.state.Stat.tableType) {
             case 'local':
               table = this.$store.state.Stat.localTable
-              // header = table.shift()
               tableType = 'local'
               break;
             case 'server':
               table = this.$store.state.Stat.serverTable.data
-              // header = table.shift()
               tableType = 'server'
+              break;
+            case 'block':
+              table = this.$store.state.Stat.serverTable.data
+              tableType = 'block'
               break;
             default:
               break;
