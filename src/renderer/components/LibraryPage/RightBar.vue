@@ -102,19 +102,12 @@
           this.$store.commit('SET_NOTICE', '当前已是第一页')
         } else if ((this.$store.state.Library.tablePage === this.$store.state.Library.countPage && n === 1) || this.$store.state.Library.countPage === 0) {
           this.$store.commit('SET_NOTICE', '当前已是尾页');
-        } else {
-          switch (this.$store.state.Library.tableType) {
-            case 'server':
-              this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
-              getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.serverTable.tableNam, this.$store.state.Library.tablePage, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer, 'library', 'block')
-              break;
-            case 'local':
-              this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
-              this.$store.commit('SET_NOTICE', `当前${this.$store.state.Library.tablePage}页,共${this.$store.state.Library.countPage}页`)
-              break;
-            default:
-              break;
-          }
+        } else if (this.$store.state.Library.tableType === 'server' || this.$store.state.Library.tableType === 'block') {
+          this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
+          getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.serverTable.tableName, this.$store.state.Library.tablePage, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer, 'library', this.$store.state.Library.tableType)
+        } else if (this.$store.state.Library.tableType === 'local') {
+          this.$store.commit('LIBRARY_TABLE_PAGE', [n]);
+          this.$store.commit('SET_NOTICE', `当前${this.$store.state.Library.tablePage}页,共${this.$store.state.Library.countPage}页`)
         }
       },
       edit: function () {

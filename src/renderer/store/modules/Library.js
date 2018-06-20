@@ -66,7 +66,6 @@ const mutations = {
     state.files = opt.data;
   },
   LIBRARY_TABLE_PAGE(state, m) {
-    console.log(m[0]);
     if (m[1]) {
       state.tablePage = 1;
     } else {
@@ -78,7 +77,8 @@ const mutations = {
     } else if (state.tablePage < 1) {
       state.tablePage = 1
     }
-    state.localTable = state.localTables[state.tablePage].slice(1)
+    // .slice(1)
+    state.localTable = state.localTables[state.tablePage]
   },
   LIBRARY_SET_TABLE_PAGE(state, page) {
     state.tablePage = page;
@@ -110,7 +110,6 @@ const mutations = {
     }
   },
   LIBRARY_SET_DIMENSION(state, opt) {
-    console.log(opt);
     switch (opt[0]) {
       case 'org':
         // state.dimensionOrg.push(opt[1])
