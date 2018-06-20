@@ -201,11 +201,9 @@
     methods: {
       userLogins: function () {
         const b = { username: this.emailorname, password: this.loginpassword }
-        console.log(b);
         this.$store.commit('SYSTEM_LOGIN_USER', b)
       },
       sysytemlogin: function () {
-        console.log('登录个毛线');
         const reg = /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
         const user = this.$store.state.System.userLogin
         if (reg.test(user.username)) {
@@ -245,7 +243,6 @@
         }
       },
       sysytemUpdate: function () {
-        console.log(this.$store.state.System.user.id);
         sUpdateUser(this, [this.server, this.port], this.$store.state.System.user.id, this.$store.state.System.registerInfo)
       },
       connect: function (data, index) {

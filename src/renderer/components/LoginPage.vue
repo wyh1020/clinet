@@ -109,8 +109,6 @@
       },
       login() {
         const server = global.hitbdata.server['远程测试服务器'][0];
-        console.log(this.loginName)
-        console.log(this.loginPassword)
         if (this.loginName && this.loginPassword) {
           socketConnect(this, [server[0], server[1]], { username: this.loginName, password: this.loginPassword });
         }

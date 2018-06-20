@@ -90,10 +90,7 @@
     },
     methods: {
       onClick: function (data, index) {
-        // console.log(data)
-        // console.log(index)
         this.flag = index
-        // console.log(this.$store.state.Block.toolbar)
         if (this.$store.state.Block.toolbar === 'getServers') {
           serverStatus(this, [data[1], data[2], index])
         }
