@@ -171,17 +171,6 @@
               break;
             }
           }
-          // if (['local', 'server'].includes(this.$store.state.Stat.tableType)) {
-          //   const header = this.$store.state.Stat.localTable[0];
-          //   const a = []
-          //   if (header.length > 10) {
-          //     const indexs = [...Array(10)].map((v, k) => k)
-          //     table.forEach((xs) => {
-          //       a.push(indexs.map(x => xs[x]))
-          //     })
-          //   }
-          //   table = a;
-          // }
           return table
         }
       },
