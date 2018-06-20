@@ -443,6 +443,7 @@
               break;
           }
           const [a, ...b] = table
+          console.log(b)
           const index = a.indexOf(data)
           if (index > -1) {
             table.map((x) => {
