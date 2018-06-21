@@ -37,10 +37,10 @@ export default function loadFile(obj, x, p, e = null) {
         obj.$store.commit('SET_NOTICE', '目录不能导入，请选择文件！');
       } else if (stat.size < 1000 * 5000) {
         obj.$store.commit('SET_NOTICE', '正在读取文件，请等待！');
-        const fRead = fs.createReadStream(file);
-        const fReadline = readline.createInterface({ input: fRead });
+        const fRead = fs.createReadStream(file);
+        const fReadline = readline.createInterface({ input: fRead });
         const f = [];
-        fReadline.on('close', () => {
+        fReadline.on('close', () => {
           switch (p) {
             case 'user':
               obj.$store.commit('EDIT_LOAD_FILE', f);
@@ -101,7 +101,7 @@ export default function loadFile(obj, x, p, e = null) {
           obj.$store.commit('EDIT_SET_FILE_TYPE', 'csv')
           obj.$store.commit('SET_NOTICE', 'CSV文件读取成功！');
         });
-        fReadline.on('line', (line) => {
+        fReadline.on('line', (line) => {
           f.push(line)
         })
       } else {
@@ -119,10 +119,10 @@ export default function loadFile(obj, x, p, e = null) {
       } else if (stat.size < 1000 * 5000) {
         // console.log(stat);
         obj.$store.commit('SET_NOTICE', '正在读取文件，请等待！');
-        const fRead = fs.createReadStream(file);
-        const fReadline = readline.createInterface({ input: fRead });
+        const fRead = fs.createReadStream(file);
+        const fReadline = readline.createInterface({ input: fRead });
         const f = [];
-        fReadline.on('close', () => {
+        fReadline.on('close', () => {
           const fileInfo = {};
           f[0].split(',')[0].split(';').forEach((v) => {
             fileInfo[v.split(':')[0]] = v.split(':')[1]
@@ -134,7 +134,7 @@ export default function loadFile(obj, x, p, e = null) {
           obj.$store.commit('EDIT_SET_FILE_TYPE', 'cda')
           obj.$store.commit('SET_NOTICE', 'CDA文件读取成功！');
         });
-        fReadline.on('line', (line) => {
+        fReadline.on('line', (line) => {
           f.push(line)
         })
       } else {
@@ -145,4 +145,21 @@ export default function loadFile(obj, x, p, e = null) {
     obj.$store.commit('SYSTEM_LOAD_FILE', []);
     obj.$store.commit('SET_NOTICE', '选择的不是CSV文件，不能导入！');
   }
+}
+export function sectionFile(obj) {
+  const file = path.format({
+    dir: global.hitbdata.path.system,
+    base: 'hitb_sections.cda'
+  });
+  fs.lstat(file, () => {
+    const fRead = fs.createReadStream(file);
+    const fReadline = readline.createInterface({ input: fRead });
+    const f = [];
+    fReadline.on('close', () => {
+      obj.$store.commit('SYSTEM_SECTION', f)
+    });
+    fReadline.on('line', (line) => {
+      f.push(line)
+    })
+  })
 }

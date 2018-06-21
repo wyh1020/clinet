@@ -40,7 +40,7 @@
                   ：{{ item[2] }} {{ item[3] }} {{ item[4] }} {{ item[5] }} {{ item[6] }} {{ item[7] }} {{ item[8] }}
                 </li>
                 <hr>
-              </ol>      
+              </ol>
             </td></tr>
           </table>
           <!-- 医嘱 -->
@@ -55,7 +55,7 @@
           </table>
           <!-- 检查/检验结果 -->
           <table v-else-if="key.split(',')[1] === '检验结果'">
-          </table>  
+          </table>
           <!-- 签名-日期 -->
           <table v-else-if="key.split(',')[1] === '签名'">
             <tr v-for="(item, index) in section" v-bind:key='index' v-bind:class="{'table-danger':flag == item[0]}">
@@ -76,7 +76,7 @@
                   ：{{ item[2] }} {{ item[3] }} {{ item[4] }} {{ item[5] }} {{ item[6] }} {{ item[7] }} {{ item[8] }}
                 </li>
                 <hr>
-              </ol>      
+              </ol>
             </td></tr>
           </table>
         </div>
@@ -110,7 +110,8 @@
       doc: {
         get() {
           const doc = this.$store.state.Edit.doc
-          const doc1 = editDoc(doc)
+          const systemSection = this.$store.state.System.systemSection
+          const doc1 = editDoc(doc, systemSection)
           return doc1
         }
       },
