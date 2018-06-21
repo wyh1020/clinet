@@ -81,6 +81,7 @@
   import NavBar from './HomePage/NavBar';
   import NoticeBar from './HomePage/NoticeBar';
   import { socketConnect } from '../utils/Socket';
+  import { sectionFile } from '../utils/LoadFile';
   export default {
     name: 'login-page',
     components: { NavBar, NoticeBar },
@@ -112,6 +113,7 @@
         if (this.loginName && this.loginPassword) {
           socketConnect(this, [server[0], server[1]], { username: this.loginName, password: this.loginPassword });
         }
+        sectionFile(this)
         this.$store.commit('SET_NAVBAR', 'edit');
         this.$store.commit('HAS_DATA');
         this.$router.push('/home');
