@@ -26,6 +26,10 @@ export function socketConnect(obj, data, user) {
       obj.$store.commit('SYSTEM_SET_CONNECT_INFO', true)
     }
   })
+  channel2.push('cdh帮助', {})
+  channel2.on('cdh帮助', (res) => {
+    obj.$store.commit('EDIT_SERVER_CDH', res.cdh)
+  })
   channel2.on('ping', (r) => {
     obj.$store.commit('EDIT_SET_CHAT_USERS', r.users);
   })

@@ -40,7 +40,8 @@ const state = {
   downFile: [],
   docHeader: { 创建时间: null, 修改时间: null, 缓存时间: null, 保存时间: null, 标题: null, 病人: null },
   serverId: null,
-  docState: null
+  docState: null,
+  serverCdh: []
 };
 
 const mutations = {
@@ -89,6 +90,9 @@ const mutations = {
   },
   EDIT_SAVE_FILE(state, m) {
     state.file.splice(m[0], 1, m[1]);
+  },
+  EDIT_SERVER_CDH(state, m) {
+    state.serverCdh = m;
   },
   EDIT_LOAD_FILES() {
     const files = fs.readdirSync(global.hitbdata.path.user).filter(x => x.endsWith('.cda'))
@@ -378,6 +382,7 @@ const actions = {
     commit('EDIT_SET_EDIT_TYPE');
     commit('EDIT_SET_LOAD_FILENAME');
     commit('EDIT_LOAD_FILE_DOWN');
+    commit('EDIT_SERVER_CDH');
   },
 };
 
