@@ -185,15 +185,6 @@
         }
       },
       saveDoc: function () {
-        const fileIndex = this.$store.state.Edit.fileIndex
-        if (fileIndex >= 0) {
-          let doc = this.$store.state.Edit.doc
-          doc = doc.filter(x => x !== '')
-          doc = doc.map(x => x.join(' '))
-          this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
-        } else {
-          this.$store.commit('SET_NOTICE', '请先打开一个文件，然后选择编辑一个文档，或者新建一个文档！')
-        }
         const date = new Date();
         let month = date.getMonth() + 1;
         let strDate = date.getDate();
@@ -206,8 +197,47 @@
         const currentdate = `${date.getFullYear()}-${month}-${strDate} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
         this.$store.commit('EDIT_UPDATE_DOC_HEADER', ['缓存时间', currentdate]);
         this.$store.commit('EDIT_SET_DOC_STATE');
+        const fileIndex = this.$store.state.Edit.fileIndex
+        if (fileIndex >= 0) {
+          let doc = this.$store.state.Edit.doc
+          doc = doc.filter(x => x !== '')
+          doc = doc.map(x => x.join(' '))
+          const docHeader = this.$store.state.Edit.docHeader
+          const keys = Object.keys(docHeader)
+          const values = Object.values(docHeader)
+          let string = ''
+          keys.forEach((x, key) => {
+            let a = ''
+            if (values[key] && values[key].includes(' ')) {
+              a = values[key].replace(/ /g, '　')
+            } else {
+              a = values[key]
+            }
+            if (string === '') {
+              string = `${x}:${a}`
+            } else {
+              string = `${string};${x}:${a}`
+            }
+          })
+          doc.splice(0, 0, string);
+          this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
+        } else {
+          this.$store.commit('SET_NOTICE', '请先打开一个文件，然后选择编辑一个文档，或者新建一个文档！')
+        }
       },
       save: function (data) {
+        const date = new Date();
+        let month = date.getMonth() + 1;
+        let strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+          month = `0${month}`;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = `0${strDate}`
+        }
+        const currentdate = `${date.getFullYear()}-${month}-${strDate} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+        this.$store.commit('EDIT_UPDATE_DOC_HEADER', ['保存时间', currentdate]);
+        this.$store.commit('EDIT_SET_DOC_STATE');
         const fileName = this.$store.state.Edit.fileName
         let doc = this.$store.state.Edit.doc
         doc = doc.filter(x => x !== '')
@@ -240,18 +270,6 @@
           p = this.$store.state.Edit.lastNav
           saveFile(this, x, p)
         }
-        const date = new Date();
-        let month = date.getMonth() + 1;
-        let strDate = date.getDate();
-        if (month >= 1 && month <= 9) {
-          month = `0${month}`;
-        }
-        if (strDate >= 0 && strDate <= 9) {
-          strDate = `0${strDate}`
-        }
-        const currentdate = `${date.getFullYear()}-${month}-${strDate} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-        this.$store.commit('EDIT_UPDATE_DOC_HEADER', ['保存时间', currentdate]);
-        this.$store.commit('EDIT_SET_DOC_STATE');
       },
       leftEnter(e) {
         const doc = this.$store.state.Edit.doc
