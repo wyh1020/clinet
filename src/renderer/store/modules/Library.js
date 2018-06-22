@@ -24,7 +24,8 @@ const state = {
   dimensionSearch: { time: 0, version: 0, org: 0 },
   rowHeight: null,
   dimensionServer: '',
-  title: []
+  title: [],
+  fileTypes: ['本地', '远程', '区块链']
 };
 
 const mutations = {
@@ -186,6 +187,9 @@ const mutations = {
   LIBRARY_SET_COUNT_PAGE(state, n) {
     state.countPage = n
   },
+  LIBRARY_SET_FILE_TYPES(state, value) {
+    state.fileTypes = value
+  },
   LIBRARY_SET_SERVER_TABLE_TITLE(state, n) {
     // state.countPage = n
     let title = []
@@ -267,6 +271,7 @@ const actions = {
     commit('LIBRARY_SET_SERVER_DIMENSION');
     commit('LIBRARY_SET_COUNT_PAGE');
     commit('LIBRARY_SET_SERVER_TABLE_TITLE');
+    commit('LIBRARY_SET_FILE_TYPES');
   },
 };
 
