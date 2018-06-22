@@ -38,7 +38,7 @@ const state = {
   rightType: null,
   loadFileName: '',
   downFile: [],
-  docHeader: { 创建时间: null, 修改时间: null, 缓存时间: null, 保存时间: null, 标题: null, 病人: null },
+  docHeader: { 创建时间: null, 修改时间: null, 缓存时间: null, 保存时间: null, 上传时间: null, 发布时间: null, 下载时间: null, 标题: null, 病人: null },
   serverId: null,
   docState: null,
   serverCdh: []

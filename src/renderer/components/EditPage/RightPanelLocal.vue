@@ -179,6 +179,18 @@
         } else {
           this.$store.commit('SET_NOTICE', '用户权限不够，不能够发布他人文件');
         }
+        const date = new Date();
+        let month = date.getMonth() + 1;
+        let strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+          month = `0${month}`;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = `0${strDate}`
+        }
+        const currentdate = `${date.getFullYear()}-${month}-${strDate} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+        this.$store.commit('EDIT_UPDATE_DOC_HEADER', ['发布时间', currentdate]);
+        this.$store.commit('EDIT_SET_DOC_STATE');
       }
     },
   };

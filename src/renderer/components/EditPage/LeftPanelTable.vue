@@ -131,6 +131,18 @@
           // obj, data, fileName, content, id, username, doctype, mouldtype
           saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [data], '', this.$store.state.System.user.username, 1, this.$store.state.Edit.docType, '病案')
         }
+        const date = new Date();
+        let month = date.getMonth() + 1;
+        let strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+          month = `0${month}`;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = `0${strDate}`
+        }
+        const currentdate = `${date.getFullYear()}-${month}-${strDate} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+        this.$store.commit('EDIT_UPDATE_DOC_HEADER', ['上传时间', currentdate]);
+        this.$store.commit('EDIT_SET_DOC_STATE');
       },
       downloadDoc: function (data, index) {
         const index1 = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex].indexOf('-')
@@ -138,6 +150,18 @@
         console.log(filename);
         saveFile(this, this.$store.state.Edit.loadFileName, [...this.$store.state.Edit.downFile, data]);
         this.$store.commit('EDIT_SET_FILE_INDEX', index)
+        const date = new Date();
+        let month = date.getMonth() + 1;
+        let strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+          month = `0${month}`;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = `0${strDate}`
+        }
+        const currentdate = `${date.getFullYear()}-${month}-${strDate} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+        this.$store.commit('EDIT_UPDATE_DOC_HEADER', ['下载时间', currentdate]);
+        this.$store.commit('EDIT_SET_DOC_STATE');
       },
       loadDoc: function (data, index, type) {
         if (type === 'edit') {
