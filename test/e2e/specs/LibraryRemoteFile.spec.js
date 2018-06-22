@@ -15,8 +15,9 @@ describe('LibraryRemoteFile', function () {
       .waitUntilTextExists('#notice-bar', '术语字典-术语字典')
 
     // ########### 远程文件操作 ###########
-    // 2.1.6、点击工具栏的远程文件(library-remote-file)，左列表显示远程数据文件
-      .click('#library-remote-file')
+    // 2.1.6、点击工具栏的远程文件(library-file-远程)，左列表显示远程数据文件
+      .click('#library-dropdown')
+      .click('#library-file-远程')
       .click('#navbar-system')
       .click('#navbar-system-server')
       .click('#server-user-setup')
@@ -24,8 +25,8 @@ describe('LibraryRemoteFile', function () {
       .setValue('#server-password', '123456')
       .click('#server-login')
       .click('#navbar-library')
-      .click('#library-local-file')
-      .click('#library-remote-file')
+      .click('#library-dropdown')
+      .click('#library-file-远程')
       .getText('.library-leftlist')
       .then(function (leftlist) {
         expect(leftlist).to.be.an('array');
@@ -73,20 +74,20 @@ describe('LibraryRemoteFile', function () {
       //   expect(leftlist).to.be.an('array');
       // })
     // 2.1.8.2、工具栏的维度选择-时间(library-time)，左侧列表显示当前数据内所有时间，提示：时间维度选择成功，若时间列无内容，提示：无时间维度！
-      .click('#library-dropdown')
-      .click('#library-dropdown-time')
-      .getText('#library-dropdown-time')
-      .then(function (time) {
-        expect(time).to.equal('');
-      })
+      // .click('#library-dropdown')
+      // .click('#library-dropdown-time')
+      // .getText('#library-dropdown-time')
+      // .then(function (time) {
+      //   expect(time).to.equal('');
+      // })
     // 2.1.8.2.1、点击左侧列表(library-leftlist)，右侧表中显示所选时间的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
     // 2.1.8.3、工具栏的维度选择-版本(library-version)，左侧列表显示当前数据内所有版本，提示：版本维度选择成功，若版本列无内容，提示：无版本维度！
-      .click('#library-dropdown')
-      .click('#library-dropdown-version')
-      .getText('#library-dropdown-version')
-      .then(function (version) {
-        expect(version).to.be.an('array');
-      })
+      // .click('#library-dropdown')
+      // .click('#library-dropdown-version')
+      // .getText('#library-dropdown-version')
+      // .then(function (version) {
+      //   expect(version).to.be.an('array');
+      // })
     // 2.1.8.3.1、点击左侧列表(library-leftlist)，右侧表中显示所选版本的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
     // 2.1.8.4、点击表中任意一列
     // 2.1.8.5、点击添加列维度，左侧列表显示选中列中的内容（去重），若选中列无内容，提示维度内容为空不可添加！

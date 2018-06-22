@@ -15,7 +15,7 @@ describe('StatLocalFile', function () {
       .waitUntilTextExists('#notice-bar', '数据分析-数据分析')
     // 2.1、本地文件 leftPanel显示本地文件列表
       .click('#stat-file-dropdown')
-      .click('#stat-local-file')
+      .click('#stat-file-本地')
     // 2.1.1 点击leftPanel列表 rightPanel数据表显示当前文件的前十条数据 chart显示当前数据图表 提示显示当前数据提示内容
       .click('#stat-left-file-tr0')
       .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')
