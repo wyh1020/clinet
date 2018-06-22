@@ -14,7 +14,8 @@ describe('StatRemoteFile', function () {
       .click('#navbar-stat')
       .waitUntilTextExists('#notice-bar', '数据分析-数据分析')
     // 2.2、远程文件 leftPanel显示远程文件列表
-      .click('#stat-remote-file')
+      .click('#stat-file-dropdown')
+      .click('#stat-file-远程')
       .waitUntilTextExists('#notice-bar', '未登录用户,请在系统服务-用户设置内登录')
       .click('#navbar-system')
       .click('#navbar-system-server')
@@ -25,7 +26,7 @@ describe('StatRemoteFile', function () {
       .click('#server-login')
       .click('#navbar-stat')
       .click('#stat-file-dropdown')
-      .click('#stat-local-file')
+      .click('#stat-file-本地')
       // .click('#stat-remote-file')
       .click('#stat-left-file-tr0')
       .waitUntilTextExists('#notice-bar', 'CSV文件读取成功！')

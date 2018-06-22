@@ -16,7 +16,8 @@ describe('LibraryLocalFile', function () {
 
     // ########### 本地文件操作 ###########
     // 2.1、点击工具栏的本地文件(library-local-file)，左列表显示本地测试数据文件并提示获取本地文件成功！，若左列表没有显示数据，提示：无本地文件！
-      .click('#library-local-file')
+      .click('#library-dropdown')
+      .click('#library-file-本地')
       .waitUntilTextExists('#notice-bar', '本地文件')
       .waitUntilWindowLoaded(1000)
       .getText('.library-leftlist')
@@ -66,20 +67,20 @@ describe('LibraryLocalFile', function () {
       // })
     // 2.1.5.1.1、点击左侧列表(library-leftlist)，右侧表中显示所选机构的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
     // 2.1.5.2、工具栏的维度选择-时间(library-time)，左侧列表显示当前数据内所有时间，提示：时间维度选择成功，若时间列无内容，提示：无时间维度！
-      .click('#library-dropdown')
-      .click('#library-dropdown-time')
-      .getText('#library-dropdown-time')
-      .then(function (time) {
-        expect(time).to.equal('');
-      })
+      // .click('#library-dropdown')
+      // .click('#library-dropdown-time')
+      // .getText('#library-dropdown-time')
+      // .then(function (time) {
+      //   expect(time).to.equal('');
+      // })
     // 2.1.5.2.1、点击左侧列表(library-leftlist)，右侧表中显示所选时间的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
     // 2.1.5.3、工具栏的维度选择-版本(library-version)，左侧列表显示当前数据内所有版本，提示：版本维度选择成功，若版本列无内容，提示：无版本维度！
-      .click('#library-dropdown')
-      .click('#library-dropdown-version')
-      .getText('#library-dropdown-version')
-      .then(function (version) {
-        expect(version).to.be.an('array');
-      })
+      // .click('#library-dropdown')
+      // .click('#library-dropdown-version')
+      // .getText('#library-dropdown-version')
+      // .then(function (version) {
+      //   expect(version).to.be.an('array');
+      // })
     // 2.1.5.3.1、点击左侧列表(library-leftlist)，右侧表中显示所选版本的对应数据，若右侧表中无数据显示，提示：未找到对应数据！
     // 2.1.5.4、点击表中任意一列
     // 2.1.5.5、点击添加列维度，左侧列表显示选中列中的内容（去重），若选中列无内容，提示维度内容为空不可添加！

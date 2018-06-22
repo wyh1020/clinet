@@ -46,11 +46,6 @@ describe('EditRemoteFile', function () {
       .setValue('#server-password', '123456')
     // 2.5 点击登录按钮
       .click('#server-login')
-      .getText('#server-login')
-      .then(function (editText) {
-        // console.log(editText)
-        expect(editText).to.be.an('array');
-      })
       // .waitUntilTextExists('#notice-bar', '远程服务用户登录成功')
       .getText('#notice-bar')
       .then(function (editText) {
