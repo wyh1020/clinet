@@ -52,7 +52,8 @@ const state = {
   caseSelectedRow: [],
   caseSelectedCol: [],
   xObj: {},
-  barType: ''
+  barType: '',
+  fileTypes: ['本地', '远程', '区块链']
 };
 
 const mutations = {
@@ -391,6 +392,9 @@ const mutations = {
   STAT_SET_BAR_TYPE(state, value) {
     state.barType = value;
   },
+  STAT_SET_FILE_TYPES(state, value) {
+    state.fileTypes = value
+  },
 };
 
 const actions = {
@@ -431,6 +435,7 @@ const actions = {
     commit('STAT_SET_TABLE');
     commit('STAT_SET_XOBJ');
     commit('STAT_SET_BAR_TYPE');
+    commit('STAT_SET_FILE_TYPES');
   },
 };
 export default {

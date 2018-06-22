@@ -11,9 +11,10 @@
             文件
           </a>
           <div class="dropdown-menu" aria-labelledby="library-dropdown">
-            <a class="nav-link" href="#" title="显示本地文件" v-on:click='loadData()'> 本地 <span class="sr-only">(current)</span></a>
+            <a v-for="(data, index) in fileTypes" v-bind:key='index' class="nav-link" href="#" v-on:click='libraryFile(data)' v-bind:id="'library-file-'+data">{{data}}</a>
+            <!-- <a class="nav-link" href="#" title="显示本地文件" v-on:click='loadData()'> 本地 <span class="sr-only">(current)</span></a>
             <a class="nav-link" href="#" title="显示远程文件" v-on:click='serverData()'> 远程 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" title="显示区块链文件" v-on:click='blockData()'> 区块链 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" title="显示区块链文件" v-on:click='blockData()'> 区块链 <span class="sr-only">(current)</span></a> -->
           </div>
         </li>
         <!-- <li class="nav-item active" v-on:click='loadData()' id="library-local-file">
@@ -70,33 +71,66 @@
         library: ''
       };
     },
+    computed: {
+      fileTypes: {
+        get() {
+          return this.$store.state.Library.fileTypes
+        }
+      },
+    },
     methods: {
-      loadData: function () {
-        this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
-        this.$store.commit('LIBRARY_LOAD_FILES');
-        this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'local');
-        this.$store.commit('SET_NOTICE', '本地文件');
-      },
-      serverData: function () {
-        if (!this.$store.state.System.user.login) {
-          this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
-        } else {
-          this.$store.commit('SET_NOTICE', '远程文件');
-          this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'server');
+      libraryFile: function (n) {
+        if (n === '本地') {
           this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
-          getLibraryFiles(this, [this.$store.state.System.server, this.$store.state.System.port], 'server')
+          this.$store.commit('LIBRARY_LOAD_FILES');
+          this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'local');
+          this.$store.commit('SET_NOTICE', '本地文件');
+        } else if (n === '远程') {
+          if (!this.$store.state.System.user.login) {
+            this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
+          } else {
+            this.$store.commit('SET_NOTICE', '远程文件');
+            this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'server');
+            this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
+            getLibraryFiles(this, [this.$store.state.System.server, this.$store.state.System.port], 'server')
+          }
+        } else if (n === '区块链') {
+          if (!this.$store.state.System.user.login) {
+            this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
+          } else {
+            this.$store.commit('SET_NOTICE', '区块链文件');
+            this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'block');
+            this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
+            getLibraryFiles(this, [this.$store.state.System.server, this.$store.state.System.port], 'block')
+          }
         }
       },
-      blockData: function () {
-        if (!this.$store.state.System.user.login) {
-          this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
-        } else {
-          this.$store.commit('SET_NOTICE', '区块链文件');
-          this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'block');
-          this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
-          getLibraryFiles(this, [this.$store.state.System.server, this.$store.state.System.port], 'block')
-        }
-      },
+      // loadData: function () {
+      //   this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
+      //   this.$store.commit('LIBRARY_LOAD_FILES');
+      //   this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'local');
+      //   this.$store.commit('SET_NOTICE', '本地文件');
+      // },
+      // serverData: function () {
+      //   if (!this.$store.state.System.user.login) {
+      //     this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
+      //   } else {
+      //     this.$store.commit('SET_NOTICE', '远程文件');
+      //     this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'server');
+      //     this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
+      //     getLibraryFiles(this, [this.$store.state.System.server, this.$store.state.System.port], 'server')
+      //   }
+      // },
+      // blockData: function () {
+      //   if (!this.$store.state.System.user.login) {
+      //     this.$store.commit('SET_NOTICE', '未登录用户,请在系统服务-用户设置内登录');
+      //   } else {
+      //     this.$store.commit('SET_NOTICE', '区块链文件');
+      //     this.$store.commit('LIBRARY_SET_TABLE_TYPE', 'block');
+      //     this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
+      //     getLibraryFiles(this, [this.$store.state.System.server, this.$store.state.System.port], 'block')
+      //   }
+      // },
       page: function (n) {
         if (this.$store.state.Library.tablePage === 1 && n === -1) {
           this.$store.commit('SET_NOTICE', '当前已是第一页')
