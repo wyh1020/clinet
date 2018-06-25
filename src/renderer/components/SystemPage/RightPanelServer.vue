@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="this.toolbar === 'getServers'">
+    <div v-if="this.toolbar === 'getServers'" id="system-server-port">
       <table>
         <tr v-for="(data, index) in file" v-bind:key='index' v-on:click="connect(data, index)" v-bind:class="{'table-danger':flag == index && index !== 0}" class="server-rightpanel-tr" v-bind:id="'system-td-tr'+index">
           <td v-for="(field, index) in data" v-bind:key='index'>{{data[index]}}</td>
@@ -28,9 +28,9 @@
               </div>
             </form>
             <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemlogin()"  v-if="!this.secondPassword">登录(可使用用户账号登录和区块链账号登录)</button>
-            <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemRegisters()"  v-if="!this.secondPassword">注册</button>
-            <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemRegister()"  v-if="this.secondPassword">确认注册</button>
-            <button id="server-login" type="button" class="btn btn-outline-primary" v-on:click="sysytemReturn()"  v-if="this.secondPassword">返回</button>
+            <button id="server-regiest" type="button" class="btn btn-outline-primary" v-on:click="sysytemRegisters()"  v-if="!this.secondPassword">注册</button>
+            <button id="server-again-regiest" type="button" class="btn btn-outline-primary" v-on:click="sysytemRegister()"  v-if="this.secondPassword">确认注册</button>
+            <button id="server-login-return" type="button" class="btn btn-outline-primary" v-on:click="sysytemReturn()"  v-if="this.secondPassword">返回</button>
           </div>
         </div>
         <!-- 未登录 -->

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table table-striped">
+    <table class="table table-striped" id="server-table-user">
       <thead class="thead-light">
         <tr>
           <th scope="col">名称</th>

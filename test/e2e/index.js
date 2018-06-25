@@ -15,5 +15,5 @@ global.should = should
 global.assert = assert
 
 // Require all JS files in `./specs` for Mocha to consume
-require('require-dir')('./specs')
-// require('./specs/Edit.spec')
+// require('require-dir')('./specs')
+require('./specs/EditDoc.spec')
