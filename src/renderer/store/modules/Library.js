@@ -190,67 +190,9 @@ const mutations = {
   LIBRARY_SET_FILE_TYPES(state, value) {
     state.fileTypes = value
   },
-  LIBRARY_SET_SERVER_TABLE_TITLE(state, n) {
-    // state.countPage = n
-    let title = []
-    // switch (n.split('.csv')[0]) {
-    //   case 'test_mdc':
-    //   case 'test_adrg':
-    //     title = ['ID', '编码', '名称', 'MDC', '机构', '版本', '年份', 'plat']
-    //     break;
-    //   case 'test_drg':
-    //     title = ['ID', '编码', '名称', 'MDC', 'ADRG', '机构', '版本', '年份', 'plat']
-    //     break;
-    //   case 'test_icd10':
-    //   case 'test_icd9':
-    //     title = ['ID', '编码', '名称', 'p_type', '版本', '年份', 'plat', 'dissect', 'property', 'option', 'codes']
-    //     break;
-    //   case 'test_department':
-    //     title = ['编码', '内部编码', '内部名称', '主治医生', '副主治医生', '所属机构', 'sickroom_range', '床位数', '科室数', '是否启用']
-    //     break;
-    //   case 'test_org':
-    //     title = ['名称', '等级', '类型', '科室数', '医师数', '主任', '医院编码']
-    //     break;
-    //   case 'mdc':
-    //     title = ['编码', 'ICD10_a', 'ICD10_aa', 'ICD9_a', 'ICD9_a', '名称', '版本', '年份']
-    //     break;
-    //   case 'adrg':
-    //     title = ['编码', 'drgs_1', 'icd10_a', 'icd10_aa', 'icd10_acc', 'icd10_b', 'icd10_bb', 'icd10_bcc', 'icd9_a', 'icd9_aa', 'icd9_acc', 'icd9_b', 'icd9_bb', 'icd9_bcc', '名称', '版本', '年份']
-    //     break;
-    //   case 'drg':
-    //     title = ['ADRG', '编码', '名称', '版本', '年份']
-    //     break;
-    //   case 'icd9':
-    //     title = ['ADRG', '编码', 'codes', 'dissect', '名称', '选择', 'p_type', 'property', '版本', '年份']
-    //     break;
-    //   case 'icd10':
-    //     title = ['ADRG', 'cc', '编码', 'codes', 'dissect', 'mcc', '名称', '版本', '年份']
-    //     break;
-    //   case '基本信息':
-    //   case '街道乡镇代码':
-    //   case '民族':
-    //   case '区县编码':
-    //   case '手术血型':
-    //   case '科别代码':
-    //   case '病理诊断编码':
-    //   case '出入院编码':
-    //   case '肿瘤编码':
-    //   case '医保诊断依据':
-    //     title = ['编码', '名称', '类型', '年份']
-    //     break;
-    //   case '中药':
-    //     title = ['序号', '用量', '功效', '适应症', '归经', '名称', '别名', '注意事项', '性味', '毒性', '分类']
-    //     break;
-    //   case '中成药':
-    //     title = ['药品分类代码', '限医疗机构等级', '药品编号', '药品类型', '药品名称', '其他名称', '医疗', '其他限制', '其他规格', '药品分类', '人员限制']
-    //     break;
-    //   case '西药':
-    //     title = ['剂型', '英文名称', '三级分类', '报销限制内容', '一级分类', '二级分类', '中文名称']
-    //     break;
-    //   default:
-    // }
-    state.title = title
-  }
+  // LIBRARY_SET_SERVER_TABLE_TITLE(state, n) {
+  //   state.title = []
+  // }
 };
 
 const actions = {
