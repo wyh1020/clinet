@@ -40,14 +40,15 @@
           <a class="nav-link text-light" href="#" title="跳转到编辑来编辑该文件"> 编辑数据 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-light" href="#" id="library-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle text-light" href="#" id="library-dropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             维度选择
           </a>
-          <div class="dropdown-menu" aria-labelledby="library-dropdown">
+          <div class="dropdown-menu" aria-labelledby="library-dropdown1">
+            <a v-for="(data, index) in dropdownTypes" v-bind:key='index' class="nav-link" href="#" v-on:click='selX(data)' v-bind:id="'library-dropdown-'+data">{{data}}</a>
             <!-- <a class="nav-link" href="#" v-on:click='selX("机构")' id="library-dropdown-org"> 机构 <span class="sr-only">(current)</span></a> -->
-            <a class="nav-link" href="#" v-on:click='selX("year")' id="library-dropdown-time"> 年份 <span class="sr-only">(current)</span></a>
+            <!-- <a class="nav-link" href="#" v-on:click='selX("year")' id="library-dropdown-time"> 年份 <span class="sr-only">(current)</span></a>
             <a class="nav-link" href="#" v-on:click='selX("version")' id="library-dropdown-version"> 版本 <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#" v-on:click='selX("all")' id="library-dropdown-version"> 全部 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" v-on:click='selX("all")' id="library-dropdown-version"> 全部 <span class="sr-only">(current)</span></a> -->
             <div class="dropdown-divider"></div>
             <!-- <a class="nav-link" href="#" v-on:click='selX(null)'> 添加列维度 <span class="sr-only">(current)</span></a> -->
           </div>
@@ -75,6 +76,11 @@
       fileTypes: {
         get() {
           return this.$store.state.Library.fileTypes
+        }
+      },
+      dropdownTypes: {
+        get() {
+          return this.$store.state.Library.dropdownTypes
         }
       },
     },
@@ -175,7 +181,7 @@
         switch (this.$store.state.Library.tableType) {
           case 'local': {
             if (this.$store.state.Library.localTable.length > 0) {
-              if (x === 'all') {
+              if (x === '全部') {
                 this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
                 loadFile(this, this.$store.state.Library.files[this.$store.state.Library.fileIndex], 'library')
               } else {
@@ -189,7 +195,7 @@
           }
           case 'server': {
             if (this.$store.state.Library.serverTable.data.length > 0) {
-              if (x === 'all') {
+              if (x === '全部') {
                 this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
                 getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.serverTable.tableNam, this.$store.state.Library.tablePage, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer, 'library', 'block')
               } else {
