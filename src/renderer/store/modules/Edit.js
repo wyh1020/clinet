@@ -41,7 +41,8 @@ const state = {
   docHeader: { 创建时间: null, 修改时间: null, 缓存时间: null, 保存时间: null, 上传时间: null, 发布时间: null, 下载时间: null, 标题: null, 病人: null },
   serverId: null,
   docState: null,
-  serverCdh: []
+  serverCdh: [],
+  isSave: []
 };
 
 const mutations = {
@@ -319,11 +320,17 @@ const mutations = {
     } else {
       state.docState = '正在编辑...'
     }
-  }
+  },
+  EDIT_SET_DOC_IS_SAVE(state, value) {
+    if (state.docState !== '') {
+      state.isSave.push(value)
+    }
+  },
 };
 
 const actions = {
   someAsyncTask({ commit }) {
+    commit('EDIT_SET_DOC_IS_SAVE');
     commit('EDIT_UPDATE_DOC_HEADER');
     commit('EDIT_SET_DOC_STATE');
     commit('EDIT_SET_DOC_HEADER');

@@ -220,6 +220,9 @@
             }
           })
           doc.splice(0, 0, string);
+          console.log(doc)
+          console.log(fileIndex)
+          this.$store.commit('EDIT_SET_DOC_IS_SAVE', fileIndex);
           this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
         } else {
           this.$store.commit('SET_NOTICE', '请先打开一个文件，然后选择编辑一个文档，或者新建一个文档！')

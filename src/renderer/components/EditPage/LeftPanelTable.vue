@@ -41,6 +41,12 @@
       };
     },
     computed: {
+      isSave: {
+        get() {
+          console.log(this.$store.state.Edit.isSave)
+          return this.$store.state.Edit.isSave
+        }
+      },
       lastNav: {
         get() {
           return this.$store.state.Edit.lastNav

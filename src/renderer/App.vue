@@ -7,6 +7,19 @@
 <script>
   export default {
     name: 'clinet',
+    mounted: function () {
+      window.addEventListener('beforeunload', e => this.windowClose(e))
+    },
+    methods: {
+      windowClose(e) {
+        console.log(e)
+        if (confirm('是否保存全部未保存病案？')) {
+          console.log('是')
+        } else {
+          console.log('否')
+        }
+      }
+    }
   };
 </script>
 
