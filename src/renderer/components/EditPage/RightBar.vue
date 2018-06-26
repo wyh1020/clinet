@@ -61,10 +61,15 @@
       return {
         name: this.$route.name,
         rightItem: '',
-        helpType: '编辑器使用帮助'
+        // helpType: '编辑器使用帮助'
       };
     },
     computed: {
+      helpType: {
+        get() {
+          return this.$store.state.Edit.helpType
+        }
+      },
       helpTypes: {
         get() {
           return this.$store.state.Edit.helpTypes
@@ -76,6 +81,7 @@
         if (n) {
           this.$store.commit('EDIT_SET_RIGHT_PANELS', n);
           this.$store.commit('SET_NOTICE', n);
+          this.$store.commit('EDIT_SET_HELP_TYPE', n);
           if (n === 'DRG分析') {
             if (this.$store.state.System.wt4Tables.length > 1) {
               sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.wt4Tables, 'BJ', 'getLocalData')
@@ -85,7 +91,6 @@
           } else if (n === '编辑器使用帮助' || n === '在线交流') {
             this.$store.commit('SET_NOTICE', n);
             this.helpType = n
-            this.$store.commit('EDIT_SET_HELP_TYPE', n);
             this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
           } else if (this.$store.state.Edit.rightPanel === 'server') {
             clinetHelp(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.user.username)

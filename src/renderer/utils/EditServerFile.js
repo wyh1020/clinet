@@ -43,7 +43,6 @@ export function getEdit(obj, data, filename, serverType = 'server', type = '') {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
-    console.log(res);
     if (res.status === 200) {
       // obj.$store.commit('EDIT_LOAD_FILE', res.data)
       obj.$store.commit('EDIT_SERVER_ID', res.data.cda.id)
@@ -114,7 +113,6 @@ export function getDocContent(obj, data, username, filename) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
     responseType: 'json'
   }).then((res) => {
-    console.log(res);
     if (res.status === 200) {
       obj.$store.commit('SET_NOTICE', '模板内容查询成功')
       const con = res.data.result.split(',')
@@ -182,7 +180,6 @@ export function getCaseHistory(obj, data, name, username) {
   const objs = {}
   name.forEach((n) => {
     if (['姓名', '年龄', '性别', '婚姻', '民族', '出生地', '职业'].includes(n[0])) {
-      console.log(n[1])
       if (n[1]) {
         objs[n[0]] = n[1]
       } else {
@@ -209,33 +206,51 @@ export function getCaseHistory(obj, data, name, username) {
 }
 
 export function editDocState(obj, doc) {
-  const value = doc[0][0].split(';')
-  const header = value.map((x) => {
-    const a = x.split(':')
-    if (a[0].includes('时间')) {
-      const b = `${a[1]}:${a[2]}:${a[3]}`
-      a[1] = b
-      a.splice(2, 2)
-    }
-    return a
-  })
-  // 未缓存 修改时间》缓存时间
-  // 未保存 缓存时间》保存时间
-  // 已保存 保存时间》缓存时间
-  const keys = []
-  const values = []
-  header.forEach((x) => {
-    keys.push(x[0])
-    values.push(x[1])
-  })
-  const obj1 = {}
-  keys.forEach((x, key) => {
-    if (values[key] && values.includes('　')) {
-      obj1[x] = values[key].replace(/　/g, ' ')
-    } else {
-      obj1[x] = ''
-    }
-  })
+  if (doc[0][0]) {
+    const value = doc[0][0].split(';')
+    const header = value.map((x) => {
+      const a = x.split(':')
+      if (a[0] && a[0].includes('时间')) {
+        const b = `${a[1]}:${a[2]}:${a[3]}`
+        a[1] = b
+        a.splice(2, 2)
+      }
+      return a
+    })
+    // 未缓存 修改时间》缓存时间
+    // 未保存 缓存时间》保存时间
+    // 已保存 保存时间》缓存时间
+    const keys = []
+    const values = []
+    header.forEach((x) => {
+      keys.push(x[0])
+      values.push(x[1])
+    })
+    const obj1 = {}
+    keys.forEach((x, key) => {
+      if (values[key] && values.includes('　')) {
+        obj1[x] = values[key].replace(/　/g, ' ')
+      } else {
+        obj1[x] = ''
+      }
+    })
+  }
   // obj.$store.commit('EDIT_SET_DOC_HEADER', obj1)
-  console.log(obj1)
+  // console.log(obj1)
+}
+
+export function editDocShow(obj, value) {
+  const value1 = value.split(',')
+  const value2 = value1.map((x) => {
+    const x1 = x.split(' ')
+    return x1
+  })
+  let diag = []
+  value2.forEach((x) => {
+    if (x[0] === '初步诊断') {
+      diag = x
+    }
+  })
+  console.log(diag)
+  // obj.$store.commit('EDIT_LOAD_DOC_SHOW', )
 }
