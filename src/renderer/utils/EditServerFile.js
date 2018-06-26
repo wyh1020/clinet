@@ -176,14 +176,14 @@ export function clinetHelp(obj, data, name) {
 }
 
 
-export function getCaseHistory(obj, data, name, username) {
+export function getCdaHistory(obj, data, name, username) {
   const objs = {}
   name.forEach((n) => {
     if (['姓名', '年龄', '性别', '婚姻', '民族', '出生地', '职业'].includes(n[0])) {
-      if (n[1]) {
+      if (n.length === 2) {
         objs[n[0]] = n[1]
       } else {
-        objs[n[0]] = '--'
+        objs[n[0]] = '-'
       }
     }
   })
@@ -191,7 +191,7 @@ export function getCaseHistory(obj, data, name, username) {
     method: 'post',
     url: `http://${data[0]}:${data[1]}/edit/patientlist`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-    data: qs.stringify({ name: objs, username: username }),
+    data: qs.stringify({ info: objs, username: username }),
     responseType: 'json'
   }).then((res) => {
     if (res.status === 200) {
@@ -252,5 +252,4 @@ export function editDocShow(obj, value) {
     }
   })
   console.log(diag)
-  // obj.$store.commit('EDIT_LOAD_DOC_SHOW', )
 }
