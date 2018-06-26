@@ -43,7 +43,6 @@
     computed: {
       isSave: {
         get() {
-          console.log(this.$store.state.Edit.isSave)
           return this.$store.state.Edit.isSave
         }
       },
