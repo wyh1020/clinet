@@ -169,6 +169,7 @@
         this.$store.commit('EDIT_SET_DOC_STATE');
       },
       loadDoc: function (data, index, type) {
+        let doc = []
         if (type === 'edit') {
           this.$store.commit('EDIT_SET_RIGHT_PANELS', '编辑病案');
           this.$store.commit('EDIT_SET_FILE_INDEX', index)
@@ -208,15 +209,16 @@
           this.$store.commit('EDIT_SET_RIGHT_TYPE', 'left')
           this.$store.commit('EDIT_SET_DOC_INDEX', [0, true]);
           document.getElementById('edit-editbar-input').focus()
+          doc = this.$store.state.Edit.doc
         } else {
           this.$store.commit('EDIT_SET_RIGHT_PANELS', '病案参考');
           this.$store.commit('EDIT_SET_FILE_INDEX', index)
-          // this.$store.commit('EDIT_LOAD_DOC_SHOW', data.split(','))
+          this.$store.commit('EDIT_LOAD_DOC_SHOW', data.split(','))
           this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
           this.$store.commit('EDIT_SET_HELP_TYPE', '病案参考');
+          doc = this.$store.state.Edit.docShow
           editDocShow(this, data)
         }
-        const doc = this.$store.state.Edit.doc
         editDocState(this, doc)
         this.$store.commit('EDIT_SET_DOC_STATE')
       },
