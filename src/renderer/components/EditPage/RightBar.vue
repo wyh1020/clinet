@@ -82,6 +82,10 @@
           this.$store.commit('EDIT_SET_RIGHT_PANELS', n);
           this.$store.commit('SET_NOTICE', n);
           this.$store.commit('EDIT_SET_HELP_TYPE', n);
+          console.log(n)
+          if (this.$store.state.Edit.rightPanel === 'server') {
+            clinetHelp(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.user.username)
+          }
           if (n === 'DRG分析') {
             if (this.$store.state.System.wt4Tables.length > 1) {
               sCompDrg(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.wt4Tables, 'BJ', 'getLocalData')
@@ -92,8 +96,6 @@
             this.$store.commit('SET_NOTICE', n);
             this.helpType = n
             this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
-          } else if (this.$store.state.Edit.rightPanel === 'server') {
-            clinetHelp(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.user.username)
           } else if (this.$store.state.Edit.rightPanel === '输入框提示') {
             if (this.$store.state.Edit.rightPanel === 'server') {
               if (!this.$store.state.Edit.rightCdh) {

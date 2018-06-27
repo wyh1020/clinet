@@ -42,7 +42,8 @@ const state = {
   serverId: null,
   docState: null,
   serverCdh: [],
-  isSave: []
+  isSave: [],
+  docHis: []
 };
 
 const mutations = {
@@ -326,10 +327,14 @@ const mutations = {
       state.isSave.push(value)
     }
   },
+  EDIT_SET_DOC_HIS(state, value) {
+    state.docHis = value
+  },
 };
 
 const actions = {
   someAsyncTask({ commit }) {
+    commit('EDIT_SET_DOC_HIS');
     commit('EDIT_SET_DOC_IS_SAVE');
     commit('EDIT_UPDATE_DOC_HEADER');
     commit('EDIT_SET_DOC_STATE');

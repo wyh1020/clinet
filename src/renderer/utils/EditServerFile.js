@@ -176,7 +176,7 @@ export function clinetHelp(obj, data, name) {
 }
 
 
-export function getCdaHistory(obj, data, name, username) {
+export function getCaseHistory(obj, data, name, username) {
   const objs = {}
   name.forEach((n) => {
     if (['姓名', '年龄', '性别', '婚姻', '民族', '出生地', '职业'].includes(n[0])) {
@@ -196,8 +196,8 @@ export function getCdaHistory(obj, data, name, username) {
   }).then((res) => {
     if (res.status === 200) {
       console.log(res)
-    } else {
       obj.$store.commit('SET_NOTICE', '病案历史查询成功')
+      obj.$store.commit('EDIT_SET_DOC_HIS', res.data.result)
     }
   }).catch((err) => {
     console.log(err);
