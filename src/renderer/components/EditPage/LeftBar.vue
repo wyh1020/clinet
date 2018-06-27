@@ -57,8 +57,8 @@
 </template>
 
 <script>
-  import saveFile from '../../utils/SaveFile'
-  import { saveEdit, getDocContent } from '../../utils/EditServerFile'
+  import saveDoc from '../../utils/EditSave'
+  import { getDocContent } from '../../utils/EditServerFile'
   import { getStat } from '../../utils/StatServerFile'
   import { getLibrary } from '../../utils/LibraryServerFile';
   export default {
@@ -67,18 +67,9 @@
         // name: this.$route.name,
         leftItem: '',
         docType: '自定义文档',
-        saveTypes: ['保存病案', '保存模板'],
-        // saveType: '',
       };
     },
     computed: {
-      saveType: {
-        get() {
-          const type = '保存病案'
-          return type
-        },
-        set() {}
-      },
       fileName: {
         get() {
           return this.$store.state.Edit.fileName
@@ -227,50 +218,8 @@
         }
       },
       save: function (data) {
-        const date = new Date();
-        let month = date.getMonth() + 1;
-        let strDate = date.getDate();
-        if (month >= 1 && month <= 9) {
-          month = `0${month}`;
-        }
-        if (strDate >= 0 && strDate <= 9) {
-          strDate = `0${strDate}`
-        }
-        const currentdate = `${date.getFullYear()}-${month}-${strDate} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-        this.$store.commit('EDIT_UPDATE_DOC_HEADER', ['保存时间', currentdate]);
-        this.$store.commit('EDIT_SET_DOC_STATE');
-        const fileName = this.$store.state.Edit.fileName
-        let doc = this.$store.state.Edit.doc
-        doc = doc.filter(x => x !== '')
-        doc = doc.map(x => x.join(' '))
-        let x = ''
-        let p = ''
-        if (fileName.includes('@')) {
-          if (data === '保存模板') {
-            this.saveType = '保存模板'
-            if (!this.$store.state.Edit.modelName) {
-              this.$store.commit('SET_NOTICE', '请输入模板名称！')
-            } else {
-              saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.System.user.username, 1, this.$store.state.Edit.docType, '模板')
-            }
-          } else if (data === '保存病案') {
-            this.saveType = '保存病案'
-            saveEdit(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.Edit.serverId, this.$store.state.System.user.username, 1, this.$store.state.Edit.docType, '病案')
-          }
-        } else {
-          if (data === '保存模板') {
-            this.saveType = '保存模板'
-          } else {
-            this.saveType = '保存病案'
-          }
-          if (this.$store.state.Edit.lastNav === '/stat') {
-            x = this.$store.state.Stat.fileName
-          } else {
-            x = this.$store.state.Edit.files[this.$store.state.Edit.filesIndex]
-          }
-          p = this.$store.state.Edit.lastNav
-          saveFile(this, x, p)
-        }
+        console.log(data)
+        saveDoc(this, data)
       },
       leftEnter(e) {
         const doc = this.$store.state.Edit.doc

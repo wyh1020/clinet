@@ -82,7 +82,6 @@
           this.$store.commit('EDIT_SET_RIGHT_PANELS', n);
           this.$store.commit('SET_NOTICE', n);
           this.$store.commit('EDIT_SET_HELP_TYPE', n);
-          console.log(n)
           if (this.$store.state.Edit.rightPanel === 'server') {
             clinetHelp(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.System.user.username)
           }

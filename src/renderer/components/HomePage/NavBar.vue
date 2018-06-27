@@ -69,11 +69,14 @@
       </ul>
     </div>
     <a class="navbar-brand" href="#" id="navbar-username" v-on:click="onClick(userName)">&nbsp;&nbsp;&nbsp;&nbsp;{{userName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    <a class="navbar-brand" href="#" id="navbar-username" v-on:click="close()">关闭×</a>
   </nav>
 </template>
 
 <script>
   import loadFile from '../../utils/LoadFile';
+  import saveDoc from '../../utils/EditSave'
+  // import save from '../EditPage/LeftBar';
   export default {
     data() {
       return {
@@ -196,7 +199,19 @@
             this.$router.push('/');
         }
       },
-
+      close: function () {
+        const isSave = this.$store.state.Edit.isSave
+        const file = this.$store.state.Edit.file
+        if (isSave.length > 0) {
+          if (confirm('是否保存全部未保存病案？')) {
+            isSave.forEach((x) => {
+              this.$store.commit('EDIT_SAVE_DOC', [x, file[x]]);
+              saveDoc(this, '保存病案')
+            })
+          }
+        }
+        window.close();
+      }
     },
   };
 </script>

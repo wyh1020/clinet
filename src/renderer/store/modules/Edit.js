@@ -291,11 +291,9 @@ const mutations = {
   },
   EDIT_UPDATE_DOC_HEADER(state, value) {
     state.docHeader[value[0]] = value[1]
-    console.log(state.docHeader)
   },
   EDIT_SET_DOC_HEADER(state, value) {
     state.docHeader = value
-    console.log(state.docHeader)
   },
   EDIT_SET_DOC_STATE(state) {
     const obj1 = state.docHeader
