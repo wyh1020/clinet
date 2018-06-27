@@ -220,8 +220,6 @@
             }
           })
           doc.splice(0, 0, string);
-          console.log(doc)
-          console.log(fileIndex)
           this.$store.commit('EDIT_SET_DOC_IS_SAVE', fileIndex);
           this.$store.commit('EDIT_SAVE_DOC', [fileIndex, doc.toString()]);
         } else {

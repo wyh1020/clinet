@@ -8,15 +8,16 @@
   export default {
     name: 'clinet',
     mounted: function () {
-      window.addEventListener('beforeunload', e => this.windowClose(e))
+      console.log(this.$store.state.Edit.isSave)
+      if (this.$store.state.Edit.isSave.length > 0) {
+        window.addEventListener('beforeunload', this.windowClose())
+      }
     },
     methods: {
-      windowClose(e) {
-        console.log(e)
+      windowClose() {
+        console.log(this.$store.state.Edit.isSave)
         if (confirm('是否保存全部未保存病案？')) {
           console.log('是')
-        } else {
-          console.log('否')
         }
       }
     }
