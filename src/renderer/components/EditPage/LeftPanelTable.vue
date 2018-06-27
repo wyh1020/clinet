@@ -217,7 +217,7 @@
           this.$store.commit('EDIT_SET_RIGHT_PANEL', 'help');
           this.$store.commit('EDIT_SET_HELP_TYPE', '病案参考');
           doc = this.$store.state.Edit.docShow
-          editDocShow(this, data)
+          editDocShow(this, [this.$store.state.System.server, this.$store.state.System.port], data)
         }
         editDocState(this, doc)
         this.$store.commit('EDIT_SET_DOC_STATE')
