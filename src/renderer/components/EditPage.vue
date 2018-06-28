@@ -23,19 +23,6 @@
   export default {
     name: 'edit-page',
     components: { NavBar, EditBar, LeftPanel, RightPanel },
-    // mounted: function () {
-    //   if (this.$store.state.Edit.isSave.length > 0) {
-    //     window.addEventListener('beforeunload', this.windowClose())
-    //   }
-    // },
-    // methods: {
-    //   windowClose() {
-    //     console.log(this.$store.state.Edit.isSave)
-    //     if (confirm('是否保存全部未保存病案？')) {
-    //       console.log('是')
-    //     }
-    //   }
-    // }
   };
 </script>
 

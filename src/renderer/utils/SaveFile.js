@@ -46,11 +46,26 @@ export default function saveFile(obj, x, p) {
     // // const data = p.join(',\n')
     // console.log(obj.$store.state.Edit.file);
     // console.log(p);
-    fs.writeFile(fileName, data, (err) => {
-      if (!err) {
-        obj.$store.commit('SET_NOTICE', `文件成功保存到《${fileName}》！`)
+    if (fileName.includes('未保存病案.cda')) {
+      if (obj.$store.state.Edit.rightPanel === 'local') {
+        const arr = []
+        obj.$store.state.Edit.isSaveLocal.forEach((x) => {
+          arr.push(obj.$store.state.Edit.file[x])
+        })
+        const data1 = arr.join('\n')
+        fs.writeFile(fileName, data1, (err) => {
+          if (!err) {
+            obj.$store.commit('SET_NOTICE', `文件成功保存到《${fileName}》！`)
+          }
+        })
       }
-    })
+    } else {
+      fs.writeFile(fileName, data, (err) => {
+        if (!err) {
+          obj.$store.commit('SET_NOTICE', `文件成功保存到《${fileName}》！`)
+        }
+      })
+    }
   } else {
     obj.$store.commit('SET_NOTICE', '请先打开一个本地或者远程的CDA文件！');
     // console.log(x)

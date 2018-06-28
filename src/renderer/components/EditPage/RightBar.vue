@@ -29,10 +29,14 @@
           <a class="nav-link text-light" href="#"> 辅助 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active" v-on:click='localData()' id="edit-rightbar-local">
-          <a class="nav-link text-light" href="#"> 本地 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 本地 <span class="sr-only">(current)</span>
+            <span style="color: red"><b>{{isSaveLocal}}</b></span>
+          </a>
         </li>
         <li class="nav-item active" v-on:click='serverData()' id="edit-rightbar-server">
-          <a class="nav-link text-light" href="#"> 远程 <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="#"> 远程 {{isSaveServer}}<span class="sr-only">(current)</span>
+            <span style="color: red"><b>{{isSaveServer}}</b></span>
+          </a>
         </li>
         <li class="nav-item active" v-on:click='blockData()' id="edit-rightbar-block">
           <a class="nav-link text-light" href="#"> 区块链 <span class="sr-only">(current)</span></a>
@@ -65,6 +69,24 @@
       };
     },
     computed: {
+      isSaveLocal: {
+        get() {
+          let length = null
+          if (this.$store.state.Edit.isSaveLocal.length > 0) {
+            length = this.$store.state.Edit.isSaveLocal.length
+          }
+          return length
+        }
+      },
+      isSaveServer: {
+        get() {
+          let length = null
+          if (this.$store.state.Edit.isSaveServer.length > 0) {
+            length = this.$store.state.Edit.isSaveServer.length
+          }
+          return length
+        }
+      },
       helpType: {
         get() {
           return this.$store.state.Edit.helpType

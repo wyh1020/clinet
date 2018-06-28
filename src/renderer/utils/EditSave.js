@@ -29,6 +29,7 @@ export default function saveDoc(obj, data) {
     } else if (data === '保存病案') {
       saveEdit(obj, [obj.$store.state.System.server, obj.$store.state.System.port], obj.$store.state.Edit.files[this.$store.state.Edit.filesIndex], [doc.toString()], this.$store.state.Edit.serverId, this.$store.state.System.user.username, 1, this.$store.state.Edit.docType, '病案')
     }
+    obj.$store.commit('EDIT_SET_DELETE_SERVER', obj.$store.state.Edit.filesIndex)
   } else {
     if (data === '保存模板') {
       obj.saveType = '保存模板'
@@ -42,5 +43,6 @@ export default function saveDoc(obj, data) {
     }
     p = obj.$store.state.Edit.lastNav
     saveFile(obj, x, p)
+    obj.$store.commit('EDIT_SET_DELETE_LOCAL', obj.$store.state.Edit.filesIndex)
   }
 }

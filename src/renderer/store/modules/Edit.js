@@ -42,7 +42,8 @@ const state = {
   serverId: null,
   docState: null,
   serverCdh: [],
-  isSave: [],
+  isSaveLocal: [],
+  isSaveServer: [],
   docHis: []
 };
 
@@ -320,9 +321,32 @@ const mutations = {
       state.docState = '正在编辑...'
     }
   },
-  EDIT_SET_DOC_IS_SAVE(state, value) {
+  EDIT_SET_IS_SAVE_LOCAL(state, value) {
     if (state.docState !== '') {
-      state.isSave.push(value)
+      if (!state.isSaveLocal.includes(value)) {
+        state.isSaveLocal.push(value)
+      }
+    }
+  },
+  EDIT_SET_DELETE_LOCAL(state, value) {
+    if (state.docState !== '') {
+      if (state.isSaveLocal.includes(value)) {
+        state.isSaveLocal.splice(value, 1)
+      }
+    }
+  },
+  EDIT_SET_IS_SAVE_SERVER(state, value) {
+    if (state.docState !== '') {
+      if (!state.isSaveServer.includes(value)) {
+        state.isSaveServer.push(value)
+      }
+    }
+  },
+  EDIT_SET_DELETE_SERVER(state, value) {
+    if (state.docState !== '') {
+      if (state.isSaveServer.includes(value)) {
+        state.isSaveServer.splice(value, 1)
+      }
     }
   },
   EDIT_SET_DOC_HIS(state, value) {
@@ -333,7 +357,10 @@ const mutations = {
 const actions = {
   someAsyncTask({ commit }) {
     commit('EDIT_SET_DOC_HIS');
-    commit('EDIT_SET_DOC_IS_SAVE');
+    commit('EDIT_SET_IS_SAVE_LOCAL');
+    commit('EDIT_SET_DELETE_LOCAL');
+    commit('EDIT_SET_IS_SAVE_SERVER');
+    commit('EDIT_SET_DELETE_SERVER');
     commit('EDIT_UPDATE_DOC_HEADER');
     commit('EDIT_SET_DOC_STATE');
     commit('EDIT_SET_DOC_HEADER');

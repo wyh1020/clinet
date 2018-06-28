@@ -43,7 +43,13 @@
     computed: {
       isSave: {
         get() {
-          return this.$store.state.Edit.isSave
+          let type = this.$store.state.Edit.isSaveLocal
+          if (this.$store.state.Edit.rightPanel === 'local') {
+            type = this.$store.state.Edit.isSaveLocal
+          } else if (this.$store.state.Edit.rightPanel === 'server') {
+            type = this.$store.state.Edit.isSaveServer
+          }
+          return type
         }
       },
       lastNav: {
