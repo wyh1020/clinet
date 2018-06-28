@@ -13,7 +13,7 @@
         <td v-if="lastNav === '/edit'">{{data.substr(0, 100)}}</td>
         <td v-if="rightPanel !== 'block'" v-bind:id="'edit-leftpaneltable-del'+index"><a href="#" v-on:click="delDoc(data, index)">删除</a></td>
         <td v-if="rightPanel !== 'block'" v-bind:id="'edit-leftpaneltable-edit'+index"><a href="#" v-on:click="loadDoc(data, index, 'edit')">编辑</a></td>
-        <td v-if="rightPanel !== 'block'" v-bind:id="'edit-leftpaneltable-ref'+index"><a href="#" v-on:click="loadDoc(data, index, 'show')">参考</a></td>
+        <td v-if="lastNav !== '/library' && rightPanel !== 'block'" v-bind:id="'edit-leftpaneltable-ref'+index"><a href="#" v-on:click="loadDoc(data, index, 'show')">参考</a></td>
         <td v-if="!fileName.includes('@') || rightPanel !== 'block'" v-bind:id="'edit-leftpaneltable-upl'+index"><a href="#" v-on:click="uploadDoc(data)">上传</a></td>
         <td v-if="fileName.includes('@')" v-bind:id="'edit-leftpaneltable-dow'+index"><a href="#" v-on:click="downloadDoc(data, index)">下载</a></td>
       </tr>
@@ -54,11 +54,13 @@
       },
       lastNav: {
         get() {
+          console.log(this.$store.state.Edit.lastNav)
           return this.$store.state.Edit.lastNav
         }
       },
       rightPanel: {
         get() {
+          console.log(this.$store.state.Edit.rightPanel)
           return this.$store.state.Edit.rightPanel
         }
       },
