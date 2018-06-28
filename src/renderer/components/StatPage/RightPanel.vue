@@ -29,7 +29,7 @@
           <tr>
             <th class="table-danger"> 数据分析文件</th>
           </tr>
-          <tr class="stat-left-file-tr" v-for="(data, index) in serverMenu.second" v-bind:key='index' v-on:click="loadFile(data, ['second', index])" v-bind:class="{'table-danger':fileIndex.second == index}">
+          <tr class="stat-left-file-tr" v-for="(data, index) in serverMenu.second" v-bind:key='index' v-on:click="loadFile(data, ['second', index])" v-bind:class="{'table-danger':fileIndex.second == index}" v-bind:id="'stat-left-twofile-tr'+index">
             <td>{{data}}</td>
           </tr>
         </table>
@@ -39,7 +39,7 @@
           <tr>
             <th class="table-danger"> 数据分析文件</th>
           </tr>
-          <tr class="stat-left-file-tr" v-for="(data, index) in serverMenu.third" v-bind:key='index' v-on:click="loadFile(data, ['third', index])" v-bind:class="{'table-danger':fileIndex.third == index}">
+          <tr class="stat-left-file-tr" v-for="(data, index) in serverMenu.third" v-bind:key='index' v-on:click="loadFile(data, ['third', index])" v-bind:class="{'table-danger':fileIndex.third == index}" v-bind:id="'stat-left-thrfile-tr'+index">
             <td>{{data}}</td>
           </tr>
         </table>
