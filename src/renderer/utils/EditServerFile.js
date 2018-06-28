@@ -240,22 +240,12 @@ export function editDocState(obj, doc) {
 }
 
 export function editDocShow(obj, data, value) {
-  const value1 = value.split(',')
-  const value2 = value1.map((x) => {
-    const x1 = x.split(' ')
-    return x1
-  })
-  let diag = []
-  value2.forEach((x) => {
-    if (x[0] === '初步诊断') {
-      diag = x
-    }
-  })
+  const value2 = value.split(',').map(x => x.split(' ')[1])
   axios({
     method: 'post',
     url: `http://${data[0]}:${data[1]}/edit/cda_consule`,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-    data: qs.stringify({ diag: diag }),
+    data: qs.stringify({ diag: `["${value2.join('","')}"]` }),
     responseType: 'json'
   }).then((res) => {
     console.log(res);
@@ -263,5 +253,5 @@ export function editDocShow(obj, data, value) {
     console.log(err);
     obj.$store.commit('SET_NOTICE', '病案历史查询失败')
   })
-  console.log(diag)
+  // console.log(diag)
 }
