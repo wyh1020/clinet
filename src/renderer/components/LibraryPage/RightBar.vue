@@ -183,8 +183,11 @@
               if (x === '全部') {
                 this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
                 loadFile(this, this.$store.state.Library.files[this.$store.state.Library.fileIndex], 'library')
-              } else {
-                this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['dimension', x]);
+              } else if (x === '年份') {
+                this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['dimension', 'year']);
+                this.$store.commit('SET_NOTICE', '维度选择');
+              } else if (x === '版本') {
+                this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['dimension', 'version']);
                 this.$store.commit('SET_NOTICE', '维度选择');
               }
             } else {
@@ -197,8 +200,10 @@
               if (x === '全部') {
                 this.$store.commit('LIBRARY_SET_LEFT_PANEL', ['file', null]);
                 getLibrary(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.serverTable.tableNam, this.$store.state.Library.tablePage, this.$store.state.Library.dimensionType, this.$store.state.Library.dimensionServer, 'library', 'block')
-              } else {
-                getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.serverTable.tableName, x, this.$store.state.System.user.username)
+              } else if (x === '年份') {
+                getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.serverTable.tableName, 'year', this.$store.state.System.user.username)
+              } else if (x === '版本') {
+                getList(this, [this.$store.state.System.server, this.$store.state.System.port], this.$store.state.Library.serverTable.tableName, 'version', this.$store.state.System.user.username)
               }
             } else {
               this.$store.commit('SET_NOTICE', '请选择文件');
