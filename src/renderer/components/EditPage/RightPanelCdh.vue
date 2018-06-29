@@ -8,7 +8,7 @@
         </th>
       </tr>
       <tr class="edit-rightpanellocal-tr" v-for="(data, index) in xs" v-bind:key='index' v-bind:class="{'table-danger':flag == index}">
-        <td>{{index}}</td>
+        <td v-on:click="getIndex(index)">{{index}}</td>
         <td>
           <ol class="breadcrumb" >
             <li class="breadcrumb-item" v-for="(item, i) in data" v-bind:key='i' v-on:click="getItem(item, index)" v-on:dblclick="addItem(item, index)">
@@ -58,6 +58,11 @@
       }
     },
     methods: {
+      getIndex: function (index) {
+        const value = `${index} `
+        this.$store.commit('EDIT_SET_BAR_VALUE', value)
+        document.getElementById('edit-editbar-input').focus()
+      },
       getItem: function (item, index) {
         const value = `${index} ${item}`
         this.$store.commit('EDIT_SET_BAR_VALUE', value)
